@@ -1,0 +1,42 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Question page" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">Select a programme type</h1>
+        <p>Content here / guidance about explaining programme type if needed</p>
+        {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+        {{ govukRadios({
+        name: "programme",
+        fieldset: {
+        legend: {
+        text: "What is your training programme type for 2025 to 2026?",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--m"
+        }
+        },
+        items: [
+        {
+        value: "england",
+        text: "Use a training provider, funded by the DfE (full induction programme)"
+        },
+        {
+        value: "scotland",
+        text: "Deliver your own programme using DfE accredited materials (core induction programme)"
+        },
+        {
+        value: "wales",
+        text: "Design and deliver your own programme based on the Early Career Framework (ECF)"
+        }
+        ]
+        }) }}
+
+        <button class="govuk-button">Continue</button>
+    </div>
+</div>
+
+{% endblock %}

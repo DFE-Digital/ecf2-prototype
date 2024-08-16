@@ -1,0 +1,69 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Tasklist" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">
+            Tell us about your early career teachers in 2025-2026
+        </h1>
+        {% from "govuk/components/task-list/macro.njk" import govukTaskList %}
+
+        {{ govukTaskList({
+        idPrefix: "ect-programme",
+        items: [
+        {
+        title: {
+        text: "Are you expecting any ECTs?"
+        },
+        href: "#",
+        status: {
+        text: "Completed"
+        }
+        },
+        {
+        title: {
+        text: "Programme details"
+        },
+        href: "#",
+        status: {
+        tag: {
+        text: "Not yet started",
+        classes: "govuk-tag--blue"
+        }
+        }
+        },
+        {
+        title: {
+        text: "Information about your ECTs"
+        },
+        href: "#",
+        status: {
+        text: "Cannot start yet",
+        classes: "govuk-task-list__status--cannot-start-yet"
+        }
+        },
+        {
+        title: {
+        text: "Information about your mentors"
+        },
+        href: "#",
+        status: {
+        text: "Cannot start yet",
+        classes: "govuk-task-list__status--cannot-start-yet"
+        }
+        }
+        ]
+        }) }}
+
+<!--        <p class="govuk-inset-text">You'll be able to check your answers and make changes before confirming your details for this academic year.</p>-->
+<!--        <button class="govuk-button">Continue</button>-->
+
+        <p><a href="#">Save and return later</a></p>
+
+    </div>
+</div>
+
+{% endblock %}

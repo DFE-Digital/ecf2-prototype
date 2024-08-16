@@ -1,0 +1,53 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Question page" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">Confirm you are adding John Smith as an early career teacher</h1>
+
+        {{ govukSummaryList({
+        rows: [
+        {
+        key: {
+        text: "Name"
+        },
+        value: {
+        text: "John Smith"
+        }
+        },
+        {
+        key: {
+        text: "Teacher reference number (TRN)"
+        },
+        value: {
+        text: "0011001"
+        }
+        },
+        {
+        key: {
+        text: "Date of birth"
+        },
+        value: {
+        text: "5 January 1978"
+        }
+        }
+        ]
+        }) }}
+
+        <button class="govuk-button">Confirm and continue</button>
+
+        <p><a href="">[Link to go back because this isn't right]</a></p>
+    </div>
+</div>
+
+{% endblock %}

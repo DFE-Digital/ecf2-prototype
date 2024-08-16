@@ -1,0 +1,96 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Question page" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">Do you want to add other early career teachers with the same information?</h1>
+
+        {{ govukSummaryList({
+        rows: [
+        {
+        key: {
+        text: "Programme type"
+        },
+        value: {
+        text: "Provider led"
+        }
+        },
+        {
+        key: {
+        text: "Appropriate body"
+        },
+        value: {
+        text: "Alpha Teaching School Hub"
+        }
+        },
+        {
+        key: {
+        text: "Mentor"
+        },
+        value: {
+        text: "Mentor name"
+        }
+        }
+        ]
+        }) }}
+
+
+        {% from "govuk/components/table/macro.njk" import govukTable %}
+
+        {{ govukTable({
+        caption: "Early career teachers you've added",
+        captionClasses: "govuk-table__caption--m",
+        firstCellIsHeader: false,
+        head: [
+        {
+        text: "Name"
+        },
+        {
+        text: "",
+        format: "numeric"
+        }
+        ],
+        rows: [
+        [
+        {
+        text: "John Smith"
+        },
+        {
+        html: '<a href="">Change</a>',
+        format: "numeric"
+        }
+        ]
+        ]
+        }) }}
+
+        {{ govukRadios({
+        classes: "govuk-radios--inline",
+        name: "otherECTs",
+        fieldset: {
+        legend: {
+        text: "Add other ECTs",
+        isPageHeading: false,
+        classes: "govuk-visually-hidden"
+        }
+        },
+        items: [
+        {
+        value: "yes",
+        text: "Yes"
+        },
+        {
+        value: "no",
+        text: "No"
+        }
+        ]
+        }) }}
+
+
+        <button class="govuk-button">Continue</button>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Question page" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-caption-l">School name</h1>
+        <h1 class="govuk-heading-l">Manage early career teachers at your school</h1>
+
+            <div class="govuk-inset-text">
+                <p>
+                    It can take up to 8 weeks to register a lasting power of attorney if there are no mistakes in the application.
+                </p>
+            </div>
+<!--        <h2 class="govuk-heading-m">Summary</h2>-->
+<!--        <dl class="govuk-summary-list">-->
+<!--            <div class="govuk-summary-list__row">-->
+<!--                <dt class="govuk-summary-list__key">Mentors</dt>-->
+<!--                <dd class="govuk-summary-list__value">19</dd>-->
+<!--                <dd class="govuk-summary-list__actions"></dd>-->
+<!--            </div>-->
+<!--            <div class="govuk-summary-list__row">-->
+<!--                <dt class="govuk-summary-list__key">ECTs</dt>-->
+<!--                <dd class="govuk-summary-list__value">25</dd>-->
+<!--                <dd class="govuk-summary-list__actions"></dd>-->
+<!--            </div>-->
+<!--        </dl>-->
+        </div>
+    <div class="govuk-grid-column-full">
+
+        <hr class="govuk-section-break--m govuk-section-break--visible">
+
+    {% from 'node_modules/dfe-frontend/packages/components/card/macro.njk' import card %}
+        {{ card({
+        cards: [
+        {
+        "imageCard": false,
+        "headingLevel": "3",
+        "linkCard": true,
+        "link": "#",
+        "openInNewTab": false,
+        "heading": "Add an ECT or mentor",
+        "description": "A short description for the card.",
+        "meta": ""
+        },
+        {
+        "imageCard": false,
+        "headingLevel": "3",
+        "linkCard": true,
+        "link": "#",
+        "openInNewTab": false,
+        "heading": "View your ECTs or mentors",
+        "description": "A short description for the card.",
+        "meta": ""
+        },
+        {
+        "imageCard": false,
+        "headingLevel": "3",
+        "linkCard": true,
+        "link": "#",
+        "openInNewTab": false,
+        "heading": "Make a change to your ECTs or mentors",
+        "description": "A short description for the card.",
+        "meta": ""
+        }
+        ]
+        }) }}
+
+    </div>
+</div>
+
+{% endblock %}

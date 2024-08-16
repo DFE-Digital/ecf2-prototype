@@ -1,0 +1,50 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Question page" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">Tell us about your early career teachers</h1>
+        <p>Content here / guidance as needed</p>
+        {% from 'node_modules/dfe-frontend/packages/components/card/macro.njk' import card %}
+        {{ card({
+        cards: [
+        {
+        "imageCard": false,
+        "headingLevel": "3",
+        "linkCard": true,
+        "link": "#",
+        "openInNewTab": false,
+        "heading": "Add your early career teachers",
+        "description": "A short description for the card.",
+        "meta": ""
+        },
+        {
+        "imageCard": false,
+        "headingLevel": "3",
+        "linkCard": true,
+        "link": "#",
+        "openInNewTab": false,
+        "heading": "Sample Card Title",
+        "description": "A short description for the card.",
+        "meta": ""
+        },
+        {
+        "imageCard": false,
+        "headingLevel": "3",
+        "linkCard": true,
+        "link": "#",
+        "openInNewTab": false,
+        "heading": "Sample Card Title",
+        "description": "A short description for the card.",
+        "meta": ""
+        }
+        ]
+        }) }}
+
+    </div>
+</div>
+
+{% endblock %}
