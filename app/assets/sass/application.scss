@@ -4,3 +4,10 @@
 // 
 
 // Add extra styles here
+@import 'node_modules/dfe-frontend/packages/dfefrontend';
+
+.autocomplete__wrapper {
+  li {
+    margin-bottom: 0!important;
+  }
+}
