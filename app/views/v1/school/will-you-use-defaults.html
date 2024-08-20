@@ -1,0 +1,82 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="These are your default programme choices you selected previously" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+        {{ govukSummaryList({
+        rows: [
+        {
+        key: {
+        text: "Programme type"
+        },
+        value: {
+        text: "Provider-led"
+        }
+        },
+        {
+        key: {
+        text: "Appropriate body"
+        },
+        value: {
+        text: "Teaching school hub name"
+        }
+        },
+        {
+        key: {
+        text: "Lead provider"
+        },
+        value: {
+        text: "Provider name"
+        }
+        },
+        {
+        key: {
+        text: "Delivery partner"
+        },
+        value: {
+        text: "Partner name"
+        }
+        }
+        ]
+        }) }}
+
+        {{ govukRadios({
+        classes: "govuk-radios--inline",
+        name: "changedName",
+        fieldset: {
+        legend: {
+        text: "Are these the correct programme details for John Smith?",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--m"
+        }
+        },
+        items: [
+        {
+        value: "yes",
+        text: "Yes"
+        },
+        {
+        value: "no",
+        text: "No"
+        }
+        ]
+        }) }}
+
+        <button class="govuk-button">Continue</button>
+
+    </div>
+</div>
+
+{% endblock %}

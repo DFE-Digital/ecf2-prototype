@@ -1,6 +1,13 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Start page" %}
+{% set pageName="What you need to know" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
 
 {% block content %}
 
@@ -8,6 +15,7 @@
     <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">{{pageName}}</h1>
         <p>Example content</p>
+
         <p>Example list</p>
         <ul class="govuk-list govuk-list--bullet">
             <li>item 1</li>
@@ -17,8 +25,7 @@
 
         <form method="post">
             {{ govukButton({
-            text: "Start now",
-            isStartButton: true
+            text: "Continue"
             }) }}
         </form>
     </div>
