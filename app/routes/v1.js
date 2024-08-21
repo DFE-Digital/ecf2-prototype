@@ -145,7 +145,7 @@ module.exports = router => {
     })
 
     router.post(v + school + 'check-answers', (req, res) => {
-        if (req.session.data['mentor'] === 'Add a new mentor later') {
+        if (req.session.data['mentor'] === 'Add a new mentor later' || req.session.data['mentorsAddedPreviously'] === 'no') {
             res.redirect(v + school + 'confirmation-mentor-to-be-added')
             req.session.data = []
         }
