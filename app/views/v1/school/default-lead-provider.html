@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Which provider will be training John Smith?" %}
+{% set pageName="Default lead provider for 2025 to 2026" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -14,11 +14,10 @@ href: "javascript:window.history.back()"
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <form method="post">
-
         {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
         {{ govukRadios({
-        name: "leadProvider",
+        name: "defaultLeadProvider",
         fieldset: {
         legend: {
         text: pageName,

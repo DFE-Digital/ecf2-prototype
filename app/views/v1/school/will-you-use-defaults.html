@@ -52,9 +52,11 @@ href: "javascript:window.history.back()"
         ]
         }) }}
 
+        <form method="post">
+
         {{ govukRadios({
         classes: "govuk-radios--inline",
-        name: "changedName",
+        name: "useDefaults",
         fieldset: {
         legend: {
         text: "Are these the correct programme details for John Smith?",
@@ -74,8 +76,8 @@ href: "javascript:window.history.back()"
         ]
         }) }}
 
-        <button class="govuk-button">Continue</button>
-
+            <button class="govuk-button">Continue</button>
+        </form>
     </div>
 </div>
 

@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Who will be mentoring John Smith?" %}
+{% set pageName="Default delivery partner for 2025 to 2026" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -17,7 +17,7 @@ href: "javascript:window.history.back()"
         {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
         {{ govukRadios({
-        name: "mentor",
+        name: "defaultDeliveryPartner",
         fieldset: {
         legend: {
         text: pageName,
@@ -27,19 +27,16 @@ href: "javascript:window.history.back()"
         },
         items: [
         {
-        value: "Mentor 1",
-        text: "Mentor 1"
+        value: "Delivery partner option 1",
+        text: "Delivery partner option 1"
         },
         {
-        value: "Mentor 2",
-        text: "Mentor 2"
+        value: "Delivery partner option 2",
+        text: "Delivery partner option 2"
         },
         {
-        divider: "Or"
-        },
-        {
-        value: "Add a new mentor later",
-        text: "Add a new mentor later"
+        value: "Delivery partner option 3",
+        text: "Delivery partner option 3"
         }
         ]
         }) }}

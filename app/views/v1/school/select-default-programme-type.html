@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="What you need to know" %}
+{% set pageName="We need to know your default programme choices for 2025 to 2026" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -16,14 +16,9 @@ href: "javascript:window.history.back()"
         <form method="post">
 
         <h1 class="govuk-heading-l">{{pageName}}</h1>
-        <p>Example content</p>
+        <p>Example content telling user we need to know what their defaults will be before adding an ECT</p>
 
-        <p>Example list</p>
-        <ul class="govuk-list govuk-list--bullet">
-            <li>item 1</li>
-            <li>item 2</li>
-            <li>item 3</li>
-        </ul>
+        <p>Something to tell the user that they can select different programme details per ECT</p>
 
             {{ govukButton({
             text: "Continue"

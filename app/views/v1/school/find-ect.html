@@ -13,8 +13,23 @@ href: "javascript:window.history.back()"
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l">Add a new early career teacher</h1>
+        <form method="post">
+
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
         <p>We will use the teacher reference number (TRN) and date of birth you provide to find the details of the teacher you want to add.</p>
+
+        {% if data['namePulledBack'] === 'no' %}
+        {{ govukInput({
+        label: {
+        text: "Full name",
+        classes: "govuk-label--m"
+        },
+        id: "full-name",
+        name: "fullName",
+        autocomplete: "name",
+        spellcheck: false
+        }) }}
+        {% endif %}
 
         {{ govukInput({
         label: {
@@ -58,7 +73,6 @@ href: "javascript:window.history.back()"
         ]
         }) }}
 
-        <form method="post">
             <button class="govuk-button">Continue</button>
         </form>
 

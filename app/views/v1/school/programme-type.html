@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Who will be mentoring John Smith?" %}
+{% set pageName="Who will be leading training for John Smith?" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -14,10 +14,11 @@ href: "javascript:window.history.back()"
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <form method="post">
+
         {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
         {{ govukRadios({
-        name: "mentor",
+        name: "programmeType",
         fieldset: {
         legend: {
         text: pageName,
@@ -27,19 +28,12 @@ href: "javascript:window.history.back()"
         },
         items: [
         {
-        value: "Mentor 1",
-        text: "Mentor 1"
+        value: "Provider led",
+        text: "Provider led"
         },
         {
-        value: "Mentor 2",
-        text: "Mentor 2"
-        },
-        {
-        divider: "Or"
-        },
-        {
-        value: "Add a new mentor later",
-        text: "Add a new mentor later"
+        value: "School led",
+        text: "School led"
         }
         ]
         }) }}

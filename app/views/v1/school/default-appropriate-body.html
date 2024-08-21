@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Which appropriate body will be assuring John Smith's training?" %}
+{% set pageName="Default appropriate body for 2025 to 2026" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -13,12 +13,12 @@ href: "javascript:window.history.back()"
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l">{{ pageName }}</h1>
         <form method="post">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
         {{ xGovukAutocomplete({
-        id: "ab",
-        name: "ab",
+        id: "defaultAb",
+        name: "defaultAb",
         allowEmpty: false,
         label: {
         classes: "govuk-visually-hidden",

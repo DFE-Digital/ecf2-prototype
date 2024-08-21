@@ -13,7 +13,9 @@ href: "javascript:window.history.back()"
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l">What is John Smith's email address?</h1>
+        <form method="post">
+
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
         <p>[placeholder for content here]</p>
 
         {{ govukInput({
@@ -28,7 +30,8 @@ href: "javascript:window.history.back()"
         spellcheck: false
         }) }}
 
-        <button class="govuk-button">Continue</button>
+            <button class="govuk-button">Continue</button>
+        </form>
     </div>
 </div>
 
