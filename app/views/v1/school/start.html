@@ -1,26 +1,34 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Start page" %}
+{% set pageName="Register early career teachers (ECTs)" %}
 
 {% block content %}
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">{{pageName}}</h1>
-        <p>Example content</p>
-        <p>Example list</p>
+        <p>Use this service to register your school’s ECTs for the early career framework (ECF) training.</p> 
+        <p> You need to register your ECTs and their mentors with the Department for Education (DfE) so that they can get: </p>
         <ul class="govuk-list govuk-list--bullet">
-            <li>item 1</li>
-            <li>item 2</li>
-            <li>item 3</li>
+            <li>access to DfE-funded training </li>
+            <li>funding to support their time off timetable for mentoring and training</li>
         </ul>
-
+        <h2 class="govuk-heading-m">What you’ll need </h2>
+        <p>You’ll need to provide details about the:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>early career teacher (ECT) and their mentor</li>
+            <li>appropriate body you’ve selected </li>
+            <li>training option chosen </li>
+        </ul>
+        <p>You must provide these details before your ECTs can start the ECF training.</p> 
+        <p>If any of these details change, you can use this service to update them.  </p>
         <form method="post">
             {{ govukButton({
-            text: "Start now",
+            text: "Sign in",
             isStartButton: true
             }) }}
         </form>
+        <p>For appropriate bodies that need to submit induction details, <a href="#">sign in</a>.</p>
     </div>
 </div>
 
