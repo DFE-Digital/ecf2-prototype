@@ -1,0 +1,74 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Confirm the ECT you are adding" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+        <form method="post">
+
+            {% set rows = [
+            {
+            key: {
+            text: "First name"
+            },
+            value: {
+            text: "John"
+            }
+            },
+            {
+            key: {
+            text: "Last name"
+            },
+            value: {
+            text: "Smith"
+            }
+            },
+            {
+            key: {
+            text: "Teacher reference number (TRN)"
+            },
+            value: {
+            text: "0011001"
+            }
+            },
+            {
+            key: {
+            text: "Date of birth"
+            },
+            value: {
+            text: "5 January 1978"
+            }
+            }
+            ] %}
+
+            {% if data['askForNino'] == 'yes' %}
+            {% set rows = rows.concat([{
+            key: {
+            text: "National Insurance number"
+            },
+            value: {
+            text: "QQ123456C"
+            }
+            }]) %}
+            {% endif %}
+
+            {{ govukSummaryList({ rows: rows }) }}
+
+            <button class="govuk-button">Confirm and continue</button>
+        </form>
+
+        <p><a href="find-ect">Go back and change details</a></p>
+    </div>
+</div>
+
+{% endblock %}

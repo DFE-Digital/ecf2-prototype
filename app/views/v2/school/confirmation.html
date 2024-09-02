@@ -1,0 +1,26 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="You have added John Smith as an early career teacher" %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-panel govuk-panel--confirmation">
+            <h1 class="govuk-panel__title">
+                {{ pageName }}
+            </h1>
+        </div>
+        <h2 class="govuk-heading-m">What happens next</h2>
+        <p class="govuk-body">
+            [Content goes here]
+        </p>
+
+        <p><a href="#">Call to actions go here</a></p>
+    </div>
+</div>
+
+{% endblock %}
