@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Which appropriate body will be assuring John Smith's training?" %}
+{% set pageName="Which appropriate body will be supporting John Smith's training?" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -15,7 +15,9 @@ href: "javascript:window.history.back()"
     <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
         <form method="post">
-
+            <div id="event-name-hint" class="govuk-hint">
+                Start entering the name of your appropriate body for results to appear
+              </div>
         {{ xGovukAutocomplete({
         id: "ab",
         name: "ab",

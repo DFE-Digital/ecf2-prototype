@@ -1,0 +1,53 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="We cannot find your ECT's details" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+        <p>We cannot find a match with the details you've given. You'll need to provide more information about your ECT to help us locate them.</p>
+
+        {% if data['namePulledBack'] === 'no' %}
+        {{ govukInput({
+        label: {
+        text: "Full name",
+        classes: "govuk-label--m"
+        },
+        id: "full-name",
+        name: "fullName",
+        autocomplete: "name",
+        spellcheck: false
+        }) }}
+        {% endif %}
+
+        {{ govukInput({
+        label: {
+        text: "National Insurance number",
+        classes: "govuk-label--m",
+        isPageHeading: false
+        },
+        hint: {
+            text: "Enter your ECT's National Insurance number. It's on their National Insurance card, benefit letter, payslip or P60. For example, 'QQ 12 34 56 D'."
+          },
+          id: "nino",
+          name: "nino"
+          }) }}
+
+            <button class="govuk-button">Continue</button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
