@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Which appropriate body will be assuring John Smith's training?" %}
+{% set pageName="Which appropriate body will be supporting John Smith's training?" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -23,6 +23,9 @@ href: "javascript:window.history.back()"
         label: {
         classes: "govuk-visually-hidden",
         text: pageName
+        },
+        hint: {
+        text: "Start entering the name of your appropriate body for results to appear"
         },
         items: [
         { text: "Alban Teaching School Hub" },
@@ -104,6 +107,23 @@ href: "javascript:window.history.back()"
         ]
 
         }) }}
+
+            <details class="govuk-details">
+                <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      What is an appropriate body?
+    </span>
+                </summary>
+                <div class="govuk-details__text">
+                    <p>They are organisations that:</p>
+                    <ul class="govuk-list govuk-list--bullet">
+                        <li>check schools are following the correct procedures for ECTs and that the support provided meets national standards</li>
+                        <li>monitor the progress of ECTs during their induction period</li>
+                        <li>decide if an ECT should pass or fail their induction after assessing whether they have met the teachers' standards (at end of induction period)</li>
+                        <li>advise schools on how to improve an ECTs support if there are any problems to resolve</li>
+                    </ul>
+                </div>
+            </details>
 
             <button class="govuk-button">Continue</button>
         </form>

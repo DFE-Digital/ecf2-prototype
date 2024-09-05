@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Who will be leading training for John Smith?" %}
+{% set pageName="What training programme will John Smith follow?" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -37,6 +37,18 @@ href: "javascript:window.history.back()"
         }
         ]
         }) }}
+
+            <details class="govuk-details">
+                <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Help choosing a programme
+    </span>
+                </summary>
+                <div class="govuk-details__text">
+                    <p><span class="govuk-!-font-weight-bold">Provider-led</span> (also known as a Full Induction Programme (FIP)): Your school will work with an accredited provider who will design and deliver the ECT training.</p>
+                    <p><span class="govuk-!-font-weight-bold">School-led</span> (also known as a Core Induction Programme (CIP)): Your school will design and deliver the ECT training.</p>
+                </div>
+            </details>
 
             <button class="govuk-button">Continue</button>
         </form>

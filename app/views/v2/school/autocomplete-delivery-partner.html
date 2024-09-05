@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Which delivery partner will be training John Smith?" %}
+{% set pageName="Which delivery partner will provide training for John Smith?" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -22,6 +22,9 @@ href: "javascript:window.history.back()"
         classes: "govuk-label--l",
         isPageHeading: true,
         text: pageName
+        },
+        hint: {
+        text: "Start entering the name of your delivery partner for results to appear"
         },
         items: [
         { text: "Academy Transformation Trust" },
@@ -182,6 +185,22 @@ href: "javascript:window.history.back()"
         { text: "Wandle Teaching School Hub" }
         ]
         }) }}
+
+            <details class="govuk-details">
+                <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      What is a delivery partner?
+    </span>
+                </summary>
+                <div class="govuk-details__text">
+                    <p>They are organisations that:</p>
+                    <ul class="govuk-list govuk-list--bullet">
+                        <li>organise and run the day-to-day training for ECTs</li>
+                        <li>provide guidance for schools on how to implement the early career framework (ECF)</li>
+                        <li>act as a link between lead providers and schools, ensuring training materials and support are used effectively</li>
+                    </ul>
+                </div>
+            </details>
 
         <button class="govuk-button">Continue</button>
         </form>

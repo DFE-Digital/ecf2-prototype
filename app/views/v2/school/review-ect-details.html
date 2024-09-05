@@ -19,10 +19,18 @@ href: "javascript:window.history.back()"
             {% set rows = [
             {
             key: {
-            text: "Name"
+            text: "First name"
             },
             value: {
-            text: "John Smith"
+            text: "John"
+            }
+            },
+            {
+            key: {
+            text: "Last name"
+            },
+            value: {
+            text: "Smith"
             }
             },
             {
@@ -56,10 +64,22 @@ href: "javascript:window.history.back()"
 
             {{ govukSummaryList({ rows: rows }) }}
 
-            {{ govukDetails({
-            summaryText: "Help if your ECT's name has changed",
-            text: "."
-            }) }}
+            <details class="govuk-details">
+                <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                  Help if your ECT's name has changed
+                </span>
+                </summary>
+                <div class="govuk-details__text">
+                    <p>If your ECTs name has changed and they have not updated their
+                        Teaching Regulation Agency record, you can:</p>
+                    <ul class="govuk-list govuk-list--bullet">
+                        <li>use their previous name to register with the service</li>
+                        <li>use their previous name to register, then the ECT can change their name on the Teaching Regulation Agency records at a later date</li>
+                        <li>ask your ECT to change their name on the Teaching Regulation Agency records first and then return to register your ECT</li>
+                    </ul>
+                </div>
+            </details>
 
             <button class="govuk-button">Confirm and continue</button>
         </form>
