@@ -108,27 +108,31 @@ module.exports = router => {
     // adding programme information that is not default
 
     router.post(v + school + 'programme-type', (req, res) => {
+        res.redirect(v + school + 'appropriate-body')
+    })
+
+    // router.post(v + school + 'lead-provider', (req, res) => {
+    //     res.redirect(v + school + 'delivery-partner')
+    // })
+    //
+    // router.post(v + school + 'delivery-partner', (req, res) => {
+    //     res.redirect(v + school + 'appropriate-body')
+    // })
+
+    router.post(v + school + 'appropriate-body', (req, res) => {
         if (req.session.data['programmeType'] === 'School-led') {
-            res.redirect(v + school + 'appropriate-body')
+            res.redirect(v + school + 'save-programme-details')
         }
         else {
             res.redirect(v + school + 'autocomplete-delivery-partner')
         }
     })
 
-    router.post(v + school + 'lead-provider', (req, res) => {
-        res.redirect(v + school + 'delivery-partner')
-    })
-
-    router.post(v + school + 'delivery-partner', (req, res) => {
-        res.redirect(v + school + 'appropriate-body')
-    })
-
     router.post(v + school + 'autocomplete-delivery-partner', (req, res) => {
-        res.redirect(v + school + 'appropriate-body')
+        res.redirect(v + school + 'save-programme-details')
     })
 
-    router.post(v + school + 'appropriate-body', (req, res) => {
+    router.post(v + school + 'save-programme-details', (req, res) => {
         if (req.session.data['mentorsAddedPreviously'] === 'no') {
             res.redirect(v + school + 'check-answers')
         }
@@ -139,9 +143,9 @@ module.exports = router => {
 
     // end of adding non-default programme information
 
-    router.post(v + school + 'no-previous-mentors', (req, res) => {
-        res.redirect(v + school + 'check-answers')
-    })
+    // router.post(v + school + 'no-previous-mentors', (req, res) => {
+    //     res.redirect(v + school + 'check-answers')
+    // })
 
     router.post(v + school + 'mentor', (req, res) => {
         res.redirect(v + school + 'check-answers')

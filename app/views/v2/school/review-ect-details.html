@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Confirm the ECT you are adding" %}
+{% set pageName="You're adding John Smith as an ECT" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -19,18 +19,10 @@ href: "javascript:window.history.back()"
             {% set rows = [
             {
             key: {
-            text: "First name"
+            text: "Name"
             },
             value: {
-            text: "John"
-            }
-            },
-            {
-            key: {
-            text: "Last name"
-            },
-            value: {
-            text: "Smith"
+            text: "John Smith"
             }
             },
             {
@@ -64,10 +56,15 @@ href: "javascript:window.history.back()"
 
             {{ govukSummaryList({ rows: rows }) }}
 
+            {{ govukDetails({
+            summaryText: "Help if your ECT's name has changed",
+            text: "."
+            }) }}
+
             <button class="govuk-button">Confirm and continue</button>
         </form>
 
-        <p><a href="find-ect">Go back and change details</a></p>
+        <p>If these details are incorrect, go back and <a href="find-ect">check details</a>.</p>
     </div>
 </div>
 

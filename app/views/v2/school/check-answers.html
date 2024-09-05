@@ -168,6 +168,23 @@ href: "javascript:window.history.back()"
             },
             {
             key: {
+            text: "Appropriate body"
+            },
+            value: {
+            text: "Teaching school hub name"
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "appropriate body"
+            }
+            ]
+            }
+            },
+            {
+            key: {
             text: "Delivery partner"
             },
             value: {
@@ -190,54 +207,10 @@ href: "javascript:window.history.back()"
             value: {
             text: "Provider name"
             }
-            },
-            {
-            key: {
-            text: "Appropriate body"
-            },
-            value: {
-            text: "Teaching school hub name"
-            },
-            actions: {
-            items: [
-            {
-            href: "#",
-            text: "Change",
-            visuallyHiddenText: "appropriate body"
-            }
-            ]
-            }
             }
             ]
             }) }}
 
-            {% endif %}
-
-            {% if data.useDefaults == 'no' or data.defaultsAlreadyAdded == 'no' %}
-            {{ govukRadios({
-            classes: "govuk-radios--inline",
-            name: "saveAsDefault",
-            fieldset: {
-            legend: {
-            text: "Would you like to save these as the default programme details for your school?",
-            isPageHeading: false,
-            classes: "govuk-fieldset__legend--m"
-            }
-            },
-            hint: {
-            text: "This will make it easier to add more ECTs using the same programme details."
-            },
-            items: [
-            {
-            value: "yes",
-            text: "Yes"
-            },
-            {
-            value: "no",
-            text: "No"
-            }
-            ]
-            }) }}
             {% endif %}
 
 

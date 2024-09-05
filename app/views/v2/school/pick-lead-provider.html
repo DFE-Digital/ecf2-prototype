@@ -1,0 +1,46 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Which lead provider will provide training for John Smith?" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+        {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+        {{ govukRadios({
+        name: "leadProvider",
+        fieldset: {
+        legend: {
+        text: pageName,
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+        }
+        },
+        items: [
+        {
+        value: "Ambition Institute",
+        text: "Ambition Institute"
+        },
+        {
+        value: "UCL Institute of Education",
+        text: "UCL Institute of Education"
+        }
+        ]
+        }) }}
+
+            <button class="govuk-button">Continue</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
