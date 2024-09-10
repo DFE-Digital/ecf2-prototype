@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="You can save these programme details" %}
+{% set pageName="Save your ECT programme choices" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -10,11 +10,12 @@ href: "javascript:window.history.back()"
 {% endblock %}
 
 {% block content %}
-
+<p class="govuk-body">govuk-body</p>
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
-
+        <p class="govuk-body">Saving these as your school's default settings will make adding more ECTs easier in the future.
+        </p>
         {% if data['programmeType'] === 'School-led' %}
 
         {{ govukSummaryList({
@@ -85,14 +86,12 @@ href: "javascript:window.history.back()"
             name: "saveAsDefault",
             fieldset: {
             legend: {
-            text: "Would you like to save these as the default programme details for your school?",
+            text: "Would you like to save these as your school's default choices?",
             isPageHeading: false,
             classes: "govuk-fieldset__legend--m"
             }
             },
-            hint: {
-            text: "This will make it easier to add more ECTs using the same programme details."
-            },
+            
             items: [
             {
             value: "yes",
