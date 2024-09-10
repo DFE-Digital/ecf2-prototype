@@ -25,7 +25,7 @@ href: "javascript:window.history.back()"
         text: pageName
         },
         hint: {
-        text: "Start entering the name of your appropriate body for results to appear"
+        html: "<p class='govuk-body'>Start entering the name of your appropriate body for results to appear</p>"
         },
         items: [
         { text: "Alban Teaching School Hub" },
@@ -108,26 +108,32 @@ href: "javascript:window.history.back()"
 
         }) }}
 
-            <details class="govuk-details">
-                <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      What is an appropriate body?
-    </span>
-                </summary>
-                <div class="govuk-details__text">
-                    <p>They are organisations that:</p>
-                    <ul class="govuk-list govuk-list--bullet">
-                        <li>check schools are following the correct procedures for ECTs and that the support provided meets national standards</li>
-                        <li>monitor the progress of ECTs during their induction period</li>
-                        <li>decide if an ECT should pass or fail their induction after assessing whether they have met the teachers' standards (at end of induction period)</li>
-                        <li>advise schools on how to improve an ECTs support if there are any problems to resolve</li>
-                    </ul>
-                </div>
-            </details>
+            {{ govukDetails({
+            summaryText: "What is an appropriate body?",
+            text: "
+            <p class='govuk-body'>They are organisations that:</p>
+            <ul class='govuk-list govuk-list--bullet'>
+                <li>check schools are following the correct procedures for ECTs and that the support provided meets national standards</li>
+                <li>monitor the progress of ECTs during the induction period</li>
+                <li>decide if an ECT should pass or fail their induction after assessing whether they have met the teachers' standards (at the end of the induction period)</li>
+                <li>advise schools on how to improve an ECT's support if there are any problems to resolve</li>
+            </ul>"
+            |safe }) }}
 
             <button class="govuk-button">Continue</button>
         </form>
     </div>
 </div>
 
+{% endblock %}
+
+{% block pageScripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var autocompleteInput = document.querySelector('#ab');
+        if (autocompleteInput) {
+            autocompleteInput.setAttribute('placeholder', 'Enter appropriate body name');
+        }
+    });
+</script>
 {% endblock %}

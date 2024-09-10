@@ -12,7 +12,18 @@ classes: "govuk-header--full-width-border"
 }) }}
 {{ govukServiceNavigation({
 serviceName: serviceName,
-serviceUrl: "#"
+serviceUrl: "#",
+navigation: [
+{
+href: "#",
+text: "Your ECTs",
+active: true
+},
+{
+href: "#",
+text: "Your mentors"
+}
+]
 }) }}
 {% endblock %}
 

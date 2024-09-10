@@ -16,7 +16,7 @@ href: "javascript:window.history.back()"
         <form method="post">
 
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
-        <p>Find your ECT by entering their date of birth and teacher reference number (TRN).</p>
+            <p>Find your ECT by entering their teacher reference number (TRN) and date of birth.</p>
 
         {% if data['namePulledBack'] === 'no' %}
         {{ govukInput({
@@ -38,7 +38,7 @@ href: "javascript:window.history.back()"
         isPageHeading: false
         },
         hint: {
-        text: "TRNs should be 7 digits long"
+        text: "Enter your ECT's TRN (should be 7 digits long). It's on their pay slip, teaching contract or registration document from the General Teaching Council for England (GTCE)."
         },
         id: "trn",
         name: "trn"

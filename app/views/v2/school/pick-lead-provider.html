@@ -38,22 +38,20 @@ href: "javascript:window.history.back()"
         ]
         }) }}
 
-            <details class="govuk-details">
-                <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      What is a lead provider?
-    </span>
-                </summary>
-                <div class="govuk-details__text">
-                    <p>They are organisations that:</p>
-                    <ul class="govuk-list govuk-list--bullet">
-                        <li>create the overall structure, content and resources for early career framework (ECF) training</li>
-                        <li>ensure that the training delivered by the delivery partner is of a high quality and meets national standards</li>
-                        <li>train mentors and trainers who deliver the ECF to early career teachers</li>
-                        <li>report on the progress and effectiveness of the training programme to the Department for Education (DfE)</li>
-                    </ul>
-                </div>
-            </details>
+            {{ govukDetails({
+            summaryText: "What is a lead provider?",
+            text: "
+            <p class='govuk-body'>They are organisations that:</p>
+            <ul class='govuk-list govuk-list--bullet'>
+                <li>create the overall structure, content and resources for early career framework (ECF) training</li>
+                <li>ensure that the training delivered by the delivery partner is of a high quality and meets national standards</li>
+                <li>train mentors and trainers who deliver the ECF to early career teachers</li>
+                <li>report on the progress and effectiveness of the training programme to the Department for Education (DfE)</li>
+            </ul>"
+            |safe }) }}
+            <p class="govuk-body">
+                <a href="https://www.gov.uk/guidance/managing-training-for-early-career-teachers#:~:text=Education%20Development%20Trust,UCL%20Institute%20of%20Education" class="govuk-link govuk-link--no-underline">Learn more about lead providers</a> if you've not chosen one yet.
+            </p>
 
             <button class="govuk-button">Continue</button>
         </form>

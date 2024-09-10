@@ -14,12 +14,17 @@ module.exports = router => {
 
     // dfe sign in page
     router.post(v + school + 'dfe-sign-in', (req, res) => {
-        res.redirect(v + school + 'need-to-know')
+        res.redirect(v + school + 'what-youll-need')
     })
 
     // **** prototype set up ****
 
     router.post(v + school + 'setup', (req, res) => {
+        res.redirect(v + school + 'start')
+    })
+
+    // what you'll need
+    router.post(v + school + 'what-youll-need', (req, res) => {
         res.redirect(v + school + 'find-ect')
     })
 
