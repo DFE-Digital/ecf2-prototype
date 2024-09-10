@@ -1,0 +1,112 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Save your ECT programme choices" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+<p class="govuk-body">govuk-body</p>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+        <p class="govuk-body">Saving these as your school's default settings will make adding more ECTs easier in the future.
+        </p>
+        {% if data['programmeType'] === 'School-led' %}
+
+        {{ govukSummaryList({
+        rows: [
+        {
+        key: {
+        text: "Programme type"
+        },
+        value: {
+        text: "School-led"
+        }
+        },
+        {
+        key: {
+        text: "Appropriate body"
+        },
+        value: {
+        text: "Teaching school hub name"
+        }
+        }
+        ]
+        }) }}
+
+        {% else %}
+
+        {{ govukSummaryList({
+        rows: [
+        {
+        key: {
+        text: "Programme type"
+        },
+        value: {
+        text: "Provider-led"
+        }
+        },
+        {
+        key: {
+        text: "Appropriate body"
+        },
+        value: {
+        text: "Teaching school hub name"
+        }
+        },
+        {
+        key: {
+        text: "Delivery partner"
+        },
+        value: {
+        text: "Partner name"
+        }
+        },
+        {
+        key: {
+        text: "Lead provider"
+        },
+        value: {
+        text: "Provider name"
+        }
+        }
+        ]
+        }) }}
+
+        {% endif %}
+
+        <form method="post">
+            {{ govukRadios({
+            classes: "govuk-radios--inline",
+            name: "saveAsDefault",
+            fieldset: {
+            legend: {
+            text: "Would you like to save these as your school's default choices?",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--m"
+            }
+            },
+            
+            items: [
+            {
+            value: "yes",
+            text: "Yes"
+            },
+            {
+            value: "no",
+            text: "No"
+            }
+            ]
+            }) }}
+
+            <button class="govuk-button">Continue</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

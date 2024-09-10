@@ -1,0 +1,49 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Check your answers before submitting" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+        {{ govukWarningText({
+        text: "Ignore this page - not added these details yet.",
+        iconFallbackText: "Warning"
+        }) }}
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    []
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> name</span></a>
+                </dd>
+            </div>
+        </dl>
+
+        {{ govukWarningText({
+        text: "Ignore this page - not added these details yet.",
+        iconFallbackText: "Warning"
+        }) }}
+
+            <button class="govuk-button">Confirm details</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

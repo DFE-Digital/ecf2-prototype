@@ -1,0 +1,64 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Question page" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">Tell us about your early career teachers</h1>
+        <p>Content here / guidance as needed</p>
+
+        <p>You will need:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>item 1</li>
+            <li>item 2</li>
+            <li>item 3</li>
+        </ul>
+
+        {% from "govuk/components/table/macro.njk" import govukTable %}
+
+        {{ govukTable({
+        caption: "Early career teachers you've added",
+        captionClasses: "govuk-table__caption--m",
+        firstCellIsHeader: false,
+        head: [
+        {
+        text: "Name"
+        },
+        {
+        text: "",
+        format: "numeric"
+        }
+        ],
+        rows: [
+        [
+        {
+        text: "John Smith"
+        },
+        {
+        html: '<a href="">Change</a>',
+        format: "numeric"
+        }
+        ],
+        [
+        {
+        text: "Jane Doe"
+        },
+        {
+        html: '<a href="">Change</a>',
+        format: "numeric"
+        }
+        ]
+        ]
+        }) }}
+
+        <button class="govuk-button govuk-button--secondary">Add another early career teacher</button>
+
+        <p>If you've added all your early career teachers....</p>
+        <button class="govuk-button">Save and return to task list</button>
+        <p><a href="#">Return to task list</a></p>
+    </div>
+</div>
+
+{% endblock %}

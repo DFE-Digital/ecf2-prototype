@@ -1,0 +1,63 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Which provider will be training John Smith?" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+        {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+        {{ govukRadios({
+        name: "leadProvider",
+        fieldset: {
+        legend: {
+        text: pageName,
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+        }
+        },
+        items: [
+        {
+        value: "Ambition Institute",
+        text: "Ambition Institute"
+        },
+        {
+        value: "UCL Institute of Education",
+        text: "UCL Institute of Education"
+        }
+        ]
+        }) }}
+
+            <details class="govuk-details">
+                <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      What is a lead provider?
+    </span>
+                </summary>
+                <div class="govuk-details__text">
+                    <p>They are organisations that:</p>
+                    <ul class="govuk-list govuk-list--bullet">
+                        <li>create the overall structure, content and resources for early career framework (ECF) training</li>
+                        <li>ensure that the training delivered by the delivery partner is of a high quality and meets national standards</li>
+                        <li>train mentors and trainers who deliver the ECF to early career teachers</li>
+                        <li>report on the progress and effectiveness of the training programme to the Department for Education (DfE)</li>
+                    </ul>
+                </div>
+            </details>
+
+            <button class="govuk-button">Continue</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

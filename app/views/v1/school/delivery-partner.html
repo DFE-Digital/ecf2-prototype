@@ -1,0 +1,73 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Which delivery partner will provide training for John Smith?" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+        <form method="post">
+            <!-- Search box -->
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="search-body">
+                    Start entering the name of your delivery partner for results to appear
+                </label>
+                <input class="govuk-input" id="search-body" name="search-body" type="text" placeholder="Enter delivery partner name" onkeyup="filterList()">
+            </div>
+
+            <!-- Hidden input to store the selected value -->
+            <input type="hidden" id="selected-body" name="selected-body">
+
+            <!-- Details component -->
+            {{ govukDetails({
+                summaryText: "What is a delivery partner?",
+                text: "
+                    <p class='govuk-body'>They are usually teaching school hubs, universities or trusts that:</p>
+                    <ul class='govuk-list govuk-list--bullet'>
+                      <li>organise and run the day-to-day training for ECTs</li>
+                      <li>provide guidance for schools on how to implement the early career framework (ECF)</li>
+                      <li>act as a link between lead providers and schools, ensuring training materials and support are used effectively</li>
+                    </ul>"
+            |safe }) }}
+
+            <!-- Continue Button -->
+            <button class="govuk-button" type="submit">Continue</button>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript for filtering the list -->
+<script>
+function filterList() {
+    var input = document.getElementById('search-body').value.toUpperCase();
+    var select = document.getElementById('body-list');
+    var options = select.getElementsByTagName('option');
+
+    for (var i = 0; i < options.length; i++) {
+        var txtValue = options[i].textContent || options[i].innerText;
+        if (txtValue.toUpperCase().indexOf(input) > -1 || i === 0) {
+            options[i].style.display = "";
+        } else {
+            options[i].style.display = "none";
+        }
+    }
+}
+
+function selectBody() {
+    var select = document.getElementById('body-list');
+    var selectedBody = select.options[select.selectedIndex].value;
+    document.getElementById('search-body').value = selectedBody;
+    document.getElementById('selected-body').value = selectedBody;
+}
+</script>
+
+{% endblock %}

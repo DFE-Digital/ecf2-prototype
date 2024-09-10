@@ -4,7 +4,14 @@
 // 
 
 // Add extra styles here
-@import 'node_modules/dfe-frontend/packages/dfefrontend';
+@import 'node_modules/dfe-frontend/packages/core/objects/grid';
+@import 'node_modules/dfe-frontend/packages/core/objects/width-container';
+@import 'node_modules/dfe-frontend/packages/core/settings/colours';
+@import 'node_modules/dfe-frontend/packages/core/settings/spacing';
+@import 'node_modules/dfe-frontend/packages/core/tools/grid';
+@import 'node_modules/dfe-frontend/packages/core/tools/spacing';
+@import 'node_modules/dfe-frontend/packages/core/vendor/sass-mq';
+@import 'node_modules/dfe-frontend/packages/components/card/card';
 
 .autocomplete__wrapper {
   li {

@@ -1,0 +1,74 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Which appropriate body will be supporting John Smith's training?" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+        <!-- Search box -->
+        <div class="govuk-form-group">
+            <label class="govuk-label" for="search-body">
+                Start entering the name of your appropriate body for results to appear
+            </label>
+            <input class="govuk-input" id="search-body" name="search-body" type="text" placeholder="Enter body name" onkeyup="filterList()">
+        </div>
+
+        <!-- Hidden input to store the selected value -->
+        <input type="hidden" id="selected-body" name="selected-body">
+
+      <!-- Details component -->
+{{ govukDetails({
+    summaryText: "What is an appropriate body?",
+    text: "
+        <p class='govuk-body'>They are organisations that:</p>
+        <ul class='govuk-list govuk-list--bullet'>
+          <li>check schools are following the correct procedures for ECTs and that the support provided meets national standards</li>
+          <li>monitor the progress of ECTs during the induction period</li>
+          <li>decide if an ECT should pass or fail their induction after assessing whether they have met the teachers' standards (at the end of the induction period)</li>
+          <li>advise schools on how to improve an ECT's support if there are any problems to resolve</li>
+        </ul>"
+|safe }) }}
+
+
+        <!-- Continue Button -->
+        <button class="govuk-button" type="submit">Continue</button>
+    </form>
+    </div>
+</div>
+
+<!-- JavaScript for filtering the list -->
+<script>
+function filterList() {
+    var input = document.getElementById('search-body').value.toUpperCase();
+    var select = document.getElementById('body-list');
+    var options = select.getElementsByTagName('option');
+
+    for (var i = 0; i < options.length; i++) {
+        var txtValue = options[i].textContent || options[i].innerText;
+        if (txtValue.toUpperCase().indexOf(input) > -1 || i === 0) {
+            options[i].style.display = "";
+        } else {
+            options[i].style.display = "none";
+        }
+    }
+}
+
+function selectBody() {
+    var select = document.getElementById('body-list');
+    var selectedBody = select.options[select.selectedIndex].value;
+    document.getElementById('search-body').value = selectedBody;
+    document.getElementById('selected-body').value = selectedBody;
+}
+</script>
+
+{% endblock %}

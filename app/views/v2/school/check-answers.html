@@ -1,0 +1,222 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Check your answers before submitting" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+            {% set rows = [
+            {
+            key: {
+            text: "First name"
+            },
+            value: {
+            text: "John"
+            }
+            },
+            {
+            key: {
+            text: "Last name"
+            },
+            value: {
+            text: "Smith"
+            }
+            },
+            {
+            key: {
+            text: "Teacher reference number (TRN)"
+            },
+            value: {
+            text: "0011001"
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "TRN"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Date of birth"
+            },
+            value: {
+            text: "5 January 1978"
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "date of birth"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Email address"
+            },
+            value: {
+            text: "info@email.com"
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "email address"
+            }
+            ]
+            }
+            }
+            ] %}
+
+
+            {% if data['askForNino'] == 'yes' %}
+            {% set rows = rows.concat([{
+            key: {
+            text: "National Insurance number"
+            },
+            value: {
+            text: "QQ123456C"
+            }
+            }]) %}
+            {% endif %}
+
+            <h2 class="govuk-heading-m">Teacher details</h2>
+
+            {{ govukSummaryList({ rows: rows }) }}
+
+            <h2 class="govuk-heading-m">Training details</h2>
+
+            {% if data.programmeType == 'School-led' %}
+
+            {{ govukSummaryList({
+            rows: [
+            {
+            key: {
+            text: "Programme type"
+            },
+            value: {
+            text: "School-led"
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "programme type"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Appropriate body"
+            },
+            value: {
+            text: "Teaching school hub name"
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "appropriate body"
+            }
+            ]
+            }
+            }
+            ]
+            }) }}
+
+            {% else %}
+
+            {{ govukSummaryList({
+            rows: [
+            {
+            key: {
+            text: "Programme type"
+            },
+            value: {
+            text: "Provider-led"
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "programme type"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Appropriate body"
+            },
+            value: {
+            text: "Teaching school hub name"
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "appropriate body"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Delivery partner"
+            },
+            value: {
+            text: "Partner name"
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "delivery partner"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Lead provider"
+            },
+            value: {
+            text: "Provider name"
+            }
+            }
+            ]
+            }) }}
+
+            {% endif %}
+
+
+            <button class="govuk-button">Confirm details</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
