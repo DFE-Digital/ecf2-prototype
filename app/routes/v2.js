@@ -23,6 +23,20 @@ module.exports = router => {
         res.redirect(v + school + 'start')
     })
 
+    // **** set up custom scenarios ****
+
+    router.get(v + school + 'setup-scenario-1', (req, res) => {
+        req.session.data['defaultsAlreadyAdded'] = 'no'
+        req.session.data['mentorsAddedPreviously'] = 'yes'
+        res.redirect(v + school + 'start')
+    })
+
+    router.get(v + school + 'setup-scenario-2', (req, res) => {
+        req.session.data['defaultsAlreadyAdded'] = 'no'
+        req.session.data['mentorsAddedPreviously'] = 'no'
+        res.redirect(v + school + 'start')
+    })
+
     // what you'll need
     router.post(v + school + 'what-youll-need', (req, res) => {
         res.redirect(v + school + 'find-ect')
