@@ -102,7 +102,7 @@ module.exports = router => {
         }
         else {
             if (req.session.data['mentorsAddedPreviously'] === 'no') {
-                res.redirect(v + school + 'no-previous-mentors')
+                res.redirect(v + school + 'check-answers')
             }
             else {
                 res.redirect(v + school + 'mentor')
@@ -113,7 +113,12 @@ module.exports = router => {
     // adding programme information that is not default
 
     router.post(v + school + 'programme-type', (req, res) => {
-        res.redirect(v + school + 'appropriate-body')
+        if (req.session.data['programmeType'] === 'School-led') {
+            res.redirect(v + school + 'appropriate-body')
+        }
+        else {
+            res.redirect(v + school + 'autocomplete-delivery-partner')
+        }
     })
 
     // router.post(v + school + 'lead-provider', (req, res) => {
@@ -124,18 +129,14 @@ module.exports = router => {
     //     res.redirect(v + school + 'appropriate-body')
     // })
 
-    router.post(v + school + 'appropriate-body', (req, res) => {
-        if (req.session.data['programmeType'] === 'School-led') {
-            res.redirect(v + school + 'save-programme-details')
-        }
-        else {
-            res.redirect(v + school + 'autocomplete-delivery-partner')
-        }
+    router.post(v + school + 'autocomplete-delivery-partner', (req, res) => {
+        res.redirect(v + school + 'appropriate-body')
     })
 
-    router.post(v + school + 'autocomplete-delivery-partner', (req, res) => {
+    router.post(v + school + 'appropriate-body', (req, res) => {
         res.redirect(v + school + 'save-programme-details')
     })
+
 
     router.post(v + school + 'save-programme-details', (req, res) => {
         if (req.session.data['mentorsAddedPreviously'] === 'no') {

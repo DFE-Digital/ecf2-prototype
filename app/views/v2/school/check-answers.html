@@ -98,6 +98,26 @@ href: "javascript:window.history.back()"
             }]) %}
             {% endif %}
 
+            {% if data['mentorsAddedPreviously'] !== 'no' %}
+            {% set rows = rows.concat([{
+            key: {
+            text: "Mentor"
+            },
+            value: {
+            text: "Mentor name"
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "mentor"
+            }
+            ]
+            }
+            }]) %}
+            {% endif %}
+
             <h2 class="govuk-heading-m">Teacher details</h2>
 
             {{ govukSummaryList({ rows: rows }) }}
@@ -168,23 +188,6 @@ href: "javascript:window.history.back()"
             },
             {
             key: {
-            text: "Appropriate body"
-            },
-            value: {
-            text: "Teaching school hub name"
-            },
-            actions: {
-            items: [
-            {
-            href: "#",
-            text: "Change",
-            visuallyHiddenText: "appropriate body"
-            }
-            ]
-            }
-            },
-            {
-            key: {
             text: "Delivery partner"
             },
             value: {
@@ -207,13 +210,28 @@ href: "javascript:window.history.back()"
             value: {
             text: "Provider name"
             }
+            },
+            {
+            key: {
+            text: "Appropriate body"
+            },
+            value: {
+            text: "Teaching school hub name"
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "appropriate body"
+            }
+            ]
+            }
             }
             ]
             }) }}
 
             {% endif %}
-
-
             <button class="govuk-button">Confirm details</button>
         </form>
     </div>
