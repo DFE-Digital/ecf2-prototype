@@ -19,7 +19,7 @@ href: "javascript:window.history.back()"
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
         <form method="post">
 
-            <p>This is the teacher we found in the database for qualified teachers (DQT) based on the details you provided:</p>
+            <p>This is the teacher we found in the teaching regulation agency records based on the details you provided:</p>
 
             {% if data['dob-day'] and data['dob-month'] and data['dob-year'] %}
             {% set dob = data['dob-day'] + ' ' + data['dob-month'] | monthName + ' ' + data['dob-year'] %}
@@ -94,7 +94,7 @@ href: "javascript:window.history.back()"
                         <li>use their previous name to register with the service</li>
                         <li>use their previous name to register, then the ECT can change their name on their teacher
                             record at a later date</li>
-                        <li>ask your ECT to change their name by using the <p class="govuk-body"><a href="https://www.gov.uk/guidance/check-a-teachers-record"
+                        <li>ask your ECT to change their name by using the <p class="govuk-body"><a href="https://www.gov.uk/guidance/access-your-teaching-qualifications"
                                                                                                     class="govuk-link">check a teacher record service</a> first and then return to
                             register your ECT</p></a> </li>
                     </ul>
