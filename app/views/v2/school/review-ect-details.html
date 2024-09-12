@@ -21,6 +21,18 @@ href: "javascript:window.history.back()"
 
             <p>This is the teacher we found in the database for qualified teachers (DQT) based on the details you provided:</p>
 
+            {% if data['dob-day'] and data['dob-month'] and data['dob-year'] %}
+            {% set dob = data['dob-day'] + ' ' + data['dob-month'] | monthName + ' ' + data['dob-year'] %}
+            {% else %}
+            {% set dob = '1 January 1990' %}
+            {% endif %}
+
+            {% if data['trn'] %}
+            {% set trn = data['trn'] %}
+            {% else %}
+            {% set trn = '5249105' %}
+            {% endif %}
+
             {% set rows = [
             {
             key: {
@@ -32,18 +44,18 @@ href: "javascript:window.history.back()"
             },
             {
             key: {
-            text: "Date of birth"
+            text: "Teacher reference number (TRN)"
             },
             value: {
-            text: "5 January 1978"
+            text: trn
             }
             },
             {
             key: {
-            text: "Teacher reference number (TRN)"
+            text: "Date of birth"
             },
             value: {
-            text: "0011001"
+            text: dob
             }
             }
             ] %}

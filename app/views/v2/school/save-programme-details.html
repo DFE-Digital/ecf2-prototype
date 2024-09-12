@@ -15,6 +15,19 @@ href: "javascript:window.history.back()"
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
         <p class="govuk-body">Saving these as your school's default settings will make adding more ECTs easier in the future.
         </p>
+
+        {% if data['ab'] %}
+        {% set ab = data['ab'] %}
+        {% else %}
+        {% set ab = 'Teach West London' %}
+        {% endif %}
+
+        {% if data['deliveryPartner'] %}
+        {% set dp = data['deliveryPartner'] %}
+        {% else %}
+        {% set dp = 'London District East TSH' %}
+        {% endif %}
+
         {% if data['programmeType'] === 'School-led' %}
 
         {{ govukSummaryList({
@@ -32,7 +45,7 @@ href: "javascript:window.history.back()"
         text: "Appropriate body"
         },
         value: {
-        text: "Teaching school hub name"
+        text: ab
         }
         }
         ]
@@ -55,7 +68,7 @@ href: "javascript:window.history.back()"
         text: "Delivery partner"
         },
         value: {
-        text: "Partner name"
+        text: dp
         }
         },
         {
@@ -63,7 +76,7 @@ href: "javascript:window.history.back()"
         text: "Lead provider"
         },
         value: {
-        text: "Provider name"
+        text: "Best Practice Network"
         }
         },
         {
@@ -71,7 +84,7 @@ href: "javascript:window.history.back()"
         text: "Appropriate body"
         },
         value: {
-        text: "Teaching school hub name"
+        text: ab
         }
         }
         ]
