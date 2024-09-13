@@ -19,7 +19,7 @@ href: "javascript:window.history.back()"
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
         <form method="post">
 
-            <p>This is the teacher we found in the teaching regulation agency records based on the details you provided:</p>
+            <p>This is the teacher we found in the Teaching Regulation Agency records based on the details you provided:</p>
 
             {% if data['dob-day'] and data['dob-month'] and data['dob-year'] %}
             {% set dob = data['dob-day'] + ' ' + data['dob-month'] | monthName + ' ' + data['dob-year'] %}
