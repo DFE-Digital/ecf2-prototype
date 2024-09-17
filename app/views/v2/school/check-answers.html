@@ -154,6 +154,12 @@ href: "javascript:window.history.back()"
             {% set dp = 'London District East TSH' %}
             {% endif %}
 
+            {% if data['leadProvider'] %}
+            {% set lp = data['leadProvider'] %}
+            {% else %}
+            {% set lp = 'Ambition Institute' %}
+            {% endif %}
+
             {% if data.programmeType == 'School-led' %}
 
             {{ govukSummaryList({
@@ -238,7 +244,7 @@ href: "javascript:window.history.back()"
             text: "Lead provider"
             },
             value: {
-            text: "Best Practice Network"
+            text: lp
             }
             },
             {
