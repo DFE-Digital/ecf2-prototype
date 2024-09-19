@@ -12,6 +12,7 @@
 @import 'node_modules/dfe-frontend/packages/core/tools/spacing';
 @import 'node_modules/dfe-frontend/packages/core/vendor/sass-mq';
 @import 'node_modules/dfe-frontend/packages/components/card/card';
+@import "components/finder";
 
 .autocomplete__wrapper {
   li {
