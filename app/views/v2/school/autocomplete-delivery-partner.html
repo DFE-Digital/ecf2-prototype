@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Which delivery partner will provide training for John Smith?" %}
+{% set pageName="Who will provide training for John Smith?" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -24,7 +24,7 @@ href: "javascript:window.history.back()"
         text: pageName
         },
         hint: {
-        text: "Start entering the name of your delivery partner for results to appear"
+        html: "<p class='govuk-body'>Start entering the name of the organisation providing your training (also known as your delivery partner) for results to appear.</p>"
         },
         items: [
         { text: "Academy Transformation Trust" },
@@ -186,25 +186,31 @@ href: "javascript:window.history.back()"
         ]
         }) }}
 
-            <details class="govuk-details">
-                <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      What is a delivery partner?
-    </span>
-                </summary>
-                <div class="govuk-details__text">
-                    <p>They are organisations that:</p>
-                    <ul class="govuk-list govuk-list--bullet">
-                        <li>organise and run the day-to-day training for ECTs</li>
-                        <li>provide guidance for schools on how to implement the early career framework (ECF)</li>
-                        <li>act as a link between lead providers and schools, ensuring training materials and support are used effectively</li>
-                    </ul>
-                </div>
-            </details>
+            {{ govukDetails({
+            summaryText: "What is a delivery partner?",
+            text: "
+            <p class='govuk-body'>They are usually teaching school hubs, universities or trusts that:</p>
+            <ul class='govuk-list govuk-list--bullet'>
+                <li>organise and run the day-to-day training for ECTs</li>
+                <li>provide guidance for schools on how to implement the early career framework (ECF)</li>
+                <li>act as a link between lead providers and schools, ensuring training materials and support are used effectively</li>
+            </ul>"
+            |safe }) }}
 
         <button class="govuk-button">Continue</button>
         </form>
     </div>
 </div>
 
+{% endblock %}
+
+{% block pageScripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var autocompleteInput = document.querySelector('#deliveryPartner');
+        if (autocompleteInput) {
+            autocompleteInput.setAttribute('placeholder', 'Enter delivery partner name');
+        }
+    });
+</script>
 {% endblock %}
