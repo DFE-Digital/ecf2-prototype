@@ -16,6 +16,24 @@ href: "javascript:window.history.back()"
         <form method="post">
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
+            {% if data['dob-day'] and data['dob-month'] and data['dob-year'] %}
+            {% set dob = data['dob-day'] + ' ' + data['dob-month'] | monthName + ' ' + data['dob-year'] %}
+            {% else %}
+            {% set dob = '1 January 1990' %}
+            {% endif %}
+
+            {% if data['trn'] %}
+            {% set trn = data['trn'] %}
+            {% else %}
+            {% set trn = '5249105' %}
+            {% endif %}
+
+            {% if data['email'] %}
+            {% set email = data['email'] %}
+            {% else %}
+            {% set email = 'email@email.com' %}
+            {% endif %}
+
             {% set rows = [
             {
             key: {
@@ -38,7 +56,7 @@ href: "javascript:window.history.back()"
             text: "Teacher reference number (TRN)"
             },
             value: {
-            text: "0011001"
+            text: trn
             },
             actions: {
             items: [
@@ -55,7 +73,7 @@ href: "javascript:window.history.back()"
             text: "Date of birth"
             },
             value: {
-            text: "5 January 1978"
+            text: dob
             },
             actions: {
             items: [
@@ -72,7 +90,7 @@ href: "javascript:window.history.back()"
             text: "Email address"
             },
             value: {
-            text: "info@email.com"
+            text: email
             },
             actions: {
             items: [
@@ -98,11 +116,49 @@ href: "javascript:window.history.back()"
             }]) %}
             {% endif %}
 
+            {% if data['mentorsAddedPreviously'] !== 'no' %}
+            {% set rows = rows.concat([{
+            key: {
+            text: "Mentor"
+            },
+            value: {
+            text: data['mentor']
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "mentor"
+            }
+            ]
+            }
+            }]) %}
+            {% endif %}
+
             <h2 class="govuk-heading-m">Teacher details</h2>
 
             {{ govukSummaryList({ rows: rows }) }}
 
             <h2 class="govuk-heading-m">Training details</h2>
+
+            {% if data['ab'] %}
+            {% set ab = data['ab'] %}
+            {% else %}
+            {% set ab = 'Teach West London' %}
+            {% endif %}
+
+            {% if data['deliveryPartner'] %}
+            {% set dp = data['deliveryPartner'] %}
+            {% else %}
+            {% set dp = 'London District East TSH' %}
+            {% endif %}
+
+            {% if data['leadProvider'] %}
+            {% set lp = data['leadProvider'] %}
+            {% else %}
+            {% set lp = 'Ambition Institute' %}
+            {% endif %}
 
             {% if data.programmeType == 'School-led' %}
 
@@ -130,7 +186,7 @@ href: "javascript:window.history.back()"
             text: "Appropriate body"
             },
             value: {
-            text: "Teaching school hub name"
+            text: ab
             },
             actions: {
             items: [
@@ -168,27 +224,10 @@ href: "javascript:window.history.back()"
             },
             {
             key: {
-            text: "Appropriate body"
-            },
-            value: {
-            text: "Teaching school hub name"
-            },
-            actions: {
-            items: [
-            {
-            href: "#",
-            text: "Change",
-            visuallyHiddenText: "appropriate body"
-            }
-            ]
-            }
-            },
-            {
-            key: {
             text: "Delivery partner"
             },
             value: {
-            text: "Partner name"
+            text: dp
             },
             actions: {
             items: [
@@ -205,15 +244,30 @@ href: "javascript:window.history.back()"
             text: "Lead provider"
             },
             value: {
-            text: "Provider name"
+            text: lp
+            }
+            },
+            {
+            key: {
+            text: "Appropriate body"
+            },
+            value: {
+            text: ab
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "appropriate body"
+            }
+            ]
             }
             }
             ]
             }) }}
 
             {% endif %}
-
-
             <button class="govuk-button">Confirm details</button>
         </form>
     </div>
