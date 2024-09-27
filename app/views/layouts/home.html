@@ -1,0 +1,32 @@
+{#
+For guidance on how to use layouts see:
+https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
+#}
+
+{% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
+
+{% block header %}
+{{ govukHeader({
+homepageUrl: "/",
+classes: "govuk-header--full-width-border"
+}) }}
+{{ govukServiceNavigation({
+serviceName: serviceName,
+serviceUrl: "#",
+navigation: [
+{
+href: "#",
+text: "Your ECTs"
+},
+{
+href: "#",
+text: "Your mentors"
+}
+]
+}) }}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="/node_modules/dfe-frontend/dist/dfefrontend.min.js"></script>
+{% endblock %}

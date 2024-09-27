@@ -1,0 +1,58 @@
+{% extends "layouts/main.html" %}
+
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'John Smith' %}
+{% endif %}
+
+{% set pageName="Who will mentor " + name + "?" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+        {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+        {{ govukRadios({
+        name: "mentor",
+        fieldset: {
+        legend: {
+        text: pageName,
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+        }
+        },
+        items: [
+        {
+        value: "John Doe",
+        text: "John Doe"
+        },
+        {
+        value: "Tom Jones",
+        text: "Tom Jones"
+        },
+        {
+        divider: "Or"
+        },
+        {
+        value: "Add a new mentor later",
+        text: "Add a new mentor later"
+        }
+        ]
+        }) }}
+
+            <button class="govuk-button">Continue</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

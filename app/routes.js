@@ -9,3 +9,4 @@ const router = govukPrototypeKit.requests.setupRouter()
 // Add your routes here
 require('./routes/v1')(router)
 require('./routes/v2')(router)
+require('./routes/v3')(router)

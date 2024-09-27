@@ -1,0 +1,85 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Add an early career teacher (ECT)" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+            <p>Find your ECT by entering their teacher reference number (TRN) and date of birth.</p>
+
+        {% if data['namePulledBack'] === 'no' %}
+        {{ govukInput({
+        label: {
+        text: "Full name",
+        classes: "govuk-label--m"
+        },
+        id: "full-name",
+        name: "fullName",
+        autocomplete: "name",
+        spellcheck: false
+        }) }}
+        {% endif %}
+
+        {{ govukInput({
+        label: {
+        text: "Teacher reference number (TRN)",
+        classes: "govuk-label--m",
+        isPageHeading: false
+        },
+        hint: {
+        text: "Enter your ECT's TRN (they are 7 digits long). It's on their pay slip, teaching contract or registration document from the General Teaching Council for England (GTCE)."
+        },
+        id: "trn",
+        name: "trn"
+        }) }}
+
+        {{ govukDateInput({
+        id: "dob",
+        namePrefix: "dob",
+        fieldset: {
+        legend: {
+        text: "Date of birth",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--m"
+        }
+        },
+        hint: {
+        text: "For example, 31 3 1980"
+        },
+        items: [
+        {
+        name: "day",
+        classes: "govuk-input--width-2",
+        autocomplete: "bday-day"
+        },
+        {
+        name: "month",
+        classes: "govuk-input--width-2",
+        autocomplete: "bday-month"
+        },
+        {
+        name: "year",
+        classes: "govuk-input--width-4",
+        autocomplete: "bday-year"
+        }
+        ]
+        }) }}
+
+            <button class="govuk-button">Continue</button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

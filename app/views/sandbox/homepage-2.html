@@ -1,0 +1,69 @@
+{% extends "layouts/home.html" %}
+
+{% set pageName="Question page" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">Xyz High School</h1>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+    </div>
+
+<!--        <div class="govuk-notification-banner" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">-->
+<!--            <div class="govuk-notification-banner__header">-->
+<!--                <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">-->
+<!--                    Information-->
+<!--                </h2>-->
+<!--            </div>-->
+<!--            <div class="govuk-notification-banner__content">-->
+<!--                <h3 class="govuk-notification-banner__heading">-->
+<!--                    You have ECTs without mentors assigned-->
+<!--                </h3>-->
+<!--                <p class="govuk-body">You must assign mentors for ECTs that do not have one to ensure their training continues.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <div class="govuk-grid-column-one-half-from-desktop" style="border-right: 1px solid #b1b4b6">
+
+        <h2 class="govuk-heading-m">Your early career teachers</h2>
+
+<!--                <div class="govuk-notification-banner" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">-->
+<!--                    <div class="govuk-notification-banner__header">-->
+<!--                        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">-->
+<!--                            Information-->
+<!--                        </h2>-->
+<!--                    </div>-->
+<!--                    <div class="govuk-notification-banner__content">-->
+<!--                        <h3 class="govuk-notification-banner__heading">-->
+<!--                            You have ECTs without mentors assigned-->
+<!--                        </h3>-->
+<!--                        <p class="govuk-body">You must assign mentors for ECTs that do not have one to ensure their training continues.</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+            {{ govukInsetText({
+            text: "You have ECTs without mentors assigned. You must assign mentors for them to ensure they can continue training."
+            }) }}
+
+        <p><a href="">Add a new early career teacher</a></p>
+        <p><a href="">View or change details for existing early career teachers</a></p>
+
+
+    </div>
+
+        <div class="govuk-grid-column-one-half">
+
+
+        <h2 class="govuk-heading-m">Your mentors</h2>
+
+        <p><a href="">Add a new mentor</a></p>
+        <p><a href="">View or change details for existing mentors</a></p>
+
+        </div>
+
+
+</div>
+
+{% endblock %}
