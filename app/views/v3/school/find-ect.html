@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Add an early career teacher (ECT)" %}
+{% set pageName="Find an early career teacher (ECT)" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -16,7 +16,7 @@ href: "javascript:window.history.back()"
         <form method="post">
 
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
-            <p>Find your ECT by entering their teacher reference number (TRN) and date of birth.</p>
+            <p>Enter your ECT's teacher reference number and date of birth to find them.</p>
 
         {% if data['namePulledBack'] === 'no' %}
         {{ govukInput({

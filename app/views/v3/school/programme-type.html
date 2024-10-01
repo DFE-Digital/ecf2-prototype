@@ -10,57 +10,43 @@
 
 {% block beforeContent %}
 {{ govukBackLink({
-text: "Back",
-href: "javascript:window.history.back()"
+  text: "Back",
+  href: "javascript:window.history.back()"
 }) }}
 {% endblock %}
 
 {% block content %}
 
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        <form method="post">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="post">
 
-        {% from "govuk/components/radios/macro.njk" import govukRadios %}
+      {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
-        {{ govukRadios({
+      {{ govukRadios({
         name: "programmeType",
         fieldset: {
-        legend: {
-        text: pageName,
-        isPageHeading: true,
-        classes: "govuk-fieldset__legend--l"
-        }
+          legend: {
+            text: pageName,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
         },
         items: [
-        {
-        value: "Provider-led",
-        text: "Provider-led"
-        },
-        {
-        value: "School-led",
-        text: "School-led"
-        }
+          {
+            value: "Provider-led",
+            text: "Provider-led: Your school will work with an accredited provider who will design and deliver the ECT training (funded by Department for Education)."
+          },
+          {
+            value: "School-led",
+            text: "School-led: Your school will design and deliver the ECT training."
+          }
         ]
-        }) }}
+      }) }}
 
-            <details class="govuk-details">
-                <summary class="govuk-details__summary">
-              <span class="govuk-details__summary-text">
-                Help choosing a programme
-              </span>
-                </summary>
-                <div class="govuk-details__text">
-                    <strong>Provider-led</strong>: Your school will work with an accredited provider who will design and deliver the ECT training.
-                </div>
-                <div class="govuk-details__text">
-                    <strong> School-led</strong>: Your school will design and deliver the ECT training.
-                </div>
-            </details>
-
-            <button class="govuk-button">Continue</button>
-        </form>
-    </div>
+      <button class="govuk-button">Continue</button>
+    </form>
+  </div>
 </div>
 
 {% endblock %}
