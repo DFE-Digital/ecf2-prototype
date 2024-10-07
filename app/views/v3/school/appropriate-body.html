@@ -6,7 +6,7 @@
 {% set name = 'John Smith' %}
 {% endif %}
 
-{% set pageName="Which appropriate body will be supporting " + name + "'s training?" %}
+{% set pageName="Which appropriate body will be supporting " + name + "'s induction?" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -31,7 +31,7 @@ href: "javascript:window.history.back()"
         text: pageName
         },
         hint: {
-        html: "<p class='govuk-body'>Start entering the name of your appropriate body for results to appear</p>"
+        html: "<p class='govuk-body'>Start entering the name of your teaching school hub for results to appear.</p>"
         },
         items: [
         { text: "Alban Teaching School Hub" },
@@ -117,17 +117,14 @@ href: "javascript:window.history.back()"
             {{ govukDetails({
             summaryText: "What is an appropriate body?",
             text: "
-            <p class='govuk-body'>They are organisations that:</p>
+            <p class='govuk-body'>They are usually teaching school hubs (TSHs) that:</p>
             <ul class='govuk-list govuk-list--bullet'>
-                <li>check schools are following the correct procedures for ECTs and that the support provided meets national standards</li>
-                <li>monitor the progress of ECTs during the induction period</li>
-                <li>decide if an ECT should pass or fail their induction after assessing whether they have met the teachers' standards (at the end of the induction period)</li>
-                <li>advise schools on how to improve an ECT's support if there are any problems to resolve</li>
+                <li>ensure schools follow correct procedures for ECTs, including providing an ECF-based induction</li>
+                <li>make sure ECTs receive their statutory entitlements (time off timetable and mentoring)</li>
+                <li>monitor ECT progress during induction and advise schools on how to support improvement</li>
+                <li>assess whether ECTs have met the teaching standards at the end of induction to determine if they’ve passed or failed</li>
             </ul>"
             |safe }) }}
-            <p class="govuk-body">
-                <a href="https://www.gov.uk/government/publications/statutory-teacher-induction-appropriate-bodies/find-an-appropriate-body" class="govuk-link">Find an appropriate body</a> if you've not chosen one yet.
-              </p>
             <button class="govuk-button">Continue</button>
         </form>
     </div>
@@ -140,7 +137,7 @@ href: "javascript:window.history.back()"
     document.addEventListener('DOMContentLoaded', function () {
         var autocompleteInput = document.querySelector('#ab');
         if (autocompleteInput) {
-            autocompleteInput.setAttribute('placeholder', 'Enter appropriate body name');
+            autocompleteInput.setAttribute('placeholder', 'Enter teaching school hub name');
         }
     });
 </script>

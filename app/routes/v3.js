@@ -253,7 +253,8 @@ module.exports = router => {
             res.redirect(v + school + 'appropriate-body')
         }
         else {
-            res.redirect(v + school + 'autocomplete-delivery-partner')
+            req.session.data['programmeType'] = 'Provider-led'
+            res.redirect(v + school + 'appropriate-body')
         }
     })
 
@@ -276,10 +277,30 @@ module.exports = router => {
             req.session.data.leadProvider = 'Ambition Institute'
         }
         console.log('Lead Provider:', req.session.data.leadProvider);
-        res.redirect(v + school + 'appropriate-body')
+        res.redirect(v + school + 'save-programme-details')
     })
 
     router.post(v + school + 'appropriate-body', (req, res) => {
+        if (req.session.data['ab'] === undefined) {
+            req.session.data['ab'] = 'Alpha Teaching School Hub'
+        }
+        res.redirect(v + school + 'also-delivering')
+    })
+
+    router.post(v + school + 'also-delivering', (req, res) => {
+        if (req.session.data['alsoDelivering'] === 'Yes' || req.session.data['alsoDelivering'] === undefined) {
+            req.session.data['deliveryPartner'] = req.session.data['ab']
+        }
+        const dp = req.session.data['deliveryPartner'] ? req.session.data['deliveryPartner'].trim() : '';
+        console.log('Delivery Partner:', dp);
+        console.log('DP/LP pairings:', dpLp);
+        const correspondingValue = dpLp[dp] || dpLp[dp.toLowerCase()] || dpLp[dp.toUpperCase()];
+        if (correspondingValue) {
+            req.session.data.leadProvider = correspondingValue;
+        } else {
+            req.session.data.leadProvider = 'Ambition Institute'
+        }
+        console.log('Lead Provider:', req.session.data.leadProvider);
         res.redirect(v + school + 'save-programme-details')
     })
 

@@ -40,6 +40,12 @@ href: "javascript:window.history.back()"
             {% set name = 'John Smith' %}
             {% endif %}
 
+            {% if data['mentor'] %}
+            {% set mentor = data['mentor'] %}
+            {% else %}
+            {% set mentor = 'John Doe' %}
+            {% endif %}
+
             {% set rows = [
             {
             key: {
@@ -120,7 +126,7 @@ href: "javascript:window.history.back()"
             text: "Mentor"
             },
             value: {
-            text: data['mentor']
+            text: mentor
             },
             actions: {
             items: [
@@ -222,31 +228,6 @@ href: "javascript:window.history.back()"
             },
             {
             key: {
-            text: "Delivery partner"
-            },
-            value: {
-            text: dp
-            },
-            actions: {
-            items: [
-            {
-            href: "#",
-            text: "Change",
-            visuallyHiddenText: "delivery partner"
-            }
-            ]
-            }
-            },
-            {
-            key: {
-            text: "Lead provider"
-            },
-            value: {
-            text: lp
-            }
-            },
-            {
-            key: {
             text: "Appropriate body"
             },
             value: {
@@ -261,9 +242,39 @@ href: "javascript:window.history.back()"
             }
             ]
             }
+            },
+            {
+            key: {
+            text: "Delivery partner"
+            },
+            value: {
+            text: dp
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "delivery partner"
+            }
+            ]
+            }
             }
             ]
             }) }}
+
+            <div class="govuk-inset-text">{{dp}} works in partnership with {{lp}} to deliver training.</div>
+
+            {#
+            {
+            key: {
+            text: "Lead provider"
+            },
+            value: {
+            text: lp
+            }
+            }
+            #}
 
             {% endif %}
             <button class="govuk-button">Confirm details</button>
