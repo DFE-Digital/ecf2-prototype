@@ -59,6 +59,8 @@ href: "javascript:window.history.back()"
 
         {% else %}
 
+        {% if data['askingLp'] === 'no' %}
+
         {{ govukSummaryList({
         rows: [
         {
@@ -90,7 +92,26 @@ href: "javascript:window.history.back()"
 
         <div class="govuk-inset-text">{{dp}} works in partnership with {{lp}} to deliver training.</div>
 
-        {#
+        {% else %}
+
+        {{ govukSummaryList({
+        rows: [
+        {
+        key: {
+        text: "Programme type"
+        },
+        value: {
+        text: "Provider-led"
+        }
+        },
+        {
+        key: {
+        text: "Appropriate body"
+        },
+        value: {
+        text: ab
+        }
+        },
         {
         key: {
         text: "Lead provider"
@@ -98,9 +119,19 @@ href: "javascript:window.history.back()"
         value: {
         text: lp
         }
+        },
+        {
+        key: {
+        text: "Delivery partner"
+        },
+        value: {
+        html: dp
         }
-        #}
+        }
+        ]
+        }) }}
 
+        {% endif %}
         {% endif %}
         {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 

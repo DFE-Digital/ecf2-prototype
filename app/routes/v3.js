@@ -186,12 +186,14 @@ module.exports = router => {
     router.get(v + school + 'setup-scenario-1', (req, res) => {
         req.session.data['defaultsAlreadyAdded'] = 'no'
         req.session.data['mentorsAddedPreviously'] = 'yes'
+        req.session.data['askingLp'] = 'yes'
         res.redirect(v + school + 'start')
     })
 
     router.get(v + school + 'setup-scenario-2', (req, res) => {
         req.session.data['defaultsAlreadyAdded'] = 'no'
-        req.session.data['mentorsAddedPreviously'] = 'no'
+        req.session.data['mentorsAddedPreviously'] = 'yes'
+        req.session.data['askingLp'] = 'no'
         res.redirect(v + school + 'start')
     })
 
@@ -258,14 +260,6 @@ module.exports = router => {
         }
     })
 
-    // router.post(v + school + 'lead-provider', (req, res) => {
-    //     res.redirect(v + school + 'delivery-partner')
-    // })
-    //
-    // router.post(v + school + 'delivery-partner', (req, res) => {
-    //     res.redirect(v + school + 'appropriate-body')
-    // })
-
     router.post(v + school + 'autocomplete-delivery-partner', (req, res) => {
         const dp = req.session.data['deliveryPartner'] ? req.session.data['deliveryPartner'].trim() : '';
         console.log('Delivery Partner:', dp);
@@ -284,6 +278,28 @@ module.exports = router => {
         if (req.session.data['ab'] === undefined) {
             req.session.data['ab'] = 'Alpha Teaching School Hub'
         }
+        if (req.session.data['askingLp'] === 'no') {
+            const dp = req.session.data['deliveryPartner'] ? req.session.data['deliveryPartner'].trim() : '';
+            console.log('Delivery Partner:', dp);
+            console.log('DP/LP pairings:', dpLp);
+            const correspondingValue = dpLp[dp] || dpLp[dp.toLowerCase()] || dpLp[dp.toUpperCase()];
+            if (correspondingValue) {
+                req.session.data.leadProvider = correspondingValue;
+            } else {
+                req.session.data.leadProvider = 'Ambition Institute'
+            }
+            console.log('Lead Provider:', req.session.data.leadProvider);
+            res.redirect(v + school + 'also-delivering')
+        }
+        else {
+            res.redirect(v + school + 'lead-provider')
+        }
+    })
+
+    router.post(v + school + 'lead-provider', (req, res) => {
+        if (req.session.data['leadProvider'] === undefined) {
+            req.session.data['leadProvider'] = 'Ambition Institute'
+        }
         res.redirect(v + school + 'also-delivering')
     })
 
@@ -291,16 +307,6 @@ module.exports = router => {
         if (req.session.data['alsoDelivering'] === 'Yes' || req.session.data['alsoDelivering'] === undefined) {
             req.session.data['deliveryPartner'] = req.session.data['ab']
         }
-        const dp = req.session.data['deliveryPartner'] ? req.session.data['deliveryPartner'].trim() : '';
-        console.log('Delivery Partner:', dp);
-        console.log('DP/LP pairings:', dpLp);
-        const correspondingValue = dpLp[dp] || dpLp[dp.toLowerCase()] || dpLp[dp.toUpperCase()];
-        if (correspondingValue) {
-            req.session.data.leadProvider = correspondingValue;
-        } else {
-            req.session.data.leadProvider = 'Ambition Institute'
-        }
-        console.log('Lead Provider:', req.session.data.leadProvider);
         res.redirect(v + school + 'save-programme-details')
     })
 

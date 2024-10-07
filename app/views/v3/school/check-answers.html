@@ -53,6 +53,15 @@ href: "javascript:window.history.back()"
             },
             value: {
             text: name
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+            }
+            ]
             }
             },
             {
@@ -207,6 +216,8 @@ href: "javascript:window.history.back()"
 
             {% else %}
 
+            {% if data['askingLp'] === 'no' %}
+
             {{ govukSummaryList({
             rows: [
             {
@@ -265,17 +276,82 @@ href: "javascript:window.history.back()"
 
             <div class="govuk-inset-text">{{dp}} works in partnership with {{lp}} to deliver training.</div>
 
-            {#
+            {% else %}
+
+            {{ govukSummaryList({
+            rows: [
+            {
+            key: {
+            text: "Programme type"
+            },
+            value: {
+            text: "Provider-led"
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "programme type"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Appropriate body"
+            },
+            value: {
+            text: ab
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "appropriate body"
+            }
+            ]
+            }
+            },
             {
             key: {
             text: "Lead provider"
             },
             value: {
             text: lp
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "lead provider"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Delivery partner"
+            },
+            value: {
+            text: dp
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "delivery partner"
+            }
+            ]
             }
             }
-            #}
+            ]
+            }) }}
 
+            {% endif %}
             {% endif %}
             <button class="govuk-button">Confirm details</button>
         </form>
