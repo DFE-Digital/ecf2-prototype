@@ -1,9 +1,9 @@
-{% extends "layouts/ects.html" %}
+{% extends "layouts/mentors.html" %}
 
 {% if data['fullName'] %}
 {% set name = data['fullName'] %}
 {% else %}
-{% set name = 'John Smith' %}
+{% set name = 'Samuel Taylor' %}
 {% endif %}
 
 {% set pageName="Who will be the delivery partner for " + name + "?" %}
@@ -23,10 +23,10 @@ href: "javascript:window.history.back()"
 
         <p>The delivery partner is usually a teaching school hub, university or trust that organises and runs conferences, events and day-to-day training for early career teachers.</p>
         <form method="post">
-            {{ xGovukAutocomplete({
-            id: "deliveryPartner",
-            name: "deliveryPartner",
-            allowEmpty: false,
+        {{ xGovukAutocomplete({
+        id: "deliveryPartner",
+        name: "deliveryPartner",
+        allowEmpty: false,
             label: {
             classes: "govuk-visually-hidden",
             text: pageName

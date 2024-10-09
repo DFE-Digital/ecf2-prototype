@@ -227,11 +227,11 @@ module.exports = router => {
     })
 
     router.post(v + school + 'email-address', (req, res) => {
-        if (req.session.data['defaultsAlreadyAdded'] === 'no') {
-            res.redirect(v + school + 'programme-type')
+        if (req.session.data['defaultsAlreadyAdded'] === 'yes') {
+            res.redirect(v + school + 'will-you-use-defaults')
         }
         else {
-            res.redirect(v + school + 'will-you-use-defaults')
+            res.redirect(v + school + 'programme-type')
         }
     })
 
@@ -317,6 +317,7 @@ module.exports = router => {
             res.redirect(v + school + 'check-answers')
         }
         else {
+            req.session.data['defaultsAlreadyAdded'] = 'yes'
             res.redirect(v + school + 'mentor')
         }
     })
@@ -329,6 +330,7 @@ module.exports = router => {
 
     router.post(v + school + 'check-answers', (req, res) => {
         req.session.data['ectAdded'] = 'yes'
+        req.session.data['fullName'] = undefined
         if (req.session.data['mentor'] === 'Someone else' || req.session.data['mentorsAddedPreviously'] === 'no') {
             req.session.data['ectAddedWithoutMentor'] = 'yes'
             res.redirect(v + school + 'confirmation-mentor-to-be-added')
@@ -363,7 +365,12 @@ module.exports = router => {
     })
 
     router.post(v + school + mentor + 'review-mentor-details', (req, res) => {
-        res.redirect(v + school + mentor + 'email-address')
+        if (req.session.data[''] === '') {
+            res.redirect(v + school + mentor + 'programme-type')
+        }
+        else {
+            res.redirect(v + school + mentor + 'email-address')
+        }
     })
 
     router.post(v + school + mentor + 'email-address', (req, res) => {
@@ -371,10 +378,31 @@ module.exports = router => {
     })
 
     router.post(v + school + mentor + 'will-you-use-defaults', (req, res) => {
-        res.redirect(v + school + mentor + 'check-answers')
+        if (req.session.data['useDefaults'] === 'no') {
+            res.redirect(v + school + mentor + 'lead-provider')
+        }
+        else {
+            res.redirect(v + school + mentor + 'check-answers')
+        }
     })
 
+    router.post(v + school + mentor + 'lead-provider', (req, res) => {
+        if (req.session.data['leadProvider'] === undefined) {
+            req.session.data['leadProvider'] = 'Ambition Institute'
+        }
+        res.redirect(v + school + mentor + 'autocomplete-delivery-partner')
+    })
+
+    router.post(v + school + mentor + 'delivery-partner', (req, res) => {
+        if (req.session.data['deliveryPartner'] === undefined) {
+            req.session.data['deliveryPartner'] = 'Ambition Institute'
+        }
+        res.redirect(v + school + 'check-answers')
+    })
+
+
     router.post(v + school + mentor + 'check-answers', (req, res) => {
+        req.session.data['fullName'] = undefined
         res.redirect(v + school + mentor + 'confirmation')
     })
 }
