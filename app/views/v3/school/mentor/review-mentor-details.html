@@ -1,0 +1,124 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Check if this is your mentor" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+        <form method="post">
+
+            <p>We found a teacher record that matches the details you provided.</p>
+
+            {% if data['dob-day'] and data['dob-month'] and data['dob-year'] %}
+            {% set dob = data['dob-day'] + ' ' + data['dob-month'] | monthName + ' ' + data['dob-year'] %}
+            {% else %}
+            {% set dob = '1 January 1990' %}
+            {% endif %}
+
+            {% if data['trn'] %}
+            {% set trn = data['trn'] %}
+            {% else %}
+            {% set trn = '5249105' %}
+            {% endif %}
+
+            {% set rows = [
+            {
+            key: {
+            text: "Name"
+            },
+            value: {
+            text: "Samuel Taylor"
+            }
+            },
+            {
+            key: {
+            text: "Teacher reference number (TRN)"
+            },
+            value: {
+            text: trn
+            }
+            },
+            {
+            key: {
+            text: "Date of birth"
+            },
+            value: {
+            text: dob
+            }
+            }
+            ] %}
+
+            {% if data['askForNino'] == 'yes' %}
+            {% set rows = rows.concat([{
+            key: {
+            text: "National Insurance number"
+            },
+            value: {
+            text: "QQ123456C"
+            }
+            }]) %}
+            {% endif %}
+
+            {{ govukSummaryList({ rows: rows }) }}
+
+            {% set newName %}
+            {{ govukInput({
+            label: {
+            text: "Enter the correct name"
+            },
+            hint: {
+            html: "The name you provide will be used for mentor registration. Your mentor can update their name in their teacher record using the <a href='https://www.gov.uk/guidance/access-your-teaching-qualifications' target='_blank'>Access your teaching qualifications service</a>."
+            },
+            id: "full-name",
+            name: "fullName",
+            autocomplete: "name",
+            spellcheck: false
+            }) }}
+            {% endset -%}
+
+            {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+            {{ govukRadios({
+            name: "nameCorrect",
+            fieldset: {
+            legend: {
+            text: "Are these the correct details for your mentor?",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--m"
+            }
+            },
+            items: [
+            {
+            value: "yes",
+            text: "Yes"
+            },
+            {
+            value: "no",
+            text: "No, they changed their name or it's spelt wrong",
+            conditional: {
+            html: newName
+            }
+            }
+            ]
+            }) }}
+
+            <!-- The button should be inside the form -->
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Confirm and continue
+            </button>
+        </form>
+
+        <p>If this is not the person you intended to register as a mentor, go back and <a href="find-mentor">check details</a>.</p>
+    </div>
+</div>
+
+{% endblock %}
