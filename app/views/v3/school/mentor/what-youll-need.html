@@ -1,0 +1,42 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="What you'll need" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+            <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+            <p>You must provide your mentor's:</p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>assigned early career teachers (ECTs)</li>
+                <li>teacher reference number (TRN)</li>
+                <li>date of birth</li>
+                <li>full name</li>
+                <li>email address</li>
+            </ul>
+
+            <p>If your ECTs are on the provider-led early career framework (ECF) based programme, mentors will receive training on how to support them.</p>
+
+            <p>You may also need to tell us about the mentor’s training programme.</p>
+
+            <div class="govuk-inset-text">You must register the ECT before registering the mentor assigned to them.</div>
+
+            {{ govukButton({
+            text: "Continue"
+            }) }}
+        </form>
+    </div>
+</div>
+
+{% endblock %}

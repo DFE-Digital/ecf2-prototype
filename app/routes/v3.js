@@ -162,6 +162,7 @@ var dpLp = {
 
 // Add any directory variables here
 var school = 'school/'
+var mentor = 'mentor/'
 
 module.exports = router => {
 
@@ -308,5 +309,35 @@ module.exports = router => {
             res.redirect(v + school + 'confirmation')
             req.session.data = []
         }
+    })
+
+    // mentor journeys
+
+    router.post(v + school + mentor + 'what-youll-need', (req, res) => {
+        res.redirect(v + school + mentor + 'mentor-will-be-assigned-to')
+    })
+
+    router.post(v + school + mentor + 'mentor-will-be-assigned-to', (req, res) => {
+        res.redirect(v + school + mentor + 'find-mentor')
+    })
+
+    router.post(v + school + mentor + 'find-mentor', (req, res) => {
+        res.redirect(v + school + mentor + 'review-mentor-details')
+    })
+
+    router.post(v + school + mentor + 'review-mentor-details', (req, res) => {
+        res.redirect(v + school + mentor + 'email-address')
+    })
+
+    router.post(v + school + mentor + 'email-address', (req, res) => {
+        res.redirect(v + school + mentor + 'will-you-use-defaults')
+    })
+
+    router.post(v + school + mentor + 'will-you-use-defaults', (req, res) => {
+        res.redirect(v + school + mentor + 'check-answers')
+    })
+
+    router.post(v + school + mentor + 'check-answers', (req, res) => {
+        res.redirect(v + school + mentor + 'confirmation')
     })
 }
