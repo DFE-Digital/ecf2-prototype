@@ -1,6 +1,12 @@
-{% extends "layouts/main.html" %}
+{% extends "layouts/ects.html" %}
 
-{% set pageName="Default delivery partner for 2025 to 2026" %}
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'John Smith' %}
+{% endif %}
+
+{% set pageName="Who will mentor " + name + "?" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -14,10 +20,11 @@ href: "javascript:window.history.back()"
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <form method="post">
+
         {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
         {{ govukRadios({
-        name: "defaultDeliveryPartner",
+        name: "mentor",
         fieldset: {
         legend: {
         text: pageName,
@@ -27,16 +34,19 @@ href: "javascript:window.history.back()"
         },
         items: [
         {
-        value: "Delivery partner option 1",
-        text: "Delivery partner option 1"
+        value: "John Doe",
+        text: "John Doe"
         },
         {
-        value: "Delivery partner option 2",
-        text: "Delivery partner option 2"
+        value: "Tom Jones",
+        text: "Tom Jones"
         },
         {
-        value: "Delivery partner option 3",
-        text: "Delivery partner option 3"
+        divider: "Or"
+        },
+        {
+        value: "Someone else",
+        text: "Someone else"
         }
         ]
         }) }}

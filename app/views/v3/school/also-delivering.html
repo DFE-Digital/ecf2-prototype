@@ -1,4 +1,4 @@
-{% extends "layouts/main.html" %}
+{% extends "layouts/ects.html" %}
 
 {% if data['fullName'] %}
 {% set name = data['fullName'] %}
@@ -33,6 +33,9 @@ href: "javascript:window.history.back()"
     <div class="govuk-grid-column-two-thirds">
         <form method="post">
             <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+            <p>The delivery partner is usually a teaching school hub, university or trust that organises and runs conferences, events and day-to-day training for early career teachers.</p>
+
             <div class="govuk-inset-text">{{ab}} works in partnership with {{lp}} to deliver training.</div>
 
             <div class="govuk-form-group">
@@ -228,7 +231,6 @@ href: "javascript:window.history.back()"
             text: "
             <p class='govuk-body'>They are usually teaching school hubs, universities or trusts that:</p>
             <ul class='govuk-list govuk-list--bullet'>
-                <li>organise and run the day-to-day training for ECTs</li>
                 <li>provide guidance for schools on how to implement the early career framework (ECF)</li>
                 <li>act as a link between lead providers and schools, ensuring training materials and support are used effectively</li>
             </ul>"

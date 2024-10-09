@@ -1,4 +1,4 @@
-{% extends "layouts/main.html" %}
+{% extends "layouts/ects.html" %}
 
 {% if data['fullName'] %}
 {% set name = data['fullName'] %}
@@ -21,9 +21,9 @@
             To complete your ECT's registration you must assign them a mentor. Before you can do this, you must first add a mentor to your school, if you have not done so already.
         </p>
 
-        <a class="govuk-button" href="#">Review mentors</a>
+        <a class="govuk-button" href="mentor/what-youll-need">Add a new mentor for {{name}}</a>
 
-        <p><a href="#">Back to your ECTs</a></p>
+        <p><a href="home/ects">Back to your ECTs</a></p>
 
     </div>
 </div>

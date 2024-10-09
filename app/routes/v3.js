@@ -173,7 +173,7 @@ module.exports = router => {
 
     // dfe sign in page
     router.post(v + school + 'dfe-sign-in', (req, res) => {
-        res.redirect(v + school + 'what-youll-need')
+        res.redirect(v + school + 'home/ects')
     })
 
     // **** prototype set up ****
@@ -328,20 +328,30 @@ module.exports = router => {
     })
 
     router.post(v + school + 'check-answers', (req, res) => {
-        if (req.session.data['mentor'] === 'Add a new mentor later' || req.session.data['mentorsAddedPreviously'] === 'no') {
+        req.session.data['ectAdded'] = 'yes'
+        if (req.session.data['mentor'] === 'Someone else' || req.session.data['mentorsAddedPreviously'] === 'no') {
+            req.session.data['ectAddedWithoutMentor'] = 'yes'
             res.redirect(v + school + 'confirmation-mentor-to-be-added')
-            req.session.data = []
         }
         else {
+            req.session.data['ectAddedWithoutMentor'] = 'no'
             res.redirect(v + school + 'confirmation')
-            req.session.data = []
         }
     })
 
     // mentor journeys
 
+    router.post(v + school + mentor + 'who-will-be-mentoring', (req, res) => {
+        if (req.session.data ['mentor'] === 'Someone else'){
+            res.redirect(v + school + mentor + 'what-youll-need')
+        }
+        else {
+            res.redirect(v + school + mentor + 'assigned')
+        }
+    })
+
     router.post(v + school + mentor + 'what-youll-need', (req, res) => {
-        res.redirect(v + school + mentor + 'mentor-will-be-assigned-to')
+        res.redirect(v + school + mentor + 'find-mentor')
     })
 
     router.post(v + school + mentor + 'mentor-will-be-assigned-to', (req, res) => {
