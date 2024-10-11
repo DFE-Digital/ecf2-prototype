@@ -3,7 +3,7 @@
 {% if data['fullName'] %}
 {% set name = data['fullName'] %}
 {% else %}
-{% set name = 'Samuel Taylor' %}
+{% set name = 'John Smith' %}
 {% endif %}
 
 {% set pageName="Confirm " + name + "'s training programme choices" %}
@@ -47,18 +47,18 @@ href: "javascript:window.history.back()"
         rows: [
         {
         key: {
-        text: "Programme type"
-        },
-        value: {
-        text: "School-led"
-        }
-        },
-        {
-        key: {
         text: "Appropriate body"
         },
         value: {
         text: ab
+        }
+        },
+        {
+        key: {
+        text: "Programme type"
+        },
+        value: {
+        text: "School-led"
         }
         }
         ]
@@ -70,18 +70,18 @@ href: "javascript:window.history.back()"
         rows: [
         {
         key: {
-        text: "Programme type"
-        },
-        value: {
-        text: "Provider-led"
-        }
-        },
-        {
-        key: {
         text: "Appropriate body"
         },
         value: {
         text: ab
+        }
+        },
+        {
+        key: {
+        text: "Programme type"
+        },
+        value: {
+        text: "Provider-led"
         }
         },
         {

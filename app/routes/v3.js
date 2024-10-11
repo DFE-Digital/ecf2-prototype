@@ -246,7 +246,7 @@ module.exports = router => {
         }
         else {
             if (req.session.data['mentorsAddedPreviously'] === 'no') {
-                res.redirect(v + school + 'start-month')
+                res.redirect(v + school + 'check-answers')
             }
             else {
                 res.redirect(v + school + 'mentor')
@@ -297,9 +297,7 @@ module.exports = router => {
         //     console.log('Lead Provider:', req.session.data.leadProvider);
         //     res.redirect(v + school + 'also-delivering')
         // }
-        else {
-            res.redirect(v + school + 'programme-type')
-        }
+        res.redirect(v + school + 'programme-type')
     })
 
     router.post(v + school + 'lead-provider', (req, res) => {
@@ -319,7 +317,7 @@ module.exports = router => {
 
     router.post(v + school + 'save-programme-details', (req, res) => {
         if (req.session.data['mentorsAddedPreviously'] === 'no') {
-            res.redirect(v + school + 'start-month')
+            res.redirect(v + school + 'check-answers')
         }
         else {
             req.session.data['defaultsAlreadyAdded'] = 'yes'
