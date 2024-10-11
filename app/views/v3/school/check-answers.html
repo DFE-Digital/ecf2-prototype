@@ -46,6 +46,18 @@ href: "javascript:window.history.back()"
             {% set mentor = 'John Doe' %}
             {% endif %}
 
+            {% if data['start-month-month'] %}
+            {% set month = data['start-month-month'] %}
+            {% else %}
+            {% set month = '10' %}
+            {% endif %}
+
+            {% if data['start-month-year'] %}
+            {% set year = data['start-month-year'] %}
+            {% else %}
+            {% set year = '2024' %}
+            {% endif %}
+
             {% set rows = [
             {
             key: {
@@ -129,13 +141,12 @@ href: "javascript:window.history.back()"
             }]) %}
             {% endif %}
 
-            {% if data['mentorsAddedPreviously'] !== 'no' %}
             {% set rows = rows.concat([{
             key: {
-            text: "Mentor"
+            text: "Induction start"
             },
             value: {
-            text: mentor
+            text: month | monthName + " " + year
             },
             actions: {
             items: [
@@ -147,7 +158,6 @@ href: "javascript:window.history.back()"
             ]
             }
             }]) %}
-            {% endif %}
 
             <h2 class="govuk-heading-m">Teacher details</h2>
 
@@ -175,8 +185,24 @@ href: "javascript:window.history.back()"
 
             {% if data.programmeType == 'School-led' %}
 
-            {{ govukSummaryList({
-            rows: [
+            {% set trainingRows = [
+            {
+            key: {
+            text: "Appropriate body"
+            },
+            value: {
+            text: ab
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "appropriate body"
+            }
+            ]
+            }
+            },
             {
             key: {
             text: "Programme type"
@@ -193,7 +219,13 @@ href: "javascript:window.history.back()"
             }
             ]
             }
-            },
+            }
+            ] %}
+            {% else %}
+
+            {% if data['askingLp'] === 'no' %}
+
+            {% set trainingRows = [
             {
             key: {
             text: "Appropriate body"
@@ -210,16 +242,7 @@ href: "javascript:window.history.back()"
             }
             ]
             }
-            }
-            ]
-            }) }}
-
-            {% else %}
-
-            {% if data['askingLp'] === 'no' %}
-
-            {{ govukSummaryList({
-            rows: [
+            },
             {
             key: {
             text: "Programme type"
@@ -233,23 +256,6 @@ href: "javascript:window.history.back()"
             href: "#",
             text: "Change",
             visuallyHiddenText: "programme type"
-            }
-            ]
-            }
-            },
-            {
-            key: {
-            text: "Appropriate body"
-            },
-            value: {
-            text: ab
-            },
-            actions: {
-            items: [
-            {
-            href: "#",
-            text: "Change",
-            visuallyHiddenText: "appropriate body"
             }
             ]
             }
@@ -271,32 +277,14 @@ href: "javascript:window.history.back()"
             ]
             }
             }
-            ]
+            ] %}
             }) }}
 
             <div class="govuk-inset-text">{{dp}} works in partnership with {{lp}} to deliver training.</div>
 
             {% else %}
 
-            {{ govukSummaryList({
-            rows: [
-            {
-            key: {
-            text: "Programme type"
-            },
-            value: {
-            text: "Provider-led"
-            },
-            actions: {
-            items: [
-            {
-            href: "#",
-            text: "Change",
-            visuallyHiddenText: "programme type"
-            }
-            ]
-            }
-            },
+            {% set trainingRows = [
             {
             key: {
             text: "Appropriate body"
@@ -310,6 +298,23 @@ href: "javascript:window.history.back()"
             href: "#",
             text: "Change",
             visuallyHiddenText: "appropriate body"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Programme type"
+            },
+            value: {
+            text: "Provider-led"
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "programme type"
             }
             ]
             }
@@ -348,11 +353,36 @@ href: "javascript:window.history.back()"
             ]
             }
             }
-            ]
-            }) }}
+            ] %}
 
             {% endif %}
             {% endif %}
+
+            {% if data['mentorsAddedPreviously'] !== 'no' %}
+            {% if data['mentor'] !== 'Someone else' %}
+            {% set trainingRows = trainingRows.concat([{
+            key: {
+            text: "Mentor"
+            },
+            value: {
+            text: mentor
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "mentor"
+            }
+            ]
+            }
+            }]) %}
+            {% endif %}
+            {% endif %}
+
+            {{ govukSummaryList({ rows: trainingRows }) }}
+
+
             <button class="govuk-button">Confirm details</button>
         </form>
     </div>

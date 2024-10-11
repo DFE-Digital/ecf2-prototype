@@ -64,7 +64,7 @@
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">Status</dt>
                     <dd class="govuk-summary-list__value">
-                        <strong class="govuk-tag govuk-tag--green">In progress</strong>
+                        <strong class="govuk-tag govuk-tag--red">Requires attention</strong>
                     </dd>
                 </div>
                     {% if data['ectAddedWithoutMentor'] === 'yes' %}
@@ -72,14 +72,19 @@
                         <dt class="govuk-summary-list__key">Mentor</dt>
                         <dd class="govuk-summary-list__value govuk-inset-text">
                                 <p>No mentor assigned</p>
-                                <a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">Assign a mentor</a>
+                                <a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">Assign or add a new mentor</a>
                         </dd>
                     </div>
                     {% else %}
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">Mentor</dt>
                         <dd class="govuk-summary-list__value">
-                            {{data['mentor']}}
+                            {% if data['mentor'] %}
+                            {% set mentor = data['mentor'] %}
+                            {% else %}
+                            {% set mentor = 'John Doe' %}
+                            {% endif %}
+                            {{mentor}}
                         </dd>
                     </div>
                     {% endif %}
@@ -87,11 +92,56 @@
             </div>
         </div>
 
-        {% else %}
-
-        <p>Your school does not currently have any ECTs registered.</p>
-
         {% endif %}
+
+        <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+                <h2 class="govuk-summary-card__title">
+                    <a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-regular" href="#">Steven Taylor</a>
+                </h2>
+            </div>
+            <div class="govuk-summary-card__content">
+                <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Status</dt>
+                        <dd class="govuk-summary-list__value">
+                            <strong class="govuk-tag govuk-tag--red">In progress</strong>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Mentor</dt>
+                        <dd class="govuk-summary-list__value">
+                            <p>John Doe</p>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+        <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+                <h2 class="govuk-summary-card__title">
+                    <a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-regular" href="#">Emily Brown</a>
+                </h2>
+            </div>
+            <div class="govuk-summary-card__content">
+                <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Status</dt>
+                        <dd class="govuk-summary-list__value">
+                            <strong class="govuk-tag govuk-tag--red">In progress</strong>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Mentor</dt>
+                        <dd class="govuk-summary-list__value">
+                            <p>Tom Jones</p>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+
+
 
     </div>
 </div>

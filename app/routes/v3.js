@@ -185,6 +185,7 @@ module.exports = router => {
     // **** set up custom scenarios ****
 
     router.get(v + school + 'setup-scenario-1', (req, res) => {
+        req.session.data = []
         req.session.data['defaultsAlreadyAdded'] = 'no'
         req.session.data['mentorsAddedPreviously'] = 'yes'
         req.session.data['askingLp'] = 'yes'
@@ -227,21 +228,25 @@ module.exports = router => {
     })
 
     router.post(v + school + 'email-address', (req, res) => {
+        res.redirect(v + school + 'start-month')
+    })
+
+    router.post(v + school + 'start-month', (req, res) => {
         if (req.session.data['defaultsAlreadyAdded'] === 'yes') {
             res.redirect(v + school + 'will-you-use-defaults')
         }
         else {
-            res.redirect(v + school + 'programme-type')
+            res.redirect(v + school + 'appropriate-body')
         }
     })
 
     router.post(v + school + 'will-you-use-defaults', (req, res) => {
         if (req.session.data['useDefaults'] === 'no') {
-            res.redirect(v + school + 'programme-type')
+            res.redirect(v + school + 'appropriate-body')
         }
         else {
             if (req.session.data['mentorsAddedPreviously'] === 'no') {
-                res.redirect(v + school + 'check-answers')
+                res.redirect(v + school + 'start-month')
             }
             else {
                 res.redirect(v + school + 'mentor')
@@ -253,11 +258,11 @@ module.exports = router => {
 
     router.post(v + school + 'programme-type', (req, res) => {
         if (req.session.data['programmeType'] === 'School-led') {
-            res.redirect(v + school + 'appropriate-body')
+            res.redirect(v + school + 'save-programme-details')
         }
         else {
             req.session.data['programmeType'] = 'Provider-led'
-            res.redirect(v + school + 'appropriate-body')
+            res.redirect(v + school + 'lead-provider')
         }
     })
 
@@ -279,21 +284,21 @@ module.exports = router => {
         if (req.session.data['ab'] === undefined) {
             req.session.data['ab'] = 'Alpha Teaching School Hub'
         }
-        if (req.session.data['askingLp'] === 'no') {
-            const dp = req.session.data['deliveryPartner'] ? req.session.data['deliveryPartner'].trim() : '';
-            console.log('Delivery Partner:', dp);
-            console.log('DP/LP pairings:', dpLp);
-            const correspondingValue = dpLp[dp] || dpLp[dp.toLowerCase()] || dpLp[dp.toUpperCase()];
-            if (correspondingValue) {
-                req.session.data.leadProvider = correspondingValue;
-            } else {
-                req.session.data.leadProvider = 'Ambition Institute'
-            }
-            console.log('Lead Provider:', req.session.data.leadProvider);
-            res.redirect(v + school + 'also-delivering')
-        }
+        // if (req.session.data['askingLp'] === 'no') {
+        //     const dp = req.session.data['deliveryPartner'] ? req.session.data['deliveryPartner'].trim() : '';
+        //     console.log('Delivery Partner:', dp);
+        //     console.log('DP/LP pairings:', dpLp);
+        //     const correspondingValue = dpLp[dp] || dpLp[dp.toLowerCase()] || dpLp[dp.toUpperCase()];
+        //     if (correspondingValue) {
+        //         req.session.data.leadProvider = correspondingValue;
+        //     } else {
+        //         req.session.data.leadProvider = 'Ambition Institute'
+        //     }
+        //     console.log('Lead Provider:', req.session.data.leadProvider);
+        //     res.redirect(v + school + 'also-delivering')
+        // }
         else {
-            res.redirect(v + school + 'lead-provider')
+            res.redirect(v + school + 'programme-type')
         }
     })
 
@@ -314,7 +319,7 @@ module.exports = router => {
 
     router.post(v + school + 'save-programme-details', (req, res) => {
         if (req.session.data['mentorsAddedPreviously'] === 'no') {
-            res.redirect(v + school + 'check-answers')
+            res.redirect(v + school + 'start-month')
         }
         else {
             req.session.data['defaultsAlreadyAdded'] = 'yes'

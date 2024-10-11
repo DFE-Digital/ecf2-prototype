@@ -43,19 +43,10 @@ href: "javascript:window.history.back()"
             {% set whoRows = [
             {
             key: {
-            text: "ECT assigned to"
+            text: "ECT being mentored"
             },
             value: {
             text: "John Smith"
-            },
-            actions: {
-            items: [
-            {
-            href: "#",
-            text: "Change",
-            visuallyHiddenText: "ECT assigned to"
-            }
-            ]
             }
             }
 
@@ -148,6 +139,9 @@ href: "javascript:window.history.back()"
 <!--            <h2 class="govuk-heading-m">Who they're mentoring</h2>-->
 
 <!--            {{ govukSummaryList({ rows: whoRows }) }}-->
+
+            <h2 class="govuk-heading-m">Who they're mentoring</h2>
+            {{ govukSummaryList({ rows: whoRows }) }}
 
             <h2 class="govuk-heading-m">Mentor details</h2>
 
