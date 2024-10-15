@@ -6,7 +6,7 @@
 {% set name = 'John Smith' %}
 {% endif %}
 
-{% set pageName="When will " + name + " start their induction?" %}
+{% set pageName="When will " + name + " start at your school?" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -28,7 +28,7 @@ href: "javascript:window.history.back()"
                             {{pageName}}
                         </h1>
                     </legend>
-                    <p>You must tell us when {{name}} will begin their induction at your school.</p>
+                    <p>You must tell us the date when {{name}} will begin working at your school.</p>
                     <div id="start-month-hint" class="govuk-hint">
                         For example, 9 2024
                     </div>
