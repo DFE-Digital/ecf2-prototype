@@ -1,6 +1,6 @@
 {% extends "layouts/ects.html" %}
 
-{% set pageName="What you'll need to add a new ECT" %}
+{% set pageName="What you'll need to register a new ECT" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -19,25 +19,35 @@ href: "javascript:window.history.back()"
 
             <h1 class="govuk-heading-m">Personal information</h1>
 
-            <p>You must provide your ECT's:</p>
+            <p>You'll need the ECT's:</p>
             <ul class="govuk-list govuk-list--bullet">
                 <li>name</li>
+                <li>teacher reference number (TRN)</li>
                 <li>date of birth</li>
                 <li>email address</li>
-                <li>teacher reference number (TRN)</li>
             </ul>
+
+            <h1 class="govuk-heading-m">Induction details</h1>
+
+            <p>You'll need to provide details about the:</p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>appropriate body</li>
+                <li>ECTs start date</li>
+            </ul>
+
 
             <h1 class="govuk-heading-m">Training details</h1>
 
-            <p>You'll also need to tell us about your choice of:</p>
-            <ul class="govuk-list govuk-list--bullet">
-                <li>appropriate body</li>
-                <li>lead provider and delivery partner</li>
+            <p>You must tell us about your choice of:</p>
+            <ul class="govuk-list govuk-list--bullet">  
                 <li>programme type</li>
+                <li>lead provider</li>
+                <li>delivery partner</li>
                 <li>mentor</li>
             </ul>
 
-            <p> If you have not assigned a mentor for your ECT, you can still register them and provide the mentor's details later.</p>
+            <p> If you've not assigned a mentor for your ECT, you can still register them by 
+                providing the mentor details later.</p>
 
             {{ govukButton({
             text: "Continue"
