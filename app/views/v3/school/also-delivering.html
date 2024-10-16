@@ -9,7 +9,7 @@
 {% if data['ab'] %}
 {% set ab = data['ab'] %}
 {% else %}
-{% set ab = 'Alpha Teaching School Hub' %}
+{% set ab = 'Alpha teaching school hub' %}
 {% endif %}
 
 {% if data['leadProvider'] %}
@@ -34,7 +34,7 @@ href: "javascript:window.history.back()"
         <form method="post">
             <h1 class="govuk-heading-l">{{pageName}}</h1>
 
-            <p>The delivery partner is usually a teaching school hub, university or trust that organises and runs conferences, events and day-to-day training for early career teachers.</p>
+            <p>The delivery partner is usually a teaching school hub, university or trust that organises and runs conferences, events and day-to-day training for ECTs.</p>
 
             <div class="govuk-form-group">
                     <div class="govuk-radios" data-module="govuk-radios">
@@ -225,11 +225,11 @@ href: "javascript:window.history.back()"
 
 
             {{ govukDetails({
-            summaryText: "What is a delivery partner?",
+            summaryText: "Find out more about delivery partners",
             text: "
             <p class='govuk-body'>They are organisations that:</p>
             <ul class='govuk-list govuk-list--bullet'>
-                <li>provide guidance for schools on how to implement the early career framework (ECF)</li>
+                <li>provide guidance for schools on how to implement the early career framework </li>
                 <li>act as a link between lead providers and schools, ensuring training materials and support are used effectively</li>
             </ul>"
             |safe }) }}
