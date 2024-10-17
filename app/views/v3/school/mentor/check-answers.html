@@ -43,13 +43,12 @@ href: "javascript:window.history.back()"
             {% set whoRows = [
             {
             key: {
-            text: "ECT being mentored"
+            text: "Who they will mentor"
             },
             value: {
             text: "John Smith"
             }
             }
-
             ] %}
 
             {% set rows = [
@@ -120,9 +119,25 @@ href: "javascript:window.history.back()"
             }
             ]
             }
+            },
+            {
+            key: {
+            text: "Who they will mentor"
+            },
+            value: {
+            text: "John Smith"
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "Who they will mentor"
+            }
+            ]
+            }
             }
             ] %}
-
 
             {% if data['askForNino'] == 'yes' %}
             {% set rows = rows.concat([{
@@ -134,14 +149,6 @@ href: "javascript:window.history.back()"
             }
             }]) %}
             {% endif %}
-
-
-<!--            <h2 class="govuk-heading-m">Who they're mentoring</h2>-->
-
-<!--            {{ govukSummaryList({ rows: whoRows }) }}-->
-
-            <h2 class="govuk-heading-m">Who they're mentoring</h2>
-            {{ govukSummaryList({ rows: whoRows }) }}
 
             <h2 class="govuk-heading-m">Mentor details</h2>
 
