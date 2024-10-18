@@ -3,9 +3,15 @@
 {% block head %}
 {{ super() }} <!-- This includes the content from the base head block -->
 {% include "./filters.njk" %}
+<style>
+    /* Custom style for larger font size */
+    .large-font {
+        font-size: 1.5rem; /* Adjust the size as needed */
+    }
+</style>
 {% endblock %}
 
-{% set pageName="Early career teachers (ECTs)" %}
+{% set pageName="Early career teachers" %}
 
 {% block content %}
 
@@ -13,7 +19,7 @@
     <div class="govuk-grid-column-full">
         <h1 class="govuk-caption-l">Test Primary School</h1>
         <h1 class="govuk-heading-l">{{pageName}}</h1>
-        <a href="../what-youll-need" class="govuk-button">Add an ECT</a>
+        <a href="../what-youll-need" class="govuk-button">Register a new ECT</a>
         <hr class="govuk-section-break--m">
     </div>
 
@@ -25,25 +31,6 @@
                         <label class="govuk-label govuk-label--m" for="keywords"> Search by name </label>
                         <input class="govuk-input" id="keywords" name="keywords" type="text">
                     </div>
-<!--                    <div class="govuk-form-group">-->
-<!--                        <fieldset class="govuk-fieldset">-->
-<!--                            <legend class="govuk-fieldset__legend govuk-fieldset__legend&#45;&#45;m"> Status </legend>-->
-<!--                            <div class="govuk-checkboxes govuk-checkboxes&#45;&#45;small" data-module="govuk-checkboxes">-->
-<!--                                <div class="govuk-checkboxes__item">-->
-<!--                                    <input class="govuk-checkboxes__input" id="status" name="status" type="checkbox" value="complete">-->
-<!--                                    <label class="govuk-label govuk-checkboxes__label" for="status"> Completed </label>-->
-<!--                                </div>-->
-<!--                                <div class="govuk-checkboxes__item">-->
-<!--                                    <input class="govuk-checkboxes__input" id="status-2" name="status" type="checkbox" value="withdrawn">-->
-<!--                                    <label class="govuk-label govuk-checkboxes__label" for="status-2"> Withdrawn </label>-->
-<!--                                </div>-->
-<!--                                <div class="govuk-checkboxes__item">-->
-<!--                                    <input class="govuk-checkboxes__input" id="status-3" name="status" type="checkbox" value="inprogress">-->
-<!--                                    <label class="govuk-label govuk-checkboxes__label" for="status-3"> In progress </label>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </fieldset>-->
-<!--                    </div>-->
                 </div>
             </div>
         </div>
@@ -55,24 +42,24 @@
 
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
-                <h2 class="govuk-summary-card__title">
-                    <a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-regular" href="#">John Smith</a>
-                </h2>
+                <h3 class="govuk-summary-card__title large-font">
+                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">John Smith</a></strong>
+                </h3>
             </div>
             <div class="govuk-summary-card__content">
                 <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">Status</dt>
-                    <dd class="govuk-summary-list__value">
-                        <strong class="govuk-tag govuk-tag--red">Requires attention</strong>
-                    </dd>
-                </div>
+                        <dd class="govuk-summary-list__value">
+                            <strong class="govuk-tag govuk-tag--red">Mentor required</strong>
+                        </dd>
+                    </div>
                     {% if data['ectAddedWithoutMentor'] === 'yes' %}
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">Mentor</dt>
-                        <dd class="govuk-summary-list__value govuk-inset-text">
-                                <p>No mentor assigned</p>
-                                <a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">Assign or add a new mentor</a>
+                        <dd class="govuk-summary-list__value">
+                    
+                                <a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">Assign a mentor or register a new one</a>       
                         </dd>
                     </div>
                     {% else %}
@@ -96,16 +83,16 @@
 
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
-                <h2 class="govuk-summary-card__title">
-                    <a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-regular" href="#">Steven Taylor</a>
-                </h2>
+                <h3 class="govuk-summary-card__title large-font">
+                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Steven Taylor</a></strong>
+                </h3>
             </div>
             <div class="govuk-summary-card__content">
                 <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">Status</dt>
                         <dd class="govuk-summary-list__value">
-                            <strong class="govuk-tag govuk-tag--green">In progress</strong>
+                            <strong class="govuk-tag govuk-tag--green">Registered</strong>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row">
@@ -117,18 +104,19 @@
                 </dl>
             </div>
         </div>
+
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
-                <h2 class="govuk-summary-card__title">
-                    <a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-regular" href="#">Emily Brown</a>
-                </h2>
+                <h3 class="govuk-summary-card__title large-font">
+                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Emily Brown</a></strong>
+                </h3>
             </div>
             <div class="govuk-summary-card__content">
                 <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">Status</dt>
                         <dd class="govuk-summary-list__value">
-                            <strong class="govuk-tag govuk-tag--green">In progress</strong>
+                            <strong class="govuk-tag govuk-tag--green">Registered</strong>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row">
@@ -140,8 +128,6 @@
                 </dl>
             </div>
         </div>
-
-
 
     </div>
 </div>
