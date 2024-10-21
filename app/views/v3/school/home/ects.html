@@ -3,12 +3,6 @@
 {% block head %}
 {{ super() }} <!-- This includes the content from the base head block -->
 {% include "./filters.njk" %}
-<style>
-    /* Custom style for larger font size */
-    .large-font {
-        font-size: 1.5rem; /* Adjust the size as needed */
-    }
-</style>
 {% endblock %}
 
 {% set pageName="Early career teachers" %}
@@ -38,11 +32,11 @@
 
     <div class="govuk-grid-column-two-thirds">
 
-        {% if data['ectAddedWithMentor'] === 'yes' or data['ectAddedWithoutMentor'] === 'yes' %}
+        {% if data['ectAddedWithoutMentor'] === 'no' or data['ectAddedWithoutMentor'] === 'yes' %}
 
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
-                <h3 class="govuk-summary-card__title large-font">
+                <h3 class="govuk-summary-card__title govuk-!-font-size-24">
                     <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">John Smith</a></strong>
                 </h3>
             </div>
@@ -51,7 +45,11 @@
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">Status</dt>
                         <dd class="govuk-summary-list__value">
+                            {% if data['ectAddedWithoutMentor'] === 'yes' %}
                             <strong class="govuk-tag govuk-tag--red">Mentor required</strong>
+                            {% else %}
+                            <strong class="govuk-tag govuk-tag--green">Registered</strong>
+                            {% endif %}
                         </dd>
                     </div>
                     {% if data['ectAddedWithoutMentor'] === 'yes' %}
@@ -82,7 +80,7 @@
 
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
-                <h3 class="govuk-summary-card__title large-font">
+                <h3 class="govuk-summary-card__title govuk-!-font-size-24">
                     <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Steven Taylor</a></strong>
                 </h3>
             </div>
@@ -106,7 +104,7 @@
 
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
-                <h3 class="govuk-summary-card__title large-font">
+                <h3 class="govuk-summary-card__title govuk-!-font-size-24">
                     <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Emily Brown</a></strong>
                 </h3>
             </div>
@@ -130,7 +128,7 @@
 
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
-                <h3 class="govuk-summary-card__title large-font">
+                <h3 class="govuk-summary-card__title govuk-!-font-size-24">
                     <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Frank Bruno</a></strong>
                 </h3>
             </div>

@@ -3,12 +3,6 @@
 {% block head %}
 {{ super() }} <!-- This includes the content from the base head block -->
 {% include "./filters.njk" %}
-<style>
-    /* Custom style for larger font size */
-    .large-font {
-        font-size: 1.5rem; /* Adjust the size as needed */
-    }
-</style>
 {% endblock %}
 
 {% set pageName="Mentors" %}
@@ -40,7 +34,7 @@
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
                 <h3 class="govuk-summary-card__title">
-                    <a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold large-font" href="">John Doe</a></h3>
+                    <a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold govuk-!-font-size-24" href="">John Doe</a></h3>
             </div>
             <div class="govuk-summary-card__content">
                 <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
@@ -59,7 +53,7 @@
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
                 <h3 class="govuk-summary-card__title">
-                    <a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold large-font" href="">Tom Jones</a></h3>
+                    <a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold govuk-!-font-size-24" href="">Tom Jones</a></h3>
             </div>
             <div class="govuk-summary-card__content">
                 <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
