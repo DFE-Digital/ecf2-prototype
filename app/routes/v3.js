@@ -396,7 +396,7 @@ module.exports = router => {
         res.redirect(v + school + mentor + 'autocomplete-delivery-partner')
     })
 
-    router.post(v + school + mentor + 'delivery-partner', (req, res) => {
+    router.post(v + school + mentor + 'autocomplete-delivery-partner', (req, res) => {
         if (req.session.data['deliveryPartner'] === undefined) {
             req.session.data['deliveryPartner'] = 'Ambition Institute'
         }
