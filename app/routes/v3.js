@@ -210,20 +210,24 @@ module.exports = router => {
         if (req.session.data['askForNino'] === 'yes') {
             res.redirect(v + school + 'nino')
         }
+        if (req.session.data['trn'] === '9999999') {
+            res.redirect(v + school + 'nino')
+        }
         else {
             res.redirect(v + school + 'review-ect-details')
         }
     })
 
     router.post(v + school + 'nino', (req, res) => {
-        res.redirect(v + school + 'review-ect-details')
+        if (req.session.data['nino'].startsWith('Z')) {
+            res.redirect(v + school + 'not-found')
+        }
+        else {
+            res.redirect(v + school + 'review-ect-details')
+        }
     })
 
     router.post(v + school + 'review-ect-details', (req, res) => {
-        res.redirect(v + school + 'email-address')
-    })
-
-    router.post(v + school + 'nino', (req, res) => {
         res.redirect(v + school + 'email-address')
     })
 
@@ -396,7 +400,7 @@ module.exports = router => {
         res.redirect(v + school + mentor + 'autocomplete-delivery-partner')
     })
 
-    router.post(v + school + mentor + 'delivery-partner', (req, res) => {
+    router.post(v + school + mentor + 'autocomplete-delivery-partner', (req, res) => {
         if (req.session.data['deliveryPartner'] === undefined) {
             req.session.data['deliveryPartner'] = 'Ambition Institute'
         }
