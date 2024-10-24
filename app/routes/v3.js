@@ -223,6 +223,7 @@ module.exports = router => {
             res.redirect(v + school + 'not-found')
         }
         else {
+            req.session.data['askForNino'] = 'yes'
             res.redirect(v + school + 'review-ect-details')
         }
     })
