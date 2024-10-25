@@ -25,6 +25,50 @@
                         <label class="govuk-label govuk-label--m" for="keywords"> Search by name or teacher reference number (TRN)</label>
                         <input class="govuk-input" id="keywords" name="keywords" type="text">
                     </div>
+                    {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+                    {{ govukCheckboxes({
+                    name: "status",
+                    classes: "govuk-checkboxes--small",
+                    fieldset: {
+                    legend: {
+                    text: "Status",
+                    classes: "govuk-fieldset__legend--m"
+                    }
+                    },
+                    items: [
+                    {
+                    value: "registered",
+                    text: "Registered"
+                    },
+                    {
+                    value: "pending",
+                    text: "Pending"
+                    }
+                    ]
+                    }) }}
+
+                    {{ govukCheckboxes({
+                    name: "mentor",
+                    classes: "govuk-checkboxes--small",
+                    fieldset: {
+                    legend: {
+                    text: "Mentor",
+                    classes: "govuk-fieldset__legend--m"
+                    }
+                    },
+                    items: [
+                    {
+                    value: "assigned",
+                    text: "Assigned"
+                    },
+                    {
+                    value: "not-assigned",
+                    text: "Not assigned"
+                    }
+                    ]
+                    }) }}
+
                 </div>
             </div>
         </div>
@@ -45,18 +89,25 @@
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">Status</dt>
                         <dd class="govuk-summary-list__value">
-                            {% if data['ectAddedWithoutMentor'] === 'yes' %}
-                            <strong class="govuk-tag govuk-tag--red">Mentor required</strong>
-                            {% else %}
                             <strong class="govuk-tag govuk-tag--green">Registered</strong>
-                            {% endif %}
                         </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">TRN</dt>
+                        <dd class="govuk-summary-list__value">59103501</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">School start date</dt>
+                        <dd class="govuk-summary-list__value">September 2024</dd>
                     </div>
                     {% if data['ectAddedWithoutMentor'] === 'yes' %}
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">Mentor</dt>
                         <dd class="govuk-summary-list__value">
-                                <a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">Assign a mentor or register a new one</a>       
+                            {{ govukWarningText({
+                            html: 'You must <a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">assign a mentor or register a new one</a> for this ECT.',
+                            iconFallbackText: "Warning"
+                            }) }}
                         </dd>
                     </div>
                     {% else %}
@@ -93,6 +144,14 @@
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">TRN</dt>
+                        <dd class="govuk-summary-list__value">1539295</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">School start date</dt>
+                        <dd class="govuk-summary-list__value">September 2023</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">Mentor</dt>
                         <dd class="govuk-summary-list__value">
                             <p>John Doe</p>
@@ -117,6 +176,14 @@
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">TRN</dt>
+                        <dd class="govuk-summary-list__value">3929519</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">School start date</dt>
+                        <dd class="govuk-summary-list__value">September 2023</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">Mentor</dt>
                         <dd class="govuk-summary-list__value">
                             <p>Tom Jones</p>
@@ -137,13 +204,24 @@
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">Status</dt>
                         <dd class="govuk-summary-list__value">
-                            <strong class="govuk-tag govuk-tag--red">Mentor required</strong>
+                            <strong class="govuk-tag govuk-tag--green">Registered</strong>
                         </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">TRN</dt>
+                        <dd class="govuk-summary-list__value">1693012</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">School start date</dt>
+                        <dd class="govuk-summary-list__value">September 2024</dd>
                     </div>
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">Mentor</dt>
                         <dd class="govuk-summary-list__value">
-                            <a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">Assign a mentor or register a new one</a>
+                            {{ govukWarningText({
+                            html: 'You must <a class="govuk-link govuk-link--no-visited-state" href="#">assign a mentor or register a new one</a> for this ECT.',
+                            iconFallbackText: "Warning"
+                            }) }}
                         </dd>
                     </div>
                 </dl>
