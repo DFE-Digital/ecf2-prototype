@@ -1,0 +1,215 @@
+{% extends "layouts/mentors.html" %}
+
+{% set pageName="Check your answers before submitting" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+            {% if data['dob-day'] and data['dob-month'] and data['dob-year'] %}
+            {% set dob = data['dob-day'] + ' ' + data['dob-month'] | monthName + ' ' + data['dob-year'] %}
+            {% else %}
+            {% set dob = '1 January 1990' %}
+            {% endif %}
+
+            {% if data['trn'] %}
+            {% set trn = data['trn'] %}
+            {% else %}
+            {% set trn = '5249105' %}
+            {% endif %}
+
+            {% if data['email'] %}
+            {% set email = data['email'] %}
+            {% else %}
+            {% set email = 'email@email.com' %}
+            {% endif %}
+
+            {% if data['fullName'] %}
+            {% set name = data['fullName'] %}
+            {% else %}
+            {% set name = 'Samuel Taylor' %}
+            {% endif %}
+
+            {% set whoRows = [
+            {
+            key: {
+            text: "Who they will mentor"
+            },
+            value: {
+            text: "John Smith"
+            }
+            }
+            ] %}
+
+            {% set rows = [
+            {
+            key: {
+            text: "Name"
+            },
+            value: {
+            text: name
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Teacher reference number (TRN)"
+            },
+            value: {
+            text: trn
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "TRN"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Date of birth"
+            },
+            value: {
+            text: dob
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "date of birth"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Email address"
+            },
+            value: {
+            text: email
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "email address"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Who they will mentor"
+            },
+            value: {
+            text: "John Smith"
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "Who they will mentor"
+            }
+            ]
+            }
+            }
+            ] %}
+
+            {% if data['askForNino'] == 'yes' %}
+            {% set rows = rows.concat([{
+            key: {
+            text: "National Insurance number"
+            },
+            value: {
+            text: "QQ123456C"
+            }
+            }]) %}
+            {% endif %}
+
+            <h2 class="govuk-heading-m">Mentor details</h2>
+
+            {{ govukSummaryList({ rows: rows }) }}
+
+            <h2 class="govuk-heading-m">Training details</h2>
+
+            {% if data['deliveryPartner'] %}
+            {% set dp = data['deliveryPartner'] %}
+            {% else %}
+            {% set dp = 'London District East TSH' %}
+            {% endif %}
+
+            {% if data['leadProvider'] %}
+            {% set lp = data['leadProvider'] %}
+            {% else %}
+            {% set lp = 'Ambition Institute' %}
+            {% endif %}
+
+            {{ govukSummaryList({
+            rows: [
+            {
+            key: {
+            text: "Lead provider"
+            },
+            value: {
+            text: lp
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "lead provider"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Delivery partner"
+            },
+            value: {
+            text: dp
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "delivery partner"
+            }
+            ]
+            }
+            }
+            ]
+            }) }}
+
+            <button class="govuk-button">Confirm details</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

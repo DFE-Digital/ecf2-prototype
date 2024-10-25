@@ -1,0 +1,38 @@
+{% extends "layouts/mentors.html" %}
+
+{% set pageName="This mentor will be assigned to John Smith" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+            <h1 class="govuk-heading-l">{{pageName}}</h1>
+            
+            <p>This is the only unassigned early career teacher that is registered.</p>
+
+            {{ govukDetails({
+            summaryText: "If you need to assign this mentor to a different ECT",
+            html: "
+            <p>The ECT needs to be registered before you assign them a mentor.</p>
+            <p>If the ECT is registered but assigned to another mentor, you need to unassign them from their current mentor first.</p>
+            <button class='govuk-button govuk-button--secondary'>View your ECTs</button>
+            "
+            }) }}
+
+            {{ govukButton({
+            text: "Continue"
+            }) }}
+        </form>
+    </div>
+</div>
+
+{% endblock %}
