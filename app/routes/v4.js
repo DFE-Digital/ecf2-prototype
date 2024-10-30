@@ -341,7 +341,7 @@ module.exports = router => {
         }
         else {
             req.session.data['defaultsAlreadyAdded'] = 'yes'
-            if (req.query.change === 'yes') {
+            if (req.session.data.changeProg === 'yes') {
                 req.session.data.changeProg = ''
                 res.redirect(v + school + 'check-answers')
             }
