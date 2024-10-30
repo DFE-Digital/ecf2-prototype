@@ -58,6 +58,7 @@ href: "javascript:window.history.back()"
             ] %}
 
             {% if data['askForNino'] == 'yes' %}
+            {% set rows = rows.slice(0, -1) %}
             {% set rows = rows.concat([{
             key: {
             text: "National Insurance number"

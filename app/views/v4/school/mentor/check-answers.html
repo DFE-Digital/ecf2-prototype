@@ -40,7 +40,7 @@ href: "javascript:window.history.back()"
             {% set name = 'Samuel Taylor' %}
             {% endif %}
 
-            {% set whoRows = [
+            {% set rows = [
             {
             key: {
             text: "Who they will mentor"
@@ -48,10 +48,23 @@ href: "javascript:window.history.back()"
             value: {
             text: "John Smith"
             }
+            },
+            {
+            key: {
+            text: "Teacher reference number (TRN)"
+            },
+            value: {
+            text: trn
             }
-            ] %}
-
-            {% set rows = [
+            },
+            {
+            key: {
+            text: "Date of birth"
+            },
+            value: {
+            text: dob
+            }
+            },
             {
             key: {
             text: "Name"
@@ -62,43 +75,9 @@ href: "javascript:window.history.back()"
             actions: {
             items: [
             {
-            href: "#",
+            href: "review-mentor-details?change=yes",
             text: "Change",
             visuallyHiddenText: "name"
-            }
-            ]
-            }
-            },
-            {
-            key: {
-            text: "Teacher reference number (TRN)"
-            },
-            value: {
-            text: trn
-            },
-            actions: {
-            items: [
-            {
-            href: "#",
-            text: "Change",
-            visuallyHiddenText: "TRN"
-            }
-            ]
-            }
-            },
-            {
-            key: {
-            text: "Date of birth"
-            },
-            value: {
-            text: dob
-            },
-            actions: {
-            items: [
-            {
-            href: "#",
-            text: "Change",
-            visuallyHiddenText: "date of birth"
             }
             ]
             }
@@ -113,48 +92,14 @@ href: "javascript:window.history.back()"
             actions: {
             items: [
             {
-            href: "#",
+            href: "email-address?change=yes",
             text: "Change",
             visuallyHiddenText: "email address"
             }
             ]
             }
-            },
-            {
-            key: {
-            text: "Who they will mentor"
-            },
-            value: {
-            text: "John Smith"
-            },
-            actions: {
-            items: [
-            {
-            href: "#",
-            text: "Change",
-            visuallyHiddenText: "Who they will mentor"
-            }
-            ]
-            }
             }
             ] %}
-
-            {% if data['askForNino'] == 'yes' %}
-            {% set rows = rows.concat([{
-            key: {
-            text: "National Insurance number"
-            },
-            value: {
-            text: "QQ123456C"
-            }
-            }]) %}
-            {% endif %}
-
-            <h2 class="govuk-heading-m">Mentor details</h2>
-
-            {{ govukSummaryList({ rows: rows }) }}
-
-            <h2 class="govuk-heading-m">Training details</h2>
 
             {% if data['deliveryPartner'] %}
             {% set dp = data['deliveryPartner'] %}
@@ -168,9 +113,7 @@ href: "javascript:window.history.back()"
             {% set lp = 'Ambition Institute' %}
             {% endif %}
 
-            {{ govukSummaryList({
-            rows: [
-            {
+            {% set rows = rows.concat([{
             key: {
             text: "Lead provider"
             },
@@ -180,7 +123,7 @@ href: "javascript:window.history.back()"
             actions: {
             items: [
             {
-            href: "#",
+            href: "lead-provider?change=yes",
             text: "Change",
             visuallyHiddenText: "lead provider"
             }
@@ -197,15 +140,15 @@ href: "javascript:window.history.back()"
             actions: {
             items: [
             {
-            href: "#",
+            href: "autocomplete-delivery-partner?change=yes",
             text: "Change",
             visuallyHiddenText: "delivery partner"
             }
             ]
             }
-            }
-            ]
-            }) }}
+            }]) %}
+
+            {{ govukSummaryList({ rows: rows }) }}
 
             <button class="govuk-button">Confirm details</button>
         </form>

@@ -110,6 +110,16 @@
                             }) }}
                         </dd>
                     </div>
+                    {% elif data['mentor'] === 'Someone else' %}
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Mentor</dt>
+                        <dd class="govuk-summary-list__value">
+                            {{ govukWarningText({
+                            html: 'You must <a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">assign a mentor or register a new one</a> for this ECT.',
+                            iconFallbackText: "Warning"
+                            }) }}
+                        </dd>
+                    </div>
                     {% else %}
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">Mentor</dt>

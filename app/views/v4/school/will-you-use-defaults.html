@@ -6,7 +6,7 @@
 {% set name = 'John Smith' %}
 {% endif %}
 
-{% set pageName="Confirm " + name + "'s training programme choices" %}
+{% set pageName="These are your school's default programme choices" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -112,7 +112,7 @@ href: "javascript:window.history.back()"
         name: "useDefaults",
         fieldset: {
         legend: {
-        text: "Are these details correct for " + name + "'s training programme?",
+        text: "Do you want to use your school's default programme choices for " + name + "?",
         isPageHeading: false,
         classes: "govuk-fieldset__legend--m"
         }

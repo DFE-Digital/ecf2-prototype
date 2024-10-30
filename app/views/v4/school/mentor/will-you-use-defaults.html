@@ -6,7 +6,7 @@
 {% set name = 'Samuel Taylor' %}
 {% endif %}
 
-{% set pageName="Confirm " + name + "'s training programme choices" %}
+{% set pageName="These are your school's default programme choices" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -39,18 +39,18 @@ href: "javascript:window.history.back()"
         rows: [
         {
         key: {
-        text: "Delivery partner"
-        },
-        value: {
-        text: dp
-        }
-        },
-        {
-        key: {
         text: "Lead provider"
         },
         value: {
         text: lp
+        }
+        },
+        {
+        key: {
+        text: "Delivery partner"
+        },
+        value: {
+        text: dp
         }
         }
         ]
@@ -63,7 +63,7 @@ href: "javascript:window.history.back()"
         name: "useDefaults",
         fieldset: {
         legend: {
-        text: "Are these the correct programme details for " + name + "?",
+        text: "Do you want to use your school's default programme choices for " + name + "?",
         isPageHeading: false,
         classes: "govuk-fieldset__legend--m"
         }

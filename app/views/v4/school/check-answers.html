@@ -58,7 +58,23 @@ href: "javascript:window.history.back()"
             {% set year = '2024' %}
             {% endif %}
 
-            {% set rows = [
+            {# {% set firstRows = [
+            {
+            key: {
+            text: "Teacher reference number (TRN)"
+            },
+            value: {
+            text: trn
+            }
+            },
+            {
+            key: {
+            text: "Date of birth"
+            },
+            value: {
+            text: dob
+            }
+            },
             {
             key: {
             text: "Name"
@@ -75,22 +91,15 @@ href: "javascript:window.history.back()"
             }
             ]
             }
-            },
+            ]) %} #}
+
+            {% set rows = [
             {
             key: {
             text: "Teacher reference number (TRN)"
             },
             value: {
             text: trn
-            },
-            actions: {
-            items: [
-            {
-            href: "#",
-            text: "Change",
-            visuallyHiddenText: "TRN"
-            }
-            ]
             }
             },
             {
@@ -99,13 +108,21 @@ href: "javascript:window.history.back()"
             },
             value: {
             text: dob
+            }
+            },
+            {
+            key: {
+            text: "Name"
+            },
+            value: {
+            text: name
             },
             actions: {
             items: [
             {
-            href: "#",
+            href: "review-ect-details?change=yes",
             text: "Change",
-            visuallyHiddenText: "date of birth"
+            visuallyHiddenText: "name"
             }
             ]
             }
@@ -120,7 +137,7 @@ href: "javascript:window.history.back()"
             actions: {
             items: [
             {
-            href: "#",
+            href: "email-address?change=yes",
             text: "Change",
             visuallyHiddenText: "email address"
             }
@@ -129,16 +146,11 @@ href: "javascript:window.history.back()"
             }
             ] %}
 
-
             {% if data['askForNino'] == 'yes' %}
-            {% set rows = rows.concat([{
-            key: {
-            text: "National Insurance number"
-            },
-            value: {
-            text: "QQ123456C"
-            }
-            }]) %}
+            {% set rows = rows.slice(0, 1).concat([{
+            key: { text: "National Insurance number" },
+            value: { text: "QQ123456C" }
+            }]).concat(rows.slice(2)) %}
             {% endif %}
 
             {% set rows = rows.concat([{
@@ -151,19 +163,13 @@ href: "javascript:window.history.back()"
             actions: {
             items: [
             {
-            href: "#",
+            href: "start-month?change=yes",
             text: "Change",
-            visuallyHiddenText: "mentor"
+            visuallyHiddenText: "school start date"
             }
             ]
             }
             }]) %}
-
-            <h2 class="govuk-heading-m">Teacher details</h2>
-
-            {{ govukSummaryList({ rows: rows }) }}
-
-            <h2 class="govuk-heading-m">Training details</h2>
 
             {% if data['ab'] %}
             {% set ab = data['ab'] %}
@@ -183,6 +189,12 @@ href: "javascript:window.history.back()"
             {% set lp = 'Ambition Institute' %}
             {% endif %}
 
+            {% if data['leadProvider'] %}
+            {% set saveProg = data['saveAsDefault'] %}
+            {% else %}
+            {% set saveProg = 'Yes' %}
+            {% endif %}
+
             {% if data.programmeType == 'School-led' %}
 
             {% set trainingRows = [
@@ -196,7 +208,7 @@ href: "javascript:window.history.back()"
             actions: {
             items: [
             {
-            href: "#",
+            href: "appropriate-body?change=yes",
             text: "Change",
             visuallyHiddenText: "appropriate body"
             }
@@ -213,7 +225,7 @@ href: "javascript:window.history.back()"
             actions: {
             items: [
             {
-            href: "#",
+            href: "programme-type?change=yes",
             text: "Change",
             visuallyHiddenText: "programme type"
             }
@@ -221,9 +233,8 @@ href: "javascript:window.history.back()"
             }
             }
             ] %}
-            {% else %}
 
-            {% if data['askingLp'] === 'no' %}
+            {% else %}
 
             {% set trainingRows = [
             {
@@ -236,7 +247,7 @@ href: "javascript:window.history.back()"
             actions: {
             items: [
             {
-            href: "#",
+            href: "appropriate-body?change=yes",
             text: "Change",
             visuallyHiddenText: "appropriate body"
             }
@@ -253,66 +264,7 @@ href: "javascript:window.history.back()"
             actions: {
             items: [
             {
-            href: "#",
-            text: "Change",
-            visuallyHiddenText: "programme type"
-            }
-            ]
-            }
-            },
-            {
-            key: {
-            text: "Delivery partner"
-            },
-            value: {
-            text: dp
-            },
-            actions: {
-            items: [
-            {
-            href: "#",
-            text: "Change",
-            visuallyHiddenText: "delivery partner"
-            }
-            ]
-            }
-            }
-            ] %}
-            }) }}
-
-            <div class="govuk-inset-text">{{dp}} works in partnership with {{lp}} to deliver training.</div>
-
-            {% else %}
-
-            {% set trainingRows = [
-            {
-            key: {
-            text: "Appropriate body"
-            },
-            value: {
-            text: ab
-            },
-            actions: {
-            items: [
-            {
-            href: "#",
-            text: "Change",
-            visuallyHiddenText: "appropriate body"
-            }
-            ]
-            }
-            },
-            {
-            key: {
-            text: "Programme type"
-            },
-            value: {
-            text: "Provider-led"
-            },
-            actions: {
-            items: [
-            {
-            href: "#",
+            href: "programme-type?change=yes",
             text: "Change",
             visuallyHiddenText: "programme type"
             }
@@ -329,7 +281,7 @@ href: "javascript:window.history.back()"
             actions: {
             items: [
             {
-            href: "#",
+            href: "lead-provider?change=yes",
             text: "Change",
             visuallyHiddenText: "lead provider"
             }
@@ -346,7 +298,7 @@ href: "javascript:window.history.back()"
             actions: {
             items: [
             {
-            href: "#",
+            href: "also-delivering?change=yes",
             text: "Change",
             visuallyHiddenText: "delivery partner"
             }
@@ -355,7 +307,6 @@ href: "javascript:window.history.back()"
             }
             ] %}
 
-            {% endif %}
             {% endif %}
 
             {% if data['mentorsAddedPreviously'] !== 'no' %}
@@ -370,7 +321,7 @@ href: "javascript:window.history.back()"
             actions: {
             items: [
             {
-            href: "#",
+            href: "mentor?change=yes",
             text: "Change",
             visuallyHiddenText: "mentor"
             }
@@ -380,8 +331,9 @@ href: "javascript:window.history.back()"
             {% endif %}
             {% endif %}
 
-            {{ govukSummaryList({ rows: trainingRows }) }}
+            {% set rows = rows.concat(trainingRows) %}
 
+            {{ govukSummaryList({ rows: rows }) }}
 
             <button class="govuk-button">Confirm details</button>
         </form>
