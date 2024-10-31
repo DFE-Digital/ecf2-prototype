@@ -247,7 +247,10 @@ module.exports = router => {
     })
 
     router.post(v + school + 'start-month', (req, res) => {
-        if (req.session.data['defaultsAlreadyAdded'] === 'yes') {
+        if (req.query.change === 'yes') {
+            res.redirect(v + school + 'check-answers')
+        }
+        else if (req.session.data['defaultsAlreadyAdded'] === 'yes') {
             res.redirect(v + school + 'will-you-use-defaults')
         }
         else {
