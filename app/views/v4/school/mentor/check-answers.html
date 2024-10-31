@@ -1,6 +1,12 @@
 {% extends "layouts/mentors.html" %}
 
-{% set pageName="Check your answers before submitting" %}
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'Samuel Taylor' %}
+{% endif %}
+
+{% set pageName="Check your answers before registering " + name + " as a mentor" %}
 
 {% block beforeContent %}
 {{ govukBackLink({

@@ -1,6 +1,12 @@
 {% extends "layouts/ects.html" %}
 
-{% set pageName="Check your answers before submitting" %}
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'John Smith' %}
+{% endif %}
+
+{% set pageName="Check your answers before registering " + name + " as an ECT" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
