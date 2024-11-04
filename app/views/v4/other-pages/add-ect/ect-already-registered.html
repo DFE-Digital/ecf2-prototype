@@ -1,0 +1,27 @@
+{% extends "layouts/ects.html" %}
+
+{% set pageName="This ECT is already registered at your school" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+            <h1 class="govuk-heading-l">{{ pageName }}</h1>
+            <p>You have entered details for an ECT which is already registered for training at your school.</p>
+
+            <button class="govuk-button">Try again</button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

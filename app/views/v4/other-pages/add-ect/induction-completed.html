@@ -1,0 +1,27 @@
+{% extends "layouts/ects.html" %}
+
+{% set pageName="Induction already completed" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+            <h1 class="govuk-heading-l">{{ pageName }}</h1>
+            <p>Placeholder content</p>
+
+            <button class="govuk-button">Try again</button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
