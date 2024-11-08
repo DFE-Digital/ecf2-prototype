@@ -1,6 +1,6 @@
 {% extends "layouts/ects.html" %}
 
-{% set pageName="This ECT is already registered at your school" %}
+{% set pageName="John Smith has already been registered" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -16,9 +16,9 @@ href: "javascript:window.history.back()"
         <form method="post">
 
             <h1 class="govuk-heading-l">{{ pageName }}</h1>
-            <p>You have entered details for an ECT which is already registered for training at your school.</p>
+            <p>Our records show the ECT has already been registered for ECF training at your school.</p>
 
-            <button class="govuk-button">Try again</button>
+            <p><a href="../../school/find-ect">Register another ECT</a></p>
         </form>
 
     </div>

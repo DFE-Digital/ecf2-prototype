@@ -1,6 +1,6 @@
 {% extends "layouts/ects.html" %}
 
-{% set pageName="Induction already completed" %}
+{% set pageName="You cannot register John Smith" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -16,9 +16,9 @@ href: "javascript:window.history.back()"
         <form method="post">
 
             <h1 class="govuk-heading-l">{{ pageName }}</h1>
-            <p>Placeholder content</p>
+            <p>Our records show John Smith has already completed their induction and is not eligible for further ECT training.</p>
 
-            <button class="govuk-button">Try again</button>
+            <p><a href="../../school/find-ect">Register another ECT</a></p>
         </form>
 
     </div>
