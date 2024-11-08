@@ -110,14 +110,6 @@ href: "javascript:window.history.back()"
             },
             {
             key: {
-            text: "Date of birth"
-            },
-            value: {
-            text: dob
-            }
-            },
-            {
-            key: {
             text: "Name"
             },
             value: {
@@ -152,12 +144,12 @@ href: "javascript:window.history.back()"
             }
             ] %}
 
-            {% if data['askForNino'] == 'yes' %}
+            {# {% if data['askForNino'] == 'yes' %}
             {% set rows = rows.slice(0, 1).concat([{
             key: { text: "National Insurance number" },
             value: { text: "QQ123456C" }
             }]).concat(rows.slice(2)) %}
-            {% endif %}
+            {% endif %} #}
 
             {% set rows = rows.concat([{
             key: {

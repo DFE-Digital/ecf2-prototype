@@ -361,6 +361,7 @@ module.exports = router => {
     })
 
     router.post(v + school + 'check-answers', (req, res) => {
+        req.session.data['askForNino'] = ''
         req.session.data['ectAdded'] = 'yes'
         req.session.data['fullName'] = undefined
         if (req.session.data['mentor'] === 'Someone else' || req.session.data['mentorsAddedPreviously'] === 'no') {
