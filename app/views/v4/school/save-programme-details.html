@@ -1,0 +1,170 @@
+{% extends "layouts/ects.html" %}
+
+{% set pageName="Save your ECT programme choices" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+        <p class="govuk-body">You can save these programme choices as your school's default settings.
+        </p>
+
+        {% if data['ab'] %}
+        {% set ab = data['ab'] %}
+        {% else %}
+        {% set ab = 'Teach West London' %}
+        {% endif %}
+
+        {% if data['deliveryPartner'] %}
+        {% set dp = data['deliveryPartner'] %}
+        {% else %}
+        {% set dp = 'London District East TSH' %}
+        {% endif %}
+
+        {% if data['leadProvider'] %}
+        {% set lp = data['leadProvider'] %}
+        {% else %}
+        {% set lp = 'Ambition Institute' %}
+        {% endif %}
+
+        {% if data['programmeType'] === 'School-led' %}
+
+        {{ govukSummaryList({
+        rows: [
+        {
+        key: {
+        text: "Appropriate body"
+        },
+        value: {
+        text: ab
+        }
+        },
+        {
+        key: {
+        text: "Programme type"
+        },
+        value: {
+        text: "School-led"
+        }
+        }
+        ]
+        }) }}
+
+        {% else %}
+
+        {% if data['askingLp'] === 'no' %}
+
+        {{ govukSummaryList({
+        rows: [
+        {
+        key: {
+        text: "Appropriate body"
+        },
+        value: {
+        text: ab
+        }
+        },
+        {
+        key: {
+        text: "Programme type"
+        },
+        value: {
+        text: "Provider-led"
+        }
+        },
+        {
+        key: {
+        text: "Delivery partner"
+        },
+        value: {
+        html: dp
+        }
+        }
+        ]
+        }) }}
+
+        <div class="govuk-inset-text">{{dp}} works in partnership with {{lp}} to deliver training.</div>
+
+        {% else %}
+
+        {{ govukSummaryList({
+        rows: [
+        {
+        key: {
+        text: "Appropriate body"
+        },
+        value: {
+        text: ab
+        }
+        },
+        {
+        key: {
+        text: "Programme type"
+        },
+        value: {
+        text: "Provider-led"
+        }
+        },
+        {
+        key: {
+        text: "Lead provider"
+        },
+        value: {
+        text: lp
+        }
+        },
+        {
+        key: {
+        text: "Delivery partner"
+        },
+        value: {
+        html: dp
+        }
+        }
+        ]
+        }) }}
+
+        {% endif %}
+        {% endif %}
+        {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+        <form method="post">
+            {{ govukRadios({
+            classes: "govuk-radios--inline",
+            name: "saveAsDefault",
+            hint: {
+            text: "Saving them will make registering future ECTs and mentors easier. It will not change the details of those already registered. "
+            },
+            fieldset: {
+            legend: {
+            text: "Do you want to save these as your school's default choices?",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--m"
+            }
+            },
+            
+            items: [
+            {
+            value: "yes",
+            text: "Yes"
+            },
+            {
+            value: "no",
+            text: "No"
+            }
+            ]
+            }) }}
+
+            <button class="govuk-button">Continue</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

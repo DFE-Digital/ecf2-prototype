@@ -1,0 +1,341 @@
+{% extends "layouts/ects.html" %}
+
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'John Smith' %}
+{% endif %}
+
+{% set pageName="Check your answers before registering " + name + " as an ECT" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+            {% if data['dob-day'] and data['dob-month'] and data['dob-year'] %}
+            {% set dob = data['dob-day'] + ' ' + data['dob-month'] | monthName + ' ' + data['dob-year'] %}
+            {% else %}
+            {% set dob = '1 January 1990' %}
+            {% endif %}
+
+            {% if data['trn'] %}
+            {% set trn = data['trn'] %}
+            {% else %}
+            {% set trn = '5249105' %}
+            {% endif %}
+
+            {% if data['email'] %}
+            {% set email = data['email'] %}
+            {% else %}
+            {% set email = 'email@email.com' %}
+            {% endif %}
+
+            {% if data['fullName'] %}
+            {% set name = data['fullName'] %}
+            {% else %}
+            {% set name = 'John Smith' %}
+            {% endif %}
+
+            {% if data['mentor'] %}
+            {% set mentor = data['mentor'] %}
+            {% else %}
+            {% set mentor = 'John Doe' %}
+            {% endif %}
+
+            {% if data['start-month-month'] %}
+            {% set month = data['start-month-month'] %}
+            {% else %}
+            {% set month = '10' %}
+            {% endif %}
+
+            {% if data['start-month-year'] %}
+            {% set year = data['start-month-year'] %}
+            {% else %}
+            {% set year = '2024' %}
+            {% endif %}
+
+            {# {% set firstRows = [
+            {
+            key: {
+            text: "Teacher reference number (TRN)"
+            },
+            value: {
+            text: trn
+            }
+            },
+            {
+            key: {
+            text: "Date of birth"
+            },
+            value: {
+            text: dob
+            }
+            },
+            {
+            key: {
+            text: "Name"
+            },
+            value: {
+            text: name
+            },
+            actions: {
+            items: [
+            {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+            }
+            ]
+            }
+            ]) %} #}
+
+            {% set rows = [
+            {
+            key: {
+            text: "Teacher reference number (TRN)"
+            },
+            value: {
+            text: trn
+            }
+            },
+            {
+            key: {
+            text: "Name"
+            },
+            value: {
+            text: name
+            },
+            actions: {
+            items: [
+            {
+            href: "review-ect-details?change=yes",
+            text: "Change",
+            visuallyHiddenText: "name"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Email address"
+            },
+            value: {
+            text: email
+            },
+            actions: {
+            items: [
+            {
+            href: "email-address?change=yes",
+            text: "Change",
+            visuallyHiddenText: "email address"
+            }
+            ]
+            }
+            }
+            ] %}
+
+            {# {% if data['askForNino'] == 'yes' %}
+            {% set rows = rows.slice(0, 1).concat([{
+            key: { text: "National Insurance number" },
+            value: { text: "QQ123456C" }
+            }]).concat(rows.slice(2)) %}
+            {% endif %} #}
+
+            {% set rows = rows.concat([{
+            key: {
+            text: "School start date"
+            },
+            value: {
+            text: month | monthName + " " + year
+            },
+            actions: {
+            items: [
+            {
+            href: "start-month?change=yes",
+            text: "Change",
+            visuallyHiddenText: "school start date"
+            }
+            ]
+            }
+            }]) %}
+
+            {% if data['ab'] %}
+            {% set ab = data['ab'] %}
+            {% else %}
+            {% set ab = 'Teach West London' %}
+            {% endif %}
+
+            {% if data['deliveryPartner'] %}
+            {% set dp = data['deliveryPartner'] %}
+            {% else %}
+            {% set dp = 'London District East TSH' %}
+            {% endif %}
+
+            {% if data['leadProvider'] %}
+            {% set lp = data['leadProvider'] %}
+            {% else %}
+            {% set lp = 'Ambition Institute' %}
+            {% endif %}
+
+            {% if data['leadProvider'] %}
+            {% set saveProg = data['saveAsDefault'] %}
+            {% else %}
+            {% set saveProg = 'Yes' %}
+            {% endif %}
+
+            {% if data.programmeType == 'School-led' %}
+
+            {% set trainingRows = [
+            {
+            key: {
+            text: "Appropriate body"
+            },
+            value: {
+            text: ab
+            },
+            actions: {
+            items: [
+            {
+            href: "appropriate-body?change=yes",
+            text: "Change",
+            visuallyHiddenText: "appropriate body"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Programme type"
+            },
+            value: {
+            text: "School-led"
+            },
+            actions: {
+            items: [
+            {
+            href: "programme-type?change=yes",
+            text: "Change",
+            visuallyHiddenText: "programme type"
+            }
+            ]
+            }
+            }
+            ] %}
+
+            {% else %}
+
+            {% set trainingRows = [
+            {
+            key: {
+            text: "Appropriate body"
+            },
+            value: {
+            text: ab
+            },
+            actions: {
+            items: [
+            {
+            href: "appropriate-body?change=yes",
+            text: "Change",
+            visuallyHiddenText: "appropriate body"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Programme type"
+            },
+            value: {
+            text: "Provider-led"
+            },
+            actions: {
+            items: [
+            {
+            href: "programme-type?change=yes",
+            text: "Change",
+            visuallyHiddenText: "programme type"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Lead provider"
+            },
+            value: {
+            text: lp
+            },
+            actions: {
+            items: [
+            {
+            href: "lead-provider?change=yes",
+            text: "Change",
+            visuallyHiddenText: "lead provider"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Delivery partner"
+            },
+            value: {
+            text: dp
+            },
+            actions: {
+            items: [
+            {
+            href: "also-delivering?change=yes",
+            text: "Change",
+            visuallyHiddenText: "delivery partner"
+            }
+            ]
+            }
+            }
+            ] %}
+
+            {% endif %}
+
+            {% if data['mentorsAddedPreviously'] !== 'no' %}
+            {% if data['mentor'] !== 'Someone else' %}
+            {% set trainingRows = trainingRows.concat([{
+            key: {
+            text: "Mentor"
+            },
+            value: {
+            text: mentor
+            },
+            actions: {
+            items: [
+            {
+            href: "mentor?change=yes",
+            text: "Change",
+            visuallyHiddenText: "mentor"
+            }
+            ]
+            }
+            }]) %}
+            {% endif %}
+            {% endif %}
+
+            {% set rows = rows.concat(trainingRows) %}
+
+            {{ govukSummaryList({ rows: rows }) }}
+
+            <button class="govuk-button">Confirm details</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

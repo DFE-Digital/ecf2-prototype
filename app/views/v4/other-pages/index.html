@@ -1,0 +1,46 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Other pages" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-6">Add an ECT</h2>
+        <div class="govuk-grid-row">
+            <section class="govuk-grid-column-one-quarter-from-desktop govuk-!-margin-bottom-8">
+                <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+                    <a class="govuk-link--no-visited-state" href="add-ect/induction-completed">Induction already completed</a>
+                </h2>
+                <p class="govuk-body">When users match to an ECT that has an induction completed date.</p>
+            </section>
+            <section class="govuk-grid-column-one-quarter-from-desktop govuk-!-margin-bottom-8">
+                <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+                    <a class="govuk-link--no-visited-state" href="add-ect/induction-status-exempt">Induction status is exempt</a>
+                </h2>
+                <p class="govuk-body">When users match to an ECT that has an induction status of exempt.</p>
+            </section>
+            <section class="govuk-grid-column-one-quarter-from-desktop govuk-!-margin-bottom-8">
+                <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+                    <a class="govuk-link--no-visited-state" href="add-ect/ect-already-registered">ECT already registered at school</a>
+                </h2>
+                <p class="govuk-body">When users match to an ECT that is already registered at the school.</p>
+            </section>
+            <section class="govuk-grid-column-one-quarter-from-desktop govuk-!-margin-bottom-8">
+                <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+                    <a class="govuk-link--no-visited-state" href="add-ect/not-found">TRN is inactive or not found</a>
+                </h2>
+                <p class="govuk-body">When users try to match to a TRN that doesn't exist or is inactive.</p>
+            </section>
+            <section class="govuk-grid-column-one-quarter-from-desktop govuk-!-margin-bottom-8">
+                <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+                    <a class="govuk-link--no-visited-state" href="add-ect/funded-ind-appropriate-body">AB for funded independent schools</a>
+                </h2>
+                <p class="govuk-body">When selecting an AB for an independent school which receives funding for ECTs.</p>
+            </section>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
