@@ -1,0 +1,29 @@
+{% set serviceName="Register early career teachers: Record induction as an appropriate body" %}
+
+{% extends "layouts/main.html" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{serviceName}}</h1>
+
+        <p>This service is for appropriate bodies that are supporting the statutory induction of early career teachers (ECTs). </p>
+        <p>Use this service to:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>report statutory induction details</li>
+            <li>specify which ECTs’ induction you support</li>
+            <li>tell us which ECTs’ induction you no longer support</li>
+            <li>review an ECT’s induction history and progress</li>
+            <li>tell us if an ECT has passed, failed or had their induction extended </li>
+        </ul>
+
+        <form method="post">
+            {{ govukButton({
+            text: "Start button",
+            isStartButton: true
+            }) }}
+        </form></div>
+</div>
+
+{% endblock %}
