@@ -267,7 +267,7 @@ module.exports = router => {
                 res.redirect(v + school + 'check-answers')
             }
             else {
-                res.redirect(v + school + 'mentor')
+                res.redirect(v + school + 'check-answers')
             }
         }
     })
@@ -349,7 +349,7 @@ module.exports = router => {
                 res.redirect(v + school + 'check-answers')
             }
             else {
-                res.redirect(v + school + 'mentor')
+                res.redirect(v + school + 'check-answers')
             }
         }
     })
@@ -369,7 +369,7 @@ module.exports = router => {
             res.redirect(v + school + 'confirmation-mentor-to-be-added')
         }
         else {
-            req.session.data['ectAddedWithoutMentor'] = 'no'
+            req.session.data['ectAddedWithoutMentor'] = 'yes'
             res.redirect(v + school + 'confirmation')
         }
     })
@@ -382,6 +382,7 @@ module.exports = router => {
             res.redirect(v + school + mentor + 'what-youll-need')
         }
         else {
+            req.session.data['ectAddedWithoutMentor'] = ''
             res.redirect(v + school + mentor + 'assigned')
         }
     })
@@ -442,6 +443,7 @@ module.exports = router => {
 
     router.post(v + school + mentor + 'check-answers', (req, res) => {
         req.session.data['fullName'] = undefined
+        req.session.data['ectAddedWithoutMentor'] = ''
         res.redirect(v + school + mentor + 'confirmation')
     })
 }

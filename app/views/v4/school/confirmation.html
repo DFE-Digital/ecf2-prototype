@@ -6,7 +6,7 @@
 {% set name = 'John Smith' %}
 {% endif %}
 
-{% set pageName="You have registered " + name + " as an early career teacher" %}
+{% set pageName="What you need to do next" %}
 
 {% block beforeContent %}
 {% endblock %}
@@ -15,15 +15,17 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-        <div class="govuk-panel govuk-panel--confirmation">
-            <h1 class="govuk-panel__title">
-                {{ pageName }}
-            </h1>
-        </div>
-        <h2 class="govuk-heading-m">What happens next</h2>
-        <p class="govuk-body">We’ll let this person know you’ve registered them for ECF-based training at your school. They do not need to provide us with any more information.</p>
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+        <p>{{name}} has been added to your school as an ECT.</p>
+        <p class="govuk-body">
+            To complete their registration you must assign them a mentor. 
+        </p>
+        <p class="govuk-body">
+            <p>Before you can do this, you must first add a mentor to your school, if you have not done so already.</p>
+        <a class="govuk-button" href="mentor/who-will-be-mentoring">Assign mentor for {{name}}</a>
 
         <p><a href="home/ects">Back to your ECTs</a></p>
+
     </div>
 </div>
 

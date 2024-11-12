@@ -1,7 +1,7 @@
 {% extends "layouts/ects.html" %}
 
-{% if data['fullName'] %}
-{% set name = data['fullName'] %}
+{% if data['mentor'] %}
+{% set name = data['mentor'] %}
 {% else %}
 {% set name = 'Samuel Taylor' %}
 {% endif %}
@@ -24,8 +24,7 @@
             </div>
         </div>
         <h2 class="govuk-heading-m">What happens next</h2>
-        <p class="govuk-body">We’ll notify Samuel Taylor and John Smith that they are registered at your school.<p/p>
-        <p>Samuel Taylor is now John Smith’s mentor, and this completes John Smith’s registration as an ECT at your school.</p>
+        <p>{{name}} is now John Smith’s mentor, and this completes John Smith’s registration as an ECT at your school.</p>
         <p class="govuk-body"> They do not need to give us any more information.</p>
         <p><a href="#">Back to your ECTs</a></p>
     </div>
