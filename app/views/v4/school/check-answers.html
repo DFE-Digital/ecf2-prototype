@@ -307,27 +307,6 @@ href: "javascript:window.history.back()"
 
             {% endif %}
 
-            {% if data['mentorsAddedPreviously'] !== 'no' %}
-            {% if data['mentor'] !== 'Someone else' %}
-            {% set trainingRows = trainingRows.concat([{
-            key: {
-            text: "Mentor"
-            },
-            value: {
-            text: mentor
-            },
-            actions: {
-            items: [
-            {
-            href: "mentor?change=yes",
-            text: "Change",
-            visuallyHiddenText: "mentor"
-            }
-            ]
-            }
-            }]) %}
-            {% endif %}
-            {% endif %}
 
             {% set rows = rows.concat(trainingRows) %}
 
