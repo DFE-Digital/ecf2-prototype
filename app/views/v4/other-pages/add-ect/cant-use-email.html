@@ -1,0 +1,27 @@
+{% extends "layouts/ects.html" %}
+
+{% set pageName="This email is already in use" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+            <h1 class="govuk-heading-l">{{ pageName }}</h1>
+            <p class="govuk-body">This email address has already been used to register an early career teacher or mentor.</p>
+
+            <button class="govuk-button">Try another email</button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
