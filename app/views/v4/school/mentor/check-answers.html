@@ -6,7 +6,7 @@
 {% set name = 'Samuel Taylor' %}
 {% endif %}
 
-{% set pageName="Check your answers before registering " + name + " as a mentor" %}
+{% set pageName="Check your answers and confirm mentor details" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -47,14 +47,6 @@ href: "javascript:window.history.back()"
             {% endif %}
 
             {% set rows = [
-            {
-            key: {
-            text: "Who they will mentor"
-            },
-            value: {
-            text: "John Smith"
-            }
-            },
             {
             key: {
             text: "Teacher reference number (TRN)"
@@ -147,6 +139,8 @@ href: "javascript:window.history.back()"
             }]) %}
 
             {{ govukSummaryList({ rows: rows }) }}
+
+            <div class="govuk-inset-text">{{name}} will mentor John Smith.</div>
 
             <button class="govuk-button">Confirm details</button>
         </form>
