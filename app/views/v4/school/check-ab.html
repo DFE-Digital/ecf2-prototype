@@ -17,7 +17,6 @@ href: "javascript:window.history.back()"
 
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
             <p>We've found an appropriate body that is currently matched with the ECT details you have provided.</p>
-            
 
             {% set rows = [
             {
@@ -25,7 +24,7 @@ href: "javascript:window.history.back()"
             text: "Appropriate body"
             },
             value: {
-            text: "Redhill Teaching hub"
+            text: "Redhill Teaching Hub"
             }
             },
             {
@@ -37,14 +36,10 @@ href: "javascript:window.history.back()"
             }
             }
             ] %}
-
           
             {{ govukSummaryList({ rows: rows }) }}
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-two-thirds">
-                    <form method="post">
-{% set newAb %}
-            {{ xGovukAutocomplete({
+                {% set newAb %}
+                {{ xGovukAutocomplete({
                 id: "ab",
                 name: "ab",
                 allowEmpty: false,
@@ -131,12 +126,10 @@ href: "javascript:window.history.back()"
                 ]
         
                 }) }}
-{% endset -%}
-                
-            {% from "govuk/components/radios/macro.njk" import govukRadios %}
+            {% endset -%}
 
             {{ govukRadios({
-            name: "nameCorrect",
+            name: "checkAb",
             fieldset: {
             legend: {
             text: "Will this appropriate body be supporting John Smith's induction?",
@@ -177,4 +170,15 @@ href: "javascript:window.history.back()"
     </div>
 </div>
 
+{% endblock %}
+
+{% block pageScripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var autocompleteInput = document.querySelector('#ab');
+        if (autocompleteInput) {
+            autocompleteInput.setAttribute('placeholder', 'Enter teaching school hub name');
+        }
+    });
+</script>
 {% endblock %}
