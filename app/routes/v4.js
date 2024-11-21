@@ -377,7 +377,7 @@ module.exports = router => {
     // mentor journeys
 
     router.post(v + school + mentor + 'who-will-be-mentoring', (req, res) => {
-        if (req.session.data ['mentor'] === 'Someone else'){
+        if (req.session.data ['mentor'] === 'Register a new mentor'){
             req.session.data['askForNino'] = null
             res.redirect(v + school + mentor + 'what-youll-need')
         }
