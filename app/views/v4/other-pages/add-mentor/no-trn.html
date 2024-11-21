@@ -3,6 +3,10 @@
 {% set pageName="You cannot register a mentor without a TRN" %}
 
 {% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
 {% endblock %}
 
 {% block content %}
@@ -16,8 +20,8 @@
             <p>If they:</p>
 
             <ul class="govuk-list govuk-list--bullet">
-                <li>had a TRN but cannot find it, ask them to use the <a target="_blank" href="https://find-a-lost-trn.education.gov.uk/start">find a lost TRN service (opens in a new tab)</a></li>
-                <li>have never had one, they'll need to <a target="_blank" href="https://www.gov.uk/guidance/teacher-reference-number-trn#if-youre-a-mentor-for-a-trainee-or-early-career-teacher">request a TRN (opens in a new tab)</a></li>
+                <li>had a TRN but cannot find it, ask them to use the <a href="https://find-a-lost-trn.education.gov.uk/start">find a lost TRN service</a></li>
+                <li>have never had one, they'll need to <a href="https://www.gov.uk/guidance/teacher-reference-number-trn#if-youre-a-mentor-for-a-trainee-or-early-career-teacher">request a TRN</a></li>
             </ul>
 
             <p><a href="#">Return to your ECTs</a></p>
