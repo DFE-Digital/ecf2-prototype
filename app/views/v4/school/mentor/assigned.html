@@ -1,6 +1,6 @@
 {% extends "layouts/ects.html" %}
 
-{% if data['mentor'] %}
+{% if data['mentor'] and data['mentor'] != "Register a new mentor" %}
 {% set name = data['mentor'] %}
 {% else %}
 {% set name = 'Samuel Taylor' %}
