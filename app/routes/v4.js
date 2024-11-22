@@ -220,7 +220,7 @@ module.exports = router => {
 
     router.post(v + school + 'nino', (req, res) => {
         if (req.session.data['nino'].startsWith('Z')) {
-            res.redirect(v + school + 'not-found')
+            res.redirect(v + 'other-pages/add-ect/not-found')
         }
         else {
             req.session.data['askForNino'] = 'yes'
@@ -396,7 +396,22 @@ module.exports = router => {
     })
 
     router.post(v + school + mentor + 'find-mentor', (req, res) => {
-        res.redirect(v + school + mentor + 'review-mentor-details')
+        if (req.session.data['trn'] === '9999999') {
+            res.redirect(v + school + mentor + 'nino')
+        }
+        else {
+            res.redirect(v + school + mentor + 'review-mentor-details')
+        }
+    })
+
+    router.post(v + school + mentor + 'nino', (req, res) => {
+        if (req.session.data['nino'].startsWith('Z')) {
+            res.redirect(v + 'other-pages/add-mentor/not-found')
+        }
+        else {
+            req.session.data['askForNino'] = 'yes'
+            res.redirect(v + school + mentor + 'review-mentor-details')
+        }
     })
 
     router.post(v + school + mentor + 'review-mentor-details', (req, res) => {
