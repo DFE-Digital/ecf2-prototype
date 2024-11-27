@@ -1,0 +1,79 @@
+{% extends "layouts/ects.html" %}
+
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'John Smith' %}
+{% endif %}
+
+{% set pageName="Which lead provider will be training " + name + "?" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+        <form method="post">
+        {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+        {{ govukRadios({
+        name: "leadProvider",
+            label: {
+            classes: "govuk-visually-hidden",
+            text: pageName
+        },
+            hint: {
+            html: "<p class='govuk-body'>The lead provider is funded by the Department for Education to create the structure, content and resources for the early career framework training.</p><p class='govuk-body'>We will let the lead provider know your school wants to work with them so they can arrange training.</p>"
+            },
+        items: [
+        {
+        value: "Ambition Institute",
+        text: "Ambition Institute"
+        },
+        {
+        value: "Best Practice Network (home of Outstanding Leaders Partnership)",
+        text: "Best Practice Network (home of Outstanding Leaders Partnership)"
+        },
+        {
+        value: "Education Development Trust",
+        text: "Education Development Trust"
+        },
+        {
+        value: "National Institute of Teaching, founded by the School-Led Development Trust",
+        text: "National Institute of Teaching, founded by the School-Led Development Trust"
+        },
+        {
+        value: "Teach First",
+        text: "Teach First"
+        },
+        {
+        value: "UCL Institute of Education",
+        text: "UCL Institute of Education"
+        }
+        ]
+        }) }}
+
+            {{ govukDetails({
+            summaryText: "Find out more about lead providers",
+            text: "
+            <p class='govuk-body'>They are organisations that:</p>
+            <ul class='govuk-list govuk-list--bullet'>
+                <li>train mentors and trainers who deliver the early career framework training to ECTs</li>
+                <li>report on the progress and effectiveness of the training programme to the Department for Education (DfE)</li>
+            </ul>"
+            |safe }) }}
+
+            <button class="govuk-button">Continue</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

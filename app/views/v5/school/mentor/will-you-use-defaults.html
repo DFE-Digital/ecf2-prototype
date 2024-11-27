@@ -1,6 +1,12 @@
 {% extends "layouts/ects.html" %}
 
-{% set pageName="Save your ECT programme choices" %}
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'Samuel Taylor' %}
+{% endif %}
+
+{% set pageName="These are your school's default programme choices" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -10,11 +16,12 @@ href: "javascript:window.history.back()"
 {% endblock %}
 
 {% block content %}
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
-        <p class="govuk-body">You can save these programme choices as your school's default settings.
-        </p>
+
+        <p>These are your school's current default programme choices for ECTs and mentors.</p>
 
         {% if data['deliveryPartner'] %}
         {% set dp = data['deliveryPartner'] %}
@@ -27,7 +34,6 @@ href: "javascript:window.history.back()"
         {% else %}
         {% set lp = 'Ambition Institute' %}
         {% endif %}
-
 
         {{ govukSummaryList({
         rows: [
@@ -44,40 +50,35 @@ href: "javascript:window.history.back()"
         text: "Delivery partner"
         },
         value: {
-        html: dp
+        text: dp
         }
         }
         ]
         }) }}
 
-        {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
-
         <form method="post">
-            {{ govukRadios({
-            classes: "govuk-radios--inline",
-            name: "saveAsDefault",
-            hint: {
-            text: "Saving these choices as your school's default settings will make adding future ECTs or mentors easier. It will not change the details of ECTs or mentors you've already added."
-            },
-            fieldset: {
-            legend: {
-            text: "Would you like to save these as your school's default choices?",
-            isPageHeading: false,
-            classes: "govuk-fieldset__legend--m"
-            }
-            },
-            
-            items: [
-            {
-            value: "yes",
-            text: "Yes"
-            },
-            {
-            value: "no",
-            text: "No"
-            }
-            ]
-            }) }}
+
+        {{ govukRadios({
+        classes: "govuk-radios--inline",
+        name: "useDefaults",
+        fieldset: {
+        legend: {
+        text: "Do you want to use your school's default programme choices for " + name + "?",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--m"
+        }
+        },
+        items: [
+        {
+        value: "yes",
+        text: "Yes"
+        },
+        {
+        value: "no",
+        text: "No"
+        }
+        ]
+        }) }}
 
             <button class="govuk-button">Continue</button>
         </form>
