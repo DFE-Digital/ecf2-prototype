@@ -1,0 +1,30 @@
+{% extends "layouts/ects.html" %}
+
+{% set pageName="We're unable to match the ECT with the details you provided" %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+            <h1 class="govuk-heading-l">{{ pageName }}</h1>
+            <p class="govuk-body">Check that you've entered their details correctly.</p>
+            <p class="govuk-body">
+                You can check their TRN by <a href="https://check-a-teachers-record.education.gov.uk/check-records/sign-in" class="govuk-link">reviewing their teacher record</a>.
+            </p>
+
+            <p class="govuk-body">
+                Alternatively, you can ask the ECT to check their TRN by using the <a href="https://find-a-lost-trn.education.gov.uk/start" class="govuk-link">Find a lost TRN service</a>.
+            </p>
+
+            <button class="govuk-button">Try again</button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
