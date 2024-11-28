@@ -6,7 +6,7 @@
 {% set name = 'John Smith' %}
 {% endif %}
 
-{% set pageName="These are your school's default programme choices" %}
+{% set pageName="Confirm programme choices" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -21,7 +21,7 @@ href: "javascript:window.history.back()"
     <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
-        <p>These are your school's current default programme choices for ECTs and mentors.</p>
+        <p>You used these programme choices the last time you registered an ECT.</p>
 
         {% if data['ab'] %}
         {% set ab = data['ab'] %}
@@ -112,7 +112,7 @@ href: "javascript:window.history.back()"
         name: "useDefaults",
         fieldset: {
         legend: {
-        text: "Do you want to use your school's default programme choices for " + name + "?",
+        text: "Do you want to use the same programme choices for " + name + "?",
         isPageHeading: false,
         classes: "govuk-fieldset__legend--m"
         }
