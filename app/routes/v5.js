@@ -289,7 +289,8 @@ module.exports = router => {
             req.session.data.changeProg = 'yes'
         }
         if (req.session.data['programmeType'] === 'School-led') {
-            res.redirect(v + school + 'save-programme-details')
+            // res.redirect(v + school + 'save-programme-details')
+            res.redirect(v + school + 'check-answers')
         }
         else {
             req.session.data['programmeType'] = 'Provider-led'
@@ -314,7 +315,8 @@ module.exports = router => {
         if (req.query.change === 'yes') {
             req.session.data.changeProg = 'yes'
         }
-        res.redirect(v + school + 'save-programme-details')
+        // res.redirect(v + school + 'save-programme-details')
+        res.redirect(v + school + 'check-answers')
     })
 
 
@@ -332,7 +334,8 @@ module.exports = router => {
         if (req.query.change === 'yes') {
             req.session.data.changeProg = 'yes'
         }
-        res.redirect(v + school + 'save-programme-details')
+        // res.redirect(v + school + 'save-programme-details')
+        res.redirect(v + school + 'check-answers')
     })
 
     router.post(v + school + 'save-programme-details', (req, res) => {
