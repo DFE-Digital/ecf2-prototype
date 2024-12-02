@@ -1,0 +1,23 @@
+{% extends "layouts/ects.html" %}
+
+{% set pageName="John Smith has already been registered" %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+            <h1 class="govuk-heading-l">{{ pageName }}</h1>
+            <p>Our records show John Smith has already been registered as a mentor at your school.</p>
+
+            <p><a href="../../school/home/ects">Back to ECTs</a></p>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
