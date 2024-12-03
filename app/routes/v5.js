@@ -402,6 +402,9 @@ module.exports = router => {
         if (req.session.data['trn'] === '9999999') {
             res.redirect(v + school + mentor + 'nino')
         }
+        if (req.query.alreadyexists === 'yes') {
+            res.redirect(v + 'other-pages/add-mentor/mentor-already-registered')
+        }
         else {
             res.redirect(v + school + mentor + 'review-mentor-details')
         }
@@ -463,5 +466,12 @@ module.exports = router => {
         req.session.data['fullName'] = undefined
         req.session.data['ectAddedWithoutMentor'] = ''
         res.redirect(v + school + mentor + 'confirmation')
+    })
+
+    // other pages
+
+    router.post(v + 'other-pages/add-mentor/mentor-already-registered', (req, res) => {
+        req.session.data['mentor'] = 'Tom Jones'
+        res.redirect(v + school + mentor + 'assigned')
     })
 }
