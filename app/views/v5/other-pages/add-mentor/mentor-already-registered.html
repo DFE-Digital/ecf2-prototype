@@ -1,6 +1,6 @@
 {% extends "layouts/ects.html" %}
 
-{% set pageName="John Smith has already been registered" %}
+{% set pageName="Tom Jones has already been registered as a mentor at your school" %}
 
 {% block beforeContent %}
 {% endblock %}
@@ -12,8 +12,13 @@
         <form method="post">
 
             <h1 class="govuk-heading-l">{{ pageName }}</h1>
-            <p>Our records show John Smith has already been registered as a mentor at your school.</p>
+            <p>You can either continue to assign Tom Jones to mentor John Smith, or you can go back to ECTs and find a different mentor.</p>
 
+            <div class="govuk-button-group">
+                <button type="submit" class="govuk-button" data-module="govuk-button">
+                    Assign as a mentor for John Smith
+                </button>
+            </div>
             <p><a href="../../school/home/ects">Back to ECTs</a></p>
         </form>
 
