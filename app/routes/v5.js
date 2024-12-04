@@ -168,6 +168,9 @@ module.exports = router => {
 
     // start page
     router.post(v + school + 'start', (req, res) => {
+        if (req.query.rollover === 'yes') {
+            req.session.data['defaultsAlreadyAdded'] = 'yes'
+        }
         res.redirect(v + school + 'dfe-sign-in')
     })
 
@@ -185,18 +188,13 @@ module.exports = router => {
     // **** set up custom scenarios ****
 
     router.get(v + school + 'setup-scenario-1', (req, res) => {
-        req.session.data = []
         req.session.data['defaultsAlreadyAdded'] = 'no'
-        req.session.data['mentorsAddedPreviously'] = 'yes'
-        req.session.data['askingLp'] = 'yes'
         res.redirect(v + school + 'start')
     })
 
     router.get(v + school + 'setup-scenario-2', (req, res) => {
-        req.session.data['defaultsAlreadyAdded'] = 'no'
-        req.session.data['mentorsAddedPreviously'] = 'yes'
-        req.session.data['askingLp'] = 'no'
-        res.redirect(v + school + 'start')
+        req.session.data['defaultsAlreadyAdded'] = 'yes'
+        res.redirect(v + school + 'start?rollover=yes')
     })
 
     // what you'll need
@@ -247,6 +245,15 @@ module.exports = router => {
     })
 
     router.post(v + school + 'start-month', (req, res) => {
+        if (req.query.change === 'yes') {
+            res.redirect(v + school + 'check-answers')
+        }
+        else {
+            res.redirect(v + school + 'part-time')
+        }
+    })
+
+    router.post(v + school + 'part-time', (req, res) => {
         if (req.query.change === 'yes') {
             res.redirect(v + school + 'check-answers')
         }

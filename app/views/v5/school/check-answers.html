@@ -151,7 +151,8 @@ href: "javascript:window.history.back()"
             }]).concat(rows.slice(2)) %}
             {% endif %} #}
 
-            {% set rows = rows.concat([{
+            {% set rows = rows.concat([
+            {
             key: {
             text: "School start date"
             },
@@ -167,7 +168,26 @@ href: "javascript:window.history.back()"
             }
             ]
             }
-            }]) %}
+            },
+            {
+            key: {
+            text: "Full time"
+            },
+            value: {
+            text: data['partTime']
+            },
+            actions: {
+            items: [
+            {
+            href: "part-time?change=yes",
+            text: "Change",
+            visuallyHiddenText: "full time ECT"
+            }
+            ]
+            }
+            }
+            ]) %}
+
 
             {% if data['ab'] %}
             {% set ab = data['ab'] %}
