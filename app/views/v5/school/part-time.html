@@ -6,7 +6,7 @@
 {% set name = 'John Smith' %}
 {% endif %}
 
-{% set pageName="Is " + name + " contracted as a full time ECT?" %}
+{% set pageName="Is " + name + "'s working pattern full or part time?" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -24,7 +24,7 @@ href: "javascript:window.history.back()"
             {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
             {{ govukRadios({
-            name: "partTime",
+            name: "workingPattern",
             fieldset: {
             legend: {
             text: pageName,
@@ -34,12 +34,12 @@ href: "javascript:window.history.back()"
             },
             items: [
             {
-            value: "Yes",
-            text: "Yes"
+            value: "Full time",
+            text: "Full time"
             },
             {
-            value: "No",
-            text: "No, " + name + " is a part time ECT"
+            value: "Part time",
+            text: "Part time"
             }
             ]
             }) }}
