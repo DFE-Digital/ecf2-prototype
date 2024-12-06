@@ -171,6 +171,9 @@ module.exports = router => {
         if (req.query.rollover === 'yes') {
             req.session.data['defaultsAlreadyAdded'] = 'yes'
         }
+        if (req.query.transfer === 'yes') {
+            req.session.data['transferJourney'] = 'yes'
+        }
         res.redirect(v + school + 'dfe-sign-in')
     })
 
@@ -195,6 +198,11 @@ module.exports = router => {
     router.get(v + school + 'setup-scenario-2', (req, res) => {
         req.session.data['defaultsAlreadyAdded'] = 'yes'
         res.redirect(v + school + 'start?rollover=yes')
+    })
+
+    router.get(v + school + 'setup-scenario-3', (req, res) => {
+        req.session.data['transferJourney'] = 'yes'
+        res.redirect(v + school + 'start?transfer=yes')
     })
 
     // what you'll need
