@@ -1,6 +1,10 @@
 {% extends "layouts/ects.html" %}
 
+{% if data['transferJourney'] == "yes" %}
 {% set pageName="Check ECT details" %}
+{% else %}
+{% set pageName="Check ECT details" %}
+{% endif %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -17,6 +21,15 @@ href: "javascript:window.history.back()"
         <form method="post">
 
             <p>There is a teacher record that matches the details you have provided.</p>
+
+            {% if data['transferJourney'] == "yes" %}
+
+            <div class="govuk-inset-text">
+                <h2 class="govuk-heading-m">This ECT is currently registered at another school</h2>
+                <p>By continuing, you will be transferring this ECT from Xyz Primary School to Test Primary School.</p>
+            </div>
+
+            {% endif %}
 
             {% if data['dob-day'] and data['dob-month'] and data['dob-year'] %}
             {% set dob = data['dob-day'] + ' ' + data['dob-month'] | monthName + ' ' + data['dob-year'] %}
@@ -77,7 +90,7 @@ href: "javascript:window.history.back()"
             text: "Enter the correct full name"
             },
             hint: {
-            html: "The name you provide will be used for ECT registration. The ECT can update their name in their teacher record later using the Access your teaching qualifications service."
+            html: "This is the name that will be used in this service and communications with the ECT. The ECT can update their name in their teacher record later using the Access your teaching qualifications service."
             },
             id: "full-name",
             name: "fullName",
@@ -119,8 +132,10 @@ href: "javascript:window.history.back()"
         </form>
 
        
-</div>
 <div class="govuk-inset-text">
     If this is not the person you intended to register as an ECT, go back and <a href="find-ect">check details</a>.
   </div>
+    </div>
+</div>
+
 {% endblock %}
