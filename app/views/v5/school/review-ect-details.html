@@ -18,7 +18,6 @@ href: "javascript:window.history.back()"
 
             <p>There is a teacher record that matches the details you have provided.</p>
 
-
             {% if data['dob-day'] and data['dob-month'] and data['dob-year'] %}
             {% set dob = data['dob-day'] + ' ' + data['dob-month'] | monthName + ' ' + data['dob-year'] %}
             {% else %}
@@ -68,15 +67,6 @@ href: "javascript:window.history.back()"
             text: "QQ123456C"
             }
             }]) %}
-            {% endif %}
-
-            {% if data['transferJourney'] == "yes" %}
-
-            <div class="govuk-inset-text">
-                <h2 class="govuk-heading-m">John Smith is currently registered at another school</h2>
-                <p>You can continue to register this ECT and we will update our records.</p>
-            </div>
-
             {% endif %}
 
             {{ govukSummaryList({ rows: rows }) }}
