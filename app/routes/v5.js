@@ -169,9 +169,11 @@ module.exports = router => {
     // start page
     router.post(v + school + 'start', (req, res) => {
         if (req.query.rollover === 'yes') {
+            req.session.data['transferJourney'] = ''
             req.session.data['defaultsAlreadyAdded'] = 'yes'
         }
         if (req.query.transfer === 'yes') {
+            req.session.data['defaultsAlreadyAdded'] = ''
             req.session.data['transferJourney'] = 'yes'
         }
         res.redirect(v + school + 'dfe-sign-in')
@@ -191,16 +193,19 @@ module.exports = router => {
     // **** set up custom scenarios ****
 
     router.get(v + school + 'setup-scenario-1', (req, res) => {
+        req.session.data['transferJourney'] = ''
         req.session.data['defaultsAlreadyAdded'] = 'no'
         res.redirect(v + school + 'start')
     })
 
     router.get(v + school + 'setup-scenario-2', (req, res) => {
+        req.session.data['transferJourney'] = ''
         req.session.data['defaultsAlreadyAdded'] = 'yes'
         res.redirect(v + school + 'start?rollover=yes')
     })
 
     router.get(v + school + 'setup-scenario-3', (req, res) => {
+        req.session.data['defaultsAlreadyAdded'] = ''
         req.session.data['transferJourney'] = 'yes'
         res.redirect(v + school + 'start?transfer=yes')
     })
@@ -265,6 +270,9 @@ module.exports = router => {
         if (req.query.change === 'yes') {
             res.redirect(v + school + 'check-answers')
         }
+        else if (req.session.data['transferJourney'] === 'yes') {
+            res.redirect(v + school + 'transfer-existing')
+        }
         else if (req.session.data['defaultsAlreadyAdded'] === 'yes') {
             res.redirect(v + school + 'will-you-use-defaults')
         }
@@ -272,6 +280,21 @@ module.exports = router => {
             res.redirect(v + school + 'appropriate-body')
         }
     })
+
+    router.post(v + school + 'transfer-existing', (req, res) => {
+        if (req.session.data['useDefaults'] === 'no') {
+            res.redirect(v + school + 'appropriate-body')
+        }
+        else {
+            if (req.session.data['mentorsAddedPreviously'] === 'no') {
+                res.redirect(v + school + 'check-answers')
+            }
+            else {
+                res.redirect(v + school + 'check-answers')
+            }
+        }
+    })
+
 
     router.post(v + school + 'will-you-use-defaults', (req, res) => {
         if (req.session.data['useDefaults'] === 'no') {

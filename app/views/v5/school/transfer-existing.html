@@ -6,7 +6,7 @@
 {% set name = 'John Smith' %}
 {% endif %}
 
-{% set pageName="Check existing programme choices for " + name %}
+{% set pageName="Check programme choices" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -21,7 +21,7 @@ href: "javascript:window.history.back()"
     <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
-        <p>These are the programme choices that we have stored in our records for John Smith.</p>
+        <p>These are the programme choices John Smith previously used for training.</p>
 
         {% if data['ab'] %}
         {% set ab = data['ab'] %}
@@ -112,7 +112,7 @@ href: "javascript:window.history.back()"
         name: "useDefaults",
         fieldset: {
         legend: {
-        text: "Do you want to keep " + name + "'s existing programme choices?",
+        text: "Do you want to use the same programme choices?",
         isPageHeading: false,
         classes: "govuk-fieldset__legend--m"
         }

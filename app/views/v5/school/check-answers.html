@@ -64,6 +64,12 @@ href: "javascript:window.history.back()"
             {% set year = '2024' %}
             {% endif %}
 
+            {% if data['workingPattern'] %}
+            {% set workingPattern = data['workingPattern'] %}
+            {% else %}
+            {% set workingPattern = 'Full time' %}
+            {% endif %}
+
             {# {% set firstRows = [
             {
             key: {
@@ -174,7 +180,7 @@ href: "javascript:window.history.back()"
             text: "Working pattern"
             },
             value: {
-            text: data['workingPattern']
+            text: workingPattern
             },
             actions: {
             items: [
@@ -331,6 +337,17 @@ href: "javascript:window.history.back()"
             {% set rows = rows.concat(trainingRows) %}
 
             {{ govukSummaryList({ rows: rows }) }}
+
+            {% if data['transferJourney'] === 'yes' %}
+            <div class="govuk-inset-text">
+                <h2 class="govuk-heading-m">
+                    Move ECT to your school
+                </h2>
+                <p>
+                    Confirm details to move John Smith from their previous school to your school to continue their training.
+                </p>
+            </div>
+            {% endif %}
 
             <button class="govuk-button">Confirm details</button>
         </form>
