@@ -1,0 +1,143 @@
+{% extends "layouts/ects.html" %}
+
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'John Smith' %}
+{% endif %}
+
+{% set pageName="Which appropriate body will be supporting " + name + "'s induction?" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+        <form method="post">
+
+        {{ xGovukAutocomplete({
+        id: "ab",
+        name: "ab",
+        allowEmpty: false,
+        label: {
+        classes: "govuk-visually-hidden",
+        text: pageName
+        },
+        hint: {
+        html: "<p class='govuk-body'>Appropriate bodies are responsible for assuring the quality of the statutory induction of ECTs.</p><p>We share the ECT's details with the appropriate body to check the ECT has been registered correctly.</p>"
+        },
+        items: [
+        { text: "Alban Teaching School Hub" },
+        { text: "Alpha Teaching School Hub" },
+        { text: "Arthur Terry Teaching School Hub - North Birmingham" },
+        { text: "Astra Teaching School Hub, Buckinghamshire" },
+        { text: "Balcarras" },
+        { text: "Bright Futures Teaching School Hub - Manchester & Stockport" },
+        { text: "Bright Futures Teaching School Hub - Salford & Trafford" },
+        { text: "Calderdale and Kirklees Teaching School Hub" },
+        { text: "Cambridgeshire and Peterborough Teaching School Hub" },
+        { text: "Central London Teaching School Hub" },
+        { text: "Chafford Hundred Teaching School Hub" },
+        { text: "Cheshire Teaching School Hub" },
+        { text: "Chiltern Teaching School Hub" },
+        { text: "Colyton Teaching School Hub" },
+        { text: "Coventry and Central Warwickshire Teaching School Hub" },
+        { text: "DRET Teaching School Hub" },
+        { text: "East London Teaching School Hub" },
+        { text: "Embrace Teaching School Hub" },
+        { text: "Exchange Teaching School Hub" },
+        { text: "Exceed Teaching School Hub" },
+        { text: "Flying High Teaching School Hub" },
+        { text: "Generate Teaching Hub" },
+        { text: "GLF West Sussex Teaching School Hub" },
+        { text: "Harris City Academy Crystal Palace Teaching School Hub" },
+        { text: "Haybridge Teaching School Hub" },
+        { text: "HISP Teaching School Hub" },
+        { text: "Inspiration Teaching School Hub" },
+        { text: "Inspire Learning Teaching School Hub NW" },
+        { text: "John Taylor Teaching School Hub" },
+        { text: "Kent Teaching School Hub" },
+        { text: "Kingsbridge Teaching School Hub" },
+        { text: "L.E.A.D. Teaching School Hub Lincolnshire" },
+        { text: "Leeds Teaching School Hub" },
+        { text: "Leicester & Leicestershire TSH" },
+        { text: "Leicestershire & Rutland TS Hub" },
+        { text: "London District East Teaching School Hub" },
+        { text: "London South Teaching School Hub" },
+        { text: "Manor Teaching School Hub" },
+        { text: "NELTSH Teaching School Hub" },
+        { text: "North East London Teaching School Hub" },
+        { text: "North West London Teaching School Hub" },
+        { text: "Northamptonshire Teaching School Hub" },
+        { text: "Northern Lights TSH: South Tyne & Wear" },
+        { text: "Odyssey Teaching School Hub" },
+        { text: "One Cornwall Teaching School Hub" },
+        { text: "One Cumbria Teaching School Hub" },
+        { text: "Oxfordshire Teaching School Hub" },
+        { text: "Pathfinder Teaching School Hub" },
+        { text: "Potentia TSH" },
+        { text: "Prince Henry’s Teaching School Hub" },
+        { text: "Rainbow Teaching School Hub" },
+        { text: "Red Kite Teaching School Hub" },
+        { text: "Redhill Teaching Hub" },
+        { text: "Saffron Teaching School Hub" },
+        { text: "SFET Teaching School Hub" },
+        { text: "South Central Teaching School Hub" },
+        { text: "South Yorkshire Teaching Hub" },
+        { text: "Spencer Teaching School Hub" },
+        { text: "Star Teaching School Hub Birmingham South" },
+        { text: "Star Teaching School Hub Bolton, Bury, Rochdale" },
+        { text: "Star Teaching School Hub North West Lancashire" },
+        { text: "Star Teaching School Hub Pennine Lancashire" },
+        { text: "STEP" },
+        { text: "STEP Ahead Teaching School Hub" },
+        { text: "Swindon and Wiltshire Teaching School Hub" },
+        { text: "Teach West London" },
+        { text: "Tees Valley Teaching School Hub" },
+        { text: "The East Manchester Teaching Hub" },
+        { text: "The Golden Thread Teaching School Hub" },
+        { text: "The Julian Teaching School Hub" },
+        { text: "The Three Rivers Teaching School Hub" },
+        { text: "TSH Berkshire" },
+        { text: "Tudor Grange Teaching School Hub" },
+        { text: "Unity Teaching School Hub" },
+        { text: "Wandle Teaching School Hub" },
+        { text: "Xavier Teaching School Hub" }
+        ]
+
+        }) }}
+
+            {{ govukDetails({
+            summaryText: "Find out more about appropriate bodies",
+            text: "
+            <p class='govuk-body'>They are teaching school hubs that:</p>
+            <ul class='govuk-list govuk-list--bullet'>
+                <li>ensure schools follow correct procedures for ECTs, including providing an ECF-based induction</li>
+                <li>make sure ECTs receive their statutory entitlements (time off timetable and mentoring)</li>
+                <li>monitor ECT progress during induction and advise schools on how to support improvement</li>
+            </ul>"
+            |safe }) }}
+            <button class="govuk-button">Continue</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block pageScripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var autocompleteInput = document.querySelector('#ab');
+        if (autocompleteInput) {
+            autocompleteInput.setAttribute('placeholder', 'Enter teaching school hub name');
+        }
+    });
+</script>
+{% endblock %}
