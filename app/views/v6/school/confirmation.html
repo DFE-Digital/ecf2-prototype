@@ -1,0 +1,32 @@
+{% extends "layouts/ects.html" %}
+
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'John Smith' %}
+{% endif %}
+
+{% set pageName= "You have saved " + name + "'s details" %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+        <p>We'll email them to let them know. They do not need to provide us with any more information.</p>
+        <h2 class="govuk-heading-m">You still need to assign a mentor</h2>
+
+        <p class="govuk-body">
+            You can either assign a mentor now or return and do it later. You need to do this to complete their registration.
+        </p>
+        <a class="govuk-button" href="mentor/what-youll-need">Assign a mentor</a>
+
+        <p><a href="home/ects">Back to ECTs</a></p>
+
+    </div>
+</div>
+
+{% endblock %}

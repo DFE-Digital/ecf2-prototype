@@ -1,6 +1,6 @@
 {% extends "layouts/ects.html" %}
 
-{% set pageName="John Smith is already at your school" %}
+{% set pageName="You cannot register John Smith" %}
 
 {% block beforeContent %}
 {% endblock %}
@@ -12,7 +12,7 @@
         <form method="post">
 
             <h1 class="govuk-heading-l">{{ pageName }}</h1>
-            <p>Our records show this ECT has already been registered for training at your school.</p>
+            <p>Our records show John Smith is exempt from having to serve induction so you cannot register them for ECF training.</p>
 
             <p><a href="../../school/find-ect">Register another ECT</a></p>
         </form>

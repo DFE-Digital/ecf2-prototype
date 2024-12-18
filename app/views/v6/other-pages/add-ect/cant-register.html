@@ -1,6 +1,6 @@
 {% extends "layouts/ects.html" %}
 
-{% set pageName="John Smith is already at your school" %}
+{% set pageName="You cannot register John Smith" %}
 
 {% block beforeContent %}
 {% endblock %}
@@ -12,9 +12,8 @@
         <form method="post">
 
             <h1 class="govuk-heading-l">{{ pageName }}</h1>
-            <p>Our records show this ECT has already been registered for training at your school.</p>
-
-            <p><a href="../../school/find-ect">Register another ECT</a></p>
+            <p class="govuk-body">Our records show that John Smith cannot be registered for training or mentoring.</p>
+            <p><a href="../../school/home/ects">Back to ECTs</a></p>
         </form>
 
     </div>
