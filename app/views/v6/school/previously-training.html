@@ -1,0 +1,87 @@
+{% extends "layouts/ects.html" %}
+
+{% set pageName="John Smith has been previously registered for ECTE training at a different school" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+        <form method="post">
+
+            {{ govukSummaryList({
+            card: {
+            title: {
+            text: "John Smith"
+            }
+            },
+            rows: [
+            {
+            key: {
+            text: "TRN"
+            },
+            value: {
+            html: "5102510"
+            }
+            },
+            {
+            key: {
+            text: "Induction start date"
+            },
+            value: {
+            html: "10 January 2023"
+            }
+            },
+            {
+            key: {
+            text: "Appropriate body"
+            },
+            value: {
+            html: "Teach West London"
+            }
+            },
+            {
+            key: {
+            text: "Programme type"
+            },
+            value: {
+            html: "Provider-led"
+            }
+            },
+            {
+            key: {
+            text: "Lead provider"
+            },
+            value: {
+            html: "Ambition Institute"
+            }
+            },
+            {
+            key: {
+            text: "Delivery partner"
+            },
+            value: {
+            html: "Teach West London"
+            }
+            }
+            ]
+            }) }}
+
+            <p>This isn't a problem but something to be aware of as we ask for you further details.</p>
+
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
