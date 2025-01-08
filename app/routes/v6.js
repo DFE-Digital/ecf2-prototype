@@ -243,9 +243,16 @@ module.exports = router => {
         if (req.query.change === 'yes') {
             res.redirect(v + school + 'check-answers')
         }
+        if (req.session.data.transferJourney === 'yes') {
+            res.redirect(v + school + 'previously-training')
+        }
         else {
             res.redirect(v + school + 'email-address')
         }
+    })
+
+    router.post(v + school + 'previously-training', (req, res) => {
+        res.redirect(v + school + 'email-address')
     })
 
     router.post(v + school + 'email-address', (req, res) => {
@@ -271,7 +278,7 @@ module.exports = router => {
             res.redirect(v + school + 'check-answers')
         }
         else if (req.session.data['transferJourney'] === 'yes') {
-            res.redirect(v + school + 'transfer-existing')
+            res.redirect(v + school + 'will-you-use-defaults')
         }
         else if (req.session.data['defaultsAlreadyAdded'] === 'yes') {
             res.redirect(v + school + 'will-you-use-defaults')

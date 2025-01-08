@@ -6,7 +6,7 @@
 {% set name = 'John Smith' %}
 {% endif %}
 
-{% set pageName="Confirm programme choices" %}
+{% set pageName="Programme choices used by your school previously" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -106,6 +106,14 @@ href: "javascript:window.history.back()"
         {% endif %}
 
         <form method="post">
+
+<!--            {% if data['transferJourney'] === 'yes' %}-->
+
+<!--            <div class="govuk-inset-text">-->
+<!--                <p>Content here about overwriting previous programme details as transfer</p>-->
+<!--            </div>-->
+
+<!--            {% endif %}-->
 
         {{ govukRadios({
         classes: "govuk-radios--inline",
