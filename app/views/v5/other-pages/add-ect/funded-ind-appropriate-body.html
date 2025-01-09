@@ -20,6 +20,9 @@ href: "javascript:window.history.back()"
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+       <p class='govuk-body'>Appropriate bodies are responsible for assuring the quality of the statutory induction of ECTs.</p>
+        <p>We share the ECT's details with the appropriate body to check the ECT has been registered correctly.</p>
         <form method="post">
 
             {% set autoComplete %}
@@ -28,7 +31,7 @@ href: "javascript:window.history.back()"
         name: "ab",
         allowEmpty: false,
         label: {
-        html: "Which teaching school hub will be supporting " + name + "'s induction?"
+        html: "Enter appropriate body name"
         },
         items: [
         { text: "Alban Teaching School Hub" },
@@ -118,9 +121,6 @@ href: "javascript:window.history.back()"
             classes: "govuk-visually-hidden",
             text: pageName
             },
-            hint: {
-            html: "<p class='govuk-body'>Appropriate bodies are responsible for assuring the quality of the statutory induction of ECTs.</p><p>We share the ECT's details with the appropriate body to check the ECT has been registered correctly.</p>"
-            },
             items: [
             {
             value: "Independent Schools Teacher Induction Panel (ISTIP)",
@@ -139,7 +139,8 @@ href: "javascript:window.history.back()"
             {{ govukDetails({
             summaryText: "Find out more about appropriate bodies",
             text: "
-            <p class='govuk-body'>They are organisations that:</p>
+            <p>Teaching school hubs are the main provider of appropriate body services, except for the 2 specialist appropriate body services for some independent and overseas schools.</p>
+            <p class='govuk-body'>Appropriate bodies:</p>
             <ul class='govuk-list govuk-list--bullet'>
                 <li>ensure schools follow correct procedures for ECTs, including providing an ECF-based induction</li>
                 <li>make sure ECTs receive their statutory entitlements (time off timetable and mentoring)</li>
@@ -154,12 +155,12 @@ href: "javascript:window.history.back()"
 {% endblock %}
 
 {% block pageScripts %}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var autocompleteInput = document.querySelector('#ab');
-        if (autocompleteInput) {
-            autocompleteInput.setAttribute('placeholder', 'Enter teaching school hub name');
-        }
-    });
-</script>
+<!--<script>-->
+<!--    document.addEventListener('DOMContentLoaded', function () {-->
+<!--        var autocompleteInput = document.querySelector('#ab');-->
+<!--        if (autocompleteInput) {-->
+<!--            autocompleteInput.setAttribute('placeholder', 'Enter teaching school hub name');-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
 {% endblock %}
