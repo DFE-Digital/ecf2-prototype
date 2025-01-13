@@ -1,0 +1,107 @@
+{% extends "layouts/ects.html" %}
+
+{% block head %}
+{{ super() }} <!-- This includes the content from the base head block -->
+{% include "./filters.njk" %}
+{% endblock %}
+
+{% set pageName="John Smith" %}
+
+{% block content %}
+<span class="govuk-caption-m">TRN: 5129834</span>
+<h1 class="govuk-heading-l">John Smith</h1>
+<h1 class="govuk-heading-m">Personal details</h1>
+
+  <dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Name
+      </dt>
+      <dd class="govuk-summary-list__value">
+        John Smith
+      </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Email address
+      </dt>
+      <dd class="govuk-summary-list__value">
+        name@email.com
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Mentor
+      </dt>
+      <dd class="govuk-summary-list__value">
+        Laura Davids
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        School start date
+      </dt>
+      <dd class="govuk-summary-list__value">
+        September 2025
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Working pattern
+      </dt>
+      <dd class="govuk-summary-list__value">
+        Full time
+    </div>
+  </dl>
+
+  <div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+      <h1 class="govuk-summary-card__title">
+        Current training details
+      </h1>
+    </div>
+    <div class="govuk-summary-card__content">
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Appropriate body
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Alpha Teaching School Hub
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Programme type
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Provider-led
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Lead provider
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Ambition institute
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+
+{{ super() }}
+<script src="/node_modules/dfe-frontend/dist/dfefrontend.min.js"></script>
+
+<script>
+    // Ensure DOM is fully loaded before manipulating
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the current URL
+        const url = window.location.href;
+
+        // Use the match() method to find the value in the URL
+        const currentV = url.match(/v\d+/);
+
+        // Set the value as the href attribute of the link
+        document.getElementById("ects").href = "/" + currentV + "/school/home/ects"
+        document.getElementById("mentors").href = "/" + currentV + "/school/home/mentors"
+    });
+</script>
+{% endblock %}
