@@ -1,0 +1,55 @@
+{% extends "layouts/ects.html" %}
+
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'Samuel Taylor' %}
+{% endif %}
+
+{% set pageName="Will " + name + " continue mentoring at their previous school?" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+        <p>Our records show this person is already registered as a mentor at a different school.</p>
+        <p>A mentor can mentor ECTs across multiple schools but can only recieve mentor training from one school at a time.</p>
+
+
+        <form method="post">
+
+        {{ govukRadios({
+        name: "mentorOnly",
+            fieldset: {
+            legend: {
+            text: pageName,
+            classes: "govuk-visually-hidden"
+            }
+        },
+        items: [
+        {
+        value: "yes",
+        text: "Yes, they will be mentoring at multiple schools"
+        },
+        {
+        value: "no",
+        text: "No, they are only mentoring at this school"
+        }
+        ]
+        }) }}
+
+            <button class="govuk-button">Continue</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
