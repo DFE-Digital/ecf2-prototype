@@ -1,14 +1,18 @@
 {% extends "layouts/ects.html" %}
 
-{% block head %}
-{{ super() }} <!-- This includes the content from the base head block -->
-{% include "./filters.njk" %}
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "ects"
+}) }}
 {% endblock %}
 
 {% set pageName="John Smith" %}
 
 {% block content %}
-<span class="govuk-caption-m">TRN: 5129834</span>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+<span class="govuk-caption-l">TRN: 5129834</span>
 <h1 class="govuk-heading-l">John Smith</h1>
 <h1 class="govuk-heading-m">Personal details</h1>
 
@@ -86,6 +90,8 @@
       </dl>
     </div>
   </div>
+  </div>
+</div>
 
 {{ super() }}
 <script src="/node_modules/dfe-frontend/dist/dfefrontend.min.js"></script>
