@@ -305,13 +305,19 @@ href: "javascript:window.history.back()"
             actions: {
             items: [
             {
-            href: "lead-provider?change=yes",
+            href: "will-you-use-defaults?change=yes",
             text: "Change",
             visuallyHiddenText: "lead provider"
             }
             ]
             }
-            },
+            }
+            ] %}
+
+            {% endif %}
+
+            {% set dpRows = [
+
             {
             key: {
             text: "Delivery partner"
@@ -322,17 +328,21 @@ href: "javascript:window.history.back()"
             actions: {
             items: [
             {
-            href: "also-delivering?change=yes",
+            href: "will-you-use-defaults?change=yes",
             text: "Change",
             visuallyHiddenText: "delivery partner"
             }
             ]
             }
             }
+
             ] %}
 
-            {% endif %}
+            {% if data['showDp'] == true %}
 
+            {% set trainingRows = trainingRows.concat(dpRows) %}
+
+            {% endif %}
 
             {% set rows = rows.concat(trainingRows) %}
 
