@@ -8,6 +8,17 @@ var mentor = 'mentor/'
 
 module.exports = router => {
 
+    router.use((req, res, next) => {
+        // Override session data if the environment variable is set
+        if (process.env.ENVIRONMENT === 'research') {
+            req.session.data['ab'] = process.env.AB;
+            req.session.data['deliveryPartner'] = process.env.DP;
+            req.session.data['leadProvider'] = process.env.LP;
+            req.session.data['programmeType'] = process.env.PROG;
+        }
+        next();
+    });
+
     // start page
     router.post(v + school + 'start', (req, res) => {
         if (req.query.rollover === 'yes') {
