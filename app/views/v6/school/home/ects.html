@@ -9,9 +9,15 @@
 
 {% block content %}
 
+{% if data['schoolName'] %}
+{% set schoolName = data['schoolName'] %}
+{% else %}
+{% set schoolName = 'Test Primary School' %}
+{% endif %}
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-        <h1 class="govuk-caption-l">Test Primary School</h1>
+        <h1 class="govuk-caption-l">{{schoolName}}</h1>
         <h1 class="govuk-heading-l">{{pageName}}</h1>
         <a href="../what-youll-need" class="govuk-button">Register a new ECT</a>
         <hr class="govuk-section-break--m">

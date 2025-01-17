@@ -8,6 +8,21 @@ var mentor = 'mentor/'
 
 module.exports = router => {
 
+    router.use((req, res, next) => {
+        // Override session data if the environment variable is set
+        if (process.env.ENVIRONMENT === 'research' && !req.session.data['variablesInitialized']) {
+            req.session.data['ab'] = process.env.AB;
+            req.session.data['deliveryPartner'] = process.env.DP;
+            req.session.data['leadProvider'] = process.env.LP;
+            req.session.data['programmeType'] = process.env.PROG;
+            req.session.data['schoolName'] = process.env.SCHOOLNAME;
+
+            // Mark session variables as initialized
+            req.session.data['variablesInitialized'] = true;
+        }
+        next();
+    });
+
     // start page
     router.post(v + school + 'start', (req, res) => {
         if (req.query.rollover === 'yes') {
@@ -156,7 +171,7 @@ module.exports = router => {
 
 
     router.post(v + school + 'will-you-use-defaults', (req, res) => {
-        if (req.session.data['useDefaults'] === 'yes') {
+        if (req.session.data['useDefaults'] === 'yes' && req.session.data['programmeType'] === 'Provider-led') {
             req.session.data['showDp'] = true
         }
         if (req.session.data['useDefaults'] === 'no') {
