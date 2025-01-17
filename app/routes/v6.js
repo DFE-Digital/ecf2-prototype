@@ -283,7 +283,6 @@ module.exports = router => {
         req.session.data['askForNino'] = ''
         req.session.data['ectAdded'] = 'yes'
         req.session.data['fullName'] = undefined
-        req.session.data['showDp'] = undefined
         if (req.session.data['mentor'] === 'Someone else' || req.session.data['mentorsAddedPreviously'] === 'no') {
             req.session.data['ectAddedWithoutMentor'] = 'yes'
             res.redirect(v + school + 'confirmation-mentor-to-be-added')
@@ -353,6 +352,9 @@ module.exports = router => {
         if (req.session.data.mentorTransfer === 'yes') {
             res.redirect(v + school + mentor + 'mentor-at-other-school')
         }
+        else if (req.session.data['programmeType'] === 'School-led') {
+            res.redirect(v + school + mentor + 'check-answers')
+        }
         else {
             res.redirect(v + school + mentor + 'will-receive-mentor-training')
         }
@@ -360,6 +362,9 @@ module.exports = router => {
 
     router.post(v + school + mentor + 'mentor-at-other-school', (req, res) => {
         if (req.session.data.mentorOnly === 'yes') {
+            res.redirect(v + school + mentor + 'check-answers')
+        }
+        if (req.session.data['programmeType'] === 'School-led') {
             res.redirect(v + school + mentor + 'check-answers')
         }
         else {
