@@ -10,11 +10,15 @@ module.exports = router => {
 
     router.use((req, res, next) => {
         // Override session data if the environment variable is set
-        if (process.env.ENVIRONMENT === 'research') {
+        if (process.env.ENVIRONMENT === 'research' && !req.session.data['variablesInitialized']) {
             req.session.data['ab'] = process.env.AB;
             req.session.data['deliveryPartner'] = process.env.DP;
             req.session.data['leadProvider'] = process.env.LP;
             req.session.data['programmeType'] = process.env.PROG;
+            req.session.data['schoolName'] = process.env.SCHOOLNAME;
+
+            // Mark session variables as initialized
+            req.session.data['variablesInitialized'] = true;
         }
         next();
     });
