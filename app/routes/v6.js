@@ -167,7 +167,7 @@ module.exports = router => {
 
 
     router.post(v + school + 'will-you-use-defaults', (req, res) => {
-        if (req.session.data['useDefaults'] === 'yes') {
+        if (req.session.data['useDefaults'] === 'yes' && req.session.data['programmeType'] === 'Provider-led') {
             req.session.data['showDp'] = true
         }
         if (req.session.data['useDefaults'] === 'no') {
