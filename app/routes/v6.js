@@ -361,10 +361,10 @@ module.exports = router => {
     })
 
     router.post(v + school + mentor + 'mentor-at-other-school', (req, res) => {
-        if (req.session.data.mentorOnly === 'yes') {
+        if (req.session.data['mentorOnly'] === 'yes') {
             res.redirect(v + school + mentor + 'check-answers')
         }
-        if (req.session.data['programmeType'] === 'School-led') {
+        else if (req.session.data['programmeType'] === 'School-led') {
             res.redirect(v + school + mentor + 'check-answers')
         }
         else {
