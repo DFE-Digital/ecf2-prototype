@@ -8,6 +8,12 @@
 
 {% set pageName="You've assigned " + name + " as a mentor" %}
 
+{% if data['leadProvider'] %}
+{% set lp = data['leadProvider'] %}
+{% else %}
+{% set lp = 'Ambition Institute' %}
+{% endif %}
+
 {% block beforeContent %}
 {% endblock %}
 
@@ -30,7 +36,7 @@
 
         <p class="govuk-body">They do not need to provide us with any further details.</p>
 
-        <p>We'll pass on their details to Ambition Institute who will contact them to arrange mentor training.</p>
+        <p>We'll pass on their details to {{lp}} who will contact them to arrange mentor training.</p>
         <p><a href="#">Back to ECTs</a></p>
     </div>
 </div>
