@@ -1,0 +1,161 @@
+{% extends "layouts/ects.html" %}
+
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'Samuel Taylor' %}
+{% endif %}
+
+{% set pageName="Check your answers and confirm mentor details" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+            {% if data['dob-day'] and data['dob-month'] and data['dob-year'] %}
+            {% set dob = data['dob-day'] + ' ' + data['dob-month'] | monthName + ' ' + data['dob-year'] %}
+            {% else %}
+            {% set dob = '1 January 1990' %}
+            {% endif %}
+
+            {% if data['trn'] %}
+            {% set trn = data['trn'] %}
+            {% else %}
+            {% set trn = '5249105' %}
+            {% endif %}
+
+            {% if data['email'] %}
+            {% set email = data['email'] %}
+            {% else %}
+            {% set email = 'email@email.com' %}
+            {% endif %}
+
+            {% if data['fullName'] %}
+            {% set name = data['fullName'] %}
+            {% else %}
+            {% set name = 'Samuel Taylor' %}
+            {% endif %}
+
+            {% set rows = [
+            {
+            key: {
+            text: "Teacher reference number (TRN)"
+            },
+            value: {
+            text: trn
+            }
+            },
+            {
+            key: {
+            text: "Name"
+            },
+            value: {
+            text: name
+            },
+            actions: {
+            items: [
+            {
+            href: "review-mentor-details?change=yes",
+            text: "Change",
+            visuallyHiddenText: "name"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Email address"
+            },
+            value: {
+            text: email
+            },
+            actions: {
+            items: [
+            {
+            href: "email-address?change=yes",
+            text: "Change",
+            visuallyHiddenText: "email address"
+            }
+            ]
+            }
+            }
+            ] %}
+
+            {% if data['deliveryPartner'] %}
+            {% set dp = data['deliveryPartner'] %}
+            {% else %}
+            {% set dp = 'London District East TSH' %}
+            {% endif %}
+
+            {% if data['leadProvider'] %}
+            {% set lp = data['leadProvider'] %}
+            {% else %}
+            {% set lp = 'Ambition Institute' %}
+            {% endif %}
+
+            {# {% set rows = rows.concat([{
+            key: {
+            text: "Lead provider"
+            },
+            value: {
+            text: lp
+            },
+            actions: {
+            items: [
+            {
+            href: "will-you-use-defaults?change=yes",
+            text: "Change",
+            visuallyHiddenText: "lead provider"
+            }
+            ]
+            }
+            }]) %} #}
+
+            {% set dpRows = [
+
+            {
+            key: {
+            text: "Delivery partner"
+            },
+            value: {
+            text: dp
+            },
+            actions: {
+            items: [
+            {
+            href: "will-you-use-defaults?change=yes",
+            text: "Change",
+            visuallyHiddenText: "delivery partner"
+            }
+            ]
+            }
+            }
+
+            ] %}
+
+            {# {% if data['showDp'] == true %}
+
+            {% set rows = rows.concat(dpRows) %}
+
+            {% endif %} #}
+
+            {{ govukSummaryList({ rows: rows }) }}
+
+            <div class="govuk-inset-text">{{name}} will mentor John Smith.</div>
+
+            <button class="govuk-button">Confirm details</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
