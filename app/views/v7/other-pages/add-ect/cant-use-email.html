@@ -1,0 +1,30 @@
+{% extends "layouts/ects.html" %}
+
+{% set pageName="This email is already in use for a different ECT or mentor" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: ""
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+            <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+            <p class="govuk-body">Make sure you use an email that belongs to the person you're registering.</p>
+
+            <p class="govuk-body">Do not use a generic email like <a href="mailto:admin@example.com">admin@example.com</a>.</p>
+
+            <button class="govuk-button">Try another email</button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

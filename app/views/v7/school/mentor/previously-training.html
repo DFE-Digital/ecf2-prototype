@@ -1,0 +1,63 @@
+{% extends "layouts/ects.html" %}
+
+{% set pageName="Samuel Taylor has been previously registered for mentor training at a different school" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+        <form method="post">
+
+            {{ govukSummaryList({
+            card: {
+            title: {
+            text: "Samuel Taylor's previous mentor training"
+            }
+            },
+            rows: [
+            {
+            key: {
+            text: "TRN"
+            },
+            value: {
+            html: "5102510"
+            }
+            },
+            {
+            key: {
+            text: "School start date"
+            },
+            value: {
+            html: "10 January 2023"
+            }
+            },
+            {
+            key: {
+            text: "Lead provider"
+            },
+            value: {
+            html: "Ambition Institute"
+            }
+            }
+            ]
+            }) }}
+
+            <p>You'll be able to update their programme choices later if you need to.</p>
+
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
