@@ -295,6 +295,11 @@ module.exports = router => {
 
     // mentor journeys
 
+    router.get(v + school + mentor + 'mentor-transfer', (req, res) => {
+        req.session.data['mentorTransfer'] = 'yes'
+        res.redirect(v + school + mentor + 'who-will-be-mentoring')
+    })
+
     router.post(v + school + mentor + 'who-will-be-mentoring', (req, res) => {
         if (req.session.data ['mentor'] === 'Register a new mentor'){
             req.session.data['askForNino'] = null
@@ -361,15 +366,19 @@ module.exports = router => {
     })
 
     router.post(v + school + mentor + 'mentor-at-other-school', (req, res) => {
-        if (req.session.data['mentorOnly'] === 'yes') {
+        if (req.session.data['mentorOnly'] === 'no') {
             res.redirect(v + school + mentor + 'check-answers')
         }
         else if (req.session.data['programmeType'] === 'School-led') {
             res.redirect(v + school + mentor + 'check-answers')
         }
         else {
-            res.redirect(v + school + mentor + 'will-receive-mentor-training')
+            res.redirect(v + school + mentor + 'previously-training')
         }
+    })
+
+    router.post(v + school + mentor + 'previously-training', (req, res) => {
+        res.redirect(v + school + mentor + 'will-you-use-defaults')
     })
 
     router.post(v + school + mentor + 'will-receive-mentor-training', (req, res) => {
@@ -395,14 +404,6 @@ module.exports = router => {
         req.session.data['showDp'] = false
         res.redirect(v + school + mentor + 'check-answers')
     })
-
-    router.post(v + school + mentor + 'autocomplete-delivery-partner', (req, res) => {
-        if (req.session.data['deliveryPartner'] === undefined) {
-            req.session.data['deliveryPartner'] = 'Ambition Institute'
-        }
-        res.redirect(v + school + mentor + 'check-answers')
-    })
-
 
     router.post(v + school + mentor + 'check-answers', (req, res) => {
         req.session.data['fullName'] = undefined
