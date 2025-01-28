@@ -103,7 +103,40 @@ href: "javascript:window.history.back()"
             {% set lp = 'Ambition Institute' %}
             {% endif %}
 
-            {# {% set rows = rows.concat([{
+            {% if data['mentorOnly'] %}
+            {% set mentorOnly = data['mentorOnly'] | capitalize %}
+            {% else %}
+            {% set mentorOnly = 'Yes' %}
+            {% endif %}
+
+            {% if data['mentorTransfer'] === 'yes' %}
+            {% set rows = rows.concat(
+            [
+            {
+            key: {
+            text: "Mentoring only at your school"
+            },
+            value: {
+            text: mentorOnly
+            },
+            actions: {
+            items: [
+            {
+            href: "mentor-at-other-school?change=yes",
+            text: "Change",
+            visuallyHiddenText: "mentoring only at your school"
+            }
+            ]
+            }
+            }
+            ]
+            ) %}
+            {% endif %}
+
+            {% if (data['mentorTransfer'] === 'yes') and (data['mentorOnly'] === 'yes') %}
+            {% set rows = rows.concat(
+            [
+            {
             key: {
             text: "Lead provider"
             },
@@ -119,10 +152,14 @@ href: "javascript:window.history.back()"
             }
             ]
             }
-            }]) %} #}
+            }
+            ]
+            ) %}
+            {% endif %}
 
-            {% set dpRows = [
-
+            {% if (data['mentorTransfer'] === 'yes') and (data['mentorOnly'] === 'yes') and (data['showDp'] === true) %}
+            {% set rows = rows.concat(
+            [
             {
             key: {
             text: "Delivery partner"
@@ -140,14 +177,9 @@ href: "javascript:window.history.back()"
             ]
             }
             }
-
-            ] %}
-
-            {# {% if data['showDp'] == true %}
-
-            {% set rows = rows.concat(dpRows) %}
-
-            {% endif %} #}
+            ]
+            ) %}
+            {% endif %}
 
             {{ govukSummaryList({ rows: rows }) }}
 
