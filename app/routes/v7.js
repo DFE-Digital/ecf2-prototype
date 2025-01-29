@@ -295,6 +295,11 @@ module.exports = router => {
 
     // mentor journeys
 
+    router.get(v + school + mentor + 'add-mentor', (req, res) => {
+        req.session.data['mentorTransfer'] = ''
+        res.redirect(v + school + mentor + 'who-will-be-mentoring')
+    })
+
     router.get(v + school + mentor + 'mentor-transfer', (req, res) => {
         req.session.data['mentorTransfer'] = 'yes'
         res.redirect(v + school + mentor + 'who-will-be-mentoring')
