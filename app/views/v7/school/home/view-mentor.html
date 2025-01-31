@@ -1,4 +1,4 @@
-{% extends "layouts/ects.html" %}
+{% extends "layouts/mentors.html" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -12,9 +12,9 @@ href: "ects"
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-<span class="govuk-caption-l">TRN: 5129834</span>
-<h1 class="govuk-heading-l">John Smith</h1>
-<h1 class="govuk-heading-m">ECT details</h1>
+<span class="govuk-caption-l">TRN: 5924029</span>
+<h1 class="govuk-heading-l">John Doe</h1>
+<h1 class="govuk-heading-m">Mentor details</h1>
 
   <dl class="govuk-summary-list">
     <div class="govuk-summary-list__row">
@@ -22,7 +22,7 @@ href: "ects"
         Name
       </dt>
       <dd class="govuk-summary-list__value">
-        John Smith
+        John Doe
       </dd>
     </div>
     <div class="govuk-summary-list__row">
@@ -35,26 +35,14 @@ href: "ects"
     </div>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
-        Mentor
+        Assigned ECTs
       </dt>
       <dd class="govuk-summary-list__value">
-        John Doe
+        John Smith<br>
+      Steven Taylor
       </dd>
-    </div>
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        School start date
-      </dt>
-      <dd class="govuk-summary-list__value">
-        September 2025
-      </dd>
-    </div>
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        Working pattern
-      </dt>
-      <dd class="govuk-summary-list__value">
-        Full time
+      <dd class="govuk-summary-list__actions">
+        <a class="govuk-link" href="mentor/assigned-ects">Change<span class="govuk-visually-hidden"> assigned ECTs</span></a>
       </dd>
     </div>
   </dl>
@@ -62,27 +50,11 @@ href: "ects"
   <div class="govuk-summary-card">
     <div class="govuk-summary-card__title-wrapper">
       <h1 class="govuk-summary-card__title">
-        ECTE training details
+        ECTE mentor training details
       </h1>
     </div>
     <div class="govuk-summary-card__content">
       <dl class="govuk-summary-list">
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            Appropriate body
-          </dt>
-          <dd class="govuk-summary-list__value">
-            Alpha Teaching School Hub
-          </dd>
-        </div>
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            Programme type
-          </dt>
-          <dd class="govuk-summary-list__value">
-            Provider-led
-          </dd>
-        </div>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             Lead provider

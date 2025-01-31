@@ -209,6 +209,7 @@
             </div>
         </div>
 
+        {% if data['variablesInitialized'] !== true %}
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
                 <h3 class="govuk-summary-card__title govuk-!-font-size-24">
@@ -243,6 +244,7 @@
                 </dl>
             </div>
         </div>
+        {% endif %}
 
     </div>
 </div>
