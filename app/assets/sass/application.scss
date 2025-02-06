@@ -19,3 +19,27 @@
     margin-bottom: 0!important;
   }
 }
+
+.govuk-header__logo {
+  margin: 0;
+}
+
+.govuk-header {
+  line-height: 1.25;
+
+  &__navigation {
+    display: flex;
+
+    @include govuk-media-query($from: tablet) {
+      justify-content: flex-end;
+    }
+  }
+
+  &__navigation-item {
+    @include govuk-media-query($from: tablet) {
+      margin: 0;
+      padding-inline: 15px;
+      border-left: 1px solid $govuk-border-colour
+    }
+  }
+}
