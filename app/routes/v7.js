@@ -171,10 +171,11 @@ module.exports = router => {
 
 
     router.post(v + school + 'will-you-use-defaults', (req, res) => {
-        if (req.session.data['useDefaults'] === 'yes' && req.session.data['programmeType'] === 'Provider-led') {
+        if (req.session.data['useDefaults'] === 'yes' && req.session.data['programmeType'] !== 'School-led') {
             req.session.data['showDp'] = true
         }
         if (req.session.data['useDefaults'] === 'no') {
+            req.session.data['showDp'] = ''
             res.redirect(v + school + 'appropriate-body')
         }
         else {
@@ -283,6 +284,7 @@ module.exports = router => {
         req.session.data['askForNino'] = ''
         req.session.data['ectAdded'] = 'yes'
         req.session.data['fullName'] = undefined
+        req.session.data['defaultsAlreadyAdded'] = 'yes'
         if (req.session.data['mentor'] === 'Someone else' || req.session.data['mentorsAddedPreviously'] === 'no') {
             req.session.data['ectAddedWithoutMentor'] = 'yes'
             res.redirect(v + school + 'confirmation-mentor-to-be-added')

@@ -181,126 +181,104 @@ href: "javascript:window.history.back()"
             {% if data['useDefaults'] %}
             {% set defaults = data['useDefaults'] %}
             {% else %}
-            {% set defaults = 'yes' %}
+            {% set defaults = 'Yes' %}
             {% endif %}
             {% endif %}
 
-            {% set trainingRows = [] %}
+            {% if data.programmeType == 'School-led' %}
 
-            {% if data['defaultsAlreadyAdded'] !== 'no' %}
-            {% set trainingRows = trainingRows.concat([
+            {% set trainingRows = [
             {
             key: {
-            text: "Use previous programme details"
+            text: "Appropriate body"
             },
             value: {
-            text: defaults | capitalize
+            text: ab
+            },
+            actions: {
+            items: [
+            {
+            href: "appropriate-body?change=yes",
+            text: "Change",
+            visuallyHiddenText: "appropriate body"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Programme type"
+            },
+            value: {
+            text: "School-led"
+            },
+            actions: {
+            items: [
+            {
+            href: "programme-type?change=yes",
+            text: "Change",
+            visuallyHiddenText: "programme type"
+            }
+            ]
+            }
+            }
+            ] %}
+
+            {% else %}
+
+            {% set trainingRows = [
+            {
+            key: {
+            text: "Appropriate body"
+            },
+            value: {
+            text: ab
+            },
+            actions: {
+            items: [
+            {
+            href: "appropriate-body?change=yes",
+            text: "Change",
+            visuallyHiddenText: "appropriate body"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Programme type"
+            },
+            value: {
+            text: "Provider-led"
+            },
+            actions: {
+            items: [
+            {
+            href: "programme-type?change=yes",
+            text: "Change",
+            visuallyHiddenText: "programme type"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Lead provider"
+            },
+            value: {
+            text: lp
             },
             actions: {
             items: [
             {
             href: "will-you-use-defaults?change=yes",
             text: "Change",
-            visuallyHiddenText: "Use previous programme details"
-            }
-            ]
-            }
-            }
-            ]) %}
-            {% endif %}
-
-            {% if data.programmeType == 'School-led' %}
-
-            {% if defaults !== 'yes' %}
-            {% set appropriateBodyActions = {
-            items: [
-            {
-            href: "appropriate-body?change=yes",
-            text: "Change",
-            visuallyHiddenText: "appropriate body"
-            }
-            ]
-            } %}
-            {% set programmeTypeActions = {
-            items: [
-            {
-            href: "programme-type?change=yes",
-            text: "Change",
-            visuallyHiddenText: "programme type"
-            }
-            ]
-            } %}
-            {% else %}
-            {% set appropriateBodyActions = null %}
-            {% set programmeTypeActions = null %}
-            {% endif %}
-
-            {% set trainingRows = trainingRows.concat([
-            {
-            key: { text: "Appropriate body" },
-            value: { text: ab },
-            actions: appropriateBodyActions
-            },
-            {
-            key: { text: "Programme type" },
-            value: { text: "School-led" },
-            actions: programmeTypeActions
-            }
-            ]) %}
-
-            {% else %}
-
-            {% if defaults !== 'yes' %}
-            {% set appropriateBodyActions = {
-            items: [
-            {
-            href: "appropriate-body?change=yes",
-            text: "Change",
-            visuallyHiddenText: "appropriate body"
-            }
-            ]
-            } %}
-            {% set programmeTypeActions = {
-            items: [
-            {
-            href: "programme-type?change=yes",
-            text: "Change",
-            visuallyHiddenText: "programme type"
-            }
-            ]
-            } %}
-            {% set lpActions = {
-            items: [
-            {
-            href: "lead-provider?change=yes",
-            text: "Change",
             visuallyHiddenText: "lead provider"
             }
             ]
-            } %}
-            {% else %}
-            {% set appropriateBodyActions = null %}
-            {% set programmeTypeActions = null %}
-            {% set lpActions = null %}
-            {% endif %}
-
-            {% set trainingRows = trainingRows.concat([
-            {
-            key: { text: "Appropriate body" },
-            value: { text: ab },
-            actions: appropriateBodyActions
-            },
-            {
-            key: { text: "Programme type" },
-            value: { text: "Provider-led" },
-            actions: programmeTypeActions
-            },
-            {
-            key: { text: "Lead provider" },
-            value: { text: lp },
-            actions: lpActions
             }
-            ]) %}
+            }
+            ] %}
 
             {% endif %}
 
@@ -313,7 +291,15 @@ href: "javascript:window.history.back()"
             value: {
             text: dp
             },
-            actions: {}
+            actions: {
+            items: [
+            {
+            href: "will-you-use-defaults?change=yes",
+            text: "Change",
+            visuallyHiddenText: "delivery partner"
+            }
+            ]
+            }
             }
 
             ] %}
@@ -324,15 +310,9 @@ href: "javascript:window.history.back()"
 
             {% endif %}
 
-            {# {% set rows = rows.concat(trainingRows) %} #}
-
-            <h2 class="govuk-heading-m">Teacher details</h2>
+            {% set rows = rows.concat(trainingRows) %}
 
             {{ govukSummaryList({ rows: rows }) }}
-
-            <h2 class="govuk-heading-m">Programme details</h2>
-
-            {{ govukSummaryList({ rows: trainingRows }) }}
 
             {% if data['transferJourney'] === 'yes' %}
             <div class="govuk-inset-text">
