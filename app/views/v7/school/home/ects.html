@@ -145,6 +145,43 @@
 
         {% endif %}
 
+        {% if data['variablesInitialized'] !== true %}
+        <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+                <h3 class="govuk-summary-card__title govuk-!-font-size-24">
+                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="view-ect">Test ECT - assign mentor</a></strong>
+                </h3>
+            </div>
+            <div class="govuk-summary-card__content">
+                <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Status</dt>
+                        <dd class="govuk-summary-list__value">
+                            <strong class="govuk-tag govuk-tag--green">Registered</strong>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">TRN</dt>
+                        <dd class="govuk-summary-list__value">1693012</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">School start date</dt>
+                        <dd class="govuk-summary-list__value">September 2024</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Mentor</dt>
+                        <dd class="govuk-summary-list__value">
+                            {{ govukWarningText({
+                            html: 'You must <a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">assign a mentor or register a new one</a> for this ECT.',
+                            iconFallbackText: "Warning"
+                            }) }}
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+        {% endif %}
+
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
                 <h3 class="govuk-summary-card__title govuk-!-font-size-24">
@@ -208,43 +245,6 @@
                 </dl>
             </div>
         </div>
-
-        {% if data['variablesInitialized'] !== true %}
-        <div class="govuk-summary-card">
-            <div class="govuk-summary-card__title-wrapper">
-                <h3 class="govuk-summary-card__title govuk-!-font-size-24">
-                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="view-ect">Test ECT - assign mentor</a></strong>
-                </h3>
-            </div>
-            <div class="govuk-summary-card__content">
-                <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">Status</dt>
-                        <dd class="govuk-summary-list__value">
-                            <strong class="govuk-tag govuk-tag--green">Registered</strong>
-                        </dd>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">TRN</dt>
-                        <dd class="govuk-summary-list__value">1693012</dd>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">School start date</dt>
-                        <dd class="govuk-summary-list__value">September 2024</dd>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">Mentor</dt>
-                        <dd class="govuk-summary-list__value">
-                            {{ govukWarningText({
-                            html: 'You must <a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">assign a mentor or register a new one</a> for this ECT.',
-                            iconFallbackText: "Warning"
-                            }) }}
-                        </dd>
-                    </div>
-                </dl>
-            </div>
-        </div>
-        {% endif %}
 
     </div>
 </div>
