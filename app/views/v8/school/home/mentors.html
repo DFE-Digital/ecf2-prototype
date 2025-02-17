@@ -1,0 +1,82 @@
+{% extends "layouts/mentors.html" %}
+
+{% block head %}
+{{ super() }} <!-- This includes the content from the base head block -->
+{% include "./filters.njk" %}
+{% endblock %}
+
+{% set pageName="Mentors" %}
+
+{% if data['schoolName'] %}
+{% set schoolName = data['schoolName'] %}
+{% else %}
+{% set schoolName = 'Test Primary School' %}
+{% endif %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-caption-l">{{schoolName}}</h1>
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+        <p>To add a new mentor you need to <a href="ects">assign one to an ECT</a>.</p>
+        <hr class="govuk-section-break--m">
+    </div>
+
+    <div class="govuk-grid-column-one-third">
+        <div class="moj-filter">
+            <div class="moj-filter__content">
+                <div class="moj-filter__options">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-label--m" for="keywords">Search by name or teacher reference number (TRN)</label>
+                        <input class="govuk-input" id="keywords" name="keywords" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="govuk-grid-column-two-thirds">
+
+        <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+                <h3 class="govuk-summary-card__title">
+                    <a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold govuk-!-font-size-24" href="view-mentor">John Doe</a></h3>
+            </div>
+            <div class="govuk-summary-card__content">
+                <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">ECTs assigned to mentor</dt>
+                        <dd class="govuk-summary-list__value">
+                            <div class="app-summary-list__missing">
+                                <div class="app-summary-list__missing-heading">Steven Taylor</div>
+                            </div>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+        
+        <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+                <h3 class="govuk-summary-card__title">
+                    <a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold govuk-!-font-size-24" href="">Tom Jones</a></h3>
+            </div>
+            <div class="govuk-summary-card__content">
+                <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">ECTs assigned to mentor</dt>
+                        <dd class="govuk-summary-list__value">
+                            <div class="app-summary-list__missing">
+                                <div class="app-summary-list__missing-heading">Emily Brown</div>
+                            </div>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
