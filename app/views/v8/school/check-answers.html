@@ -1,0 +1,353 @@
+{% extends "layouts/ects.html" %}
+
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'John Smith' %}
+{% endif %}
+
+{% set pageName="Check your answers and confirm ECT details" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+            {% if data['dob-day'] and data['dob-month'] and data['dob-year'] %}
+            {% set dob = data['dob-day'] + ' ' + data['dob-month'] | monthName + ' ' + data['dob-year'] %}
+            {% else %}
+            {% set dob = '1 January 1990' %}
+            {% endif %}
+
+            {% if data['trn'] %}
+            {% set trn = data['trn'] %}
+            {% else %}
+            {% set trn = '5249105' %}
+            {% endif %}
+
+            {% if data['email'] %}
+            {% set email = data['email'] %}
+            {% else %}
+            {% set email = 'email@email.com' %}
+            {% endif %}
+
+            {% if data['fullName'] %}
+            {% set name = data['fullName'] %}
+            {% else %}
+            {% set name = 'John Smith' %}
+            {% endif %}
+
+            {% if data['mentor'] %}
+            {% set mentor = data['mentor'] %}
+            {% else %}
+            {% set mentor = 'John Doe' %}
+            {% endif %}
+
+            {% if data['start-month-month'] %}
+            {% set month = data['start-month-month'] %}
+            {% else %}
+            {% set month = '10' %}
+            {% endif %}
+
+            {% if data['start-month-year'] %}
+            {% set year = data['start-month-year'] %}
+            {% else %}
+            {% set year = '2024' %}
+            {% endif %}
+
+            {% if data['workingPattern'] %}
+            {% set workingPattern = data['workingPattern'] %}
+            {% else %}
+            {% set workingPattern = 'Full time' %}
+            {% endif %}
+
+            {% set rows = [
+            {
+            key: {
+            text: "Teacher reference number (TRN)"
+            },
+            value: {
+            text: trn
+            }
+            },
+            {
+            key: {
+            text: "Name"
+            },
+            value: {
+            text: name
+            },
+            actions: {
+            items: [
+            {
+            href: "review-ect-details?change=yes",
+            text: "Change",
+            visuallyHiddenText: "name"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Email address"
+            },
+            value: {
+            text: email
+            },
+            actions: {
+            items: [
+            {
+            href: "email-address?change=yes",
+            text: "Change",
+            visuallyHiddenText: "email address"
+            }
+            ]
+            }
+            }
+            ] %}
+
+            {# {% if data['askForNino'] == 'yes' %}
+            {% set rows = rows.slice(0, 1).concat([{
+            key: { text: "National Insurance number" },
+            value: { text: "QQ123456C" }
+            }]).concat(rows.slice(2)) %}
+            {% endif %} #}
+
+            {% set rows = rows.concat([
+            {
+            key: {
+            text: "School start date"
+            },
+            value: {
+            text: month | monthName + " " + year
+            },
+            actions: {
+            items: [
+            {
+            href: "start-month?change=yes",
+            text: "Change",
+            visuallyHiddenText: "school start date"
+            }
+            ]
+            }
+            },
+            {
+            key: {
+            text: "Working pattern"
+            },
+            value: {
+            text: workingPattern
+            },
+            actions: {
+            items: [
+            {
+            href: "part-time?change=yes",
+            text: "Change",
+            visuallyHiddenText: "working pattern"
+            }
+            ]
+            }
+            }
+            ]) %}
+
+            {% if data['ab'] %}
+            {% set ab = data['ab'] %}
+            {% else %}
+            {% set ab = 'Teach West London' %}
+            {% endif %}
+
+            {% if data['deliveryPartner'] %}
+            {% set dp = data['deliveryPartner'] %}
+            {% else %}
+            {% set dp = 'London District East TSH' %}
+            {% endif %}
+
+            {% if data['leadProvider'] %}
+            {% set lp = data['leadProvider'] %}
+            {% else %}
+            {% set lp = 'Ambition Institute' %}
+            {% endif %}
+
+            {% if data['defaultsAlreadyAdded'] !== 'no' %}
+            {% if data['useDefaults'] %}
+            {% set defaults = data['useDefaults'] %}
+            {% else %}
+            {% set defaults = 'yes' %}
+            {% endif %}
+            {% endif %}
+
+            {% set trainingRows = [] %}
+
+            {% if data['defaultsAlreadyAdded'] !== 'no' %}
+            {% set trainingRows = trainingRows.concat([
+            {
+            key: {
+            text: "Use previous programme details"
+            },
+            value: {
+            text: defaults | capitalize
+            },
+            actions: {
+            items: [
+            {
+            href: "will-you-use-defaults?change=yes",
+            text: "Change",
+            visuallyHiddenText: "Use previous programme details"
+            }
+            ]
+            }
+            }
+            ]) %}
+            {% endif %}
+
+            {% if data.programmeType == 'School-led' %}
+
+            {% if defaults !== 'yes' %}
+            {% set appropriateBodyActions = {
+            items: [
+            {
+            href: "appropriate-body?change=yes",
+            text: "Change",
+            visuallyHiddenText: "appropriate body"
+            }
+            ]
+            } %}
+            {% set programmeTypeActions = {
+            items: [
+            {
+            href: "programme-type?change=yes",
+            text: "Change",
+            visuallyHiddenText: "programme type"
+            }
+            ]
+            } %}
+            {% else %}
+            {% set appropriateBodyActions = null %}
+            {% set programmeTypeActions = null %}
+            {% endif %}
+
+            {% set trainingRows = trainingRows.concat([
+            {
+            key: { text: "Appropriate body" },
+            value: { text: ab },
+            actions: appropriateBodyActions
+            },
+            {
+            key: { text: "Programme type" },
+            value: { text: "School-led" },
+            actions: programmeTypeActions
+            }
+            ]) %}
+
+            {% else %}
+
+            {% if defaults !== 'yes' %}
+            {% set appropriateBodyActions = {
+            items: [
+            {
+            href: "appropriate-body?change=yes",
+            text: "Change",
+            visuallyHiddenText: "appropriate body"
+            }
+            ]
+            } %}
+            {% set programmeTypeActions = {
+            items: [
+            {
+            href: "programme-type?change=yes",
+            text: "Change",
+            visuallyHiddenText: "programme type"
+            }
+            ]
+            } %}
+            {% set lpActions = {
+            items: [
+            {
+            href: "lead-provider?change=yes",
+            text: "Change",
+            visuallyHiddenText: "lead provider"
+            }
+            ]
+            } %}
+            {% else %}
+            {% set appropriateBodyActions = null %}
+            {% set programmeTypeActions = null %}
+            {% set lpActions = null %}
+            {% endif %}
+
+            {% set trainingRows = trainingRows.concat([
+            {
+            key: { text: "Appropriate body" },
+            value: { text: ab },
+            actions: appropriateBodyActions
+            },
+            {
+            key: { text: "Programme type" },
+            value: { text: "Provider-led" },
+            actions: programmeTypeActions
+            },
+            {
+            key: { text: "Lead provider" },
+            value: { text: lp },
+            actions: lpActions
+            }
+            ]) %}
+
+            {% endif %}
+
+            {% set dpRows = [
+
+            {
+            key: {
+            text: "Delivery partner"
+            },
+            value: {
+            text: dp
+            },
+            actions: {}
+            }
+
+            ] %}
+
+            {% if (data['showDp'] == true) and (data['programmeType'] !== 'School-led') %}
+
+            {% set trainingRows = trainingRows.concat(dpRows) %}
+
+            {% endif %}
+
+            {# {% set rows = rows.concat(trainingRows) %} #}
+
+            <h2 class="govuk-heading-m">Teacher details</h2>
+
+            {{ govukSummaryList({ rows: rows }) }}
+
+            <h2 class="govuk-heading-m">Programme details</h2>
+
+            {{ govukSummaryList({ rows: trainingRows }) }}
+
+            {% if data['transferJourney'] === 'yes' %}
+            <div class="govuk-inset-text">
+                <h2 class="govuk-heading-m">
+                    Move ECT to your school
+                </h2>
+                <p>
+                    Confirm details to move John Smith from their previous school to your school to continue their training.
+                </p>
+            </div>
+            {% endif %}
+
+            <button class="govuk-button">Confirm details</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
