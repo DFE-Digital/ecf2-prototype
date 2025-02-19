@@ -1,6 +1,6 @@
 {% extends "layouts/ects.html" %}
 
-{% set pageName="Samuel Taylor has been previously registered for ECTE mentor training at a different school" %}
+{% set pageName="Samuel Taylor has been registered before" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -19,10 +19,18 @@ href: "javascript:window.history.back()"
             {{ govukSummaryList({
             card: {
             title: {
-            text: "Samuel Taylor's previous ECTE mentor training"
+            text: "Previously registered details"
             }
             },
             rows: [
+            {
+            key: {
+            text: "School name"
+            },
+            value: {
+            html: "Test Primary School"
+            }
+            },
             {
             key: {
             text: "Lead provider"
@@ -42,8 +50,7 @@ href: "javascript:window.history.back()"
             ]
             }) }}
 
-<!--            <p>You'll be able to update their programme choices later if you need to.</p>-->
-            <p>You'll be able to tell us which provider they'll continue their mentor training with later.</p>
+            <p>You'll be able to tell us what kind of training they'll continue with later.</p>
 
             <button type="submit" class="govuk-button" data-module="govuk-button">
                 Continue

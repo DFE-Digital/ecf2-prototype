@@ -1,6 +1,6 @@
 {% extends "layouts/ects.html" %}
 
-{% set pageName="John Smith has been previously registered for ECTE training at a different school" %}
+{% set pageName="John Smith has been registered before" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -19,16 +19,16 @@ href: "javascript:window.history.back()"
             {{ govukSummaryList({
             card: {
             title: {
-            text: "John Smith's previous ECTE training"
+            text: "Previously registered details"
             }
             },
             rows: [
             {
             key: {
-            text: "TRN"
+            text: "School name"
             },
             value: {
-            html: "5102510"
+            html: "Test Primary School"
             }
             },
             {
@@ -74,7 +74,7 @@ href: "javascript:window.history.back()"
             ]
             }) }}
 
-            <p>You'll be able to update their programme choices later if you need to.</p>
+            <p>You'll be able to tell us what kind of training they'll continue with later.</p>
 
             <button type="submit" class="govuk-button" data-module="govuk-button">
                 Continue
