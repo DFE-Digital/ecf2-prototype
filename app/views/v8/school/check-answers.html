@@ -318,11 +318,13 @@ href: "javascript:window.history.back()"
 
             ] %}
 
+            {#
             {% if (data['showDp'] == true) and (data['programmeType'] !== 'School-led') %}
 
             {% set trainingRows = trainingRows.concat(dpRows) %}
 
             {% endif %}
+            #}
 
             {# {% set rows = rows.concat(trainingRows) %} #}
 

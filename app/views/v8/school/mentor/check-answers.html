@@ -157,6 +157,7 @@ href: "javascript:window.history.back()"
             ) %}
             {% endif %}
 
+            {#
             {% if (data['mentorTransfer'] === 'yes') and (data['mentorOnly'] === 'yes') and (data['showDp'] === true) %}
             {% set rows = rows.concat(
             [
@@ -180,6 +181,7 @@ href: "javascript:window.history.back()"
             ]
             ) %}
             {% endif %}
+            #}
 
             {{ govukSummaryList({ rows: rows }) }}
 
