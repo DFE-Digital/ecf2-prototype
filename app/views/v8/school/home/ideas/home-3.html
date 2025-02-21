@@ -1,0 +1,49 @@
+{% extends "layouts/main.html" %}
+
+{% block head %}
+{{ super() }} <!-- This includes the content from the base head block -->
+{% include "../filters.njk" %}
+{% endblock %}
+
+{% set pageName="Register early career teachers" %}
+
+{% block content %}
+
+{% if data['schoolName'] %}
+{% set schoolName = data['schoolName'] %}
+{% else %}
+{% set schoolName = 'Test Primary School' %}
+{% endif %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-8">{{schoolName}}</h1>
+
+        <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+            <h3 class="govuk-heading-s">ECTs currently registered at your school</h3>
+            <span class="govuk-heading-l">6</span>
+            <p><a href="#">Register a new ECT</a></p>
+            <p><a href="#">View registered ECTs and assign their mentors</a></p>
+            <p><a href="#">Tell us an ECT is leaving your school</a></p>
+        </div>
+        <div class="govuk-grid-column-one-half">
+            <h3 class="govuk-heading-s">Mentors currently registered at your school</h3>
+            <span class="govuk-heading-l">2</span>
+            <p><a href="#">View registered mentors</a></p>
+            <p><a href="#">Tell us a mentor is leaving your school</a></p>
+        </div>
+        </div>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+        <h2 class="govuk-heading-m">Guidance and support</h2>
+
+        <p><a target="_blank" href="https://www.gov.uk/guidance/managing-training-for-early-career-teachers">Understand how your school wants to set up training for ECTs (opens in a new tab)</a> so you can then register them correctly.</p>
+        <p><a target="_blank" href="https://www.gov.uk/government/publications/statutory-teacher-induction-appropriate-bodies/find-an-appropriate-body">Find an appropriate body to assure ECT induction (opens in a new tab)</a> and register with them directly.</p>
+
+    </div>
+
+</div>
+
+{% endblock %}
