@@ -12,49 +12,50 @@ href: "ects"
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-<span class="govuk-caption-l">TRN: 5924029</span>
-<h1 class="govuk-heading-l">John Doe</h1>
-<h1 class="govuk-heading-m">Mentor details</h1>
+    <span class="govuk-caption-l">TRN: 5924029</span>
+    <h1 class="govuk-heading-l">John Doe</h1>
+    <h1 class="govuk-heading-m">Mentor details</h1>
 
-  <dl class="govuk-summary-list">
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        Name
-      </dt>
-      <dd class="govuk-summary-list__value">
-        John Doe
-      </dd>
-    </div>
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        Email address
-      </dt>
-      <dd class="govuk-summary-list__value">
-        name@email.com
-      </dd>
-    </div>
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        Assigned ECTs
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <a href="#">John Smith</a><br>
-      <a href="#">Steven Taylor</a>
-      </dd>
-      <dd class="govuk-summary-list__actions">
-        <a class="govuk-link" href="mentor/assigned-ects">Change<span class="govuk-visually-hidden"> assigned ECTs</span></a>
-      </dd>
-    </div>
-  </dl>
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Name
+        </dt>
+        <dd class="govuk-summary-list__value">
+          John Doe
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Email address
+        </dt>
+        <dd class="govuk-summary-list__value">
+          name@email.com
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Assigned ECTs
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <a href="#">John Smith</a><br>
+          <a href="#">Steven Taylor</a>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="mentor/assigned-ects">Change<span class="govuk-visually-hidden"> assigned ECTs</span></a>
+        </dd>
+      </div>
+    </dl>
+
+    <h2 class="govuk-heading-m">ECTE mentor training details</h2>
 
     <div class="govuk-summary-card">
       <div class="govuk-summary-card__title-wrapper">
         <h1 class="govuk-summary-card__title">
-          ECTE mentor training details
+          Reported to us by your school
         </h1>
       </div>
       <div class="govuk-summary-card__content">
-        <h2 class="govuk-heading-s govuk-!-margin-top-2">Reported to us by your school</h2>
         <dl class="govuk-summary-list">
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
@@ -65,9 +66,16 @@ href: "ects"
             </dd>
           </div>
         </dl>
-        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-        <h2 class="govuk-heading-s govuk-!-margin-top-2">Reported to us by your lead provider</h2>
-        <p>Your lead provider has not reported any information to us yet.</p>
+      </div>
+    </div>
+    <div class="govuk-summary-card">
+      <div class="govuk-summary-card__title-wrapper">
+        <h1 class="govuk-summary-card__title">
+          Reported to us by your lead provider
+        </h1>
+      </div>
+      <div class="govuk-summary-card__content">
+        <p class="govuk-!-margin-top-2">Your lead provider has not reported any information to us yet.</p>
       </div>
     </div>
   </div>
@@ -77,17 +85,17 @@ href: "ects"
 <script src="/node_modules/dfe-frontend/dist/dfefrontend.min.js"></script>
 
 <script>
-    // Ensure DOM is fully loaded before manipulating
-    document.addEventListener("DOMContentLoaded", function() {
-        // Get the current URL
-        const url = window.location.href;
+  // Ensure DOM is fully loaded before manipulating
+  document.addEventListener("DOMContentLoaded", function() {
+    // Get the current URL
+    const url = window.location.href;
 
-        // Use the match() method to find the value in the URL
-        const currentV = url.match(/v\d+/);
+    // Use the match() method to find the value in the URL
+    const currentV = url.match(/v\d+/);
 
-        // Set the value as the href attribute of the link
-        document.getElementById("ects").href = "/" + currentV + "/school/home/ects"
-        document.getElementById("mentors").href = "/" + currentV + "/school/home/mentors"
-    });
+    // Set the value as the href attribute of the link
+    document.getElementById("ects").href = "/" + currentV + "/school/home/ects"
+    document.getElementById("mentors").href = "/" + currentV + "/school/home/mentors"
+  });
 </script>
 {% endblock %}
