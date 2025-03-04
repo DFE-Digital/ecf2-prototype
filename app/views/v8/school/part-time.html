@@ -6,7 +6,7 @@
 {% set name = 'John Smith' %}
 {% endif %}
 
-{% set pageName="Is " + name + "'s working pattern full or part time?" %}
+{% set pageName="Is " + name + "'s working pattern as an ECT full or part time?" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -20,8 +20,7 @@ href: "javascript:window.history.back()"
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <form method="post">
-
-            {% from "govuk/components/radios/macro.njk" import govukRadios %}
+                        {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
             {{ govukRadios({
             name: "workingPattern",
@@ -32,6 +31,9 @@ href: "javascript:window.history.back()"
             classes: "govuk-fieldset__legend--l"
             }
             },
+            hint: {
+                html: "<p class='govuk-body'>We'll let your lead provider know so they can make any adjustments to training if needed.</p>"
+                },
             items: [
             {
             value: "Full time",
@@ -43,7 +45,7 @@ href: "javascript:window.history.back()"
             }
             ]
             }) }}
-
+            
             <button class="govuk-button">Continue</button>
         </form>
 
