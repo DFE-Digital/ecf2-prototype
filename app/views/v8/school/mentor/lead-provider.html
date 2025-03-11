@@ -61,14 +61,26 @@ href: "javascript:window.history.back()"
         ]
         }) }}
 
+            <!--            ignore this     -->
+            {# {
+            divider: "or"
+            },
+            {
+            value: "I don't know",
+            text: "I don't know",
+            hint: {
+            text: "You'll be able to tell your lead provider directly if you're not sure."
+            }
+            } #}
+            <!--            ignore this     -->
+
             {{ govukDetails({
-            summaryText: "What is a lead provider?",
+            summaryText: "What are the roles of an appropriate body, lead provider and delivery partner?",
             text: "
-            <p class='govuk-body'>They are organisations that:</p>
-            <ul class='govuk-list govuk-list--bullet'>
-                <li>train mentors and trainers who deliver the ECF to early career teachers</li>
-                <li>report on the progress and effectiveness of the training programme to the Department for Education (DfE)</li>
-            </ul>"
+            <p>An appropriate body is responsible for assuring the quality of the statutory induction of ECTs. A lead provider provides the online learning platform used for training ECTs and mentors, while the delivery partner delivers training events.
+            </p>
+            <p>These roles are sometimes undertaken by the same organisation, for example an appropriate body might be the same organisation as the delivery partner.</p>"
+
             |safe }) }}
 
             <button class="govuk-button">Continue</button>

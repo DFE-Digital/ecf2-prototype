@@ -36,7 +36,7 @@
 
         <p class="govuk-body">They do not need to provide us with any further details.</p>
 
-        {% if data['mentorOnly'] !== 'no' %}
+        {% if data['mentorOnly'] !== 'no' and data['leadProvider'] !== "I don't know" %}
         <p>We'll pass on their details to {{lp}} who will contact them to arrange mentor training.</p>
         {% endif %}
         <p><a href="../home/ects">Back to ECTs</a></p>

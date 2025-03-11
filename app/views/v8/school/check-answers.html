@@ -178,10 +178,12 @@ href: "javascript:window.history.back()"
             {% endif %}
 
             {% if data['defaultsAlreadyAdded'] !== 'no' %}
-            {% if data['useDefaults'] %}
-            {% set defaults = data['useDefaults'] %}
+            {% if data['useDefaults'] === 'yes' %}
+            {% set defaults = "Yes, use the details your school used previously" %}
+            {% elseif data['useDefaults'] === 'no' %}
+            {% set defaults = "No, do not use the details your school used previously" %}
             {% else %}
-            {% set defaults = 'yes' %}
+            {% set defaults = 'Yes, use the details your school used previously' %}
             {% endif %}
             {% endif %}
 
@@ -191,7 +193,7 @@ href: "javascript:window.history.back()"
             {% set trainingRows = trainingRows.concat([
             {
             key: {
-            text: "Use previous programme details"
+            text: "Use previously registered details"
             },
             value: {
             text: defaults | capitalize
@@ -211,7 +213,7 @@ href: "javascript:window.history.back()"
 
             {% if data.programmeType == 'School-led' %}
 
-            {% if defaults !== 'yes' %}
+            {% if defaults !== 'Yes, use the details your school used previously' %}
             {% set appropriateBodyActions = {
             items: [
             {
@@ -250,7 +252,7 @@ href: "javascript:window.history.back()"
 
             {% else %}
 
-            {% if defaults !== 'yes' %}
+            {% if defaults !== 'Yes, use the details your school used previously' %}
             {% set appropriateBodyActions = {
             items: [
             {

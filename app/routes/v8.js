@@ -389,7 +389,13 @@ module.exports = router => {
     })
 
     router.post(v + school + mentor + 'will-receive-mentor-training', (req, res) => {
+        req.session.data['showLp'] = 'yes'
         res.redirect(v + school + mentor + 'check-answers')
+    })
+
+    router.get(v + school + mentor + 'select-lead-provider', (req, res) => {
+        req.session.data['showLp'] = 'yes'
+        res.redirect(v + school + mentor + 'lead-provider')
     })
 
     router.post(v + school + mentor + 'will-you-use-defaults', (req, res) => {
@@ -415,6 +421,7 @@ module.exports = router => {
     router.post(v + school + mentor + 'check-answers', (req, res) => {
         req.session.data['fullName'] = undefined
         req.session.data['ectAddedWithoutMentor'] = ''
+        req.session.data['showLp'] = ''
         res.redirect(v + school + mentor + 'confirmation')
     })
 

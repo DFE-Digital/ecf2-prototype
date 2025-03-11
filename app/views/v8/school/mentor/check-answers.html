@@ -157,6 +157,30 @@ href: "javascript:window.history.back()"
             ) %}
             {% endif %}
 
+            {% if (data['showLp'] === 'yes') %}
+            {% set rows = rows.concat(
+            [
+            {
+            key: {
+            text: "Lead provider"
+            },
+            value: {
+            text: lp
+            },
+            actions: {
+            items: [
+            {
+            href: "lead-provider?change=yes",
+            text: "Change",
+            visuallyHiddenText: "lead provider"
+            }
+            ]
+            }
+            }
+            ]
+            ) %}
+            {% endif %}
+
             {#
             {% if (data['mentorTransfer'] === 'yes') and (data['mentorOnly'] === 'yes') and (data['showDp'] === true) %}
             {% set rows = rows.concat(
