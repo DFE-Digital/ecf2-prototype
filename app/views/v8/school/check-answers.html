@@ -179,11 +179,11 @@ href: "javascript:window.history.back()"
 
             {% if data['defaultsAlreadyAdded'] !== 'no' %}
             {% if data['useDefaults'] === 'yes' %}
-            {% set defaults = "Yes, use the details your school used previously" %}
+            {% set defaults = "Yes, use the programme choices used by my school previously" %}
             {% elseif data['useDefaults'] === 'no' %}
-            {% set defaults = "No, do not use the details your school used previously" %}
+            {% set defaults = "No, don't use the programme choices used by my school previously" %}
             {% else %}
-            {% set defaults = 'Yes, use the details your school used previously' %}
+            {% set defaults = 'Yes, use the programme choices used by my school previously' %}
             {% endif %}
             {% endif %}
 
@@ -193,7 +193,7 @@ href: "javascript:window.history.back()"
             {% set trainingRows = trainingRows.concat([
             {
             key: {
-            text: "Use previously registered details"
+            text: "Choices used by your school previously"
             },
             value: {
             text: defaults | capitalize
@@ -213,7 +213,7 @@ href: "javascript:window.history.back()"
 
             {% if data.programmeType == 'School-led' %}
 
-            {% if defaults !== 'Yes, use the details your school used previously' %}
+            {% if defaults !== 'Yes, use the programme choices used by my school previously' %}
             {% set appropriateBodyActions = {
             items: [
             {
@@ -252,7 +252,7 @@ href: "javascript:window.history.back()"
 
             {% else %}
 
-            {% if defaults !== 'Yes, use the details your school used previously' %}
+            {% if defaults !== 'Yes, use the programme choices used by my school previously' %}
             {% set appropriateBodyActions = {
             items: [
             {
