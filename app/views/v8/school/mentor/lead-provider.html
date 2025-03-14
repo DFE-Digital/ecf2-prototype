@@ -6,7 +6,7 @@
 {% set name = 'Samuel Taylor' %}
 {% endif %}
 
-{% set pageName="Which lead provider will be training " + name + "?" %}
+{% set pageName="Which lead provider would you like to contact your school about training  " + name + "?" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -31,7 +31,7 @@ href: "javascript:window.history.back()"
             text: pageName
         },
             hint: {
-            html: "<p class='govuk-body'>Lead providers are responsible for creating the materials used for training ECTs and mentors.</p><p class='govuk-body'>We will let the lead provider know your school wants to work with them so they can arrange training. They'll confirm which delivery partner they'll be working with to deliver training events.</p>"
+            html: "<p class='govuk-body'>We'll let the lead provider know that your school is interested in working with them. They'll contact your school to discuss this further before you decide if you want to go ahead with the mentor training.</p>"
             },
         items: [
         {
@@ -62,13 +62,12 @@ href: "javascript:window.history.back()"
         }) }}
 
             {{ govukDetails({
-            summaryText: "What is a lead provider?",
+            summaryText: "What are the roles of an appropriate body, lead provider and delivery partner?",
             text: "
-            <p class='govuk-body'>They are organisations that:</p>
-            <ul class='govuk-list govuk-list--bullet'>
-                <li>train mentors and trainers who deliver the ECF to early career teachers</li>
-                <li>report on the progress and effectiveness of the training programme to the Department for Education (DfE)</li>
-            </ul>"
+            <p>An appropriate body is responsible for assuring the quality of the statutory induction of ECTs. A lead provider provides the online learning platform used for training ECTs and mentors, while the delivery partner delivers training events.
+            </p>
+            <p>These roles are sometimes undertaken by the same organisation, for example an appropriate body might be the same organisation as the delivery partner.</p>"
+
             |safe }) }}
 
             <button class="govuk-button">Continue</button>
