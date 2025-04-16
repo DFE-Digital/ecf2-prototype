@@ -1,0 +1,35 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Register early career teachers" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+        <p>Use this service to register ECTs and mentors for training as part of the early career teacher entitlement (ECTE).</p>
+        <p>You need to do this so your:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>ECTs and mentors can access ECTE training funded by the Department for Education (DfE)</li>
+            <li>school receives funding to support their time off timetable for training and mentoring </li>
+        </ul>
+        <p>Find out <a href="start-what-youll-need">what information you'll need to register ECTs and mentors</a>.</p>
+        <p>You should also use this service to update any details you've provided, for example if an ECT leaves or their email changes.</p>
+
+        <form method="post">
+            {{ govukButton({
+            text: "Continue to DfE Sign-in",
+            isStartButton: true
+            }) }}
+        </form>
+        <p>For appropriate bodies that need to check training details, <a href="#">sign in</a>.</p>
+    </div>
+    <div class="govuk-grid-column-one-third">
+        <h2 class="govuk-heading-m">Guidance and support</h2>
+        <p><a href="#">Find an appropriate body (opens in a new tab)</a></p>
+        <p><a href="#">How to set up a DfE sign-in account (opens in a new tab)</a></p>
+        <p><a href="#">How to set up and make changes to ECTE training (opens in a new tab)</a></p>
+    </div>
+</div>
+
+{% endblock %}
