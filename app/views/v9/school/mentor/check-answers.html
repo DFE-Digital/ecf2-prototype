@@ -91,6 +91,49 @@ href: "javascript:window.history.back()"
             }
             ] %}
 
+            {% if (data['mentorTransfer'] === 'yes') %}
+            {% if data['start-month-day'] %}
+            {% set day = data['start-month-day'] %}
+            {% else %}
+            {% set day = '1' %}
+            {% endif %}
+
+            {% if data['start-month-month'] %}
+            {% set month = data['start-month-month'] %}
+            {% else %}
+            {% set month = '10' %}
+            {% endif %}
+
+            {% if data['start-month-year'] %}
+            {% set year = data['start-month-year'] %}
+            {% else %}
+            {% set year = '2024' %}
+            {% endif %}
+            {% set beforeLast = rows.slice(0, rows.length - 1) %}
+            {% set last = rows.slice(rows.length - 1) %}
+
+            {% set rows = beforeLast.concat([
+            {
+            key: {
+            text: "School start date"
+            },
+            value: {
+            text: day + " " + month | monthName + " " + year
+            },
+            actions: {
+            items: [
+            {
+            href: "start-month?change=yes",
+            text: "Change",
+            visuallyHiddenText: "school start date"
+            }
+            ]
+            }
+            }
+            ]).concat(last) %}
+
+            {% endif %}
+
             {% if data['deliveryPartner'] %}
             {% set dp = data['deliveryPartner'] %}
             {% else %}
