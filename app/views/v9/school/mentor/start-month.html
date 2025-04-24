@@ -3,10 +3,10 @@
 {% if data['fullName'] %}
 {% set name = data['fullName'] %}
 {% else %}
-{% set name = 'John Smith' %}
+{% set name = 'Samuel Taylor' %}
 {% endif %}
 
-{% set pageName="What is the date " + name + " started or will start teaching as an ECT at your school?" %}
+{% set pageName="What is the date " + name + " started or will start as a mentor at your school?" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -59,7 +59,7 @@ href: "javascript:window.history.back()"
                     </div>
                 </fieldset>
             </div>
-
+            
             <button class="govuk-button">Continue</button>
         </form>
 
