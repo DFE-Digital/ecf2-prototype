@@ -52,6 +52,12 @@ href: "javascript:window.history.back()"
             {% set mentor = 'John Doe' %}
             {% endif %}
 
+            {% if data['start-month-day'] %}
+            {% set day = data['start-month-day'] %}
+            {% else %}
+            {% set day = '1' %}
+            {% endif %}
+
             {% if data['start-month-month'] %}
             {% set month = data['start-month-month'] %}
             {% else %}
@@ -128,7 +134,7 @@ href: "javascript:window.history.back()"
             text: "School start date"
             },
             value: {
-            text: month | monthName + " " + year
+            text: day + " " + month | monthName + " " + year
             },
             actions: {
             items: [

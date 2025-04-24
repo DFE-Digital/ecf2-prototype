@@ -352,6 +352,18 @@ module.exports = router => {
         if (req.query.change === 'yes') {
             res.redirect(v + school + mentor + 'check-answers')
         }
+        else if (req.session.data.mentorTransfer === 'yes') {
+            res.redirect(v + school + mentor + 'start-month')
+        }
+        else {
+            res.redirect(v + school + mentor + 'email-address')
+        }
+    })
+
+    router.post(v + school + mentor + 'start-month', (req, res) => {
+        if (req.query.change === 'yes') {
+            res.redirect(v + school + mentor + 'check-answers')
+        }
         else {
             res.redirect(v + school + mentor + 'email-address')
         }
