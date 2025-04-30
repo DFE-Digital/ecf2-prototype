@@ -15,6 +15,24 @@
 {% set schoolName = 'Test Primary School' %}
 {% endif %}
 
+{% if data['ab'] %}
+{% set ab = data['ab'] %}
+{% else %}
+{% set ab = 'Alpha Teaching School Hub' %}
+{% endif %}
+
+{% if data['deliveryPartner'] %}
+{% set dp = data['deliveryPartner'] %}
+{% else %}
+{% set dp = 'Alpha Teaching School Hub' %}
+{% endif %}
+
+{% if data['leadProvider'] %}
+{% set lp = data['leadProvider'] %}
+{% else %}
+{% set lp = 'Ambition Institute' %}
+{% endif %}
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
         <h1 class="govuk-caption-l">{{schoolName}}</h1>
@@ -23,152 +41,62 @@
         <hr class="govuk-section-break--m">
     </div>
 
-    <div class="govuk-grid-column-one-third">
-        <div class="moj-filter">
-            <div class="moj-filter__content">
-                <div class="moj-filter__options">
-                    <div class="govuk-form-group">
-                        <label class="govuk-label govuk-label--m" for="keywords"> Search by name or teacher reference number (TRN)</label>
-                        <input class="govuk-input" id="keywords" name="keywords" type="text">
+    <div class="govuk-grid-column-full">
+
+        <div class="govuk-form-group govuk-!-margin-bottom-2">
+            <label class="govuk-label govuk-label--m" for="keywords"> Search by name or teacher reference number (TRN)</label>
+            <div style="display: flex;">
+                <input class="govuk-input" id="keywords" name="keywords" type="text">
+                <button class="govuk-button govuk-button--secondary govuk-!-margin-left-2">Search</button>
+            </div>
+        </div>
+
+        <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+                <h3 class="govuk-summary-card__title govuk-!-font-size-24">
+                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="view-ect">John Smith</a></strong>
+                </h3>
+            </div>
+            <div class="govuk-summary-card__content">
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-one-half">
+                        <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Status</dt>
+                                <dd class="govuk-summary-list__value">
+                                    <strong class="govuk-tag govuk-tag--green">Registered</strong>
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">TRN</dt>
+                                <dd class="govuk-summary-list__value">1693012</dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">School start date</dt>
+                                <dd class="govuk-summary-list__value">7 September 2024</dd>
+                            </div>
+                        </dl>
                     </div>
-                    {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
-
-                    {{ govukCheckboxes({
-                    name: "status",
-                    classes: "govuk-checkboxes--small",
-                    fieldset: {
-                    legend: {
-                    text: "Status",
-                    classes: "govuk-fieldset__legend--m"
-                    }
-                    },
-                    items: [
-                    {
-                    value: "registered",
-                    text: "Registered"
-                    },
-                    {
-                    value: "pending",
-                    text: "Pending"
-                    }
-                    ]
-                    }) }}
-
-                    {{ govukCheckboxes({
-                    name: "mentor",
-                    classes: "govuk-checkboxes--small",
-                    fieldset: {
-                    legend: {
-                    text: "Mentor",
-                    classes: "govuk-fieldset__legend--m"
-                    }
-                    },
-                    items: [
-                    {
-                    value: "assigned",
-                    text: "Assigned"
-                    },
-                    {
-                    value: "not-assigned",
-                    text: "Not assigned"
-                    }
-                    ]
-                    }) }}
-
+                    <div class="govuk-grid-column-one-half">
+                        <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Appropriate body</dt>
+                                <dd class="govuk-summary-list__value">{{ab}}</dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Lead provider</dt>
+                                <dd class="govuk-summary-list__value">{{lp}}</dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Delivery partner</dt>
+                                <dd class="govuk-summary-list__value">Not confirmed</dd>
+                            </div>
+                        </dl>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="govuk-grid-column-two-thirds">
-
-        {% if data['ectAddedWithoutMentor'] === 'no' or data['ectAddedWithoutMentor'] === 'yes' %}
-
-        <div class="govuk-summary-card">
-            <div class="govuk-summary-card__title-wrapper">
-                <h3 class="govuk-summary-card__title govuk-!-font-size-24">
-                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="view-ect">John Smith</a></strong>
-                </h3>
-            </div>
-            <div class="govuk-summary-card__content">
                 <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
                     <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">Status</dt>
-                        <dd class="govuk-summary-list__value">
-                            <strong class="govuk-tag govuk-tag--green">Registered</strong>
-                        </dd>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">TRN</dt>
-                        <dd class="govuk-summary-list__value">59103501</dd>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">School start date</dt>
-                        <dd class="govuk-summary-list__value">September 2024</dd>
-                    </div>
-                    {% if data['ectAddedWithoutMentor'] === 'yes' %}
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">Mentor</dt>
-                        <dd class="govuk-summary-list__value">
-                            {{ govukWarningText({
-                            html: 'You must <a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">assign a mentor or register a new one</a> for this ECT.',
-                            iconFallbackText: "Warning"
-                            }) }}
-                        </dd>
-                    </div>
-                    {% elif data['mentor'] === 'Someone else' %}
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">Mentor</dt>
-                        <dd class="govuk-summary-list__value">
-                            {{ govukWarningText({
-                            html: 'You must <a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">assign a mentor or register a new one</a> for this ECT.',
-                            iconFallbackText: "Warning"
-                            }) }}
-                        </dd>
-                    </div>
-                    {% else %}
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">Mentor</dt>
-                        <dd class="govuk-summary-list__value">
-                            {% if data['mentor'] %}
-                            {% set mentor = data['mentor'] %}
-                            {% else %}
-                            {% set mentor = 'John Doe' %}
-                            {% endif %}
-                            {{mentor}}
-                        </dd>
-                    </div>
-                    {% endif %}
-                </dl>
-            </div>
-        </div>
-
-        {% endif %}
-
-        <div class="govuk-summary-card">
-            <div class="govuk-summary-card__title-wrapper">
-                <h3 class="govuk-summary-card__title govuk-!-font-size-24">
-                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="view-ect">John Smith</a></strong>
-                </h3>
-            </div>
-            <div class="govuk-summary-card__content">
-                <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">Status</dt>
-                        <dd class="govuk-summary-list__value">
-                            <strong class="govuk-tag govuk-tag--green">Registered</strong>
-                        </dd>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">TRN</dt>
-                        <dd class="govuk-summary-list__value">1693012</dd>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">School start date</dt>
-                        <dd class="govuk-summary-list__value">September 2024</dd>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">Mentor</dt>
+                        <dt class="govuk-summary-list__key" style="width: 15%">Mentor</dt>
                         <dd class="govuk-summary-list__value">
                             {{ govukWarningText({
                             html: 'You must <a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">assign a mentor or register a new one</a> for this ECT.',
@@ -179,70 +107,361 @@
                 </dl>
             </div>
         </div>
-
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
                 <h3 class="govuk-summary-card__title govuk-!-font-size-24">
-                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="view-ect">Steven Taylor</a></strong>
+                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Missing name</a></strong>
                 </h3>
             </div>
             <div class="govuk-summary-card__content">
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-one-half">
+                        <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Status</dt>
+                                <dd class="govuk-summary-list__value">
+                                    <strong class="govuk-tag govuk-tag--green">Registered</strong>
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">TRN</dt>
+                                <dd class="govuk-summary-list__value">3293961</dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">School start date</dt>
+                                <dd class="govuk-summary-list__value">9 September 2024</dd>
+                            </div>
+                        </dl>
+                    </div>
+                    <div class="govuk-grid-column-one-half">
+                        <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Appropriate body</dt>
+                                <dd class="govuk-summary-list__value">{{ab}}</dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Lead provider</dt>
+                                <dd class="govuk-summary-list__value">{{lp}}</dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Delivery partner</dt>
+                                <dd class="govuk-summary-list__value">Not confirmed</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
                 <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
                     <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">Status</dt>
-                        <dd class="govuk-summary-list__value">
-                            <strong class="govuk-tag govuk-tag--green">Registered</strong>
-                        </dd>
+                        <dt class="govuk-summary-list__key" style="width: 15%">Mentor</dt>
+                        <dd class="govuk-summary-list__value">Tom Jones</dd>
                     </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">TRN</dt>
-                        <dd class="govuk-summary-list__value">1539295</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+                <h3 class="govuk-summary-card__title govuk-!-font-size-24">
+                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Missing name</a></strong>
+                </h3>
+            </div>
+            <div class="govuk-summary-card__content">
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-one-half">
+                        <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Status</dt>
+                                <dd class="govuk-summary-list__value">
+                                    <strong class="govuk-tag govuk-tag--green">Registered</strong>
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">TRN</dt>
+                                <dd class="govuk-summary-list__value">3992613</dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">School start date</dt>
+                                <dd class="govuk-summary-list__value">11 September 2023</dd>
+                            </div>
+                        </dl>
                     </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">School start date</dt>
-                        <dd class="govuk-summary-list__value">September 2023</dd>
+                    <div class="govuk-grid-column-one-half">
+                        <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Appropriate body</dt>
+                                <dd class="govuk-summary-list__value">{{ab}}</dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Lead provider</dt>
+                                <dd class="govuk-summary-list__value">{{lp}}</dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Delivery partner</dt>
+                                <dd class="govuk-summary-list__value">{{dp}}</dd>
+                            </div>
+                        </dl>
                     </div>
+                </div>
+                <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
                     <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">Mentor</dt>
-                        <dd class="govuk-summary-list__value">
-                            <p>John Doe</p>
-                        </dd>
+                        <dt class="govuk-summary-list__key" style="width: 15%">Mentor</dt>
+                        <dd class="govuk-summary-list__value">John Doe</dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+        <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+                <h3 class="govuk-summary-card__title govuk-!-font-size-24">
+                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Missing name</a></strong>
+                </h3>
+            </div>
+            <div class="govuk-summary-card__content">
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-one-half">
+                        <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Status</dt>
+                                <dd class="govuk-summary-list__value">
+                                    <strong class="govuk-tag govuk-tag--yellow">Leaving</strong>
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">TRN</dt>
+                                <dd class="govuk-summary-list__value">1919529</dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">School start date</dt>
+                                <dd class="govuk-summary-list__value">1 September 2024</dd>
+                            </div>
+                        </dl>
+                    </div>
+                    <div class="govuk-grid-column-one-half">
+                        <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Appropriate body</dt>
+                                <dd class="govuk-summary-list__value">{{ab}}</dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Lead provider</dt>
+                                <dd class="govuk-summary-list__value">{{lp}}</dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Delivery partner</dt>
+                                <dd class="govuk-summary-list__value">{{dp}}</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+                <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key" style="width: 15%">Mentor</dt>
+                        <dd class="govuk-summary-list__value">Tom Jones</dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+        <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+                <h3 class="govuk-summary-card__title govuk-!-font-size-24">
+                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Missing name</a></strong>
+                </h3>
+            </div>
+            <div class="govuk-summary-card__content">
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-one-half">
+                        <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Status</dt>
+                                <dd class="govuk-summary-list__value">
+                                    <strong class="govuk-tag govuk-tag--blue">Completed</strong>
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">TRN</dt>
+                                <dd class="govuk-summary-list__value">3482913</dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">School start date</dt>
+                                <dd class="govuk-summary-list__value">1 September 2021</dd>
+                            </div>
+                        </dl>
+                    </div>
+                    <div class="govuk-grid-column-one-half">
+                        <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Appropriate body</dt>
+                                <dd class="govuk-summary-list__value">{{ab}}</dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Lead provider</dt>
+                                <dd class="govuk-summary-list__value">{{lp}}</dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Delivery partner</dt>
+                                <dd class="govuk-summary-list__value">{{dp}}</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+                <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key" style="width: 15%">Mentor</dt>
+                        <dd class="govuk-summary-list__value">John Doe</dd>
                     </div>
                 </dl>
             </div>
         </div>
 
-        <div class="govuk-summary-card">
-            <div class="govuk-summary-card__title-wrapper">
-                <h3 class="govuk-summary-card__title govuk-!-font-size-24">
-                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="view-ect">Emily Brown</a></strong>
-                </h3>
-            </div>
-            <div class="govuk-summary-card__content">
-                <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">Status</dt>
-                        <dd class="govuk-summary-list__value">
-                            <strong class="govuk-tag govuk-tag--green">Registered</strong>
-                        </dd>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">TRN</dt>
-                        <dd class="govuk-summary-list__value">3929519</dd>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">School start date</dt>
-                        <dd class="govuk-summary-list__value">September 2023</dd>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">Mentor</dt>
-                        <dd class="govuk-summary-list__value">
-                            <p>Tom Jones</p>
-                        </dd>
-                    </div>
-                </dl>
-            </div>
-        </div>
+
+        <!--        <div class="govuk-list">-->
+<!--            <hr class="govuk-section-break govuk-section-break&#45;&#45;visible" aria-hidden="true">-->
+<!--            <div class="search-item govuk-!-margin-top-6">-->
+<!--                <div class="govuk-!-margin-bottom-1" style="display: flex;-->
+<!--                /*justify-content: space-between; */-->
+<!--                align-items: center;">-->
+<!--                    <h2 class="govuk-heading-m govuk-!-margin-bottom-0">-->
+<!--                        <a class="govuk-link" href="view-ect">John Smith</a>-->
+<!--                    </h2>-->
+<!--                    <strong class="govuk-tag govuk-tag&#45;&#45;green govuk-!-margin-left-2">Registered</strong>-->
+<!--                </div>-->
+
+<!--                <p class="govuk-caption-m govuk-!-font-size-19 govuk-!-margin-bottom-2">TRN: 5129834</p>-->
+<!--                <div class="govuk-grid-row govuk-!-padding-bottom-3">-->
+<!--                    <div class="govuk-grid-column-one-half">-->
+<!--                        <dl class="govuk-summary-list govuk-summary-list&#45;&#45;no-border govuk-!-margin-bottom-0">-->
+<!--                            <div class="govuk-summary-list__row">-->
+<!--                                <dt class="govuk-summary-list__key govuk-!-padding-bottom-0">School start date</dt>-->
+<!--                                <dd class="govuk-summary-list__value govuk-!-padding-bottom-0">September 2024</dd>-->
+<!--                            </div>-->
+<!--                            <div class="govuk-summary-list__row">-->
+<!--                                <dt class="govuk-summary-list__key govuk-!-padding-bottom-0">Appropriate body</dt>-->
+<!--                                <dd class="govuk-summary-list__value govuk-!-padding-bottom-0">{{ab}}</dd>-->
+<!--                            </div>-->
+<!--                        </dl>-->
+<!--                    </div>-->
+<!--                    <div class="govuk-grid-column-one-half">-->
+<!--                        <dl class="govuk-summary-list govuk-summary-list&#45;&#45;no-border govuk-!-margin-bottom-0">-->
+<!--                            <div class="govuk-summary-list__row">-->
+<!--                                <dt class="govuk-summary-list__key govuk-!-padding-bottom-0">Lead provider</dt>-->
+<!--                                <dd class="govuk-summary-list__value govuk-!-padding-bottom-0">{{lp}}</dd>-->
+<!--                            </div>-->
+<!--                            <div class="govuk-summary-list__row">-->
+<!--                                <dt class="govuk-summary-list__key">Delivery partner</dt>-->
+<!--                                <dd class="govuk-summary-list__value">{{dp}}</dd>-->
+<!--                            </div>-->
+<!--                        </dl>-->
+<!--                    </div>-->
+<!--                    <div class="govuk-grid-column-full">-->
+<!--                        <dl class="govuk-summary-list govuk-summary-list&#45;&#45;no-border govuk-!-margin-bottom-0">-->
+<!--                            <div class="govuk-summary-list__row">-->
+<!--                                <dt class="govuk-summary-list__key govuk-!-padding-bottom-0" style="width: 15%">Mentor</dt>-->
+<!--                                <dd class="govuk-summary-list__value govuk-!-padding-bottom-0">-->
+<!--                                    {# {{ govukWarningText({-->
+<!--                                    html: 'You must <a class="govuk-link govuk-link&#45;&#45;no-visited-state" href="../mentor/who-will-be-mentoring">assign a mentor or register a new one</a> for this ECT.',-->
+<!--                                    iconFallbackText: "Warning"-->
+<!--                                    }) }} #}-->
+<!--                                </dd>-->
+<!--                            </div>-->
+<!--                        </dl>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <hr class="govuk-section-break govuk-section-break&#45;&#45;visible" aria-hidden="true">-->
+<!--            <div class="search-item govuk-!-margin-top-6">-->
+<!--                <div class="govuk-!-margin-bottom-1" style="display: flex;-->
+<!--                /*justify-content: space-between; */-->
+<!--                align-items: center;">-->
+<!--                    <h2 class="govuk-heading-m govuk-!-margin-bottom-0">-->
+<!--                        <a class="govuk-link govuk-link&#45;&#45;no-visited-stateΩ" href="#">Elizabeth Stevens</a>-->
+<!--                    </h2>-->
+<!--                    <strong class="govuk-tag govuk-tag&#45;&#45;green govuk-!-margin-left-2">Registered</strong>-->
+<!--                </div>-->
+
+<!--                <p class="govuk-caption-m govuk-!-font-size-19 govuk-!-margin-bottom-2">TRN: 1012012</p>-->
+<!--                <div class="govuk-grid-row govuk-!-padding-bottom-3">-->
+<!--                    <div class="govuk-grid-column-one-half">-->
+<!--                        <dl class="govuk-summary-list govuk-summary-list&#45;&#45;no-border govuk-!-margin-bottom-0">-->
+<!--                            <div class="govuk-summary-list__row">-->
+<!--                                <dt class="govuk-summary-list__key govuk-!-padding-bottom-0">School start date</dt>-->
+<!--                                <dd class="govuk-summary-list__value govuk-!-padding-bottom-0">September 2024</dd>-->
+<!--                            </div>-->
+<!--                            <div class="govuk-summary-list__row">-->
+<!--                                <dt class="govuk-summary-list__key govuk-!-padding-bottom-0">Appropriate body</dt>-->
+<!--                                <dd class="govuk-summary-list__value govuk-!-padding-bottom-0">{{ab}}</dd>-->
+<!--                            </div>-->
+<!--                        </dl>-->
+<!--                    </div>-->
+<!--                    <div class="govuk-grid-column-one-half">-->
+<!--                        <dl class="govuk-summary-list govuk-summary-list&#45;&#45;no-border govuk-!-margin-bottom-0">-->
+<!--                            <div class="govuk-summary-list__row">-->
+<!--                                <dt class="govuk-summary-list__key govuk-!-padding-bottom-0">Lead provider</dt>-->
+<!--                                <dd class="govuk-summary-list__value govuk-!-padding-bottom-0">{{lp}}</dd>-->
+<!--                            </div>-->
+<!--                            <div class="govuk-summary-list__row">-->
+<!--                                <dt class="govuk-summary-list__key">Delivery partner</dt>-->
+<!--                                <dd class="govuk-summary-list__value">{{dp}}</dd>-->
+<!--                            </div>-->
+<!--                        </dl>-->
+<!--                    </div>-->
+<!--                    <div class="govuk-grid-column-full">-->
+<!--                        <dl class="govuk-summary-list govuk-summary-list&#45;&#45;no-border govuk-!-margin-bottom-0">-->
+<!--                            <div class="govuk-summary-list__row">-->
+<!--                                <dt class="govuk-summary-list__key govuk-!-padding-bottom-0" style="width: 15%">Mentor</dt>-->
+<!--                                <dd class="govuk-summary-list__value govuk-!-padding-bottom-0">Tom Jones</dd>-->
+<!--                            </div>-->
+<!--                        </dl>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <hr class="govuk-section-break govuk-section-break&#45;&#45;visible" aria-hidden="true">-->
+<!--            <div class="search-item govuk-!-margin-top-6">-->
+<!--                <div class="govuk-!-margin-bottom-1" style="display: flex;-->
+<!--                /*justify-content: space-between; */-->
+<!--                align-items: center;">-->
+<!--                    <h2 class="govuk-heading-m govuk-!-margin-bottom-0">-->
+<!--                        <a class="govuk-link&#45;&#45;no-visited-state" href="#">Steven Jones</a>-->
+<!--                    </h2>-->
+<!--                    <strong class="govuk-tag govuk-tag&#45;&#45;green govuk-!-margin-left-2">Registered</strong>-->
+<!--                </div>-->
+
+<!--                <p class="govuk-caption-m govuk-!-font-size-19 govuk-!-margin-bottom-2">TRN: 1626012</p>-->
+<!--                <div class="govuk-grid-row govuk-!-padding-bottom-3">-->
+<!--                    <div class="govuk-grid-column-one-half">-->
+<!--                        <dl class="govuk-summary-list govuk-summary-list&#45;&#45;no-border govuk-!-margin-bottom-0">-->
+<!--                            <div class="govuk-summary-list__row">-->
+<!--                                <dt class="govuk-summary-list__key govuk-!-padding-bottom-0">School start date</dt>-->
+<!--                                <dd class="govuk-summary-list__value govuk-!-padding-bottom-0">September 2024</dd>-->
+<!--                            </div>-->
+<!--                            <div class="govuk-summary-list__row">-->
+<!--                                <dt class="govuk-summary-list__key govuk-!-padding-bottom-0">Appropriate body</dt>-->
+<!--                                <dd class="govuk-summary-list__value govuk-!-padding-bottom-0">{{ab}}</dd>-->
+<!--                            </div>-->
+<!--                        </dl>-->
+<!--                    </div>-->
+<!--                    <div class="govuk-grid-column-one-half">-->
+<!--                        <dl class="govuk-summary-list govuk-summary-list&#45;&#45;no-border govuk-!-margin-bottom-0">-->
+<!--                            <div class="govuk-summary-list__row">-->
+<!--                                <dt class="govuk-summary-list__key govuk-!-padding-bottom-0">Lead provider</dt>-->
+<!--                                <dd class="govuk-summary-list__value govuk-!-padding-bottom-0">{{lp}}</dd>-->
+<!--                            </div>-->
+<!--                            <div class="govuk-summary-list__row">-->
+<!--                                <dt class="govuk-summary-list__key">Delivery partner</dt>-->
+<!--                                <dd class="govuk-summary-list__value">{{dp}}</dd>-->
+<!--                            </div>-->
+<!--                        </dl>-->
+<!--                    </div>-->
+<!--                    <div class="govuk-grid-column-full">-->
+<!--                        <dl class="govuk-summary-list govuk-summary-list&#45;&#45;no-border govuk-!-margin-bottom-0">-->
+<!--                            <div class="govuk-summary-list__row">-->
+<!--                                <dt class="govuk-summary-list__key govuk-!-padding-bottom-0" style="width: 15%">Mentor</dt>-->
+<!--                                <dd class="govuk-summary-list__value govuk-!-padding-bottom-0">Tom Jones</dd>-->
+<!--                            </div>-->
+<!--                        </dl>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <hr class="govuk-section-break govuk-section-break&#45;&#45;visible" aria-hidden="true">-->
+<!--        </div>-->
 
     </div>
 </div>
