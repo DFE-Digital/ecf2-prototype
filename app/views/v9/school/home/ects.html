@@ -43,13 +43,34 @@
 
     <div class="govuk-grid-column-full">
 
-        <div class="govuk-form-group govuk-!-margin-bottom-2">
-            <label class="govuk-label govuk-label--m" for="keywords"> Search by name or teacher reference number (TRN)</label>
-            <div style="display: flex;">
-                <input class="govuk-input" id="keywords" name="keywords" type="text">
-                <button class="govuk-button govuk-button--secondary govuk-!-margin-left-2">Search</button>
+<!--        <div style="background-color: #f3f2f1; padding: 20px 15px; margin-bottom: 15px">-->
+<!--        <div class="govuk-form-group govuk-!-margin-bottom-2" style="display: flex">-->
+<!--            <label class="govuk-label govuk-label&#45;&#45;s" for="keywords"> Search by name or teacher reference number (TRN)</label>-->
+<!--                <input class="govuk-input" id="keywords" name="keywords" type="text">-->
+<!--                <button class="govuk-button">Search</button>-->
+<!--        </div>-->
+<!--        </div>-->
+
+        <div class="search-box" style="
+        background-color: #f3f2f1;
+        padding: 20px 15px;
+        margin-bottom: 15px;
+        border: 1px solid #b1b4b6">
+            <form class="search-box__form" accept-charset="UTF-8" style="
+        display: flex;
+        gap: 15px;
+        align-items: flex-end;">
+                <div class="search-box__input" style="flex-grow: 1;">
+                    <div class="govuk-form-group">
+                        <label for="query-field" class="govuk-label govuk-label--s">
+                            Search by name or teacher reference number (TRN)
+                        </label>
+                        <input id="query-field" class="govuk-input" type="text" name="query"></div>
+                </div>
+
+                <button type="submit" class="govuk-button" data-module="govuk-button">Search</button>
+            </form>
             </div>
-        </div>
 
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
@@ -89,7 +110,7 @@
                             </div>
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">Delivery partner</dt>
-                                <dd class="govuk-summary-list__value">Not confirmed</dd>
+                                <dd class="govuk-summary-list__value">Their lead provider will confirm this</dd>
                             </div>
                         </dl>
                     </div>
@@ -110,7 +131,7 @@
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
                 <h3 class="govuk-summary-card__title govuk-!-font-size-24">
-                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Missing name</a></strong>
+                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Maelle Obscur</a></strong>
                 </h3>
             </div>
             <div class="govuk-summary-card__content">
@@ -145,7 +166,7 @@
                             </div>
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">Delivery partner</dt>
-                                <dd class="govuk-summary-list__value">Not confirmed</dd>
+                                <dd class="govuk-summary-list__value">Their lead provider will confirm this</dd>
                             </div>
                         </dl>
                     </div>
@@ -161,7 +182,7 @@
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
                 <h3 class="govuk-summary-card__title govuk-!-font-size-24">
-                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Missing name</a></strong>
+                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Gustav Brown</a></strong>
                 </h3>
             </div>
             <div class="govuk-summary-card__content">
@@ -212,7 +233,7 @@
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
                 <h3 class="govuk-summary-card__title govuk-!-font-size-24">
-                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Missing name</a></strong>
+                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Lune Delaney</a></strong>
                 </h3>
             </div>
             <div class="govuk-summary-card__content">
@@ -222,7 +243,7 @@
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">Status</dt>
                                 <dd class="govuk-summary-list__value">
-                                    <strong class="govuk-tag govuk-tag--yellow">Leaving</strong>
+                                    <strong class="govuk-tag govuk-tag--yellow">Leaving school</strong>
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row">
@@ -263,7 +284,7 @@
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
                 <h3 class="govuk-summary-card__title govuk-!-font-size-24">
-                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Missing name</a></strong>
+                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Sciel Wright</a></strong>
                 </h3>
             </div>
             <div class="govuk-summary-card__content">
@@ -273,7 +294,7 @@
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">Status</dt>
                                 <dd class="govuk-summary-list__value">
-                                    <strong class="govuk-tag govuk-tag--blue">Completed</strong>
+                                    <strong class="govuk-tag govuk-tag--blue">Completed induction</strong>
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row">
