@@ -1,0 +1,75 @@
+{% extends "layouts/mentors.html" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "ects"
+}) }}
+{% endblock %}
+
+{% set pageName="John Smith" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+<span class="govuk-caption-l">TRN: 5924029</span>
+<h1 class="govuk-heading-l">John Doe</h1>
+<h1 class="govuk-heading-m">Mentor details</h1>
+
+  <dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Name
+      </dt>
+      <dd class="govuk-summary-list__value">
+        John Doe
+      </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Email address
+      </dt>
+      <dd class="govuk-summary-list__value">
+        name@email.com
+      </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Assigned ECTs
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <a href="#">John Smith</a><br>
+      <a href="#">Steven Taylor</a>
+      </dd>
+      <dd class="govuk-summary-list__actions">
+        <a class="govuk-link" href="mentor/assigned-ects">Change<span class="govuk-visually-hidden"> assigned ECTs</span></a>
+      </dd>
+    </div>
+  </dl>
+
+    <h2 class="govuk-heading-m">ECTE mentor training details</h2>
+
+    <p>John Doe has received some mentor training since 1 September 2022. Speak to your lead provider if you think they need more.</p>
+
+        
+  </div>
+</div>
+
+{{ super() }}
+<script src="/node_modules/dfe-frontend/dist/dfefrontend.min.js"></script>
+
+<script>
+    // Ensure DOM is fully loaded before manipulating
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the current URL
+        const url = window.location.href;
+
+        // Use the match() method to find the value in the URL
+        const currentV = url.match(/v\d+/);
+
+        // Set the value as the href attribute of the link
+        document.getElementById("ects").href = "/" + currentV + "/school/home/ects"
+        document.getElementById("mentors").href = "/" + currentV + "/school/home/mentors"
+    });
+</script>
+{% endblock %}
