@@ -23,20 +23,28 @@
         <hr class="govuk-section-break--m">
     </div>
 
-    <div class="govuk-grid-column-one-third">
-        <div class="moj-filter">
-            <div class="moj-filter__content">
-                <div class="moj-filter__options">
-                    <div class="govuk-form-group">
-                        <label class="govuk-label govuk-label--m" for="keywords">Search by name or teacher reference number (TRN)</label>
-                        <input class="govuk-input" id="keywords" name="keywords" type="text">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="govuk-grid-column-full">
 
-    <div class="govuk-grid-column-two-thirds">
+        <div class="search-box" style="
+        background-color: #f3f2f1;
+        padding: 20px 15px;
+        margin-bottom: 15px;
+        border: 1px solid #b1b4b6">
+            <form class="search-box__form" accept-charset="UTF-8" style="
+        display: flex;
+        gap: 15px;
+        align-items: flex-end;">
+                <div class="search-box__input" style="flex-grow: 1;">
+                    <div class="govuk-form-group">
+                        <label for="query-field" class="govuk-label govuk-label--s">
+                            Search by name or teacher reference number (TRN)
+                        </label>
+                        <input id="query-field" class="govuk-input" type="text" name="query"></div>
+                </div>
+
+                <button type="submit" class="govuk-button" data-module="govuk-button">Search</button>
+            </form>
+        </div>
 
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
