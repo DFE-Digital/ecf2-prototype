@@ -1,0 +1,257 @@
+{% extends "layouts/ects.html" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "ects"
+}) }}
+{% endblock %}
+
+{% set pageName="John Smith" %}
+
+{% if data['ab'] %}
+{% set ab = data['ab'] %}
+{% else %}
+{% set ab = 'Alpha Teaching School Hub' %}
+{% endif %}
+
+{% if data['deliveryPartner'] %}
+{% set dp = data['deliveryPartner'] %}
+{% else %}
+{% set dp = 'Alpha Teaching School Hub' %}
+{% endif %}
+
+{% if data['leadProvider'] %}
+{% set lp = data['leadProvider'] %}
+{% else %}
+{% set lp = 'Ambition Institute' %}
+{% endif %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-l">TRN: 1693012</span>
+    <h1 class="govuk-heading-l">John Smith</h1>
+    <h2 class="govuk-heading-m">ECT details</h2>
+
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Name
+        </dt>
+        <dd class="govuk-summary-list__value">
+          John Smith
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Email address
+        </dt>
+        <dd class="govuk-summary-list__value">
+          name@email.com
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Mentor
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ govukWarningText({
+          html: 'You must <a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">assign a mentor or register a new one</a> for this ECT.',
+          iconFallbackText: "Warning"
+          }) }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Status</dt>
+        <dd class="govuk-summary-list__value">
+          <strong class="govuk-tag govuk-tag--green">Registered</strong>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          School start date
+        </dt>
+        <dd class="govuk-summary-list__value">
+          7 September 2024
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Working pattern
+        </dt>
+        <dd class="govuk-summary-list__value">
+          Full time
+        </dd>
+      </div>
+    </dl>
+
+    <h2 class="govuk-heading-m">ECTE training details</h2>
+
+    <div class="govuk-summary-card">
+      <div class="govuk-summary-card__title-wrapper">
+        <h1 class="govuk-summary-card__title">
+          Reported to us by your school
+        </h1>
+      </div>
+      <div class="govuk-summary-card__content">
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Appropriate body
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ab}}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Training programme
+            </dt>
+            <dd class="govuk-summary-list__value">
+              Provider-led
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Lead provider
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{lp}}
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    <div class="govuk-summary-card">
+      <div class="govuk-summary-card__title-wrapper">
+        <h1 class="govuk-summary-card__title">
+          Reported to us by your lead provider
+        </h1>
+      </div>
+      <div class="govuk-summary-card__content">
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Lead provider
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{lp}}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Delivery partner
+            </dt>
+            <dd class="govuk-summary-list__value">
+              Their lead provider will confirm this
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    <div class="govuk-summary-card">
+      <div class="govuk-summary-card__title-wrapper">
+        <h1 class="govuk-summary-card__title">
+          Reported to us by your appropriate body
+        </h1>
+      </div>
+      <div class="govuk-summary-card__content">
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Appropriate body
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ab}}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Programme type
+            </dt>
+            <dd class="govuk-summary-list__value">
+              Provider-led
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Induction start date
+            </dt>
+            <dd class="govuk-summary-list__value">
+              7 September 2024
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>
+<!--  <div class="govuk-summary-card">-->
+<!--    <div class="govuk-summary-card__title-wrapper">-->
+<!--      <h1 class="govuk-summary-card__title">-->
+<!--        ECTE training details-->
+<!--      </h1>-->
+<!--    </div>-->
+<!--    <div class="govuk-summary-card__content">-->
+<!--      <dl class="govuk-summary-list">-->
+<!--        <div class="govuk-summary-list__row">-->
+<!--          <dt class="govuk-summary-list__key">-->
+<!--            Appropriate body-->
+<!--          </dt>-->
+<!--          <dd class="govuk-summary-list__value">-->
+<!--            Alpha Teaching School Hub<br>-->
+<!--            <span class="govuk-caption-m">Pending confirmation by Alpha Teaching School Hub</span>-->
+<!--          </dd>-->
+<!--        </div>-->
+<!--        <div class="govuk-summary-list__row">-->
+<!--          <dt class="govuk-summary-list__key">-->
+<!--            Programme type-->
+<!--          </dt>-->
+<!--          <dd class="govuk-summary-list__value">-->
+<!--            Provider-led<br>-->
+<!--            <span class="govuk-caption-m">Pending confirmation by Alpha Teaching School Hub</span>-->
+<!--          </dd>-->
+<!--        </div>-->
+<!--        <div class="govuk-summary-list__row">-->
+<!--          <dt class="govuk-summary-list__key">-->
+<!--            Lead provider-->
+<!--          </dt>-->
+<!--          <dd class="govuk-summary-list__value">-->
+<!--            Ambition Institute<br>-->
+<!--            <span class="govuk-caption-m">Confirmed by Ambition Institute</span>-->
+<!--          </dd>-->
+<!--        </div>-->
+<!--        <div class="govuk-summary-list__row">-->
+<!--          <dt class="govuk-summary-list__key">-->
+<!--            Delivery partner-->
+<!--          </dt>-->
+<!--          <dd class="govuk-summary-list__value">-->
+<!--            Alpha Teaching School Hub<br>-->
+<!--            <span class="govuk-caption-m">Confirmed by Ambition Institute</span>-->
+<!--          </dd>-->
+<!--        </div>-->
+<!--      </dl>-->
+<!--    </div>-->
+<!--  </div>-->
+</div>
+</div>
+
+{{ super() }}
+<script src="/node_modules/dfe-frontend/dist/dfefrontend.min.js"></script>
+
+<script>
+  // Ensure DOM is fully loaded before manipulating
+  document.addEventListener("DOMContentLoaded", function() {
+    // Get the current URL
+    const url = window.location.href;
+
+    // Use the match() method to find the value in the URL
+    const currentV = url.match(/v\d+/);
+
+    // Set the value as the href attribute of the link
+    document.getElementById("ects").href = "/" + currentV + "/school/home/ects"
+    document.getElementById("mentors").href = "/" + currentV + "/school/home/mentors"
+  });
+</script>
+{% endblock %}

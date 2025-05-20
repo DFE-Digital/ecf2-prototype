@@ -1,0 +1,490 @@
+{% extends "layouts/main.html" %}
+
+{% block head %}
+{{ super() }} <!-- This includes the content from the base head block -->
+<link href="https://st.manage-training-for-early-career-teachers.education.gov.uk/assets/application-c2a2ace54d2c7babc40afbfab393e5fad8115ce1b345e425b7d4b5662b989677.css" media="screen" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-l">Early career framework (ECF)</h1>
+
+            <span class="govuk-caption-l">Ambition Institute</span>
+            <h2 class="govuk-heading-m">August 2026</h2>
+
+            <form class="statement-selector" action="/finance/payment-breakdowns/choose-ecf-statement" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="30E6S22RcrweXskvQ6PDucaoIMSBWGT_3gi37h3fGvFRAJZfPW1Iw5gmvm-oK_bCKLfHM7HIpON3bXHoeOi9og" autocomplete="off">
+                <div class="govuk-form-group govuk-!-width-one-third"><label for="lead-provider-field" class="govuk-label">View a different provider</label><select id="lead-provider-field" class="govuk-select" name="lead_provider"><option value="b2c8b7ef-9e25-40f6-8310-051284531494">Abernathy-Towne</option>
+                    <option selected="selected" value="7279391e-58bb-4fcd-9ab0-0ae16afd4393">Ambition Institute</option>
+                    <option value="2f564ae3-506f-4aaa-b4ad-bf3883408d27">Aufderhar, Armstrong and Steuber</option>
+                    <option value="c07fe280-8c68-4ea9-923d-553e814663ae">Aufderhar Inc</option>
+                    <option value="3b8ef5db-091f-4a12-b01d-26c76d163c59">Balistreri, Bailey and O'Kon</option>
+                    <option value="615fe5d4-1d0b-4c34-b2bf-e7c570c55b6e">Bartoletti, Blanda and Considine</option>
+                    <option value="da3ddebb-45e9-493e-98fa-b02213f3f646">Baumbach-Nolan</option>
+                    <option value="6b66be96-6d74-40a3-8a96-ccdd338219bb">Beahan LLC</option>
+                    <option value="94eb2c49-0e03-4637-9631-337fc8644954">Berge, Sawayn and Walsh</option>
+                    <option value="baec4299-4afb-4ffd-95dd-84ffd490704b">Bernier, Hane and Strosin</option>
+                    <option value="e28436cc-7d54-4b22-8a74-92dd3a2ab8c0">Best Practice Network</option>
+                    <option value="77d39a1b-a1b3-499d-9cd3-d165c39bbb68">Bogan-Strosin</option>
+                    <option value="d0741238-f76c-4cbc-a5a3-27d540303d95">Botsford-Hills</option>
+                    <option value="913bc39f-442b-4eb4-a633-949b008b3511">Bruen, Jenkins and Langworth</option>
+                    <option value="cd2f21e6-2b3a-4474-b1b2-6d25cdf23358">Capita</option>
+                    <option value="66553f47-110d-4bcd-ae0d-a48bc4e87007">Casper, Harber and Mohr</option>
+                    <option value="bae7452c-751c-4076-89b1-433fba92e030">Connelly-Conroy</option>
+                    <option value="799dd3ac-a44e-456c-b91e-c9e4daa48a24">Connelly-Kohler</option>
+                    <option value="0c700064-e400-499f-b0af-7e7acd6daa21">Conn-Larkin</option>
+                    <option value="9a9339c3-23c5-45fd-8bb6-0bfcfb0aa5c8">Corwin-Aufderhar</option>
+                    <option value="62c86450-4d68-4aa1-aa83-15e352076ae9">Crooks, Schinner and Keebler</option>
+                    <option value="93fe4086-6c6f-41d4-847d-b67a15eafddf">Cummings, Feest and Green</option>
+                    <option value="14712788-bbef-4f43-8500-a6aa07ba4215">D'Amore and Sons</option>
+                    <option value="a9f43a86-cc87-4d50-a0c3-987e30048f40">Daniel LLC</option>
+                    <option value="610794c2-8466-4328-a186-12ec5ed1ccbd">Dickens, Cartwright and Wilkinson</option>
+                    <option value="dc764bb4-b1c7-45e4-ae4b-4b4b907f7e57">Ebert-Christiansen</option>
+                    <option value="eb959b29-731b-4b14-9817-53feaf61b64b">Education Development Trust</option>
+                    <option value="553c169d-6e32-4c35-9506-080ef83d0cf8">Effertz LLC</option>
+                    <option value="82866240-b182-4058-b9e3-aa7a96ea9491">Emmerich and Sons</option>
+                    <option value="52421d34-4ed6-46fb-9485-a658a15ea645">Gislason-O'Kon</option>
+                    <option value="1d8faff1-f416-4642-9dd0-6c796c6779ea">Goodwin-Gutmann</option>
+                    <option value="db78a26e-b5e9-4e4b-badd-24db87fc8732">Gorczany, Jakubowski and Walker</option>
+                    <option value="1e3238e1-0d46-4f5b-a7ca-5e8bd1e9815d">Gusikowski-Simonis</option>
+                    <option value="2f02381a-f4e1-48b2-b6d8-172995372b5d">Haag, Dare and Steuber</option>
+                    <option value="c48a1e25-9885-43d3-9f10-9e5506728cba">Hane and Sons</option>
+                    <option value="7e5974c8-feec-486d-a736-79322c68865a">Hansen LLC</option>
+                    <option value="5a926106-ccff-4e65-b81b-cb5eb49388c9">Hansen, Schultz and Brekke</option>
+                    <option value="6eb82588-702a-4c82-8e8e-ae40cfedbcee">Hartmann-Sauer</option>
+                    <option value="767d89f8-6f3b-4cc7-8e7a-01f98fcd41a4">Heathcote, Christiansen and Thompson</option>
+                    <option value="aec866df-3625-4a19-be56-e7678ce8dd19">Jast Group</option>
+                    <option value="fdacbc05-41cf-4f27-b7e5-f323e9b3875e">Johns-Wiegand</option>
+                    <option value="9d782a25-845e-4836-a919-4f577620709b">Keebler, Fahey and Gibson</option>
+                    <option value="8af48787-3ca3-45b7-b693-4d9bfe4d82a2">Keeling-Farrell</option>
+                    <option value="44894d6f-1ed5-43d0-9678-87d7ed2933af">Kovacek Group</option>
+                    <option value="0236317f-6d60-42eb-9b53-da2a3eb1c089">Kuhn LLC</option>
+                    <option value="10d95809-a1ee-4c15-9401-9f50f4af55bb">Labadie LLC</option>
+                    <option value="fd4bd4be-ff65-425c-8676-225116a250e0">Labadie-Reichert</option>
+                    <option value="d92c5aa7-18d6-4801-b3cc-f89492e0efaf">Littel LLC</option>
+                    <option value="01db8aef-7a91-48fb-9269-e6f34043049f">Lockman and Sons</option>
+                    <option value="c2130a21-bf5a-45ca-9f88-10b847a02490">MacGyver, Schulist and Leuschke</option>
+                    <option value="c9981ecc-0380-4c94-8593-c4c5b4796edd">Mante Inc</option>
+                    <option value="da10d0a5-9e15-4cbf-8502-ae128700d9b0">Mayert and Sons</option>
+                    <option value="5cf89ecb-8d93-46d3-8931-f5556ce14a69">McCullough-Hauck</option>
+                    <option value="cbed3e36-f4ca-455e-a115-517833984f95">McGlynn-Koepp</option>
+                    <option value="3c4c0695-31e3-4a2d-b7e3-4f0e4dc82701">Mertz LLC</option>
+                    <option value="aeed1030-fed6-457b-9a2a-e67b05d82b6b">Miller and Sons</option>
+                    <option value="7bf4d6df-caf1-444f-b100-7175fc3ecb61">Mills, Medhurst and Pouros</option>
+                    <option value="aa6764b2-dfbe-4bdd-87d7-7fabbb9fd422">Mills, O'Conner and Reilly</option>
+                    <option value="867b4c29-2424-4225-ae62-760f445cb7e5">Murazik and Sons</option>
+                    <option value="3c7b3e0e-4db8-4d9d-9f38-7c21190c65ba">Murray-Hickle</option>
+                    <option value="b504ef26-7e25-4abd-a5be-859dba83d740">Nader-Stamm</option>
+                    <option value="34d238e1-c7bd-4abf-bdff-ed5b6eda9904">National Institute of Teaching</option>
+                    <option value="c72e0ef9-78eb-468d-bbb7-d6a42d84e8f3">O'Hara, Kiehn and Batz</option>
+                    <option value="d66e1b7c-31f7-458d-a070-a417c2419776">O'Reilly, Rice and Connelly</option>
+                    <option value="ebe31bbb-1629-457c-b8c6-9705b5038dd4">Ortiz and Sons</option>
+                    <option value="ed77e2c2-96a6-4fc8-807e-c178873e8e94">Parker-Erdman</option>
+                    <option value="6e814d90-9ce8-4b34-a0df-2d0683b300fc">Prohaska-Koepp</option>
+                    <option value="e9d75c5a-e52f-4709-a552-6e32fa35ab0a">Prosacco-Blanda</option>
+                    <option value="3c346692-61bc-4faf-bb1e-58728caaacbd">Prosacco, Fahey and Kemmer</option>
+                    <option value="627df773-0d17-4141-a387-f87bfc92b5a3">Quigley, Murazik and Hirthe</option>
+                    <option value="196647a7-c986-4fd4-9a8d-c4ed1cfb1659">Quitzon, Parker and Abbott</option>
+                    <option value="11f6d390-72fd-497f-a164-b8b0d6dd5e29">Ratke LLC</option>
+                    <option value="dc99f013-b502-4022-886b-a37202477893">Rempel, O'Reilly and Legros</option>
+                    <option value="26f949be-ddde-4e1e-b136-9db6e23d6fc1">Romaguera-Crona</option>
+                    <option value="6c6a954d-9e91-4dac-b346-e7f0834f284f">Runte-Gibson</option>
+                    <option value="069a2fa4-70f9-413e-98fb-2fb81ee5b077">Rutherford-Emard</option>
+                    <option value="bcf61eab-a8b4-4200-97cf-20feba964ac1">Sanford, Mante and Larkin</option>
+                    <option value="426f0f25-2222-42fd-ac9f-0d38bd96b16d">Schmitt-Rohan</option>
+                    <option value="792e18ce-55db-4006-a4c3-839ecdddb60e">Schowalter-Cremin</option>
+                    <option value="4eed9ff7-d336-4ca9-a824-e3ac0e5b1f5e">Schulist-Bahringer</option>
+                    <option value="5ecec7a4-92b0-4eab-98aa-dfa67e880bb7">Stamm-Larson</option>
+                    <option value="9276ccde-7d0e-4abc-8a90-9a03d6a8648d">Stehr and Sons</option>
+                    <option value="0e3a57fd-0aa1-44e9-95d1-86a20829624b">Stehr, Morar and Ullrich</option>
+                    <option value="cfff9526-28aa-4fc1-a6a7-964c99708a64">Stoltenberg, Gerhold and Tillman</option>
+                    <option value="5f52627b-9339-4454-abab-10a563ac1e40">Teach First</option>
+                    <option value="1d1be627-9ad8-440a-980a-8f3472e9e5b2">Terry Group</option>
+                    <option value="73b0af57-b02b-4c35-91f2-d42fba480c1e">Tremblay LLC</option>
+                    <option value="752d09b7-eb74-424d-a887-8cf01a47375a">UCL Institute of Education</option>
+                    <option value="e20e397e-f4f4-4dbb-8e2a-9fd757f417c5">Walsh, Hammes and Wisozk</option>
+                    <option value="6691ad30-9c5f-46a7-8bbe-05db041365f0">Windler-Turcotte</option>
+                    <option value="5dc9c16d-b2b3-4431-a35e-341f70d4abd4">Wuckert-Hermiston</option>
+                    <option value="73deccf4-93fe-4a4c-8296-db4b53c2ba2b">Yundt-Waters</option>
+                    <option value="2f976c8e-3420-498a-adb5-84ff710f811f">Ziemann-Bradtke</option></select></div>
+
+                <div class="govuk-form-group"><label for="cohort-year-field" class="govuk-label">View a different cohort</label><select id="cohort-year-field" class="govuk-select" name="cohort_year"><option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option selected="selected" value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2790">2790</option></select></div>
+
+                <div class="govuk-form-group govuk-!-width-one-third"><label for="statement-field" class="govuk-label">View a different statement</label><select id="statement-field" class="govuk-select" name="statement"><option value="november-2021">November 2021</option>
+                    <option value="january-2022">January 2022</option>
+                    <option value="february-2022">February 2022</option>
+                    <option value="march-2022">March 2022</option>
+                    <option value="april-2022">April 2022</option>
+                    <option value="may-2022">May 2022</option>
+                    <option value="june-2022">June 2022</option>
+                    <option value="july-2022">July 2022</option>
+                    <option value="august-2022">August 2022</option>
+                    <option value="september-2022">September 2022</option>
+                    <option value="october-2022">October 2022</option>
+                    <option value="november-2022">November 2022</option>
+                    <option value="december-2022">December 2022</option>
+                    <option value="january-2023">January 2023</option>
+                    <option value="february-2023">February 2023</option>
+                    <option value="march-2023">March 2023</option>
+                    <option value="april-2023">April 2023</option>
+                    <option value="may-2023">May 2023</option>
+                    <option value="june-2023">June 2023</option>
+                    <option value="july-2023">July 2023</option>
+                    <option value="august-2023">August 2023</option>
+                    <option value="september-2023">September 2023</option>
+                    <option value="october-2023">October 2023</option>
+                    <option value="november-2023">November 2023</option>
+                    <option value="december-2023">December 2023</option>
+                    <option value="january-2024">January 2024</option>
+                    <option value="february-2024">February 2024</option>
+                    <option value="march-2024">March 2024</option>
+                    <option value="april-2024">April 2024</option>
+                    <option value="may-2024">May 2024</option>
+                    <option value="june-2024">June 2024</option>
+                    <option value="july-2024">July 2024</option>
+                    <option value="august-2024">August 2024</option>
+                    <option value="september-2024">September 2024</option>
+                    <option value="october-2024">October 2024</option>
+                    <option value="november-2024">November 2024</option>
+                    <option value="december-2024">December 2024</option>
+                    <option value="january-2025">January 2025</option>
+                    <option value="february-2025">February 2025</option>
+                    <option value="march-2025">March 2025</option>
+                    <option value="april-2025">April 2025</option>
+                    <option value="may-2025">May 2025</option>
+                    <option value="june-2025">June 2025</option>
+                    <option value="july-2025">July 2025</option>
+                    <option value="august-2025">August 2025</option>
+                    <option value="september-2025">September 2025</option>
+                    <option value="october-2025">October 2025</option>
+                    <option value="november-2025">November 2025</option>
+                    <option value="december-2025">December 2025</option>
+                    <option value="january-2026">January 2026</option>
+                    <option value="february-2026">February 2026</option>
+                    <option value="march-2026">March 2026</option>
+                    <option value="april-2026">April 2026</option>
+                    <option value="may-2026">May 2026</option>
+                    <option value="june-2026">June 2026</option>
+                    <option value="july-2026">July 2026</option>
+                    <option selected="selected" value="august-2026">August 2026</option>
+                    <option value="september-2026">September 2026</option>
+                    <option value="october-2026">October 2026</option>
+                    <option value="november-2026">November 2026</option>
+                    <option value="december-2026">December 2026</option>
+                    <option value="january-2027">January 2027</option>
+                    <option value="february-2027">February 2027</option>
+                    <option value="march-2027">March 2027</option>
+                    <option value="april-2027">April 2027</option>
+                    <option value="may-2027">May 2027</option>
+                    <option value="june-2027">June 2027</option>
+                    <option value="july-2027">July 2027</option>
+                    <option value="august-2027">August 2027</option>
+                    <option value="september-2027">September 2027</option>
+                    <option value="october-2027">October 2027</option>
+                    <option value="november-2027">November 2027</option>
+                    <option value="december-2027">December 2027</option>
+                    <option value="january-2028">January 2028</option>
+                    <option value="february-2028">February 2028</option>
+                    <option value="march-2028">March 2028</option>
+                    <option value="april-2028">April 2028</option>
+                    <option value="may-2028">May 2028</option></select></div>
+
+                <button type="submit" formnovalidate="formnovalidate" class="govuk-button govuk-button--secondary" data-module="govuk-button" data-prevent-double-click="true" data-govuk-button-init="">View</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="finance-panel finance-panel__summary">
+                <div class="finance-panel__summary__total-payment-breakdown">
+                    <h4 class="govuk-heading-l govuk-!-margin-bottom-2">Total £0.00</h4>
+
+                    <div>
+                        <p class="govuk-body-s govuk-!-margin-bottom-2">
+                            Output payment <span>£0.00</span>
+                        </p>
+
+                        <p class="govuk-body-s govuk-!-margin-bottom-2">
+                            Service fee <span>£0.00</span>
+                        </p>
+
+                        <p class="govuk-body-s govuk-!-margin-bottom-2">
+                            Uplift fees <span>£0.00</span>
+                        </p>
+
+                        <p class="govuk-body-s govuk-!-margin-bottom-2">
+                            Clawbacks <span>£0.00</span>
+                        </p>
+
+                        <p class="govuk-body-s govuk-!-margin-bottom-2">
+                            Additional adjustments <span>£0.00</span>
+                        </p>
+
+                        <p class="govuk-body-s govuk-!-margin-bottom-2">
+                            VAT <span>£0.00</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="finance-panel__summary__meta">
+                    <div class="finance-panel__summary__meta__dates">
+                        <div>
+                            <div>
+                                <strong class="govuk-body-s govuk-!-margin-bottom-0">Milestone cut off date</strong>
+                            </div>
+                            <div class="govuk-heading-m govuk-!-padding-top-0">
+                                31 July 2026
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <strong class="govuk-body-s govuk-!-margin-bottom-0">Payment date</strong>
+                            </div>
+                            <div class="govuk-heading-m govuk-!-padding-top-0">
+                                25 August 2026
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="finance-panel__summary__meta__counts">
+                        <div class="second govuk-list govuk-!-margin-bottom-0">
+                            <strong class="govuk-body-s govuk-!-margin-bottom-0">Total starts</strong>
+                            <div class="govuk-heading-m govuk-!-padding-top-0">
+                                0
+                            </div>
+                        </div>
+
+                        <div>
+                            <strong class="govuk-body-s govuk-!-margin-bottom-0">Total retained</strong>
+                            <div class="govuk-heading-m govuk-!-padding-top-0">
+                                0
+                            </div>
+                        </div>
+
+                        <div>
+                            <strong class="govuk-body-s govuk-!-margin-bottom-0">Total completed</strong>
+                            <div class="govuk-heading-m govuk-!-padding-top-0">
+                                0
+                            </div>
+                        </div>
+
+                        <div>
+                            <strong class="govuk-body-s govuk-!-margin-bottom-0">Total extended</strong>
+                            <div class="govuk-heading-m govuk-!-padding-top-0">
+                                0
+                            </div>
+                        </div>
+
+                        <div>
+                            <strong class="govuk-body-s govuk-!-margin-bottom-0">Total clawed back</strong>
+                            <div class="govuk-heading-m govuk-!-padding-top-0">
+                                0
+                            </div>
+                        </div>
+
+                        <div>
+                            <strong class="govuk-body-s govuk-!-margin-bottom-0">Total voided</strong>
+
+                            <div class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-0">
+                                0
+                            </div>
+
+                            <a class="govuk-link govuk-body-s" href="/finance/ecf/payment_breakdowns/7279391e-58bb-4fcd-9ab0-0ae16afd4393/statements/52534f67-7a86-4416-8fae-5269dc85b889/voided">View<span class="govuk-visually-hidden"> voided declarations</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                    <div class="app-application__panel__actions">
+                        <div class="duvet">
+                            <div class="govuk-grid-column-one-half govuk-!-text-align-left">
+                                &nbsp;
+                            </div>
+                            <div class="govuk-grid-column-one-half govuk-!-text-align-right">
+                                <p class="govuk-body-s">
+                                    <a class="govuk-link" onclick="window.formattedPrint(this)" data-filename="Ambition Institute August 2026 ECF Statement (2023 Cohort)" href="javascript:void(0)">Save as PDF</a>
+                                </p>
+                                <p class="govuk-body-s">
+                                    <a class="govuk-link" href="/finance/ecf/statements/52534f67-7a86-4416-8fae-5269dc85b889/assurance-report.csv">Download declarations (CSV)</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="govuk-grid-row govuk-!-margin-top-5 print-page-break">
+        <div class="govuk-grid-column-full">
+            <div class="finance-panel finance-panel__output-payments">
+                <table class="govuk-table output-payments"><caption class="govuk-table__caption govuk-table__caption--m">Output payments</caption><thead class="govuk-table__head"><tr class="govuk-table__row"><th class="govuk-table__header" scope="col">Outputs</th><th class="govuk-table__header govuk-table__header--numeric" scope="col">Band A</th><th class="govuk-table__header govuk-table__header--numeric" scope="col">Band B</th><th class="govuk-table__header govuk-table__header--numeric" scope="col">Band C</th><th class="govuk-table__header govuk-table__header--numeric" scope="col">Band D</th><th class="govuk-table__header govuk-table__header--numeric" scope="col">Payments</th></tr></thead><tbody class="govuk-table__body"><tr class="govuk-table__row"><th class="govuk-table__header" scope="row">Started</th><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell"></td></tr><tr class="govuk-table__row"><td class="govuk-table__cell">Fee per participant</td><td class="govuk-table__cell govuk-table__cell--numeric">£119.40</td><td class="govuk-table__cell govuk-table__cell--numeric">£117.48</td><td class="govuk-table__cell govuk-table__cell--numeric">£115.92</td><td class="govuk-table__cell govuk-table__cell--numeric">£193.20</td><td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td></tr><tr class="govuk-table__row"><th class="govuk-table__header" scope="row">Retained 1</th><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell"></td></tr><tr class="govuk-table__row"><td class="govuk-table__cell">Fee per participant</td><td class="govuk-table__cell govuk-table__cell--numeric">£89.55</td><td class="govuk-table__cell govuk-table__cell--numeric">£88.11</td><td class="govuk-table__cell govuk-table__cell--numeric">£86.94</td><td class="govuk-table__cell govuk-table__cell--numeric">£144.90</td><td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td></tr><tr class="govuk-table__row"><th class="govuk-table__header" scope="row">Retained 2</th><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell"></td></tr><tr class="govuk-table__row"><td class="govuk-table__cell">Fee per participant</td><td class="govuk-table__cell govuk-table__cell--numeric">£89.55</td><td class="govuk-table__cell govuk-table__cell--numeric">£88.11</td><td class="govuk-table__cell govuk-table__cell--numeric">£86.94</td><td class="govuk-table__cell govuk-table__cell--numeric">£144.90</td><td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td></tr><tr class="govuk-table__row"><th class="govuk-table__header" scope="row">Retained 3</th><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell"></td></tr><tr class="govuk-table__row"><td class="govuk-table__cell">Fee per participant</td><td class="govuk-table__cell govuk-table__cell--numeric">£89.55</td><td class="govuk-table__cell govuk-table__cell--numeric">£88.11</td><td class="govuk-table__cell govuk-table__cell--numeric">£86.94</td><td class="govuk-table__cell govuk-table__cell--numeric">£144.90</td><td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td></tr><tr class="govuk-table__row"><th class="govuk-table__header" scope="row">Retained 4</th><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell"></td></tr><tr class="govuk-table__row"><td class="govuk-table__cell">Fee per participant</td><td class="govuk-table__cell govuk-table__cell--numeric">£89.55</td><td class="govuk-table__cell govuk-table__cell--numeric">£88.11</td><td class="govuk-table__cell govuk-table__cell--numeric">£86.94</td><td class="govuk-table__cell govuk-table__cell--numeric">£144.90</td><td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td></tr><tr class="govuk-table__row"><th class="govuk-table__header" scope="row">Completed</th><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell govuk-table__cell--numeric">0</td><td class="govuk-table__cell"></td></tr><tr class="govuk-table__row"><td class="govuk-table__cell">Fee per participant</td><td class="govuk-table__cell govuk-table__cell--numeric">£119.40</td><td class="govuk-table__cell govuk-table__cell--numeric">£117.48</td><td class="govuk-table__cell govuk-table__cell--numeric">£115.92</td><td class="govuk-table__cell govuk-table__cell--numeric">£193.20</td><td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td></tr></tbody></table>
+                <div class="govuk-!-text-align-right govuk-heading-s govuk-!-margin-bottom-0">
+                    Output payment total
+                </div>
+
+                <div class="govuk-!-text-align-right govuk-heading-s">
+                    £0.00
+                </div>
+            </div>
+
+            <div class="finance-panel finance-panel__uplifts govuk-!-margin-top-5 govuk-!-margin-bottom-5">
+                <table class="govuk-table"><caption class="govuk-table__caption govuk-table__caption--m">Uplift fees</caption><thead class="govuk-table__head"><tr class="govuk-table__row"><th class="govuk-table__header" scope="col">Number of participants</th><th class="govuk-table__header govuk-table__header--numeric" scope="col">Fee per participant</th><th class="govuk-table__header govuk-table__header--numeric" scope="col">Payments</th></tr></thead><tbody class="govuk-table__body"><tr class="govuk-table__row"><td class="govuk-table__cell">0</td><td class="govuk-table__cell govuk-table__cell--numeric">£100.00</td><td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td></tr></tbody></table></div>
+
+            <div class="finance-panel finance-panel__adjustments govuk-!-margin-top-5 govuk-!-margin-bottom-5 print-page-break">
+                <h2 class="govuk-heading-m">Adjustments</h2>
+
+                <table class="govuk-table"><caption class="govuk-table__caption govuk-table__caption--s">Clawbacks</caption><thead class="govuk-table__head"><tr class="govuk-table__row"><th class="govuk-table__header" scope="col">Payment type</th><th class="govuk-table__header" scope="col">Number of participants</th><th class="govuk-table__header govuk-table__header--numeric" scope="col">Fee per participant</th><th class="govuk-table__header govuk-table__header--numeric" scope="col">Payments</th></tr></thead><tbody class="govuk-table__body"><tr class="govuk-table__row"><td class="govuk-table__cell">Uplift clawbacks</td><td class="govuk-table__cell">0</td><td class="govuk-table__cell govuk-table__cell--numeric">-£100.00</td><td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td></tr></tbody></table>
+                <div class="govuk-!-text-align-right govuk-heading-s govuk-!-margin-bottom-0">
+                    Total
+                </div>
+
+                <div class="govuk-!-text-align-right govuk-heading-s">
+                    £0.00
+                </div>
+
+                <table class="govuk-table"><caption class="govuk-table__caption govuk-table__caption--s">Additional adjustments</caption><thead class="govuk-table__head"><tr class="govuk-table__row"><th class="govuk-table__header" scope="col">Payment type</th><th class="govuk-table__header govuk-table__header--numeric" scope="col">Payments</th></tr></thead><tbody class="govuk-table__body"><tr class="govuk-table__row"><td class="govuk-table__cell"></td><td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td></tr></tbody></table>
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-one-half">
+                        <a class="govuk-link" href="/finance/statements/52534f67-7a86-4416-8fae-5269dc85b889/adjustments/new">
+                            Add <span class="govuk-visually-hidden"> adjustment</span>
+                        </a>
+                        &nbsp;
+                    </div>
+
+                    <div class="govuk-grid-column-one-half govuk-!-text-align-right govuk-heading-s">
+                        Total
+                        <br>
+                        £0.00
+                    </div>
+                </div>
+
+            </div>
+
+            <details class="govuk-details contract-information" data-module="govuk-details">
+                <summary class="govuk-details__summary">
+                    <span class="govuk-details__summary-text">Contract Information</span>
+                </summary>
+
+                <div class="govuk-details__text">
+                    <dl class="govuk-summary-list govuk-summary-list--no-border">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Provider
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                Ambition Institute
+                            </dd>
+                        </div>
+                    </dl>
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Recruitment target
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                4500
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Revised recruitment target (+2%)
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                4590
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Uplift target
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                33%
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Uplift amount
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                £100.00
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Set-up Fee
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                £0.00
+                            </dd>
+                        </div>
+                    </dl>
+
+                    <table class="govuk-table">
+                        <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th class="govuk-table__header">Band</th>
+                            <th class="govuk-table__header govuk-table__cell--numeric">Min</th>
+                            <th class="govuk-table__header govuk-table__cell--numeric">Max</th>
+                            <th class="govuk-table__header govuk-table__cell--numeric">Payment amount per participant</th>
+                        </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">Band A</td>
+                            <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                            <td class="govuk-table__cell govuk-table__cell--numeric">10</td>
+                            <td class="govuk-table__cell govuk-table__cell--numeric">£995.00</td>
+                        </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">Band B</td>
+                            <td class="govuk-table__cell govuk-table__cell--numeric">11</td>
+                            <td class="govuk-table__cell govuk-table__cell--numeric">20</td>
+                            <td class="govuk-table__cell govuk-table__cell--numeric">£979.00</td>
+                        </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">Band C</td>
+                            <td class="govuk-table__cell govuk-table__cell--numeric">21</td>
+                            <td class="govuk-table__cell govuk-table__cell--numeric">30</td>
+                            <td class="govuk-table__cell govuk-table__cell--numeric">£966.00</td>
+                        </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">New target</td>
+                            <td class="govuk-table__cell govuk-table__cell--numeric">31</td>
+                            <td class="govuk-table__cell govuk-table__cell--numeric">40</td>
+                            <td class="govuk-table__cell govuk-table__cell--numeric">£966.00</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+
+        </div>
+
+        <div class="govuk-grid-column-full">
+            <details class="govuk-details" data-module="govuk-details">
+                <summary class="govuk-details__summary">
+                    <span class="govuk-details__summary-text">Calculation rounding errors</span>
+                </summary>
+                <div class="govuk-details__text">
+                    Due to the way payments per participant are made, there may be rounding errors in some of the individual sub-calculations. The total output fees displayed are correct. Contact your contract manager if you have any queries.
+                </div>
+            </details>
+        </div>
+
+    </div>
+{% endblock %}
