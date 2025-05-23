@@ -1,0 +1,47 @@
+{% extends "layouts/ects.html" %}
+
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'John Smith' %}
+{% endif %}
+
+{% set pageName="What is " + name + "'s email address?" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+        <p>We ask for an email so we can share their details if needed for training.</p>
+        <p>Please make sure you use an email the ECT can access. You can update it later if they haven't got a school email set up yet.</p>
+        <p>Do not use a generic email like <a href="admin@example.com">admin@example.com</a>.</p>
+
+        {{ govukInput({
+        label: {
+        text: "Email address",
+        classes: "govuk-visually-hidden"
+        },
+        id: "email",
+        name: "email",
+        type: "email",
+        autocomplete: "email",
+        spellcheck: false
+        }) }}
+
+            <button class="govuk-button">Continue</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
