@@ -46,6 +46,8 @@
                         <label for="cohort" class="govuk-label">Contract year</label>
                         <select style="width: 100%" id="cohort" class="govuk-select" name="Referral"><option value=""></option>
                             <option value="All" selected>All</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
                             <option value="2023">2023</option>
                             <option value="2024">2024</option>
                             <option value="2025">2025</option>
@@ -56,6 +58,34 @@
                         <label for="date" class="govuk-label">Statement date</label>
                         <select style="width: 100%" id="date" class="govuk-select" name="Employment type"><option value=""></option>
                             <option value="All" selected>All</option>
+                            <option value="January 2022 ">January 2022</option>
+                            <option value="February 2022">February 2022</option>
+                            <option value="March 2022">March 2022</option>
+                            <option value="April 2022">April 2022</option>
+                            <option value="May 2022">May 2022</option>
+                            <option value="June 2022">June 2022</option>
+                            <option value="July 2022">July 2022</option>
+                            <option value="August 2022">August 2022</option>
+                            <option value="September 2022">September 2022</option>
+                            <option value="October 2022">October 2022</option>
+                            <option value="November 2022">November 2022</option>
+                            <option value="December 2022">December 2022</option>
+                            <option value="January 2023 ">January 2023</option>
+                            <option value="February 2023">February 2023</option>
+                            <option value="March 2023">March 2023</option>
+                            <option value="April 2023">April 2023</option>
+                            <option value="May 2023">May 2023</option>
+                            <option value="June 2023">June 2023</option>
+                            <option value="July 2023">July 2023</option>
+                            <option value="August 2023">August 2023</option>
+                            <option value="September 2023">September 2023</option>
+                            <option value="October 2023">October 2023</option>
+                            <option value="November 2023">November 2023</option>
+                            <option value="December 2023">December 2023</option>
+                            <option value="January 2024 ">January 2024</option>
+                            <option value="February 2024">February 2024</option>
+                            <option value="March 2024">March 2024</option>
+                            <option value="April 2024">April 2024</option>
                             <option value="May 2024">May 2024</option>
                             <option value="June 2024">June 2024</option>
                             <option value="July 2024">July 2024</option>
@@ -106,11 +136,10 @@
 
         {% set months = [
         'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November'
+        'July', 'August', 'September', 'October', 'November', 'December'
         ] %}
 
-        {% set primary_year = 2025 %}
-        {% set fallback_year = 2024 %}
+        {% set year = 2024 %}
         {% set authorised_months = ['January', 'April', 'August', 'November'] %}
 
         {% set count = 0 %}
@@ -129,77 +158,21 @@
             <tbody class="govuk-table__body">
             {% for month in months | reverse %}
             {% for provider in providers %}
-            {% if month in ['December', 'November'] %}
-            {# Primary year record #}
             {% if count < max_rows %}
             <tr class="govuk-table__row">
                 <td class="govuk-table__cell">{{ provider }}</td>
-                <td class="govuk-table__cell">{{ primary_year }}</td>
-                <td class="govuk-table__cell">{{ month }} 2025</td>
+                <td class="govuk-table__cell">{{ year }}</td>
+                <td class="govuk-table__cell">{{ month }} {{ year }}</td>
                 <td class="govuk-table__cell">
                     {% if month in authorised_months %}
-                    <strong class="govuk-tag govuk-tag--red" style="max-width: none">Not yet authorised</strong>
+                    <strong class="govuk-tag govuk-tag--green" style="max-width: none">Authorised for payment</strong>
                     {% else %}
                     <strong class="govuk-tag govuk-tag--grey" style="max-width: none">Service fee statement</strong>
                     {% endif %}
                 </td>
-                <td class="govuk-table__cell">
-                    {% if month in authorised_months %}
-                    <a href="#">View</a>
-                    {% else %}
-                    <a href="#">View</a>
-                    {% endif %}
-                </td>
+                <td class="govuk-table__cell"><a href="#">View</a></td>
             </tr>
             {% set count = count + 1 %}
-            {% endif %}
-            {# Fallback year record #}
-            {% if count < max_rows %}
-            <tr class="govuk-table__row">
-                <td class="govuk-table__cell">{{ provider }}</td>
-                <td class="govuk-table__cell">{{ fallback_year }}</td>
-                <td class="govuk-table__cell">{{ month }} 2025</td>
-                <td class="govuk-table__cell">
-                    {% if month in authorised_months %}
-                    <strong class="govuk-tag govuk-tag--red" style="max-width: none">Not yet authorised</strong>
-                    {% else %}
-                    <strong class="govuk-tag govuk-tag--grey" style="max-width: none">Service fee statement</strong>
-                    {% endif %}
-                </td>
-                <td class="govuk-table__cell">
-                    {% if month in authorised_months %}
-                    <a href="#">View</a>
-                    {% else %}
-                    <a href="#">View</a>
-                    {% endif %}
-                </td>
-            </tr>
-            {% set count = count + 1 %}
-            {% endif %}
-            {% else %}
-            {# Only fallback year for earlier months #}
-            {% if count < max_rows %}
-            <tr class="govuk-table__row">
-                <td class="govuk-table__cell">{{ provider }}</td>
-                <td class="govuk-table__cell">{{ fallback_year }}</td>
-                <td class="govuk-table__cell">{{ month }} 2025</td>
-                <td class="govuk-table__cell">
-                    {% if month in authorised_months %}
-                    <strong class="govuk-tag govuk-tag--red" style="max-width: none">Not yet authorised</strong>
-                    {% else %}
-                    <strong class="govuk-tag govuk-tag--grey" style="max-width: none">Service fee statement</strong>
-                    {% endif %}
-                </td>
-                <td class="govuk-table__cell">
-                    {% if month in authorised_months %}
-                    <a href="#">View</a>
-                    {% else %}
-                    <a href="#">View</a>
-                    {% endif %}
-                </td>
-            </tr>
-            {% set count = count + 1 %}
-            {% endif %}
             {% endif %}
             {% endfor %}
             {% endfor %}

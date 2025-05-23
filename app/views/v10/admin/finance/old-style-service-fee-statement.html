@@ -8,24 +8,24 @@
 </style>
 {{ super() }} <!-- This includes the content from the base head block -->
 <link href="https://st.manage-training-for-early-career-teachers.education.gov.uk/assets/application-c2a2ace54d2c7babc40afbfab393e5fad8115ce1b345e425b7d4b5662b989677.css"
-      media="screen" rel="stylesheet" type="text/css"/>
+media="screen" rel="stylesheet" type="text/css"/>
 {% endblock %}
-
 
 {% block beforeContent %}
 {% endblock %}
 
 {% block content %}
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
         <h1 class="govuk-heading-l">Early career teacher programme: financial statements</h1>
 
         <span class="govuk-caption-l">Ambition Institute</span>
-        <h2 class="govuk-heading-m">August 2026</h2>
+        <h2 class="govuk-heading-m">December 2024</h2>
 
         <form class="statement-selector" action="/finance/payment-breakdowns/choose-ecf-statement"
               accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token"
-                                                          value="tfTc3b1taveZhDoJiFE48N9Cpyxt7MyKadTI19Ftb387tXDJ7ZFQiB_8TUlj2Q2LMV1A2118DJbAsQ7RtFrILA"
+                                                          value="30E6S22RcrweXskvQ6PDucaoIMSBWGT_3gi37h3fGvFRAJZfPW1Iw5gmvm-oK_bCKLfHM7HIpON3bXHoeOi9og"
                                                           autocomplete="off">
             <div class="govuk-form-group govuk-!-width-one-third"><label for="lead-provider-field" class="govuk-label">View
                 a different provider</label><select id="lead-provider-field" class="govuk-select" name="lead_provider">
@@ -129,8 +129,8 @@
                 <option value="2021">2021</option>
                 <option value="2022">2022</option>
                 <option value="2023">2023</option>
-                <option value="2024">2024</option>
-                <option selected="selected" value="2025">2025</option>
+                <option selected value="2024">2024</option>
+                <option value="2025">2025</option>
                 <option value="2790">2790</option>
             </select></div>
 
@@ -172,7 +172,7 @@
                 <option value="september-2024">September 2024</option>
                 <option value="october-2024">October 2024</option>
                 <option value="november-2024">November 2024</option>
-                <option value="december-2024">December 2024</option>
+                <option selected value="december-2024">December 2024</option>
                 <option value="january-2025">January 2025</option>
                 <option value="february-2025">February 2025</option>
                 <option value="march-2025">March 2025</option>
@@ -192,7 +192,7 @@
                 <option value="may-2026">May 2026</option>
                 <option value="june-2026">June 2026</option>
                 <option value="july-2026">July 2026</option>
-                <option selected="selected" value="august-2026">August 2026</option>
+                <option value="august-2026">August 2026</option>
                 <option value="september-2026">September 2026</option>
                 <option value="october-2026">October 2026</option>
                 <option value="november-2026">November 2026</option>
@@ -232,7 +232,7 @@
                         <strong class="govuk-body-s govuk-!-margin-bottom-0">Milestone cut off date</strong>
                     </div>
                     <div class="govuk-heading-m govuk-!-padding-top-0">
-                        31 July 2026
+                        31 July 2024
                     </div>
                 </div>
 
@@ -241,14 +241,14 @@
                         <strong class="govuk-body-s govuk-!-margin-bottom-0">Payment date</strong>
                     </div>
                     <div class="govuk-heading-m govuk-!-padding-top-0">
-                        31 August 2026
+                        30 November 2024
                     </div>
                 </div>
             </div>
 
             <div class="finance-panel__summary__total-payment-breakdown">
                 <table class="govuk-table">
-                    <caption class="govuk-table__caption govuk-table__caption--l">Total £277,830.34</caption>
+                    <caption class="govuk-table__caption govuk-table__caption--l">Total £0.00</caption>
                     <thead class="govuk-table__head">
                     <tr class="govuk-table__row">
                         <th class="govuk-table__header" scope="col"></th>
@@ -257,23 +257,19 @@
                     </thead>
                     <tbody class="govuk-table__body">
                     <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">ECTs output payment</td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric">£347.28</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Mentors output payment</td>
+                        <td class="govuk-table__cell">Output payment</td>
                         <td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td>
                     </tr>
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">Service fee</td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric">£231,178.00</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">ECT clawbacks</td>
                         <td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td>
                     </tr>
                     <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Mentor clawbacks</td>
+                        <td class="govuk-table__cell">Uplift fees</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Clawbacks</td>
                         <td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td>
                     </tr>
                     <tr class="govuk-table__row">
@@ -282,7 +278,7 @@
                     </tr>
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">VAT</td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric">£46,305.06</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td>
                     </tr>
                     </tbody>
                 </table>
@@ -295,7 +291,7 @@
                 <div class="app-application__panel__actions">
                     <div class="duvet">
                         <div class="govuk-grid-column-one-half govuk-!-text-align-left">
-                            <form class="button_to" method="get" action="/finance/statements/f8d56c29-3b3d-4e01-9c47-4af46967d299/payment_authorisations/new"><button class="govuk-button govuk-button--primary" type="submit">Authorise for payment</button></form>
+                            <p>This statement does not require to be authorised for payment.</p>
                         </div>
                         <div class="govuk-grid-column-one-half govuk-!-text-align-right">
                             <p class="govuk-body-s">
@@ -320,34 +316,28 @@
                 <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header govuk-!-width-one-quarter" scope="col"></th>
-                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">ECTs</th>
-                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Mentors</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Total</th>
                 </tr>
                 </thead>
                 <tbody class="govuk-table__body">
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">Started</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">2</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">Retained</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">-</td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">Completed</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">Extended</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">-</td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">Clawed back</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                 </tr>
                 <tr class="govuk-table__row">
@@ -356,11 +346,6 @@
                                                                                 href="/finance/ecf/payment_breakdowns/7279391e-58bb-4fcd-9ab0-0ae16afd4393/statements/7f95c7f8-36be-43f5-9bb4-f646954a5252/voided/ect">
                         0
                         <span class="govuk-visually-hidden">ECT voided declarations</span>
-                    </a></td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric"><a class="govuk-link"
-                                                                                href="/finance/ecf/payment_breakdowns/7279391e-58bb-4fcd-9ab0-0ae16afd4393/statements/7f95c7f8-36be-43f5-9bb4-f646954a5252/voided/mentor">
-                        0
-                        <span class="govuk-visually-hidden">Mentor voided declarations</span>
                     </a></td>
                 </tr>
                 </tbody>
@@ -372,47 +357,52 @@
             </p>
         </div>
 
+<div class="govuk-grid-row govuk-!-margin-top-5 print-page-break">
+    <div class="govuk-grid-column-full">
         <div class="finance-panel finance-panel__output-payments">
             <table class="govuk-table output-payments">
-                <caption class="govuk-table__caption govuk-table__caption--m">Early career teacher (ECT) output
-                    payments
-                </caption>
+                <caption class="govuk-table__caption govuk-table__caption--m">Output payments</caption>
                 <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="col">Outputs</th>
                     <th class="govuk-table__header govuk-table__header--numeric" scope="col">Band A</th>
                     <th class="govuk-table__header govuk-table__header--numeric" scope="col">Band B</th>
                     <th class="govuk-table__header govuk-table__header--numeric" scope="col">Band C</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Band D</th>
                     <th class="govuk-table__header govuk-table__header--numeric" scope="col">Payments</th>
                 </tr>
                 </thead>
                 <tbody class="govuk-table__body">
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="row">Started</th>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">2</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell"></td>
                 </tr>
                 <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">Fee per ECT</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£173.64</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£173.64</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£163.08</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£347.28</td>
+                    <td class="govuk-table__cell">Fee per participant</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£119.40</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£117.48</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£115.92</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£193.20</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td>
                 </tr>
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="row">Retained 1</th>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell"></td>
                 </tr>
                 <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">Fee per ECT</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£130.23</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£130.23</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£122.31</td>
+                    <td class="govuk-table__cell">Fee per participant</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£89.55</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£88.11</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£86.94</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£144.90</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td>
                 </tr>
                 <tr class="govuk-table__row">
@@ -420,13 +410,15 @@
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell"></td>
                 </tr>
                 <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">Fee per ECT</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£130.23</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£130.23</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£122.31</td>
+                    <td class="govuk-table__cell">Fee per participant</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£89.55</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£88.11</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£86.94</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£144.90</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td>
                 </tr>
                 <tr class="govuk-table__row">
@@ -434,13 +426,15 @@
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell"></td>
                 </tr>
                 <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">Fee per ECT</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£130.23</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£130.23</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£122.31</td>
+                    <td class="govuk-table__cell">Fee per participant</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£89.55</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£88.11</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£86.94</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£144.90</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td>
                 </tr>
                 <tr class="govuk-table__row">
@@ -448,13 +442,15 @@
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell"></td>
                 </tr>
                 <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">Fee per ECT</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£130.23</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£130.23</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£122.31</td>
+                    <td class="govuk-table__cell">Fee per participant</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£89.55</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£88.11</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£86.94</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£144.90</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td>
                 </tr>
                 <tr class="govuk-table__row">
@@ -462,70 +458,51 @@
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell"></td>
                 </tr>
                 <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">Fee per ECT</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£173.64</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£173.64</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£163.08</td>
+                    <td class="govuk-table__cell">Fee per participant</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£119.40</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£117.48</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£115.92</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£193.20</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td>
                 </tr>
                 </tbody>
             </table>
             <div class="govuk-!-text-align-right govuk-heading-s govuk-!-margin-bottom-0">
-                ECTs output payment total
+                Output payment total
             </div>
 
             <div class="govuk-!-text-align-right govuk-heading-s">
-                £347.28
+                £0.00
             </div>
+        </div>
 
-            <br>
-            <table class="govuk-table output-payments">
-                <caption class="govuk-table__caption govuk-table__caption--m">Mentor output payments</caption>
+        <div class="finance-panel finance-panel__uplifts govuk-!-margin-top-5 govuk-!-margin-bottom-5">
+            <table class="govuk-table">
+                <caption class="govuk-table__caption govuk-table__caption--m">Uplift fees</caption>
                 <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
-                    <th class="govuk-table__header" scope="col">Outputs</th>
-                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Participants</th>
+                    <th class="govuk-table__header" scope="col">Number of participants</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Fee per participant</th>
                     <th class="govuk-table__header govuk-table__header--numeric" scope="col">Payments</th>
                 </tr>
                 </thead>
                 <tbody class="govuk-table__body">
                 <tr class="govuk-table__row">
-                    <th class="govuk-table__header" scope="row">Started</th>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
-                    <td class="govuk-table__cell"></td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">Fee per mentor</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£500.00</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <th class="govuk-table__header" scope="row">Completed</th>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
-                    <td class="govuk-table__cell"></td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">Fee per mentor</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£500.00</td>
+                    <td class="govuk-table__cell">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£100.00</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td>
                 </tr>
                 </tbody>
             </table>
-            <div class="govuk-!-text-align-right govuk-heading-s govuk-!-margin-bottom-0">
-                Mentors output payment total
-            </div>
-
-            <div class="govuk-!-text-align-right govuk-heading-s">
-                £0.00
-            </div>
         </div>
-
+        
         <div class="finance-panel finance-panel__clawbacks govuk-!-margin-top-5 govuk-!-margin-bottom-5 print-page-break">
             <table class="govuk-table">
-                <caption class="govuk-table__caption govuk-table__caption--m">ECT clawbacks</caption>
+                <caption class="govuk-table__caption govuk-table__caption--m">Clawbacks</caption>
                 <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="col">Payment type</th>
@@ -534,7 +511,6 @@
                     <th class="govuk-table__header govuk-table__header--numeric" scope="col">Payments</th>
                 </tr>
                 </thead>
-                <tbody class="govuk-table__body"></tbody>
             </table>
             <div class="govuk-!-text-align-right govuk-heading-s govuk-!-margin-bottom-0">
                 Total
@@ -545,29 +521,7 @@
             </div>
         </div>
 
-        <div class="finance-panel finance-panel__clawbacks govuk-!-margin-top-5 govuk-!-margin-bottom-5 print-page-break">
-            <table class="govuk-table">
-                <caption class="govuk-table__caption govuk-table__caption--m">Mentor clawbacks</caption>
-                <thead class="govuk-table__head">
-                <tr class="govuk-table__row">
-                    <th class="govuk-table__header" scope="col">Payment type</th>
-                    <th class="govuk-table__header" scope="col">Number of participants</th>
-                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Fee per participant</th>
-                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Payments</th>
-                </tr>
-                </thead>
-                <tbody class="govuk-table__body"></tbody>
-            </table>
-            <div class="govuk-!-text-align-right govuk-heading-s govuk-!-margin-bottom-0">
-                Total
-            </div>
-
-            <div class="govuk-!-text-align-right govuk-heading-s">
-                £0.00
-            </div>
-        </div>
-
-        <div class="finance-panel finance-panel__adjustments govuk-!-margin-top-5 govuk-!-margin-bottom-5 print-page-break">
+         <div class="finance-panel finance-panel__adjustments govuk-!-margin-top-5 govuk-!-margin-bottom-5 print-page-break">
             <table class="govuk-table">
                 <caption class="govuk-table__caption govuk-table__caption--m">Additional adjustments</caption>
                 <thead class="govuk-table__head">
@@ -601,6 +555,8 @@
 
         </div>
 
+        
+
         <details class="govuk-details contract-information" data-module="govuk-details">
             <summary class="govuk-details__summary">
                 <span class="govuk-details__summary-text">Provider targets (per academic year)</span>
@@ -609,24 +565,53 @@
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
                     <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">ECTs</dt>
+                        <dt class="govuk-summary-list__key">
+                            Provider
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            Ambition Institute
+                        </dd>
                     </div>
                 </dl>
                 <dl class="govuk-summary-list">
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
-                            ECTs recruitment target
+                            Recruitment target
                         </dt>
                         <dd class="govuk-summary-list__value">
-                            11500
+                            4500
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
-                            Revised ECTs recruitment target (+115%)
+                            Revised recruitment target (+2%)
                         </dt>
                         <dd class="govuk-summary-list__value">
-                            11500
+                            4590
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Uplift target
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            33%
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Uplift amount
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            £100.00
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Set-up Fee
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            £0.00
                         </dd>
                     </div>
                 </dl>
@@ -634,60 +619,41 @@
                 <table class="govuk-table">
                     <thead class="govuk-table__head">
                     <tr class="govuk-table__row">
-                        <th class="govuk-table__header">ECT payment bands</th>
+                        <th class="govuk-table__header">Band</th>
                         <th class="govuk-table__header govuk-table__cell--numeric">Min</th>
                         <th class="govuk-table__header govuk-table__cell--numeric">Max</th>
-                        <th class="govuk-table__header govuk-table__cell--numeric">Payment per participant</th>
+                        <th class="govuk-table__header govuk-table__cell--numeric">Payment amount per participant</th>
                     </tr>
                     </thead>
                     <tbody class="govuk-table__body">
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">Band A</td>
                         <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric">2000</td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric">£1,447.00</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">10</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£995.00</td>
                     </tr>
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">Band B</td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric">2001</td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric">4000</td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric">£1,447.00</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">11</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">20</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£979.00</td>
                     </tr>
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">Band C</td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric">4001</td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric">17250</td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric">£1,359.00</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">21</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">30</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£966.00</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">New target</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">31</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">40</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£966.00</td>
                     </tr>
                     </tbody>
                 </table>
-
-                <dl class="govuk-summary-list govuk-summary-list--no-border">
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">Mentors</dt>
-                    </div>
-                </dl>
-                <dl class="govuk-summary-list">
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Mentors recruitment target
-                        </dt>
-                        <dd class="govuk-summary-list__value">
-                            8522
-                        </dd>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Payment per participant
-                        </dt>
-                        <dd class="govuk-summary-list__value">
-                            £1,000.00
-                        </dd>
-                    </div>
-                </dl>
             </div>
         </details>
-
     </div>
 
     <div class="govuk-grid-column-full">
@@ -702,8 +668,7 @@
             </div>
         </details>
     </div>
-
-    <div class="govuk-grid-column-full">
+     <div class="govuk-grid-column-full">
         <details class="govuk-details" data-module="govuk-details">
             <summary class="govuk-details__summary">
                 <span class="govuk-details__summary-text">Updated financial statement design</span>

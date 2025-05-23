@@ -1,6 +1,11 @@
 {% extends "layouts/main.html" %}
 
 {% block head %}
+<style>
+    .govuk-width-container {
+        max-width: 1250px;
+    }
+</style>
 {{ super() }} <!-- This includes the content from the base head block -->
 <link href="https://st.manage-training-for-early-career-teachers.education.gov.uk/assets/application-c2a2ace54d2c7babc40afbfab393e5fad8115ce1b345e425b7d4b5662b989677.css"
       media="screen" rel="stylesheet" type="text/css"/>
@@ -16,7 +21,7 @@
         <h1 class="govuk-heading-l">Early career teacher programme: financial statements</h1>
 
         <span class="govuk-caption-l">Ambition Institute</span>
-        <h2 class="govuk-heading-m">August 2026</h2>
+        <h2 class="govuk-heading-m">November 2025</h2>
 
         <form class="statement-selector" action="/finance/payment-breakdowns/choose-ecf-statement"
               accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token"
@@ -123,9 +128,9 @@
                 cohort</label><select id="cohort-year-field" class="govuk-select" name="cohort_year">
                 <option value="2021">2021</option>
                 <option value="2022">2022</option>
-                <option selected="selected" value="2023">2023</option>
+                <option value="2023">2023</option>
                 <option value="2024">2024</option>
-                <option value="2025">2025</option>
+                <option selected value="2025">2025</option>
                 <option value="2790">2790</option>
             </select></div>
 
@@ -178,7 +183,7 @@
                 <option value="august-2025">August 2025</option>
                 <option value="september-2025">September 2025</option>
                 <option value="october-2025">October 2025</option>
-                <option value="november-2025">November 2025</option>
+                <option selected value="november-2025">November 2025</option>
                 <option value="december-2025">December 2025</option>
                 <option value="january-2026">January 2026</option>
                 <option value="february-2026">February 2026</option>
@@ -187,7 +192,7 @@
                 <option value="may-2026">May 2026</option>
                 <option value="june-2026">June 2026</option>
                 <option value="july-2026">July 2026</option>
-                <option selected="selected" value="august-2026">August 2026</option>
+                <option value="august-2026">August 2026</option>
                 <option value="september-2026">September 2026</option>
                 <option value="october-2026">October 2026</option>
                 <option value="november-2026">November 2026</option>
@@ -221,13 +226,13 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
         <div class="finance-panel govuk-!-padding-bottom-0">
-            <div class="finance-panel__dates">
+             <div class="finance-panel__dates">
                 <div>
                     <div>
                         <strong class="govuk-body-s govuk-!-margin-bottom-0">Milestone cut off date</strong>
                     </div>
                     <div class="govuk-heading-m govuk-!-padding-top-0">
-                        31 July 2026
+                        31 October 2025
                     </div>
                 </div>
 
@@ -236,7 +241,7 @@
                         <strong class="govuk-body-s govuk-!-margin-bottom-0">Payment date</strong>
                     </div>
                     <div class="govuk-heading-m govuk-!-padding-top-0">
-                        31 August 2026
+                        30 November 2025
                     </div>
                 </div>
             </div>
@@ -284,15 +289,16 @@
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-full">
                 <div class="app-application__panel__actions">
-                    <div class="">
+                    <div class="duvet">
                         <div class="govuk-grid-column-one-half govuk-!-text-align-left">
-                            &nbsp;
+                            <form class="button_to" method="get" action="/finance/statements/f8d56c29-3b3d-4e01-9c47-4af46967d299/payment_authorisations/new"><button class="govuk-button govuk-button--primary" type="submit">Authorise for payment</button></form>
                         </div>
                         <div class="govuk-grid-column-one-half govuk-!-text-align-right">
                             <p class="govuk-body-s">
-                                <a class="govuk-link" onclick="window.formattedPrint(this)"
-                                   data-filename="Ambition Institute August 2026 ECF Statement (2025 Cohort)"
-                                   href="javascript:void(0)">Save as PDF</a>
+                                <a class="govuk-link" onclick="window.formattedPrint(this)" data-filename="Teach First April 2025 ECF Statement (2024 Cohort)" href="javascript:void(0)">Save as PDF</a>
+                            </p>
+                            <p class="govuk-body-s">
+                                <a class="govuk-link" href="/finance/ecf/statements/f8d56c29-3b3d-4e01-9c47-4af46967d299/assurance-report.csv">Download declarations (CSV)</a>
                             </p>
                         </div>
                     </div>
