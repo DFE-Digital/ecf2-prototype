@@ -1,4 +1,4 @@
-{% extends "layouts/main.html" %}
+{% extends "layouts/print.html" %}
 
 {% block head %}
 <style>
@@ -23,7 +23,7 @@
         <span class="govuk-caption-l">Ambition Institute</span>
         <h2 class="govuk-heading-m">November 2025</h2>
 
-        <form class="statement-selector" action="/finance/payment-breakdowns/choose-ecf-statement"
+        <form class="statement-selector govuk-!-display-none-print" action="/finance/payment-breakdowns/choose-ecf-statement"
               accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token"
                                                           value="30E6S22RcrweXskvQ6PDucaoIMSBWGT_3gi37h3fGvFRAJZfPW1Iw5gmvm-oK_bCKLfHM7HIpON3bXHoeOi9og"
                                                           autocomplete="off">
@@ -291,14 +291,14 @@
                 <div class="app-application__panel__actions">
                     <div class="duvet">
                         <div class="govuk-grid-column-one-half govuk-!-text-align-left">
-                            <form class="button_to" method="get" action="/finance/statements/f8d56c29-3b3d-4e01-9c47-4af46967d299/payment_authorisations/new"><button class="govuk-button govuk-button--primary" type="submit">Authorise for payment</button></form>
+                            <form class="button_to" method="get" action="/finance/statements/f8d56c29-3b3d-4e01-9c47-4af46967d299/payment_authorisations/new"><button class="govuk-button govuk-button--primary govuk-!-display-none-print" type="submit">Authorise for payment</button></form>
                         </div>
                         <div class="govuk-grid-column-one-half govuk-!-text-align-right">
                             <p class="govuk-body-s">
-                                <a class="govuk-link" onclick="window.formattedPrint(this)" data-filename="Teach First April 2025 ECF Statement (2024 Cohort)" href="javascript:void(0)">Save as PDF</a>
+                                <a class="govuk-link govuk-!-display-none-print" onclick="window.print(this)" data-filename="Teach First April 2025 ECF Statement (2024 Cohort)" href="javascript:void(0)">Save as PDF</a>
                             </p>
                             <p class="govuk-body-s">
-                                <a class="govuk-link" href="/finance/ecf/statements/f8d56c29-3b3d-4e01-9c47-4af46967d299/assurance-report.csv">Download declarations (CSV)</a>
+                                <a class="govuk-link govuk-!-display-none-print" href="/finance/ecf/statements/f8d56c29-3b3d-4e01-9c47-4af46967d299/assurance-report.csv">Download declarations (CSV)</a>
                             </p>
                         </div>
                     </div>
@@ -342,16 +342,16 @@
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">Voided</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric"><a class="govuk-link"
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0<a class="govuk-link govuk-!-display-none-print"
                                                                                 href="/finance/ecf/payment_breakdowns/7279391e-58bb-4fcd-9ab0-0ae16afd4393/statements/7f95c7f8-36be-43f5-9bb4-f646954a5252/voided/ect">
-                        0
+
                         <span class="govuk-visually-hidden">ECT voided declarations</span>
                     </a></td>
                 </tr>
                 </tbody>
             </table>
             <p class="govuk-body-s govuk-!-text-align-right">
-                <a class="govuk-link"
+                <a class="govuk-link govuk-!-display-none-print"
                    href="/finance/ecf/statements/7f95c7f8-36be-43f5-9bb4-f646954a5252/assurance-report.csv">Download
                     declarations (CSV)</a>
             </p>
@@ -539,7 +539,7 @@
             </table>
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-one-half">
-                    <a class="govuk-link"
+                    <a class="govuk-link govuk-!-display-none-print"
                        href="/finance/statements/7f95c7f8-36be-43f5-9bb4-f646954a5252/adjustments/new">
                         Add <span class="govuk-visually-hidden"> adjustment</span>
                     </a>
@@ -557,7 +557,7 @@
 
         
 
-        <details class="govuk-details contract-information" data-module="govuk-details">
+        <details class="govuk-details contract-information govuk-!-display-none-print" data-module="govuk-details">
             <summary class="govuk-details__summary">
                 <span class="govuk-details__summary-text">Provider targets (per academic year)</span>
             </summary>
@@ -657,7 +657,7 @@
     </div>
 
     <div class="govuk-grid-column-full">
-        <details class="govuk-details" data-module="govuk-details">
+        <details class="govuk-details govuk-!-display-none-print" data-module="govuk-details">
             <summary class="govuk-details__summary">
                 <span class="govuk-details__summary-text">Calculation rounding errors</span>
             </summary>
@@ -669,7 +669,7 @@
         </details>
     </div>
      <div class="govuk-grid-column-full">
-        <details class="govuk-details" data-module="govuk-details">
+        <details class="govuk-details govuk-!-display-none-print" data-module="govuk-details">
             <summary class="govuk-details__summary">
                 <span class="govuk-details__summary-text">Updated financial statement design</span>
             </summary>

@@ -1,0 +1,29 @@
+{#
+For guidance on how to use layouts see:
+https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
+#}
+
+{% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
+
+{% block header %}
+{{ govukHeader({
+homepageUrl: "/",
+classes: "govuk-header--full-width-border govuk-!-display-none-print"
+}) }}
+{{ govukServiceNavigation({
+serviceName: serviceName,
+serviceUrl: "#",
+classes: "govuk-!-display-none-print"
+}) }}
+{% endblock %}
+
+{% block footer %}
+{{ govukFooter({
+classes: "govuk-footer govuk-!-display-none-print"
+}) }}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="/node_modules/dfe-frontend/dist/dfefrontend.min.js"></script>
+{% endblock %}
