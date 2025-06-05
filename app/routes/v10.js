@@ -451,7 +451,7 @@ module.exports = router => {
 
         // finance home page - direct access
         router.get(v + admin + 'finance-home', (req, res) => {
-            const financeData = req.session.data.financeData;
+            const financeData = req.session.data.financeData || [];
             
             // Get query parameters for filtering
             const provider = req.query.provider || 'All';
@@ -602,9 +602,27 @@ module.exports = router => {
     
         // finance statement page
         router.get(v + admin + 'finance/statement', (req, res) => {
+            // Check if we should show banners (and then clear the flags)
+            const showRemovedBanner = req.session.data.showAdjustmentRemovedBanner;
+            const showAddedBanner = req.session.data.showAdjustmentAddedBanner;
+            const showChangedBanner = req.session.data.showAdjustmentChangedBanner;
+            
+            if (showRemovedBanner) {
+                req.session.data.showAdjustmentRemovedBanner = false;
+            }
+            if (showAddedBanner) {
+                req.session.data.showAdjustmentAddedBanner = false;
+            }
+            if (showChangedBanner) {
+                req.session.data.showAdjustmentChangedBanner = false;
+            }
+
             // Pass the query parameters to the template
             res.render(vGet + '/admin/finance/statement', {
-                query: req.query
+                query: req.query,
+                showAdjustmentRemovedBanner: showRemovedBanner,
+                showAdjustmentAddedBanner: showAddedBanner,
+                showAdjustmentChangedBanner: showChangedBanner
             });
         })
     
@@ -633,7 +651,7 @@ module.exports = router => {
             }
             
             // Check if the requested statement exists
-            const financeData = req.session.data.financeData;
+            const financeData = req.session.data.financeData || [];
             
             const matchingStatement = financeData.find(item => 
                 item.provider === provider && 
@@ -656,21 +674,65 @@ module.exports = router => {
     // Admin tooling and other stuff
 
     router.post(v + 'admin/finance/add-adjustment', (req, res) => {
-        // Pull the values out of session.data
-        const { adjustmentName, amount, provider, contractYear, statement } = req.session.data;
+        // Pull the values out of req.body (form submission data)
+        const { adjustmentName, amount, provider, contractYear, statement, editIndex } = req.body;
 
         // Ensure req.session.data.adjustmentArray exists
         if (!Array.isArray(req.session.data.adjustmentArray)) {
             req.session.data.adjustmentArray = [];
         }
 
-        // Append a new object
-        req.session.data.adjustmentArray.push({
-            adjustmentName: adjustmentName,
-            amount: amount
-        });
+        // Check if this is an edit operation
+        if (editIndex !== undefined && editIndex !== null && editIndex !== '') {
+            // Update existing adjustment
+            const index = parseInt(editIndex);
+            if (index >= 0 && index < req.session.data.adjustmentArray.length) {
+                req.session.data.adjustmentArray[index] = {
+                    adjustmentName: adjustmentName,
+                    amount: amount
+                };
+                // Set flag to show change banner
+                req.session.data.showAdjustmentChangedBanner = true;
+            }
+        } else {
+            // Append a new object
+            req.session.data.adjustmentArray.push({
+                adjustmentName: adjustmentName,
+                amount: amount
+            });
+            // Set flag to show add banner
+            req.session.data.showAdjustmentAddedBanner = true;
+        }
 
         // Redirect back with the query parameters to maintain context
+        const queryParams = new URLSearchParams({
+            provider: provider || '',
+            contractYear: contractYear || '',
+            statement: statement || ''
+        }).toString();
+
+        res.redirect(v + 'admin/finance/statement?' + queryParams);
+    });
+
+    // Remove adjustment route
+    router.get(v + admin + 'finance/remove-adjustment', (req, res) => {
+        const { provider, contractYear, statement, index } = req.query;
+        
+        // Ensure req.session.data.adjustmentArray exists
+        if (!Array.isArray(req.session.data.adjustmentArray)) {
+            req.session.data.adjustmentArray = [];
+        }
+
+        // Remove the adjustment at the specified index
+        const adjustmentIndex = parseInt(index);
+        if (adjustmentIndex >= 0 && adjustmentIndex < req.session.data.adjustmentArray.length) {
+            req.session.data.adjustmentArray.splice(adjustmentIndex, 1);
+        }
+
+        // Set flag to show removal banner
+        req.session.data.showAdjustmentRemovedBanner = true;
+
+        // Redirect back to statement with query parameters
         const queryParams = new URLSearchParams({
             provider: provider || '',
             contractYear: contractYear || '',

@@ -16,9 +16,7 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-        <h1 class="govuk-heading-l">Make an adjustment</h1>
-
-        <p>Body text.</p>
+        <h1 class="govuk-heading-l">{% if query.edit is defined %}Change adjustment{% else %}Make adjustment{% endif %}</h1>
 
         <form method="post">
             {{ govukInput({
@@ -28,11 +26,12 @@
             isPageHeading: false
             },
             hint: {
-            text: "Hint text."
+            text: "Describe what the adjustment is for"
             },
             id: "adjustment-name",
             classes: "govuk-input--width-30",
-            name: "adjustmentName"
+            name: "adjustmentName",
+            value: query.adjustmentName if query.edit is defined else ""
             }) }}
 
             {{ govukInput({
@@ -44,19 +43,23 @@
             isPageHeading: false
             },
             hint: {
-            text: "Hint text."
+            text: "Add a minus symbol before the amount if you need to make a negative adjustment. For example, -45"
             },
             prefix: {
             text: "£"
             },
             classes: "govuk-input--width-5",
-            spellcheck: false
+            spellcheck: false,
+            value: query.amount if query.edit is defined else ""
             }) }}
 
             <input type="hidden" name="provider" value="{{ query.provider }}">
             <input type="hidden" name="contractYear" value="{{ query.contractYear }}">
             <input type="hidden" name="statement" value="{{ query.statement }}">
-            <button class="govuk-button" data-module="govuk-button">Add adjustment</button>
+            {% if query.edit is defined %}
+            <input type="hidden" name="editIndex" value="{{ query.edit }}">
+            {% endif %}
+            <button class="govuk-button" data-module="govuk-button">{% if query.edit is defined %}Save changes{% else %}Add adjustment{% endif %}</button>
         </form>
         <p><a href="statement?provider={{ query.provider | urlencode }}&contractYear={{ query.contractYear }}&statement={{ query.statement | urlencode }}">Cancel and return to statement</a></p>
 
