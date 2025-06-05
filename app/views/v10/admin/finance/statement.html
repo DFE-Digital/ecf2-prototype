@@ -399,9 +399,9 @@
                             
                             {% if currentStatement %}
                                 {% if currentStatement.status == "Payable" %}
-                                    <form class="button_to" method="get" action="#">
-                                        <button class="govuk-button govuk-button--primary govuk-!-display-none-print" type="submit">Authorise for payment</button>
-                                    </form>
+                                    
+                                <button class="govuk-button govuk-button--primary govuk-!-display-none-print" type="submit">Authorise for payment</button>
+                                    
                                 {% elif currentStatement.status == "Authorised for payment" %}
                                     <p class="govuk-body govuk-!-display-none-print">This statement has already been authorised for payment</p>
                                 {% elif currentStatement.status == "Service fee statement" %}
