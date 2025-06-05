@@ -1,0 +1,1083 @@
+{% extends "layouts/print.html" %}
+
+{# Macro to format currency to 2 decimal places #}
+{% macro currency(amount) -%}
+{% set rounded = amount|round(2) %}
+{% set str = rounded|string %}
+{% if '.' in str %}
+  {% set parts = str.split('.') %}
+  {% set integerPart = parts[0] %}
+  {% set decimalPart = parts[1] %}
+  {% if decimalPart|length == 1 %}{% set decimalPart = decimalPart + '0' %}{% endif %}
+{% else %}
+  {% set integerPart = str %}
+  {% set decimalPart = '00' %}
+{% endif %}
+{{ integerPart }}.{{ decimalPart }}
+{%- endmacro %}
+
+{% block head %}
+<style>
+    .govuk-width-container {
+        max-width: 1250px;
+    }
+</style>
+<style>
+    .filter-form-container {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    
+    .filter-form-group {
+      flex: 1 1 200px;
+      min-width: 0;
+    }
+    
+    .filter-button {
+      margin-top: auto;
+      align-self: flex-end;
+    }
+    
+    .full-width-select {
+      width: 100%;
+    }
+    
+    .status-tag {
+      max-width: none!important;
+    }
+  </style>
+{{ super() }} <!-- This includes the content from the base head block -->
+
+{% endblock %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">Early career teacher programme: financial statements</h1>
+
+        <span class="govuk-caption-l">{{ query.provider }}</span>
+        <h2 class="govuk-heading-m">{{ query.statement }}</h2>
+
+        <form class="statement-selector govuk-!-display-none-print" method="get" action="/v10/admin/finance/find-statement">
+            <div class="filter-form-container">
+                <div class="govuk-form-group filter-form-group">
+                    <label for="provider" class="govuk-label">View a different provider</label>
+                    <select class="govuk-select full-width-select" id="provider" name="provider">
+                        <option value="Ambition Institute" {% if query.provider == 'Ambition Institute' %}selected{% endif %}>Ambition Institute</option>
+                        <option value="Best Practice Network" {% if query.provider == 'Best Practice Network' %}selected{% endif %}>Best Practice Network</option>
+                        <option value="Education Development Trust" {% if query.provider == 'Education Development Trust' %}selected{% endif %}>Education Development Trust</option>
+                        <option value="National Institute of Teaching" {% if query.provider == 'National Institute of Teaching' %}selected{% endif %}>National Institute of Teaching</option>
+                        <option value="Teach First" {% if query.provider == 'Teach First' %}selected{% endif %}>Teach First</option>
+                        <option value="UCL Institute of Education" {% if query.provider == 'UCL Institute of Education' %}selected{% endif %}>UCL Institute of Education</option>
+                    </select>
+                </div>
+
+                <div class="govuk-form-group filter-form-group">
+                    <label for="contractYear" class="govuk-label">View a different contract year</label>
+                    <select class="govuk-select full-width-select" id="contractYear" name="contractYear">
+                        <option value="2023" {% if query.contractYear == '2023' %}selected{% endif %}>2023</option>
+                        <option value="2024" {% if query.contractYear == '2024' %}selected{% endif %}>2024</option>
+                        <option value="2025" {% if query.contractYear == '2025' %}selected{% endif %}>2025</option>
+                    </select>
+                </div>
+
+                <div class="govuk-form-group filter-form-group">
+                    <label for="statement" class="govuk-label">View a different statement</label>
+                    <select class="govuk-select full-width-select" id="statement" name="statement">
+                        {% set uniqueDates = [] %}
+                        {% for item in data.financeData %}
+                            {% if uniqueDates.indexOf(item.statement) === -1 %}
+                                {% set uniqueDates = uniqueDates.concat([item.statement]) %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {# Create date values for sorting #}
+                        {% set datesWithSortValue = [] %}
+                        {% for date in uniqueDates %}
+                            {% set parts = date.split(' ') %}
+                            {% set month = parts[0] %}
+                            {% set year = parts[1] %}
+                            
+                            {% set monthNum = {
+                                "January": "01", 
+                                "February": "02", 
+                                "March": "03", 
+                                "April": "04", 
+                                "May": "05", 
+                                "June": "06", 
+                                "July": "07", 
+                                "August": "08", 
+                                "September": "09", 
+                                "October": "10", 
+                                "November": "11", 
+                                "December": "12"
+                            }[month] %}
+                            
+                            {% set sortValue = year + monthNum %}
+                            {% set datesWithSortValue = datesWithSortValue.concat([{ 
+                                "original": date, 
+                                "sortValue": sortValue 
+                            }]) %}
+                        {% endfor %}
+                        
+                        {# Sort dates by the numerical sort value #}
+                        {% set sortedDatesWithValue = datesWithSortValue | sort(false, false, "sortValue") %}
+                        
+                        {# Extract the original date strings in sorted order #}
+                        {% for dateObj in sortedDatesWithValue %}
+                            <option value="{{ dateObj.original }}" {% if query.statement == dateObj.original %}selected{% endif %}>{{ dateObj.original }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit" class="govuk-button govuk-button--secondary filter-button"
+                        data-module="govuk-button" data-prevent-double-click="true">
+                    View
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <div class="finance-panel govuk-!-padding-bottom-0">
+             <div class="finance-panel__dates">
+                <div>
+                    <div>
+                        <strong class="govuk-body-s govuk-!-margin-bottom-0">Milestone cut off date</strong>
+                    </div>
+                    <div class="govuk-heading-m govuk-!-padding-top-0">
+                        {% set statement_parts = query.statement.split(' ') %}
+                        {% set statement_month = statement_parts[0] %}
+                        {% set statement_year = statement_parts[1] %}
+                        
+                        {% set previous_month_map = {
+                            "January": ["December", statement_year|int - 1],
+                            "February": ["January", statement_year],
+                            "March": ["February", statement_year],
+                            "April": ["March", statement_year],
+                            "May": ["April", statement_year],
+                            "June": ["May", statement_year],
+                            "July": ["June", statement_year],
+                            "August": ["July", statement_year],
+                            "September": ["August", statement_year],
+                            "October": ["September", statement_year],
+                            "November": ["October", statement_year],
+                            "December": ["November", statement_year]
+                        } %}
+                        
+                        {% set prev_month = previous_month_map[statement_month][0] %}
+                        {% set prev_year = previous_month_map[statement_month][1] %}
+                        
+                        {% set last_day_map = {
+                            "January": "31",
+                            "February": "28",
+                            "March": "31",
+                            "April": "30",
+                            "May": "31",
+                            "June": "30",
+                            "July": "31",
+                            "August": "31",
+                            "September": "30",
+                            "October": "31",
+                            "November": "30",
+                            "December": "31"
+                        } %}
+                        
+                        {% set prev_month_last_day = last_day_map[prev_month] %}
+                        
+                        {{ prev_month_last_day }} {{ prev_month }} {{ prev_year }}
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <strong class="govuk-body-s govuk-!-margin-bottom-0">Payment date</strong>
+                    </div>
+                    <div class="govuk-heading-m govuk-!-padding-top-0">
+                        {% set statement_last_day = last_day_map[statement_month] %}
+                        {{ statement_last_day }} {{ statement_month }} {{ statement_year }}
+                    </div>
+                </div>
+            </div>
+
+            {# Find current statement and generate financial data #}
+            {% set currentStatement = null %}
+            {% for statement in data.financeData %}
+                {% if statement.provider == query.provider and statement.contractYear == query.contractYear|int and statement.statement == query.statement %}
+                    {% set currentStatement = statement %}
+                {% endif %}
+            {% endfor %}
+            
+            {# Generate random financial data #}
+            {% if currentStatement %}
+                {% set seedValue = (query.provider | length) + (query.statement | length) + query.contractYear|int %}
+                
+                {% if currentStatement.status == "Service fee statement" %}
+                    {# Generate service fee only for service fee statements #}
+                    {% set baseAmount = (seedValue * 891) % 15000 + 5000 %}
+                    {% set serviceFee = (baseAmount * 0.037) %}
+                    {% set vatAmount = (serviceFee * 0.2) %}
+                    {% set grandTotal = serviceFee + vatAmount %}
+                    
+                    {# No output payments, clawbacks, or uplifts for service fee statements #}
+                    {% set totalOutputPayment = 0 %}
+                    {% set ectOutputTotal = 0 %}
+                    {% set mentorOutputTotal = 0 %}
+                    {% set clawbackAmount = 0 %}
+                    {% set upliftTotal = 0 %}
+                {% else %}
+                    {# Generate full financial data for non-service fee statements #}
+                    {% set baseAmount = (seedValue * 1247) % 50000 + 10000 %}
+                    
+                    {# Generate output payment amounts #}
+                    {% if query.contractYear|int >= 2025 %}
+                        {% set ectStarted = ((seedValue * 17) % 8) + 2 %}
+                        {% set ectRetained1 = ((seedValue * 23) % 5) %}
+                        {% set ectRetained2 = ((seedValue * 31) % 4) %}
+                        {% set ectCompleted = ((seedValue * 41) % 6) %}
+                        {% set mentorStarted = ((seedValue * 19) % 4) %}
+                        {% set mentorCompleted = ((seedValue * 29) % 3) %}
+                        
+                        {% set ectOutputTotal = (ectStarted * 173.64) + (ectRetained1 * 130.23) + (ectRetained2 * 130.23) + (ectCompleted * 173.64) %}
+                        {% set mentorOutputTotal = (mentorStarted * 500) + (mentorCompleted * 500) %}
+                        {% set totalOutputPayment = ectOutputTotal + mentorOutputTotal %}
+                    {% else %}
+                        {% set bandAStarted = ((seedValue * 13) % 6) + 1 %}
+                        {% set bandBStarted = ((seedValue * 17) % 5) %}
+                        {% set bandCStarted = ((seedValue * 19) % 4) %}
+                        {% set bandDStarted = ((seedValue * 23) % 3) %}
+                        {% set bandARetained = ((seedValue * 29) % 4) %}
+                        {% set bandBRetained = ((seedValue * 31) % 3) %}
+                        {% set bandACompleted = ((seedValue * 37) % 3) %}
+                        
+                        {% set startedTotal = (bandAStarted * 119.40) + (bandBStarted * 117.48) + (bandCStarted * 115.92) + (bandDStarted * 193.20) %}
+                        {% set retainedTotal = (bandARetained * 89.55) + (bandBRetained * 88.11) %}
+                        {% set completedTotal = (bandACompleted * 119.40) %}
+                        {% set totalOutputPayment = startedTotal + retainedTotal + completedTotal %}
+                        
+                        {% set upliftParticipants = ((seedValue * 43) % 8) %}
+                        {% set upliftTotal = upliftParticipants * 100 %}
+                    {% endif %}
+                    
+                    {# Service fee - always present #}
+                    {% set serviceFee = (baseAmount * 0.037) %}
+                    
+                    {# Clawbacks #}
+                    {% set clawbackAmount = ((seedValue * 7) % 500) + 50 %}
+                    
+                    {# VAT calculation #}
+                    {% set subtotal = totalOutputPayment + serviceFee - clawbackAmount + (upliftTotal or 0) %}
+                    {% set vatAmount = (subtotal * 0.2) %}
+                    
+                                    {# Final total #}
+                {% set grandTotal = subtotal + vatAmount %}
+                {% endif %}
+                
+                {# Calculate adjustments total #}
+                {% set adjustmentsTotal = 0 %}
+                {% if data['adjustmentArray'] %}
+                    {% for item in data['adjustmentArray'] %}
+                        {% set adjustmentsTotal = adjustmentsTotal + (item.amount|float) %}
+                    {% endfor %}
+                {% endif %}
+                
+                {# Add adjustments to grand total #}
+                {% set grandTotal = grandTotal + adjustmentsTotal %}
+                
+                {# Declaration counts - match the payment calculations #}
+                {% if currentStatement.status == "Service fee statement" %}
+                    {# No declarations for service fee statements #}
+                    {% set declStarted = 0 %}
+                    {% set declRetained = 0 %}
+                    {% set declCompleted = 0 %}
+                    {% set declExtended = 0 %}
+                    {% set declClawedBack = 0 %}
+                    {% set declVoided = 0 %}
+                {% else %}
+                    {# Use the same counts as payment calculations #}
+                    {% if query.contractYear|int >= 2025 %}
+                        {% set declStarted = ectStarted %}
+                        {% set declRetained = ectRetained1 + ectRetained2 %}
+                        {% set declCompleted = ectCompleted %}
+                        {% set declExtended = ((seedValue * 19) % 3) %}
+                        {% set declClawedBack = ((seedValue * 23) % 4) %}
+                        {% set declVoided = ((seedValue * 29) % 2) %}
+                    {% else %}
+                        {% set declStarted = bandAStarted + bandBStarted + bandCStarted + bandDStarted %}
+                        {% set declRetained = bandARetained + bandBRetained %}
+                        {% set declCompleted = bandACompleted %}
+                        {% set declExtended = ((seedValue * 19) % 3) %}
+                        {% set declClawedBack = ((seedValue * 23) % 4) %}
+                        {% set declVoided = ((seedValue * 29) % 2) %}
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+            
+            <div class="finance-panel__summary__total-payment-breakdown">
+                <table class="govuk-table">
+                    <caption class="govuk-table__caption govuk-table__caption--l">Total £{% if currentStatement %}{{ currency(grandTotal) }}{% else %}0.00{% endif %}</caption>
+                    <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th class="govuk-table__header" scope="col"></th>
+                        <th class="govuk-table__header" scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                    {% if query.contractYear|int >= 2025 %}
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">ECTs output payment</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(ectOutputTotal) }}{% else %}0.00{% endif %}</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Mentors output payment</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(mentorOutputTotal) }}{% else %}0.00{% endif %}</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Service fee</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement %}{{ currency(serviceFee) }}{% else %}0.00{% endif %}</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">ECT clawbacks</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(clawbackAmount/2) }}{% else %}0.00{% endif %}</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Mentor clawbacks</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(clawbackAmount/2) }}{% else %}0.00{% endif %}</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Additional adjustments</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement %}{{ currency(adjustmentsTotal) }}{% else %}0.00{% endif %}</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">VAT</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement %}{{ currency(vatAmount) }}{% else %}0.00{% endif %}</td>
+                    </tr>
+                    {% else %}
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Output payment</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(totalOutputPayment) }}{% else %}0.00{% endif %}</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Service fee</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement %}{{ currency(serviceFee) }}{% else %}0.00{% endif %}</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Uplift fees</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(upliftTotal) }}{% else %}0.00{% endif %}</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Clawbacks</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(clawbackAmount) }}{% else %}0.00{% endif %}</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Additional adjustments</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement %}{{ currency(adjustmentsTotal) }}{% else %}0.00{% endif %}</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">VAT</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement %}{{ currency(vatAmount) }}{% else %}0.00{% endif %}</td>
+                    </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+                <div class="app-application__panel__actions">
+                    <div class="duvet">
+                        <div class="govuk-grid-column-one-half govuk-!-text-align-left">
+                            
+                            {% if currentStatement %}
+                                {% if currentStatement.status == "Payable" %}
+                                    <form class="button_to" method="get" action="#">
+                                        <button class="govuk-button govuk-button--primary govuk-!-display-none-print" type="submit">Authorise for payment</button>
+                                    </form>
+                                {% elif currentStatement.status == "Authorised for payment" %}
+                                    <p class="govuk-body govuk-!-display-none-print">This statement has already been authorised for payment</p>
+                                {% elif currentStatement.status == "Service fee statement" %}
+                                    <p class="govuk-body govuk-!-display-none-print">This statement does not require to be authorised for payment</p>
+                                {% elif currentStatement.status == "Open" %}
+                                    <p class="govuk-body govuk-!-display-none-print"></p>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="govuk-grid-column-one-half govuk-!-text-align-right">
+                            <p class="govuk-body-s">
+                                <a class="govuk-link govuk-!-display-none-print" onclick="window.print(this)" data-filename="Save statement PDF" href="javascript:void(0)">Save as PDF</a>
+                            </p>
+                            <p class="govuk-body-s">
+                                <a class="govuk-link govuk-!-display-none-print" href="#">Download declarations (CSV)</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="govuk-grid-row govuk-!-margin-top-5 print-page-break">
+    <div class="govuk-grid-column-full">
+        <div class="finance-panel finance-panel__summary_and_counts govuk-!-margin-bottom-5 print-page-break">
+            <table class="govuk-table">
+                <caption class="govuk-table__caption govuk-table__caption--m">Declarations summary</caption>
+                <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header govuk-!-width-one-quarter" scope="col"></th>
+                    {% if query.contractYear|int >= 2025 %}
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">ECTs</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Mentors</th>
+                    {% else %}
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Total</th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Started</td>
+                    {% if query.contractYear|int >= 2025 %}
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement %}{{ declStarted }}{% else %}2{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ mentorStarted }}{% else %}0{% endif %}</td>
+                    {% else %}
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement %}{{ declStarted }}{% else %}2{% endif %}</td>
+                    {% endif %}
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Retained</td>
+                    {% if query.contractYear|int >= 2025 %}
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement %}{{ declRetained }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">-</td>
+                    {% else %}
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement %}{{ declRetained }}{% else %}0{% endif %}</td>
+                    {% endif %}
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Completed</td>
+                    {% if query.contractYear|int >= 2025 %}
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement %}{{ declCompleted }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ mentorCompleted }}{% else %}0{% endif %}</td>
+                    {% else %}
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement %}{{ declCompleted }}{% else %}0{% endif %}</td>
+                    {% endif %}
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Extended</td>
+                    {% if query.contractYear|int >= 2025 %}
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement %}{{ declExtended }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">-</td>
+                    {% else %}
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement %}{{ declExtended }}{% else %}0{% endif %}</td>
+                    {% endif %}
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Clawed back</td>
+                    {% if query.contractYear|int >= 2025 %}
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement %}{{ declClawedBack }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ (declClawedBack/2)|int }}{% else %}0{% endif %}</td>
+                    {% else %}
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement %}{{ declClawedBack }}{% else %}0{% endif %}</td>
+                    {% endif %}
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Voided</td>
+                    {% if query.contractYear|int >= 2025 %}
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><a class="govuk-link govuk-!-display-none-print" href="#">
+                        {% if currentStatement %}{{ declVoided }}{% else %}0{% endif %}
+                        <span class="govuk-visually-hidden">ECT voided declarations</span>
+                    </a></td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><a class="govuk-link govuk-!-display-none-print" href="#">
+                        {% if currentStatement and currentStatement.status != "Service fee statement" %}{{ (declVoided/2)|int }}{% else %}0{% endif %}
+                        <span class="govuk-visually-hidden">Mentor voided declarations</span>
+                    </a></td>
+                    {% else %}
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement %}{{ declVoided }}{% else %}0{% endif %}<a class="govuk-link govuk-!-display-none-print"
+                                                                                href="#">
+
+                        <span class="govuk-visually-hidden">ECT voided declarations</span>
+                    </a></td>
+                    {% endif %}
+                </tr>
+                </tbody>
+            </table>
+            <p class="govuk-body-s govuk-!-text-align-right">
+                <a class="govuk-link govuk-!-display-none-print"
+                   href="#">Download
+                    declarations (CSV)</a>
+            </p>
+        </div>
+
+<div class="govuk-grid-row govuk-!-margin-top-5 print-page-break">
+    <div class="govuk-grid-column-full">
+        <div class="finance-panel finance-panel__output-payments">
+            {% if query.contractYear|int >= 2025 %}
+            <table class="govuk-table output-payments">
+                <caption class="govuk-table__caption govuk-table__caption--m">Early career teacher (ECT) output payments</caption>
+                <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="col">Outputs</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Band A</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Band B</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Band C</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Payments</th>
+                </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Started</th>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ ectStarted }}{% else %}2{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell"></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Fee per ECT</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£173.64</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£173.64</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£163.08</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(ectStarted * 173.64) }}{% else %}347.28{% endif %}</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Retained 1</th>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ ectRetained1 }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell"></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Fee per ECT</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£130.23</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£130.23</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£122.31</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(ectRetained1 * 130.23) }}{% else %}0.00{% endif %}</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Retained 2</th>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ ectRetained2 }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell"></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Fee per ECT</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£130.23</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£130.23</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£122.31</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(ectRetained2 * 130.23) }}{% else %}0.00{% endif %}</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Retained 3</th>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell"></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Fee per ECT</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£130.23</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£130.23</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£122.31</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Retained 4</th>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell"></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Fee per ECT</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£130.23</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£130.23</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£122.31</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Completed</th>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ ectCompleted }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell"></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Fee per ECT</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£173.64</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£173.64</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£163.08</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(ectCompleted * 173.64) }}{% else %}0.00{% endif %}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="govuk-!-text-align-right govuk-heading-s govuk-!-margin-bottom-0">
+                ECTs output payment total
+            </div>
+
+            <div class="govuk-!-text-align-right govuk-heading-s">
+                £{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(ectOutputTotal) }}{% else %}347.28{% endif %}
+            </div>
+
+            <br>
+            <table class="govuk-table output-payments">
+                <caption class="govuk-table__caption govuk-table__caption--m">Mentor output payments</caption>
+                <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="col">Outputs</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Participants</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Payments</th>
+                </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Started</th>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ mentorStarted }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell"></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Fee per mentor</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£500.00</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(mentorStarted * 500) }}{% else %}0.00{% endif %}</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Completed</th>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ mentorCompleted }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell"></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Fee per mentor</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£500.00</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(mentorCompleted * 500) }}{% else %}0.00{% endif %}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="govuk-!-text-align-right govuk-heading-s govuk-!-margin-bottom-0">
+                Mentors output payment total
+            </div>
+
+            <div class="govuk-!-text-align-right govuk-heading-s">
+                £{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(mentorOutputTotal) }}{% else %}0.00{% endif %}
+            </div>
+            {% else %}
+            <table class="govuk-table output-payments">
+                <caption class="govuk-table__caption govuk-table__caption--m">Output payments</caption>
+                <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="col">Outputs</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Band A</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Band B</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Band C</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Band D</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Payments</th>
+                </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Started</th>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ bandAStarted }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ bandBStarted }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ bandCStarted }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ bandDStarted }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell"></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Fee per participant</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£119.40</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£117.48</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£115.92</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£193.20</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(startedTotal) }}{% else %}0.00{% endif %}</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Retained 1</th>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ bandARetained }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ bandBRetained }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell"></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Fee per participant</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£89.55</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£88.11</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£86.94</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£144.90</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(retainedTotal) }}{% else %}0.00{% endif %}</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Retained 2</th>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell"></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Fee per participant</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£89.55</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£88.11</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£86.94</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£144.90</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Retained 3</th>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell"></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Fee per participant</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£89.55</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£88.11</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£86.94</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£144.90</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Retained 4</th>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell"></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Fee per participant</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£89.55</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£88.11</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£86.94</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£144.90</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Completed</th>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ bandACompleted }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                    <td class="govuk-table__cell"></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Fee per participant</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£119.40</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£117.48</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£115.92</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£193.20</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(completedTotal) }}{% else %}0.00{% endif %}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="govuk-!-text-align-right govuk-heading-s govuk-!-margin-bottom-0">
+                Output payment total
+            </div>
+
+            <div class="govuk-!-text-align-right govuk-heading-s">
+                £{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(totalOutputPayment) }}{% else %}0.00{% endif %}
+            </div>
+            {% endif %}
+        </div>
+
+        {% if query.contractYear|int < 2025 %}
+        <div class="finance-panel finance-panel__uplifts govuk-!-margin-top-5 govuk-!-margin-bottom-5">
+            <table class="govuk-table">
+                <caption class="govuk-table__caption govuk-table__caption--m">Uplift fees</caption>
+                <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="col">Number of participants</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Fee per participant</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Payments</th>
+                </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ upliftParticipants }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£100.00</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(upliftTotal) }}{% else %}0.00{% endif %}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        
+        {% if query.contractYear|int >= 2025 %}
+        <div class="finance-panel finance-panel__clawbacks govuk-!-margin-top-5 govuk-!-margin-bottom-5 print-page-break">
+            <table class="govuk-table">
+                <caption class="govuk-table__caption govuk-table__caption--m">ECT clawbacks</caption>
+                <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="col">Payment type</th>
+                    <th class="govuk-table__header" scope="col">Number of participants</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Fee per participant</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Payments</th>
+                </tr>
+                </thead>
+                <tbody class="govuk-table__body"></tbody>
+            </table>
+            <div class="govuk-!-text-align-right govuk-heading-s govuk-!-margin-bottom-0">
+                Total
+            </div>
+
+            <div class="govuk-!-text-align-right govuk-heading-s">
+                £0.00
+            </div>
+        </div>
+
+        <div class="finance-panel finance-panel__clawbacks govuk-!-margin-top-5 govuk-!-margin-bottom-5 print-page-break">
+            <table class="govuk-table">
+                <caption class="govuk-table__caption govuk-table__caption--m">Mentor clawbacks</caption>
+                <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="col">Payment type</th>
+                    <th class="govuk-table__header" scope="col">Number of participants</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Fee per participant</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Payments</th>
+                </tr>
+                </thead>
+                <tbody class="govuk-table__body"></tbody>
+            </table>
+            <div class="govuk-!-text-align-right govuk-heading-s govuk-!-margin-bottom-0">
+                Total
+            </div>
+
+            <div class="govuk-!-text-align-right govuk-heading-s">
+                £0.00
+            </div>
+        </div>
+        {% else %}
+        <div class="finance-panel finance-panel__clawbacks govuk-!-margin-top-5 govuk-!-margin-bottom-5 print-page-break">
+            <table class="govuk-table">
+                <caption class="govuk-table__caption govuk-table__caption--m">Clawbacks</caption>
+                <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="col">Payment type</th>
+                    <th class="govuk-table__header" scope="col">Number of participants</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Fee per participant</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Payments</th>
+                </tr>
+                </thead>
+            </table>
+            <div class="govuk-!-text-align-right govuk-heading-s govuk-!-margin-bottom-0">
+                Total
+            </div>
+
+            <div class="govuk-!-text-align-right govuk-heading-s">
+                £0.00
+            </div>
+        </div>
+        {% endif %}
+
+         <div class="finance-panel finance-panel__adjustments govuk-!-margin-top-5 govuk-!-margin-bottom-5 print-page-break">
+            <table class="govuk-table">
+                <caption class="govuk-table__caption govuk-table__caption--m">Additional adjustments</caption>
+                <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="col">Payment type</th>
+                    <th class="govuk-table__header govuk-table__header--numeric" scope="col">Payments</th>
+                </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                {% if data['adjustmentArray'] %}
+                {% for item in data['adjustmentArray'] %}
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">{{ item.adjustmentName }}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{{ currency(item.amount|float) }}</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-one-half">
+                    <a class="govuk-link govuk-!-display-none-print"
+                       href="add-adjustment?provider={{ query.provider | urlencode }}&contractYear={{ query.contractYear }}&statement={{ query.statement | urlencode }}">
+                        Add <span class="govuk-visually-hidden"> adjustment</span>
+                    </a>
+                    &nbsp;
+                </div>
+
+                <div class="govuk-grid-column-one-half govuk-!-text-align-right govuk-heading-s">
+                    Total
+                    <br>
+                    £{{ currency(adjustmentsTotal) }}
+                </div>
+            </div>
+
+        </div>
+
+        
+
+        <details class="govuk-details contract-information govuk-!-display-none-print" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">Provider targets (per academic year)</span>
+            </summary>
+
+            <div class="govuk-details__text">
+                <dl class="govuk-summary-list govuk-summary-list--no-border">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Provider
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            Ambition Institute
+                        </dd>
+                    </div>
+                </dl>
+                <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Recruitment target
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            4500
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Revised recruitment target (+2%)
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            4590
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Uplift target
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            33%
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Uplift amount
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            £100.00
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Set-up Fee
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            £0.00
+                        </dd>
+                    </div>
+                </dl>
+
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th class="govuk-table__header">Band</th>
+                        <th class="govuk-table__header govuk-table__cell--numeric">Min</th>
+                        <th class="govuk-table__header govuk-table__cell--numeric">Max</th>
+                        <th class="govuk-table__header govuk-table__cell--numeric">Payment amount per participant</th>
+                    </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Band A</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">10</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£995.00</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Band B</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">11</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">20</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£979.00</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Band C</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">21</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">30</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£966.00</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">New target</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">31</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">40</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£966.00</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <details class="govuk-details govuk-!-display-none-print" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">Calculation rounding errors</span>
+            </summary>
+            <div class="govuk-details__text">
+                Due to the way payments per participant are made, there may be rounding errors in some of the individual
+                sub-calculations. The total output fees displayed are correct. Contact your contract manager if you have
+                any queries.
+            </div>
+        </details>
+    </div>
+     <div class="govuk-grid-column-full">
+        <details class="govuk-details govuk-!-display-none-print" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">Updated financial statement design</span>
+            </summary>
+            <div class="govuk-details__text">
+                We've updated the financial statements from June 2025 onwards to reflect changes to the payment
+                schedules. We've split out ECT and mentor output payments, removed uplift fees, and deleted Band D from
+                the ECT payment bands.
+            </div>
+        </details>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script>
+    function formatCurrency() {
+        // Target specific elements that contain currency amounts
+        const selectors = [
+            '.govuk-table__cell--numeric',
+            '.govuk-table__caption', 
+            '.govuk-heading-s'
+        ];
+        
+        selectors.forEach(selector => {
+            const elements = document.querySelectorAll(selector);
+            
+            elements.forEach(element => {
+                const originalText = element.textContent;
+                if (originalText && originalText.includes('£')) {
+                    // Replace currency amounts with thousand separators (for 4+ digits)
+                    // Handle whitespace between £ and numbers
+                    const newText = originalText.replace(/£\s*(\d{4,})\.(\d{2})/g, function(match, number, decimals) {
+                        const formatted = number.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                        return '£' + formatted + '.' + decimals;
+                    });
+                    
+                    if (newText !== originalText) {
+                        element.textContent = newText;
+                    }
+                }
+            });
+        });
+    }
+    
+    // Run after DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(formatCurrency, 10);
+    });
+</script>
+{% endblock %}
