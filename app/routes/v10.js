@@ -5,6 +5,7 @@ var vGet = 'v10/'
 // Add any directory variables here
 var school = 'school/'
 var mentor = 'mentor/'
+var admin = 'admin/'
 
 module.exports = router => {
 
@@ -443,4 +444,301 @@ module.exports = router => {
         req.session.data['mentor'] = 'Tom Jones'
         res.redirect(v + school + mentor + 'assigned')
     })
+
+    // **********************
+    // **********************
+    // **********************
+
+        // finance home page - direct access
+        router.get(v + admin + 'finance-home', (req, res) => {
+            const financeData = req.session.data.financeData || [];
+            
+            // Get query parameters for filtering
+            const provider = req.query.provider || 'All';
+            const year = req.query.year || 'All';
+            const date = req.query.date || 'All';
+            const status = req.query.status || 'All';
+            
+            // Apply filters to the data
+            let filteredData = [...financeData];
+            
+            if (provider !== 'All') {
+                filteredData = filteredData.filter(item => item.provider === provider);
+            }
+            
+            if (year !== 'All') {
+                filteredData = filteredData.filter(item => item.contractYear === parseInt(year));
+            }
+            
+            if (date !== 'All') {
+                filteredData = filteredData.filter(item => item.statement === date);
+            }
+            
+            if (status !== 'All') {
+                filteredData = filteredData.filter(item => item.status === status);
+            }
+            
+            // Sort data by contract year and then by statement date
+            filteredData.sort((a, b) => {
+                // First sort by contract year (ascending)
+                if (a.contractYear !== b.contractYear) {
+                    return a.contractYear - b.contractYear;
+                }
+                
+                // If same contract year, sort by statement date
+                const aDateParts = a.statement.split(' ');
+                const bDateParts = b.statement.split(' ');
+                
+                const aMonth = aDateParts[0];
+                const aYear = parseInt(aDateParts[1]);
+                
+                const bMonth = bDateParts[0];
+                const bYear = parseInt(bDateParts[1]);
+                
+                // Sort by year first
+                if (aYear !== bYear) {
+                    return aYear - bYear;
+                }
+                
+                // If same year, sort by month
+                const monthOrder = {
+                    "January": 1, 
+                    "February": 2, 
+                    "March": 3, 
+                    "April": 4, 
+                    "May": 5, 
+                    "June": 6, 
+                    "July": 7, 
+                    "August": 8, 
+                    "September": 9, 
+                    "October": 10, 
+                    "November": 11, 
+                    "December": 12
+                };
+                
+                return monthOrder[aMonth] - monthOrder[bMonth];
+            });
+            
+            // Pagination logic
+            const page = parseInt(req.query.page) || 1;
+            const itemsPerPage = 20;
+            const totalItems = filteredData ? filteredData.length : 0;
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+            
+            // Calculate the start and end indices for the current page
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+            
+            // Get the subset of data for the current page
+            const currentPageData = filteredData ? filteredData.slice(startIndex, endIndex) : [];
+            
+            // Generate pagination items
+            const paginationItems = [];
+            
+            // Add ellipsis logic for many pages
+            const showEllipsisStart = page > 3;
+            const showEllipsisEnd = page < totalPages - 2;
+            
+            // Build the base query string for pagination links
+            const baseQueryString = Object.entries(req.query)
+                .filter(([key]) => key !== 'page')
+                .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+                .join('&');
+            
+            const getPageUrl = (pageNum) => {
+                const separator = baseQueryString ? '&' : '';
+                return `${v}${admin}finance-home?${baseQueryString}${separator}page=${pageNum}`;
+            };
+            
+            // Add page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                // Show first and last pages, and pages around the current page
+                if (
+                    i === 1 || 
+                    i === totalPages || 
+                    (i >= page - 1 && i <= page + 1) ||
+                    (i === 2 && page <= 3) ||
+                    (i === totalPages - 1 && page >= totalPages - 2)
+                ) {
+                    paginationItems.push({
+                        number: i,
+                        current: i === page,
+                        href: getPageUrl(i)
+                    });
+                } 
+                // Add ellipsis (as a non-link item)
+                else if (
+                    (i === 2 && showEllipsisStart) || 
+                    (i === totalPages - 1 && showEllipsisEnd)
+                ) {
+                    paginationItems.push({
+                        ellipsis: true
+                    });
+                }
+            }
+            
+            // Determine previous and next links
+            const prevPage = page > 1 ? page - 1 : null;
+            const nextPage = page < totalPages ? page + 1 : null;
+            
+            // Render with pagination data
+            res.render(vGet + '/admin/finance-home', {
+                financeStatements: currentPageData,
+                pagination: {
+                    items: paginationItems,
+                    previous: prevPage ? {
+                        href: getPageUrl(prevPage)
+                    } : null,
+                    next: nextPage ? {
+                        href: getPageUrl(nextPage)
+                    } : null
+                },
+                currentPage: page,
+                totalPages: totalPages,
+                totalItems: totalItems,
+                query: req.query
+            });
+        })
+    
+        // finance statement page
+        router.get(v + admin + 'finance/statement', (req, res) => {
+            // Check if we should show banners (and then clear the flags)
+            const showRemovedBanner = req.session.data.showAdjustmentRemovedBanner;
+            const showAddedBanner = req.session.data.showAdjustmentAddedBanner;
+            const showChangedBanner = req.session.data.showAdjustmentChangedBanner;
+            
+            if (showRemovedBanner) {
+                req.session.data.showAdjustmentRemovedBanner = false;
+            }
+            if (showAddedBanner) {
+                req.session.data.showAdjustmentAddedBanner = false;
+            }
+            if (showChangedBanner) {
+                req.session.data.showAdjustmentChangedBanner = false;
+            }
+
+            // Pass the query parameters to the template
+            res.render(vGet + '/admin/finance/statement', {
+                query: req.query,
+                showAdjustmentRemovedBanner: showRemovedBanner,
+                showAdjustmentAddedBanner: showAddedBanner,
+                showAdjustmentChangedBanner: showChangedBanner
+            });
+        })
+    
+        // add adjustment page
+        router.get(v + admin + 'finance/add-adjustment', (req, res) => {
+            // Pass the query parameters to the template
+            res.render(vGet + '/admin/finance/add-adjustment', {
+                query: req.query
+            });
+        })
+    
+        // handler for statement page form submission
+        router.get(v + admin + 'finance/find-statement', (req, res) => {
+            const provider = req.query.provider;
+            const contractYear = req.query.contractYear;
+            const statement = req.query.statement;
+            
+            // If any are "All", redirect to finance-home with filters
+            if (provider === "All" || contractYear === "All" || statement === "All") {
+                const queryString = Object.entries(req.query)
+                    .filter(([key, value]) => value !== "All")
+                    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+                    .join('&');
+                
+                return res.redirect(`${v}${admin}finance-home?${queryString}`);
+            }
+            
+            // Check if the requested statement exists
+            const financeData = req.session.data.financeData || [];
+            
+            const matchingStatement = financeData.find(item => 
+                item.provider === provider && 
+                item.contractYear.toString() === contractYear &&
+                item.statement === statement
+            );
+            
+            if (matchingStatement) {
+                // Statement exists, redirect to it
+                return res.redirect(`${v}${admin}finance/statement?provider=${encodeURIComponent(provider)}&contractYear=${contractYear}&statement=${encodeURIComponent(statement)}`);
+            } else {
+                // Statement doesn't exist, redirect to finance-home with filters
+                return res.redirect(`${v}${admin}finance-home?provider=${encodeURIComponent(provider)}&year=${contractYear}&date=${encodeURIComponent(statement)}`);
+            }
+        })
+
+    // **********************
+    // **********************
+
+    // Admin tooling and other stuff
+
+    router.post(v + 'admin/finance/add-adjustment', (req, res) => {
+        // Pull the values out of req.body (form submission data)
+        const { adjustmentName, amount, provider, contractYear, statement, editIndex } = req.body;
+
+        // Ensure req.session.data.adjustmentArray exists
+        if (!Array.isArray(req.session.data.adjustmentArray)) {
+            req.session.data.adjustmentArray = [];
+        }
+
+        // Check if this is an edit operation
+        if (editIndex !== undefined && editIndex !== null && editIndex !== '') {
+            // Update existing adjustment
+            const index = parseInt(editIndex);
+            if (index >= 0 && index < req.session.data.adjustmentArray.length) {
+                req.session.data.adjustmentArray[index] = {
+                    adjustmentName: adjustmentName,
+                    amount: amount
+                };
+                // Set flag to show change banner
+                req.session.data.showAdjustmentChangedBanner = true;
+            }
+        } else {
+            // Append a new object
+            req.session.data.adjustmentArray.push({
+                adjustmentName: adjustmentName,
+                amount: amount
+            });
+            // Set flag to show add banner
+            req.session.data.showAdjustmentAddedBanner = true;
+        }
+
+        // Redirect back with the query parameters to maintain context
+        const queryParams = new URLSearchParams({
+            provider: provider || '',
+            contractYear: contractYear || '',
+            statement: statement || ''
+        }).toString();
+
+        res.redirect(v + 'admin/finance/statement?' + queryParams);
+    });
+
+    // Remove adjustment route
+    router.get(v + admin + 'finance/remove-adjustment', (req, res) => {
+        const { provider, contractYear, statement, index } = req.query;
+        
+        // Ensure req.session.data.adjustmentArray exists
+        if (!Array.isArray(req.session.data.adjustmentArray)) {
+            req.session.data.adjustmentArray = [];
+        }
+
+        // Remove the adjustment at the specified index
+        const adjustmentIndex = parseInt(index);
+        if (adjustmentIndex >= 0 && adjustmentIndex < req.session.data.adjustmentArray.length) {
+            req.session.data.adjustmentArray.splice(adjustmentIndex, 1);
+        }
+
+        // Set flag to show removal banner
+        req.session.data.showAdjustmentRemovedBanner = true;
+
+        // Redirect back to statement with query parameters
+        const queryParams = new URLSearchParams({
+            provider: provider || '',
+            contractYear: contractYear || '',
+            statement: statement || ''
+        }).toString();
+
+        res.redirect(v + 'admin/finance/statement?' + queryParams);
+    });
 }

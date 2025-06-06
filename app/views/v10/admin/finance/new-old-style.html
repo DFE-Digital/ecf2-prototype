@@ -531,16 +531,20 @@
                 </tr>
                 </thead>
                 <tbody class="govuk-table__body">
+                {% if data['adjustmentArray'] %}
+                {% for item in data['adjustmentArray'] %}
                 <tr class="govuk-table__row">
-                    <td class="govuk-table__cell"></td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£0.00</td>
+                    <td class="govuk-table__cell">{{ item.adjustmentName }}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{{ item.amount }}</td>
                 </tr>
+                {% endfor %}
+                {% endif %}
                 </tbody>
             </table>
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-one-half">
                     <a class="govuk-link govuk-!-display-none-print"
-                       href="/finance/statements/7f95c7f8-36be-43f5-9bb4-f646954a5252/adjustments/new">
+                       href="add-adjustment">
                         Add <span class="govuk-visually-hidden"> adjustment</span>
                     </a>
                     &nbsp;
