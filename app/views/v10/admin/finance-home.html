@@ -134,13 +134,11 @@
                         </select>
                     </div>
                     <div class="govuk-form-group filter-form-group">
-                        <label for="status" class="govuk-label">Status</label>
-                        <select class="govuk-select full-width-select" id="status" name="status">
-                            <option value="All" {% if query.status == 'All' or not query.status %}selected{% endif %}>All</option>
-                            <option value="Open" {% if query.status == 'Open' %}selected{% endif %}>Open</option>
-                            <option value="Payable" {% if query.status == 'Payable' %}selected{% endif %}>Payable</option>
-                            <option value="Authorised for payment" {% if query.status == 'Authorised for payment' %}selected{% endif %}>Authorised for payment</option>
-                            <option value="Service fee statement" {% if query.status == 'Service fee statement' %}selected{% endif %}>Service fee statement</option>
+                        <label for="statementType" class="govuk-label">Statement type</label>
+                        <select class="govuk-select full-width-select" id="statementType" name="statementType">
+                            <option value="All" {% if query.statementType == 'All' %}selected{% endif %}>All</option>
+                            <option value="Output statements" {% if query.statementType == 'Output statements' or not query.statementType %}selected{% endif %}>Output statements</option>
+                            <option value="Service fee statements" {% if query.statementType == 'Service fee statements' %}selected{% endif %}>Service fee statements</option>
                         </select>
                     </div>
                     <button type="submit" class="govuk-button govuk-button--secondary filter-button" data-module="govuk-button">

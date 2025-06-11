@@ -457,7 +457,7 @@ module.exports = router => {
             const provider = req.query.provider || 'All';
             const year = req.query.year || 'All';
             const date = req.query.date || 'All';
-            const status = req.query.status || 'All';
+            const statementType = req.query.statementType || 'Output statements';
             
             // Apply filters to the data
             let filteredData = [...financeData];
@@ -474,8 +474,18 @@ module.exports = router => {
                 filteredData = filteredData.filter(item => item.statement === date);
             }
             
-            if (status !== 'All') {
-                filteredData = filteredData.filter(item => item.status === status);
+            if (statementType !== 'All') {
+                if (statementType === 'Output statements') {
+                    // Filter for Open, Payable, and Authorised for payment
+                    filteredData = filteredData.filter(item => 
+                        item.status === 'Open' || 
+                        item.status === 'Payable' || 
+                        item.status === 'Authorised for payment'
+                    );
+                } else if (statementType === 'Service fee statements') {
+                    // Filter for Service fee statement
+                    filteredData = filteredData.filter(item => item.status === 'Service fee statement');
+                }
             }
             
             // Sort data by contract year and then by statement date
