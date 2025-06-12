@@ -1,0 +1,74 @@
+{% extends "layouts/ects.html" %}
+
+{% set pageName="Find a mentor" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+            <p>Enter the mentor's teacher reference number and date of birth to find their teaching record.</p>
+
+        {{ govukInput({
+        label: {
+        text: "Teacher reference number (TRN)",
+        classes: "govuk-label--m",
+        isPageHeading: false
+        },
+        hint: {
+            text: "This unique ID is usually 7 digits long, for example 4567814. It may also include letters or a slash, for example RP99/12345. It can be found on their payslip, teaching contract or registration document from the GTCE."
+        },
+        id: "trn",
+        name: "trn"
+        }) }}
+
+        {{ govukDateInput({
+        id: "dob",
+        namePrefix: "dob",
+        fieldset: {
+        legend: {
+        text: "Date of birth",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--m"
+        }
+        },
+        hint: {
+        text: "For example, 31 3 1980"
+        },
+        items: [
+        {
+        name: "day",
+        classes: "govuk-input--width-2",
+        autocomplete: "bday-day"
+        },
+        {
+        name: "month",
+        classes: "govuk-input--width-2",
+        autocomplete: "bday-month"
+        },
+        {
+        name: "year",
+        classes: "govuk-input--width-4",
+        autocomplete: "bday-year"
+        }
+        ]
+        }) }}
+
+            <button class="govuk-button">Continue</button>
+
+            <p><a href="../../other-pages/add-mentor/no-trn">They do not have a TRN</a></p>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
