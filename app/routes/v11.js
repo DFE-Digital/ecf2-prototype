@@ -1,11 +1,12 @@
 // Change versions here
-var v = '/v10/'
-var vGet = 'v10/'
+var v = '/v11/'
+var vGet = 'v11/'
 
 // Add any directory variables here
 var school = 'school/'
 var mentor = 'mentor/'
 var admin = 'admin/'
+
 
 module.exports = router => {
 
@@ -39,6 +40,11 @@ module.exports = router => {
             req.session.data['mentorTransfer'] = 'yes'
         }
         res.redirect(v + school + 'dfe-sign-in')
+    })
+
+    // change lead provider 
+     router.post(v + school + 'home/change/change-lead-provider', (req, res) => {
+        res.redirect(v + school + 'home/change/change-lead-provider-confirmation')
     })
 
     // dfe sign in page
@@ -236,6 +242,7 @@ module.exports = router => {
         // res.redirect(v + school + 'save-programme-details')
         res.redirect(v + school + 'check-answers')
     })
+   
 
 
     router.post(v + school + 'autocomplete-delivery-partner', (req, res) => {
