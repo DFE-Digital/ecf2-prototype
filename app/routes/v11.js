@@ -491,7 +491,7 @@ module.exports = router => {
                     );
                 } else if (statementType === 'Service fee statements') {
                     // Filter for Service fee statement
-                    filteredData = filteredData.filter(item => item.status === 'Service fee statement');
+                    filteredData = filteredData.filter(item => item.status === 'Not applicable');
                 }
             }
             

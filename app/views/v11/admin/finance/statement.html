@@ -52,6 +52,11 @@
 {% endblock %}
 
 {% block beforeContent %}
+{{ govukBackLink({
+text: "Back to financial statements",
+href: "../finance-home",
+classes: "govuk-!-display-none-print"
+}) }}
 {% endblock %}
 
 {% block content %}
@@ -240,7 +245,7 @@
             {% if currentStatement %}
                 {% set seedValue = (query.provider | length) + (query.statement | length) + query.contractYear|int %}
                 
-                {% if currentStatement.status == "Service fee statement" %}
+                {% if currentStatement.status == "Not applicable" %}
                     {# Generate service fee only for service fee statements #}
                     {% set baseAmount = (seedValue * 891) % 15000 + 5000 %}
                     {% set serviceFee = (baseAmount * 0.037) %}
@@ -313,7 +318,7 @@
                 {% set grandTotal = grandTotal + adjustmentsTotal %}
                 
                 {# Declaration counts - match the payment calculations #}
-                {% if currentStatement.status == "Service fee statement" %}
+                {% if currentStatement.status == "Not applicable" %}
                     {# No declarations for service fee statements #}
                     {% set declStarted = 0 %}
                     {% set declRetained = 0 %}
@@ -354,11 +359,11 @@
                     {% if query.contractYear|int >= 2025 %}
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">ECTs output payment</td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(ectOutputTotal) }}{% else %}0.00{% endif %}</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(ectOutputTotal) }}{% else %}0.00{% endif %}</td>
                     </tr>
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">Mentors output payment</td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(mentorOutputTotal) }}{% else %}0.00{% endif %}</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(mentorOutputTotal) }}{% else %}0.00{% endif %}</td>
                     </tr>
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">Service fee</td>
@@ -366,11 +371,11 @@
                     </tr>
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">ECT clawbacks</td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(clawbackAmount/2) }}{% else %}0.00{% endif %}</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(clawbackAmount/2) }}{% else %}0.00{% endif %}</td>
                     </tr>
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">Mentor clawbacks</td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(clawbackAmount/2) }}{% else %}0.00{% endif %}</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(clawbackAmount/2) }}{% else %}0.00{% endif %}</td>
                     </tr>
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">Additional adjustments</td>
@@ -383,7 +388,7 @@
                     {% else %}
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">Output payment</td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(totalOutputPayment) }}{% else %}0.00{% endif %}</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(totalOutputPayment) }}{% else %}0.00{% endif %}</td>
                     </tr>
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">Service fee</td>
@@ -391,11 +396,11 @@
                     </tr>
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">Uplift fees</td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(upliftTotal) }}{% else %}0.00{% endif %}</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(upliftTotal) }}{% else %}0.00{% endif %}</td>
                     </tr>
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">Clawbacks</td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(clawbackAmount) }}{% else %}0.00{% endif %}</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(clawbackAmount) }}{% else %}0.00{% endif %}</td>
                     </tr>
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">Additional adjustments</td>
@@ -425,7 +430,7 @@
                                     
                                 {% elif currentStatement.status == "Authorised for payment" %}
                                     <p class="govuk-body govuk-!-display-none-print">This statement has already been authorised for payment</p>
-                                {% elif currentStatement.status == "Service fee statement" %}
+                                {% elif currentStatement.status == "Not applicable" %}
                                     <p class="govuk-body govuk-!-display-none-print">This statement does not require to be authorised for payment</p>
                                 {% elif currentStatement.status == "Open" %}
                                     <p class="govuk-body govuk-!-display-none-print"></p>
@@ -468,7 +473,7 @@
                     <td class="govuk-table__cell">Started</td>
                     {% if query.contractYear|int >= 2025 %}
                     <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement %}{{ declStarted }}{% else %}2{% endif %}</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ mentorStarted }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Not applicable" %}{{ mentorStarted }}{% else %}0{% endif %}</td>
                     {% else %}
                     <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement %}{{ declStarted }}{% else %}2{% endif %}</td>
                     {% endif %}
@@ -486,7 +491,7 @@
                     <td class="govuk-table__cell">Completed</td>
                     {% if query.contractYear|int >= 2025 %}
                     <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement %}{{ declCompleted }}{% else %}0{% endif %}</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ mentorCompleted }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Not applicable" %}{{ mentorCompleted }}{% else %}0{% endif %}</td>
                     {% else %}
                     <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement %}{{ declCompleted }}{% else %}0{% endif %}</td>
                     {% endif %}
@@ -504,7 +509,7 @@
                     <td class="govuk-table__cell">Clawed back</td>
                     {% if query.contractYear|int >= 2025 %}
                     <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement %}{{ declClawedBack }}{% else %}0{% endif %}</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ (declClawedBack/2)|int }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Not applicable" %}{{ (declClawedBack/2)|int }}{% else %}0{% endif %}</td>
                     {% else %}
                     <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement %}{{ declClawedBack }}{% else %}0{% endif %}</td>
                     {% endif %}
@@ -517,7 +522,7 @@
                         <span class="govuk-visually-hidden">ECT voided declarations</span>
                     </a></td>
                     <td class="govuk-table__cell govuk-table__cell--numeric"><a class="govuk-link govuk-!-display-none-print" href="#">
-                        {% if currentStatement and currentStatement.status != "Service fee statement" %}{{ (declVoided/2)|int }}{% else %}0{% endif %}
+                        {% if currentStatement and currentStatement.status != "Not applicable" %}{{ (declVoided/2)|int }}{% else %}0{% endif %}
                         <span class="govuk-visually-hidden">Mentor voided declarations</span>
                     </a></td>
                     {% else %}
@@ -555,7 +560,7 @@
                 <tbody class="govuk-table__body">
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="row">Started</th>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ ectStarted }}{% else %}2{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Not applicable" %}{{ ectStarted }}{% else %}2{% endif %}</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell"></td>
@@ -565,11 +570,11 @@
                     <td class="govuk-table__cell govuk-table__cell--numeric">£173.64</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£173.64</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£163.08</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(ectStarted * 173.64) }}{% else %}347.28{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(ectStarted * 173.64) }}{% else %}347.28{% endif %}</td>
                 </tr>
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="row">Retained 1</th>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ ectRetained1 }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Not applicable" %}{{ ectRetained1 }}{% else %}0{% endif %}</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell"></td>
@@ -579,11 +584,11 @@
                     <td class="govuk-table__cell govuk-table__cell--numeric">£130.23</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£130.23</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£122.31</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(ectRetained1 * 130.23) }}{% else %}0.00{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(ectRetained1 * 130.23) }}{% else %}0.00{% endif %}</td>
                 </tr>
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="row">Retained 2</th>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ ectRetained2 }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Not applicable" %}{{ ectRetained2 }}{% else %}0{% endif %}</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell"></td>
@@ -593,7 +598,7 @@
                     <td class="govuk-table__cell govuk-table__cell--numeric">£130.23</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£130.23</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£122.31</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(ectRetained2 * 130.23) }}{% else %}0.00{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(ectRetained2 * 130.23) }}{% else %}0.00{% endif %}</td>
                 </tr>
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="row">Retained 3</th>
@@ -625,7 +630,7 @@
                 </tr>
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="row">Completed</th>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ ectCompleted }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Not applicable" %}{{ ectCompleted }}{% else %}0{% endif %}</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell"></td>
@@ -635,7 +640,7 @@
                     <td class="govuk-table__cell govuk-table__cell--numeric">£173.64</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£173.64</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£163.08</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(ectCompleted * 173.64) }}{% else %}0.00{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(ectCompleted * 173.64) }}{% else %}0.00{% endif %}</td>
                 </tr>
                 </tbody>
             </table>
@@ -644,7 +649,7 @@
             </div>
 
             <div class="govuk-!-text-align-right govuk-heading-s">
-                £{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(ectOutputTotal) }}{% else %}347.28{% endif %}
+                £{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(ectOutputTotal) }}{% else %}347.28{% endif %}
             </div>
 
             <br>
@@ -660,23 +665,23 @@
                 <tbody class="govuk-table__body">
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="row">Started</th>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ mentorStarted }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Not applicable" %}{{ mentorStarted }}{% else %}0{% endif %}</td>
                     <td class="govuk-table__cell"></td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">Fee per mentor</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£500.00</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(mentorStarted * 500) }}{% else %}0.00{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(mentorStarted * 500) }}{% else %}0.00{% endif %}</td>
                 </tr>
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="row">Completed</th>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ mentorCompleted }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Not applicable" %}{{ mentorCompleted }}{% else %}0{% endif %}</td>
                     <td class="govuk-table__cell"></td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">Fee per mentor</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£500.00</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(mentorCompleted * 500) }}{% else %}0.00{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(mentorCompleted * 500) }}{% else %}0.00{% endif %}</td>
                 </tr>
                 </tbody>
             </table>
@@ -685,7 +690,7 @@
             </div>
 
             <div class="govuk-!-text-align-right govuk-heading-s">
-                £{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(mentorOutputTotal) }}{% else %}0.00{% endif %}
+                £{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(mentorOutputTotal) }}{% else %}0.00{% endif %}
             </div>
             {% else %}
             <table class="govuk-table output-payments">
@@ -703,10 +708,10 @@
                 <tbody class="govuk-table__body">
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="row">Started</th>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ bandAStarted }}{% else %}0{% endif %}</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ bandBStarted }}{% else %}0{% endif %}</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ bandCStarted }}{% else %}0{% endif %}</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ bandDStarted }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Not applicable" %}{{ bandAStarted }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Not applicable" %}{{ bandBStarted }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Not applicable" %}{{ bandCStarted }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Not applicable" %}{{ bandDStarted }}{% else %}0{% endif %}</td>
                     <td class="govuk-table__cell"></td>
                 </tr>
                 <tr class="govuk-table__row">
@@ -715,12 +720,12 @@
                     <td class="govuk-table__cell govuk-table__cell--numeric">£117.48</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£115.92</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£193.20</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(startedTotal) }}{% else %}0.00{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(startedTotal) }}{% else %}0.00{% endif %}</td>
                 </tr>
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="row">Retained 1</th>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ bandARetained }}{% else %}0{% endif %}</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ bandBRetained }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Not applicable" %}{{ bandARetained }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Not applicable" %}{{ bandBRetained }}{% else %}0{% endif %}</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell"></td>
@@ -731,7 +736,7 @@
                     <td class="govuk-table__cell govuk-table__cell--numeric">£88.11</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£86.94</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£144.90</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(retainedTotal) }}{% else %}0.00{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(retainedTotal) }}{% else %}0.00{% endif %}</td>
                 </tr>
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="row">Retained 2</th>
@@ -783,7 +788,7 @@
                 </tr>
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="row">Completed</th>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ bandACompleted }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">{% if currentStatement and currentStatement.status != "Not applicable" %}{{ bandACompleted }}{% else %}0{% endif %}</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">0</td>
@@ -795,7 +800,7 @@
                     <td class="govuk-table__cell govuk-table__cell--numeric">£117.48</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£115.92</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£193.20</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(completedTotal) }}{% else %}0.00{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(completedTotal) }}{% else %}0.00{% endif %}</td>
                 </tr>
                 </tbody>
             </table>
@@ -804,7 +809,7 @@
             </div>
 
             <div class="govuk-!-text-align-right govuk-heading-s">
-                £{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(totalOutputPayment) }}{% else %}0.00{% endif %}
+                £{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(totalOutputPayment) }}{% else %}0.00{% endif %}
             </div>
             {% endif %}
         </div>
@@ -822,9 +827,9 @@
                 </thead>
                 <tbody class="govuk-table__body">
                 <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ upliftParticipants }}{% else %}0{% endif %}</td>
+                    <td class="govuk-table__cell">{% if currentStatement and currentStatement.status != "Not applicable" %}{{ upliftParticipants }}{% else %}0{% endif %}</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£100.00</td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Service fee statement" %}{{ currency(upliftTotal) }}{% else %}0.00{% endif %}</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(upliftTotal) }}{% else %}0.00{% endif %}</td>
                 </tr>
                 </tbody>
             </table>
