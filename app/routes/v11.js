@@ -43,7 +43,25 @@ module.exports = router => {
     })
 
     // change lead provider 
+     router.get(v + school + 'home/change/change-lead-provider', (req, res) => {
+        // Set the fullName from query parameter
+        if (req.query.fullName) {
+            req.session.data['fullName'] = req.query.fullName
+        }
+        res.render(vGet + '/school/home/change/change-lead-provider')
+    })
+
      router.post(v + school + 'home/change/change-lead-provider', (req, res) => {
+        // Set flag to indicate lead provider has been changed for specific ECT
+        const ectName = req.session.data['fullName'] || 'John Smith'
+        const ectKey = ectName.replace(/\s+/g, '-').toLowerCase()
+        
+        // Store that this ECT has had their lead provider changed
+        req.session.data['leadProviderChanged_' + ectKey] = 'yes'
+        
+        // Store the new lead provider value for this specific ECT
+        req.session.data['leadProvider_' + ectKey] = req.body.leadProvider
+        
         res.redirect(v + school + 'home/change/change-lead-provider-confirmation')
     })
 

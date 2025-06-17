@@ -7,8 +7,6 @@ href: "ects"
 }) }}
 {% endblock %}
 
-{% set pageName="John Smith" %}
-
 {% if data['ab'] %}
 {% set ab = data['ab'] %}
 {% else %}
@@ -27,11 +25,97 @@ href: "ects"
 {% set lp = 'Ambition Institute' %}
 {% endif %}
 
+{# Define ECT data based on the parameter #}
+{% set ectParam = data.ect or 'john-smith' %}
+
+{% if ectParam == 'john-smith' %}
+  {% set ectName = 'John Smith' %}
+  {% set ectTRN = '1693012' %}
+  {% set ectEmail = 'name@email.com' %}
+  {% set ectMentor = 'Not assigned' %}
+  {% set ectStatus = 'Registered' %}
+  {% set ectStatusClass = 'govuk-tag--green' %}
+  {% set ectSchoolStartDate = '7 September 2024' %}
+  {% set ectInductionStartDate = '7 September 2024' %}
+  {% set ectWorkingPattern = 'Full time' %}
+  {% set ectLeadProvider = lp %}
+  {% set ectDeliveryPartner = dp %}
+  {% set ectShowMentorWarning = true %}
+{% elif ectParam == 'maelle-obscur' %}
+  {% set ectName = 'Maelle Obscur' %}
+  {% set ectTRN = '3293961' %}
+  {% set ectEmail = 'maelle.obscur@email.com' %}
+  {% set ectMentor = 'Tom Jones' %}
+  {% set ectStatus = 'Registered' %}
+  {% set ectStatusClass = 'govuk-tag--green' %}
+  {% set ectSchoolStartDate = '9 September 2024' %}
+  {% set ectInductionStartDate = '9 September 2024' %}
+  {% set ectWorkingPattern = 'Full time' %}
+  {% set ectLeadProvider = 'Teach First' %}
+  {% set ectDeliveryPartner = 'Yet to be reported by the lead provider' %}
+  {% set ectShowMentorWarning = false %}
+{% elif ectParam == 'gustav-brown' %}
+  {% set ectName = 'Gustav Brown' %}
+  {% set ectTRN = '3992613' %}
+  {% set ectEmail = 'gustav.brown@email.com' %}
+  {% set ectMentor = 'John Doe' %}
+  {% set ectStatus = 'Registered' %}
+  {% set ectStatusClass = 'govuk-tag--green' %}
+  {% set ectSchoolStartDate = '11 September 2023' %}
+  {% set ectInductionStartDate = '11 September 2023' %}
+  {% set ectWorkingPattern = 'Full time' %}
+  {% set ectLeadProvider = lp %}
+  {% set ectDeliveryPartner = dp %}
+  {% set ectShowMentorWarning = false %}
+{% elif ectParam == 'lune-delaney' %}
+  {% set ectName = 'Lune Delaney' %}
+  {% set ectTRN = '1919529' %}
+  {% set ectEmail = 'lune.delaney@email.com' %}
+  {% set ectMentor = 'Tom Jones' %}
+  {% set ectStatus = 'Leaving school' %}
+  {% set ectStatusClass = 'govuk-tag--yellow' %}
+  {% set ectSchoolStartDate = '1 September 2024' %}
+  {% set ectInductionStartDate = '1 September 2024' %}
+  {% set ectWorkingPattern = 'Full time' %}
+  {% set ectLeadProvider = lp %}
+  {% set ectDeliveryPartner = dp %}
+  {% set ectShowMentorWarning = false %}
+{% elif ectParam == 'sciel-wright' %}
+  {% set ectName = 'Sciel Wright' %}
+  {% set ectTRN = '3482913' %}
+  {% set ectEmail = 'sciel.wright@email.com' %}
+  {% set ectMentor = 'John Doe' %}
+  {% set ectStatus = 'Completed induction' %}
+  {% set ectStatusClass = 'govuk-tag--blue' %}
+  {% set ectSchoolStartDate = '1 September 2021' %}
+  {% set ectInductionStartDate = '1 September 2021' %}
+  {% set ectWorkingPattern = 'Full time' %}
+  {% set ectLeadProvider = lp %}
+  {% set ectDeliveryPartner = dp %}
+  {% set ectShowMentorWarning = false %}
+{% else %}
+  {# Default to John Smith if parameter not recognized #}
+  {% set ectName = 'John Smith' %}
+  {% set ectTRN = '1693012' %}
+  {% set ectEmail = 'name@email.com' %}
+  {% set ectMentor = 'Not assigned' %}
+  {% set ectStatus = 'Registered' %}
+  {% set ectStatusClass = 'govuk-tag--green' %}
+  {% set ectSchoolStartDate = '7 September 2024' %}
+  {% set ectInductionStartDate = '7 September 2024' %}
+  {% set ectWorkingPattern = 'Full time' %}
+  {% set ectLeadProvider = lp %}
+  {% set ectDeliveryPartner = dp %}
+  {% set ectShowMentorWarning = true %}
+{% endif %}
+
+{% set pageName = ectName %}
+
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <span class="govuk-caption-l">TRN: 1693012</span>
-    <h1 class="govuk-heading-l">John Smith</h1>
+    <span class="govuk-caption-l">TRN: {{ ectTRN }}</span>
+    <h1 class="govuk-heading-l">{{ ectName }}</h1>
     <h2 class="govuk-heading-m">ECT details</h2>
 
     <dl class="govuk-summary-list">
@@ -40,7 +124,10 @@ href: "ects"
           Name
         </dt>
         <dd class="govuk-summary-list__value">
-          John Smith
+          {{ ectName }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> name</span></a>
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -48,7 +135,10 @@ href: "ects"
           Email address
         </dt>
         <dd class="govuk-summary-list__value">
-          name@email.com
+          {{ ectEmail }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> email address</span></a>
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -56,16 +146,20 @@ href: "ects"
           Mentor
         </dt>
         <dd class="govuk-summary-list__value">
-          {{ govukWarningText({
-          html: 'You must <a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">assign a mentor or register a new one</a> for this ECT.',
-          iconFallbackText: "Warning"
-          }) }}
+          {% if ectShowMentorWarning %}
+            {{ govukWarningText({
+            html: 'You must <a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">assign a mentor or register a new one</a> for this ECT.',
+            iconFallbackText: "Warning"
+            }) }}
+          {% else %}
+            {{ ectMentor }}
+          {% endif %}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Status</dt>
         <dd class="govuk-summary-list__value">
-          <strong class="govuk-tag govuk-tag--green">Registered</strong>
+          <strong class="govuk-tag {{ ectStatusClass }}">{{ ectStatus }}</strong>
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -73,7 +167,15 @@ href: "ects"
           School start date
         </dt>
         <dd class="govuk-summary-list__value">
-          7 September 2024
+          {{ ectSchoolStartDate }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Induction start date
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ ectInductionStartDate }}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -81,27 +183,22 @@ href: "ects"
           Working pattern
         </dt>
         <dd class="govuk-summary-list__value">
-          Full time
+          {{ ectWorkingPattern }}
         </dd>
       </div>
     </dl>
 
     <h2 class="govuk-heading-m">ECTE training details</h2>
-
-    <div class="govuk-summary-card">
-      <div class="govuk-summary-card__title-wrapper">
-        <h1 class="govuk-summary-card__title">
-          Reported to us by your school
-        </h1>
-      </div>
-      <div class="govuk-summary-card__content">
         <dl class="govuk-summary-list">
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               Appropriate body
             </dt>
             <dd class="govuk-summary-list__value">
-              {{ab}}
+              {{ ab }}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> appropriate body</span></a>
             </dd>
           </div>
           <div class="govuk-summary-list__row">
@@ -111,129 +208,51 @@ href: "ects"
             <dd class="govuk-summary-list__value">
               Provider-led
             </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> training programme</span></a>
+            </dd>
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               Lead provider
             </dt>
             <dd class="govuk-summary-list__value">
-              {{lp}}
+              {% set ectKey = ectName|replace(' ', '-')|lower %}
+              {% set leadProviderChangedKey = 'leadProviderChanged_' + ectKey %}
+              {% set leadProviderKey = 'leadProvider_' + ectKey %}
+              {% set displayLeadProvider = data[leadProviderKey] or ectLeadProvider %}
+              
+              {{ displayLeadProvider }}
+              {% if data[leadProviderChangedKey] == 'yes' %}
+              <span class="govuk-caption-m">Awaiting confirmation by {{ displayLeadProvider }}</span>
+              {% elif ectParam == 'maelle-obscur' %}
+              <span class="govuk-caption-m">Awaiting confirmation by {{ displayLeadProvider }}</span>
+              {% else %}
+              <span class="govuk-caption-m">Confirmed by {{ displayLeadProvider }}</span>
+              {% endif %}
             </dd>
-          </div>
-        </dl>
-      </div>
-    </div>
-    <div class="govuk-summary-card">
-      <div class="govuk-summary-card__title-wrapper">
-        <h1 class="govuk-summary-card__title">
-          Reported to us by your lead provider
-        </h1>
-      </div>
-      <div class="govuk-summary-card__content">
-        <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              Lead provider
-            </dt>
-            <dd class="govuk-summary-list__value">
-              {{lp}}
-            </dd>
+            <dd class="govuk-summary-list__actions">
+                <a class="govuk-link" href="change/change-lead-provider?fullName={{ ectName }}">Change<span class="govuk-visually-hidden"> lead provider</span></a>
+              </dd>
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               Delivery partner
             </dt>
-            <dd class="govuk-summary-list__value">
-              Their lead provider will confirm this
+                        <dd class="govuk-summary-list__value">
+              {% if data[leadProviderChangedKey] == 'yes' %}
+              Yet to be reported by the lead provider
+              {% else %}
+              {{ ectDeliveryPartner }}
+              {% endif %}
+              <span class="govuk-caption-m">To change the delivery partner, you must contact the lead provider</span>
             </dd>
           </div>
         </dl>
+
       </div>
     </div>
-    <div class="govuk-summary-card">
-      <div class="govuk-summary-card__title-wrapper">
-        <h1 class="govuk-summary-card__title">
-          Reported to us by your appropriate body
-        </h1>
-      </div>
-      <div class="govuk-summary-card__content">
-        <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              Appropriate body
-            </dt>
-            <dd class="govuk-summary-list__value">
-              {{ab}}
-            </dd>
-          </div>
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              Programme type
-            </dt>
-            <dd class="govuk-summary-list__value">
-              Provider-led
-            </dd>
-          </div>
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              Induction start date
-            </dt>
-            <dd class="govuk-summary-list__value">
-              7 September 2024
-            </dd>
-          </div>
-        </dl>
-      </div>
     </div>
-  </div>
-</div>
-<!--  <div class="govuk-summary-card">-->
-<!--    <div class="govuk-summary-card__title-wrapper">-->
-<!--      <h1 class="govuk-summary-card__title">-->
-<!--        ECTE training details-->
-<!--      </h1>-->
-<!--    </div>-->
-<!--    <div class="govuk-summary-card__content">-->
-<!--      <dl class="govuk-summary-list">-->
-<!--        <div class="govuk-summary-list__row">-->
-<!--          <dt class="govuk-summary-list__key">-->
-<!--            Appropriate body-->
-<!--          </dt>-->
-<!--          <dd class="govuk-summary-list__value">-->
-<!--            Alpha Teaching School Hub<br>-->
-<!--            <span class="govuk-caption-m">Pending confirmation by Alpha Teaching School Hub</span>-->
-<!--          </dd>-->
-<!--        </div>-->
-<!--        <div class="govuk-summary-list__row">-->
-<!--          <dt class="govuk-summary-list__key">-->
-<!--            Programme type-->
-<!--          </dt>-->
-<!--          <dd class="govuk-summary-list__value">-->
-<!--            Provider-led<br>-->
-<!--            <span class="govuk-caption-m">Pending confirmation by Alpha Teaching School Hub</span>-->
-<!--          </dd>-->
-<!--        </div>-->
-<!--        <div class="govuk-summary-list__row">-->
-<!--          <dt class="govuk-summary-list__key">-->
-<!--            Lead provider-->
-<!--          </dt>-->
-<!--          <dd class="govuk-summary-list__value">-->
-<!--            Ambition Institute<br>-->
-<!--            <span class="govuk-caption-m">Confirmed by Ambition Institute</span>-->
-<!--          </dd>-->
-<!--        </div>-->
-<!--        <div class="govuk-summary-list__row">-->
-<!--          <dt class="govuk-summary-list__key">-->
-<!--            Delivery partner-->
-<!--          </dt>-->
-<!--          <dd class="govuk-summary-list__value">-->
-<!--            Alpha Teaching School Hub<br>-->
-<!--            <span class="govuk-caption-m">Confirmed by Ambition Institute</span>-->
-<!--          </dd>-->
-<!--        </div>-->
-<!--      </dl>-->
-<!--    </div>-->
-<!--  </div>-->
 </div>
 </div>
 
