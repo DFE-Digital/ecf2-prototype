@@ -11,13 +11,12 @@
         {% set lp = 'Ambition Institute' %}
         {% endif %}
 
-{% set pageName="You have changed your lead provider to " + lp + "" %}
+{% set pageName="Lead provider changed for " + name %}
 
 {% block beforeContent %}
 {% endblock %}
 
 {% block content %}
- const currentV = url.match(/v\d+/);
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -25,11 +24,14 @@
             <h1 class="govuk-panel__title">
                 {{ pageName }}
             </h1>
+            <div class="govuk-panel__body">
+                New lead provider<br><strong>{{lp}}</strong>
+              </div>
         </div>
         <h2 class="govuk-heading-m">What happens next</h2>
-        <p class="govuk-body">We will let the lead provider know your school wants to work with them so they can arrange training.</p>
+        <p class="govuk-body">We will let the lead provider know your school wants to work with them. The provider will also contact us to confirm the change.</p>
 
-        <p><a href="school/home/ects">Back to your ECTs</a></p>
+        <p><a href="../ects">Back to your ECTs</a></p>
     </div>
 </div>
 
