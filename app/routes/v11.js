@@ -50,6 +50,7 @@ module.exports = router => {
         }
         res.render(vGet + '/school/home/change/change-lead-provider')
     })
+   
 
      router.post(v + school + 'home/change/change-lead-provider', (req, res) => {
         // Set flag to indicate lead provider has been changed for specific ECT
@@ -63,6 +64,12 @@ module.exports = router => {
         req.session.data['leadProvider_' + ectKey] = req.body.leadProvider
         
         res.redirect(v + school + 'home/change/change-lead-provider-confirmation')
+    })
+
+     router.post(v + school + 'home/change/change-lead-provider-mentor', (req, res) => {
+
+        
+        res.redirect(v + school + 'home/change/change-lead-provider-confirmation-mentor')
     })
 
     // dfe sign in page
