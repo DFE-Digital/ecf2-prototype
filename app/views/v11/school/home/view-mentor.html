@@ -1,4 +1,9 @@
 {% extends "layouts/mentors.html" %}
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'John Doe' %}
+{% endif %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -6,6 +11,21 @@ text: "Back",
 href: "ects"
 }) }}
 {% endblock %}
+{% if data['leadProvider'] %}
+{% set lp = data['leadProvider'] %}
+{% else %}
+{% set lp = 'Ambition Institute' %}
+{% endif %}
+
+{# Define mentor data based on the parameter #}
+{% set mentorParam = data.mentor or 'john-doe' %}
+
+{% if mentorParam == 'john-doe' %}
+  {% set mentorName = 'John Doe' %}
+  {% set mentorLeadProvider = lp %}
+  {% set mentorDeliveryPartner = dp %}
+  {% set mentorShowMentorWarning = true %}
+  {% endif %}
 
 {% set pageName="John Smith" %}
 
@@ -13,7 +33,7 @@ href: "ects"
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 <span class="govuk-caption-l">TRN: 5924029</span>
-<h1 class="govuk-heading-l">John Doe</h1>
+<h1 class="govuk-heading-l">{{mentorName}}</h1>
 <h1 class="govuk-heading-m">Mentor details</h1>
 
   <dl class="govuk-summary-list">
@@ -24,6 +44,9 @@ href: "ects"
       <dd class="govuk-summary-list__value">
         John Doe
       </dd>
+      <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> name</span></a>
+        </dd>
     </div>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
@@ -32,6 +55,9 @@ href: "ects"
       <dd class="govuk-summary-list__value">
         name@email.com
       </dd>
+         <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> email address</span></a>
+        </dd>
     </div>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
@@ -49,33 +75,46 @@ href: "ects"
     </div>
   </dl>
 
-  <div class="govuk-summary-card">
-    <div class="govuk-summary-card__title-wrapper">
-      <h1 class="govuk-summary-card__title">
-        ECTE mentor training details
-      </h1>
-    </div>
-    <div class="govuk-summary-card__content">
-      <dl class="govuk-summary-list">
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            Lead provider
-          </dt>
-          <dd class="govuk-summary-list__value">
-            Ambition Institute
-          </dd>
-        </div>
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            Delivery partner
-          </dt>
-          <dd class="govuk-summary-list__value">
-            Leeds Teaching School Hub
-          </dd>
-        </div>
-      </dl>
-    </div>
-  </div>
+  <h2 class="govuk-heading-m">ECTE mentor training details</h2>
+  <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Lead provider
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {% set mentorKey = mentorName|replace(' ', '-')|lower %}
+              {% set leadProviderChangedKey = 'leadProviderChanged_' + mentorKey %}
+              {% set leadProviderKey = 'leadProvider_' + mentorKey %}
+              {% set displayLeadProvider = data[leadProviderKey] or mentorLeadProvider %}
+              
+              {{ displayLeadProvider }}
+              {% if data[leadProviderChangedKey] == 'yes' %}
+              <span class="govuk-caption-m">Awaiting confirmation by {{ displayLeadProvider }}</span>
+              {% elif ectParam == 'maelle-obscur' %}
+              <span class="govuk-caption-m">Awaiting confirmation by {{ displayLeadProvider }}</span>
+              {% else %}
+              <span class="govuk-caption-m">Confirmed by {{mentorLeadProvider}}</span>
+              {% endif %}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+                <a class="govuk-link" href="change/change-lead-provider-mentor?fullName={{mentorName}}">Change<span class="govuk-visually-hidden"> lead provider</span></a>
+              </dd>
+              
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Delivery partner
+            </dt>
+                        <dd class="govuk-summary-list__value">
+              {% if data[leadProviderChangedKey] == 'yes' %}
+              Yet to be reported by the lead provider
+              {% else %}
+              {{ ectDeliveryPartner }}
+              {% endif %}
+              <span class="govuk-caption-m">To change the delivery partner, you must contact the lead provider</span>
+            </dd>
+          </div>
+        </dl>
   </div>
 </div>
 

@@ -1,4 +1,9 @@
 {% extends "layouts/mentors.html" %}
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'John Doe' %}
+{% endif %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -6,6 +11,21 @@ text: "Back",
 href: "ects"
 }) }}
 {% endblock %}
+{% if data['leadProvider'] %}
+{% set lp = data['leadProvider'] %}
+{% else %}
+{% set lp = 'Ambition Institute' %}
+{% endif %}
+
+{# Define mentor data based on the parameter #}
+{% set mentorParam = data.mentor or 'john-doe' %}
+
+{% if mentorParam == 'john-doe' %}
+  {% set mentorName = 'John Doe' %}
+  {% set mentorLeadProvider = lp %}
+  {% set mentorDeliveryPartner = dp %}
+  {% set mentorShowMentorWarning = true %}
+  {% endif %}
 
 {% set pageName="John Smith" %}
 
@@ -13,7 +33,7 @@ href: "ects"
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 <span class="govuk-caption-l">TRN: 5924029</span>
-<h1 class="govuk-heading-l">John Doe</h1>
+<h1 class="govuk-heading-l">{{mentorName}}</h1>
 <h1 class="govuk-heading-m">Mentor details</h1>
 
   <dl class="govuk-summary-list">
@@ -62,10 +82,10 @@ href: "ects"
               Lead provider
             </dt>
             <dd class="govuk-summary-list__value">
-              {% set ectKey = ectName|replace(' ', '-')|lower %}
-              {% set leadProviderChangedKey = 'leadProviderChanged_' + ectKey %}
-              {% set leadProviderKey = 'leadProvider_' + ectKey %}
-              {% set displayLeadProvider = data[leadProviderKey] or ectLeadProvider %}
+              {% set mentorKey = mentorName|replace(' ', '-')|lower %}
+              {% set leadProviderChangedKey = 'leadProviderChanged_' + mentorKey %}
+              {% set leadProviderKey = 'leadProvider_' + mentorKey %}
+              {% set displayLeadProvider = data[leadProviderKey] or mentorLeadProvider %}
               
               {{ displayLeadProvider }}
               {% if data[leadProviderChangedKey] == 'yes' %}
@@ -73,12 +93,13 @@ href: "ects"
               {% elif ectParam == 'maelle-obscur' %}
               <span class="govuk-caption-m">Awaiting confirmation by {{ displayLeadProvider }}</span>
               {% else %}
-              <span class="govuk-caption-m">Confirmed by {{ displayLeadProvider }}</span>
+              <span class="govuk-caption-m">Confirmed by {{mentorLeadProvider}}</span>
               {% endif %}
             </dd>
             <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="change-lead-provider-mentor">Change<span class="govuk-visually-hidden"> lead provider</span></a>
+                <a class="govuk-link" href="change-lead-provider-mentor?fullName={{mentorName}}">Change<span class="govuk-visually-hidden"> lead provider</span></a>
               </dd>
+              
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
