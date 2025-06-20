@@ -17,12 +17,18 @@ href: "ects"
 {% set lp = 'Ambition Institute' %}
 {% endif %}
 
+{% if data['deliveryPartner'] %}
+{% set dp = data['deliveryPartner'] %}
+{% else %}
+{% set dp = 'Alpha Teaching School Hub' %}
+{% endif %}
+
 {# Define mentor data based on the parameter #}
 {% set mentorParam = data.mentor or 'john-doe' %}
 
 {% if mentorParam == 'john-doe' %}
   {% set mentorName = 'John Doe' %}
-  {% set mentorLeadProvider = lp %}
+  {% set mentorLeadProvider = 'Ambition Institute' %}
   {% set mentorDeliveryPartner = dp %}
   {% set mentorShowMentorWarning = true %}
   {% endif %}
@@ -75,7 +81,7 @@ href: "ects"
     </div>
   </dl>
 
-  <h2 class="govuk-heading-m">ECTE mentor training details</h2>
+  <h2 class="govuk-heading-m">Training details</h2>
   <dl class="govuk-summary-list">
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
@@ -88,12 +94,10 @@ href: "ects"
               {% set displayLeadProvider = data[leadProviderKey] or mentorLeadProvider %}
               
               {{ displayLeadProvider }}
-              {% if data[leadProviderChangedKey] == 'yes' %}
-              <span class="govuk-caption-m">Awaiting confirmation by {{ displayLeadProvider }}</span>
-              {% elif ectParam == 'maelle-obscur' %}
-              <span class="govuk-caption-m">Awaiting confirmation by {{ displayLeadProvider }}</span>
+              {% if displayLeadProvider == 'Ambition Institute' %}
+              <span class="govuk-caption-m">Confirmed by {{ displayLeadProvider }}</span>
               {% else %}
-              <span class="govuk-caption-m">Confirmed by {{mentorLeadProvider}}</span>
+              <span class="govuk-caption-m">Awaiting confirmation by {{ displayLeadProvider }}</span>
               {% endif %}
             </dd>
             <dd class="govuk-summary-list__actions">
@@ -106,12 +110,16 @@ href: "ects"
               Delivery partner
             </dt>
                         <dd class="govuk-summary-list__value">
-              {% if data[leadProviderChangedKey] == 'yes' %}
-              Yet to be reported by the lead provider
-              {% else %}
-              {{ ectDeliveryPartner }}
-              {% endif %}
+              {% set mentorKey = mentorName|replace(' ', '-')|lower %}
+              {% set leadProviderKey = 'leadProvider_' + mentorKey %}
+              {% set displayLeadProvider = data[leadProviderKey] or mentorLeadProvider %}
+              
+              {% if displayLeadProvider == 'Ambition Institute' %}
+              {{ mentorDeliveryPartner }}
               <span class="govuk-caption-m">To change the delivery partner, you must contact the lead provider</span>
+              {% else %}
+              Yet to be reported by the lead provider
+              {% endif %}
             </dd>
           </div>
         </dl>

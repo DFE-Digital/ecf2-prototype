@@ -22,13 +22,13 @@
     <div class="govuk-grid-column-two-thirds">
         <div class="govuk-panel govuk-panel--confirmation">
             <h1 class="govuk-panel__title">
-                 You have chosen {{lp}} as the New lead provider for {{name}}
+                 You have chosen {{lp}} as the new lead provider for {{name}}
             </h1>
         </div>
         <h2 class="govuk-heading-m">What happens next</h2>
         <p class="govuk-body">We will let the lead provider know your school wants to work with them. The provider will also contact us to confirm the change.</p>
 
-        <p><a href="../view-ect">Back to ECT's profile</a></p>
+        <p><a href="../view-ect?ect={{name|replace(' ', '-')|lower}}">Back to {{name}}'s details</a></p>
     </div>
 </div>
 
