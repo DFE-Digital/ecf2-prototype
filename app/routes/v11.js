@@ -50,6 +50,7 @@ module.exports = router => {
         }
         res.render(vGet + '/school/home/change/change-lead-provider')
     })
+   
 
      router.post(v + school + 'home/change/change-lead-provider', (req, res) => {
         // Set flag to indicate lead provider has been changed for specific ECT
@@ -63,6 +64,19 @@ module.exports = router => {
         req.session.data['leadProvider_' + ectKey] = req.body.leadProvider
         
         res.redirect(v + school + 'home/change/change-lead-provider-confirmation')
+    })
+
+     router.post(v + school + 'home/change/change-lead-provider-mentor', (req, res) => {
+         const mentorName = req.session.data['fullName'] || 'John Doe'
+        const mentorKey = mentorName.replace(/\s+/g, '-').toLowerCase()
+        // Store the new lead provider value for this specific ECT
+        req.session.data['leadProvider_' + mentorKey] = req.body.leadProvider
+
+        // Store that this ECT has had their lead provider changed
+        req.session.data['leadProviderChanged_' + mentorKey] = 'yes'
+
+        
+        res.redirect(v + school + 'home/change/change-lead-provider-confirmation-mentor')
     })
 
     // dfe sign in page

@@ -1,0 +1,38 @@
+{% extends "layouts/ects.html" %}
+
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'John Doe' %}
+{% endif %}
+ {% if data['leadProvider'] %}
+        {% set lp = data['leadProvider'] %}
+        {% else %}
+        {% set lp = 'Ambition Institute' %}
+        {% endif %}
+
+{% set pageName="Lead provider changed for " + name %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-panel govuk-panel--confirmation">
+            <h1 class="govuk-panel__title">
+                {{ pageName }}
+            </h1>
+            <div class="govuk-panel__body">
+                New lead provider<br><strong>{{lp}}</strong>
+              </div>
+        </div>
+        <h2 class="govuk-heading-m">What happens next</h2>
+        <p class="govuk-body">We will let the lead provider know your school wants to work with them. The provider will also contact us to confirm the change.</p>
+
+        <p><a href="../mentors">Back to your mentors</a></p>
+    </div>
+</div>
+
+{% endblock %}
