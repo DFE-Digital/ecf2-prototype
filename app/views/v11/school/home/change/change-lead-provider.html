@@ -6,13 +6,7 @@
 {% set name = 'John Smith' %}
 {% endif %}
 
-{% if data['leadProvider'] %}
-{% set lp = data['leadProvider'] %}
-{% else %}
-{% set lp = 'Ambition Institute' %}
-{% endif %}
-
-{% set pageName="Select a new provider for " + name + "?" %}
+{% set pageName="Which lead provider will be training " + name + "?" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -37,7 +31,9 @@ href: "javascript:window.history.back()"
             classes: "govuk-visually-hidden",
             text: pageName
         },
-            
+            hint: {
+            html: "<p class='govuk-body'>Lead providers are responsible for creating the materials used for training ECTs and mentors.</p><p class='govuk-body'>We will let the lead provider know your school wants to work with them so they can arrange training. They'll confirm which delivery partner they'll be working with to deliver training events.</p>"
+            },
         items: [
         {
         value: "Ambition Institute",
