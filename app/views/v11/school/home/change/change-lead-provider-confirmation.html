@@ -11,7 +11,7 @@
         {% set lp = 'Ambition Institute' %}
         {% endif %}
 
-{% set pageName="Lead provider changed for " + name %}
+
 
 {% block beforeContent %}
 {% endblock %}
@@ -22,16 +22,13 @@
     <div class="govuk-grid-column-two-thirds">
         <div class="govuk-panel govuk-panel--confirmation">
             <h1 class="govuk-panel__title">
-                {{ pageName }}
+                 You have chosen {{lp}} as the New lead provider for {{name}}
             </h1>
-            <div class="govuk-panel__body">
-                New lead provider<br><strong>{{lp}}</strong>
-              </div>
         </div>
         <h2 class="govuk-heading-m">What happens next</h2>
         <p class="govuk-body">We will let the lead provider know your school wants to work with them. The provider will also contact us to confirm the change.</p>
 
-        <p><a href="../ects">Back to your ECTs</a></p>
+        <p><a href="../view-ect">Back to ECT's profile</a></p>
     </div>
 </div>
 
