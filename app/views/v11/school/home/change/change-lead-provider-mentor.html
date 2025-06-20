@@ -3,16 +3,10 @@
 {% if data['fullName'] %}
 {% set name = data['fullName'] %}
 {% else %}
-{% set name = 'John Smith' %}
+{% set name = 'John Doe' %}
 {% endif %}
 
-{% if data['leadProvider'] %}
-{% set lp = data['leadProvider'] %}
-{% else %}
-{% set lp = 'Ambition Institute' %}
-{% endif %}
-
-{% set pageName="Select a new provider for " + name + "?" %}
+{% set pageName="Which lead provider would you like to contact your school about training  " + name + "?" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -22,7 +16,6 @@ href: "javascript:window.history.back()"
 {% endblock %}
 
 {% block content %}
-
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -37,7 +30,9 @@ href: "javascript:window.history.back()"
             classes: "govuk-visually-hidden",
             text: pageName
         },
-            
+            hint: {
+            html: "<p class='govuk-body'>We'll let the lead provider know that your school is interested in working with them. They'll contact your school to discuss this further before you decide if you want to go ahead with the mentor training.</p>"
+            },
         items: [
         {
         value: "Ambition Institute",
@@ -72,7 +67,7 @@ href: "javascript:window.history.back()"
             <p>An appropriate body is responsible for assuring the quality of the statutory induction of ECTs. A lead provider provides the online learning platform used for training ECTs and mentors, while the delivery partner delivers training events.
             </p>
             <p>These roles are sometimes undertaken by the same organisation, for example an appropriate body might be the same organisation as the delivery partner.</p>"
-    
+
             |safe }) }}
 
             <button class="govuk-button">Continue</button>
