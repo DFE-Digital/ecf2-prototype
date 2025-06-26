@@ -38,7 +38,7 @@ href: "ects"
   {% set ectSchoolStartDate = '7 September 2024' %}
   {% set ectInductionStartDate = '7 September 2024' %}
   {% set ectWorkingPattern = 'Full time' %}
-  {% set ectLeadProvider = lp %}
+  {% set ectLeadProvider = 'Ambition Institute' %}
   {% set ectDeliveryPartner = dp %}
   {% set ectShowMentorWarning = true %}
 {% elif ectParam == 'maelle-obscur' %}
@@ -64,7 +64,7 @@ href: "ects"
   {% set ectSchoolStartDate = '11 September 2023' %}
   {% set ectInductionStartDate = '11 September 2023' %}
   {% set ectWorkingPattern = 'Full time' %}
-  {% set ectLeadProvider = lp %}
+  {% set ectLeadProvider = 'Ambition Institute' %}
   {% set ectDeliveryPartner = dp %}
   {% set ectShowMentorWarning = false %}
 {% elif ectParam == 'lune-delaney' %}
@@ -77,7 +77,7 @@ href: "ects"
   {% set ectSchoolStartDate = '1 September 2024' %}
   {% set ectInductionStartDate = '1 September 2024' %}
   {% set ectWorkingPattern = 'Full time' %}
-  {% set ectLeadProvider = lp %}
+  {% set ectLeadProvider = 'Ambition Institute' %}
   {% set ectDeliveryPartner = dp %}
   {% set ectShowMentorWarning = false %}
 {% elif ectParam == 'sciel-wright' %}
@@ -90,7 +90,7 @@ href: "ects"
   {% set ectSchoolStartDate = '1 September 2021' %}
   {% set ectInductionStartDate = '1 September 2021' %}
   {% set ectWorkingPattern = 'Full time' %}
-  {% set ectLeadProvider = lp %}
+  {% set ectLeadProvider = 'Ambition Institute' %}
   {% set ectDeliveryPartner = dp %}
   {% set ectShowMentorWarning = false %}
 {% else %}
@@ -104,7 +104,7 @@ href: "ects"
   {% set ectSchoolStartDate = '7 September 2024' %}
   {% set ectInductionStartDate = '7 September 2024' %}
   {% set ectWorkingPattern = 'Full time' %}
-  {% set ectLeadProvider = lp %}
+  {% set ectLeadProvider = 'Ambition Institute' %}
   {% set ectDeliveryPartner = dp %}
   {% set ectShowMentorWarning = true %}
 {% endif %}
@@ -172,14 +172,6 @@ href: "ects"
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          Induction start date
-        </dt>
-        <dd class="govuk-summary-list__value">
-          {{ ectInductionStartDate }}
-        </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
           Working pattern
         </dt>
         <dd class="govuk-summary-list__value">
@@ -188,7 +180,7 @@ href: "ects"
       </div>
     </dl>
 
-    <h2 class="govuk-heading-m">ECTE training details</h2>
+    <h2 class="govuk-heading-m">Induction details</h2>
         <dl class="govuk-summary-list">
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
@@ -201,6 +193,19 @@ href: "ects"
               <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> appropriate body</span></a>
             </dd>
           </div>
+              <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Induction start date
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ ectInductionStartDate }}
+          <span class="govuk-caption-m">This has been reported by an appropriate body</span>
+        </dd>
+      </div>
+        </dl>
+
+    <h2 class="govuk-heading-m">Training details</h2>
+       <dl class="govuk-summary-list">
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               Training programme
@@ -223,12 +228,10 @@ href: "ects"
               {% set displayLeadProvider = data[leadProviderKey] or ectLeadProvider %}
               
               {{ displayLeadProvider }}
-              {% if data[leadProviderChangedKey] == 'yes' %}
-              <span class="govuk-caption-m">Awaiting confirmation by {{ displayLeadProvider }}</span>
-              {% elif ectParam == 'maelle-obscur' %}
-              <span class="govuk-caption-m">Awaiting confirmation by {{ displayLeadProvider }}</span>
-              {% else %}
+              {% if displayLeadProvider == 'Ambition Institute' %}
               <span class="govuk-caption-m">Confirmed by {{ displayLeadProvider }}</span>
+              {% else %}
+              <span class="govuk-caption-m">Awaiting confirmation by {{ displayLeadProvider }}</span>
               {% endif %}
             </dd>
             <dd class="govuk-summary-list__actions">
@@ -239,13 +242,17 @@ href: "ects"
             <dt class="govuk-summary-list__key">
               Delivery partner
             </dt>
-                        <dd class="govuk-summary-list__value">
-              {% if data[leadProviderChangedKey] == 'yes' %}
-              Yet to be reported by the lead provider
-              {% else %}
-              {{ ectDeliveryPartner }}
-              {% endif %}
+            <dd class="govuk-summary-list__value">
+              {% set ectKey = ectName|replace(' ', '-')|lower %}
+              {% set leadProviderKey = 'leadProvider_' + ectKey %}
+              {% set displayLeadProvider = data[leadProviderKey] or ectLeadProvider %}
+              
+              {% if displayLeadProvider == 'Ambition Institute' %}
+              {{ dp }}
               <span class="govuk-caption-m">To change the delivery partner, you must contact the lead provider</span>
+              {% else %}
+              Yet to be reported by the lead provider
+              {% endif %}
             </dd>
           </div>
         </dl>

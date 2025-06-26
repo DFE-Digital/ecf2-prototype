@@ -1,38 +1,17 @@
-{% extends "layouts/ects.html" %}
+{% extends "layouts/mentors.html" %}
 
 {% if data['fullName'] %}
 {% set name = data['fullName'] %}
 {% else %}
-{% set name = 'John Smith' %}
+{% set name = 'John Doe' %}
 {% endif %}
 
-{% if data['leadProvider'] %}
-{% set lp = data['leadProvider'] %}
-{% else %}
-{% set lp = 'Ambition Institute' %}
-{% endif %}
-
-{# Determine the current lead provider for this ECT using the same logic as view-ect.html #}
-{% set ectKey = name|replace(' ', '-')|lower %}
-
-{# Determine which ECT profile this is based on the name #}
-{% if name == 'John Smith' %}
-  {% set ectLeadProvider = lp %}
-{% elif name == 'Maelle Obscur' %}
-  {% set ectLeadProvider = 'Teach First' %}
-{% elif name == 'Gustav Brown' %}
-  {% set ectLeadProvider = lp %}
-{% elif name == 'Lune Delaney' %}
-  {% set ectLeadProvider = lp %}
-{% elif name == 'Sciel Wright' %}
-  {% set ectLeadProvider = lp %}
-{% else %}
-  {% set ectLeadProvider = lp %}
-{% endif %}
+{# Determine the current lead provider for this mentor using the same logic as view-mentor.html #}
+{% set mentorKey = name|replace(' ', '-')|lower %}
 
 {# Get the current lead provider - either changed value or default #}
-{% set leadProviderKey = 'leadProvider_' + ectKey %}
-{% set currentLeadProvider = data[leadProviderKey] or ectLeadProvider %}
+{% set leadProviderKey = 'leadProvider_' + mentorKey %}
+{% set currentLeadProvider = data[leadProviderKey] or 'Ambition Institute' %}
 
 {# Create array of available lead providers excluding the current one #}
 {% set availableProviders = [] %}
@@ -66,7 +45,6 @@ href: "javascript:window.history.back()"
 
 {% block content %}
 
-
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
@@ -80,10 +58,9 @@ href: "javascript:window.history.back()"
             classes: "govuk-visually-hidden",
             text: pageName
         },
-        hint: {
-            html: "<p class='govuk-body'>We'll let the new lead provider know your school wants to work with them so they can arrange training. They'll confirm which delivery partner they'll be working with to deliver the training events.</p>"
+            hint: {
+            html: "<p class='govuk-body'>We'll let the new lead provider know that your school wants to work with them so they can arrange training. They'll contact your school to discuss this further before you decide if you want to go ahead with the mentor training.</p>"
             },
-            
         items: availableProviders
         }) }}
 
@@ -93,11 +70,12 @@ href: "javascript:window.history.back()"
             <p>An appropriate body is responsible for assuring the quality of the statutory induction of ECTs. A lead provider provides the online learning platform used for training ECTs and mentors, while the delivery partner delivers training events.
             </p>
             <p>These roles are sometimes undertaken by the same organisation, for example an appropriate body might be the same organisation as the delivery partner.</p>"
-    
+
             |safe }) }}
 
             <button class="govuk-button">Continue</button>
             <p><a href="javascript:window.history.back()">Cancel and go back to {{ name }}'s details</a></p>
+
         </form>
     </div>
 </div>

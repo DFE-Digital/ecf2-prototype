@@ -1,9 +1,9 @@
-{% extends "layouts/ects.html" %}
+{% extends "layouts/mentors.html" %}
 
 {% if data['fullName'] %}
 {% set name = data['fullName'] %}
 {% else %}
-{% set name = 'John Smith' %}
+{% set name = 'John Doe' %}
 {% endif %}
  {% if data['leadProvider'] %}
         {% set lp = data['leadProvider'] %}
@@ -11,7 +11,7 @@
         {% set lp = 'Ambition Institute' %}
         {% endif %}
 
-
+{% set pageName="You have chosen " + lp + " as the new lead provider for " + name %}
 
 {% block beforeContent %}
 {% endblock %}
@@ -22,13 +22,13 @@
     <div class="govuk-grid-column-two-thirds">
         <div class="govuk-panel govuk-panel--confirmation">
             <h1 class="govuk-panel__title">
-                 You have chosen {{lp}} as the new lead provider for {{name}}
+                {{ pageName }}
             </h1>
         </div>
         <h2 class="govuk-heading-m">What happens next</h2>
         <p class="govuk-body">We will let {{lp}} know your school wants to work with them. They'll contact us to confirm the change.</p>
 
-        <p><a href="../view-ect?ect={{name|replace(' ', '-')|lower}}">Back to {{name}}'s details</a></p>
+        <p><a href="../view-mentor?mentor={{name|replace(' ', '-')|lower}}">Back to {{name}}'s details</a></p>
     </div>
 </div>
 
