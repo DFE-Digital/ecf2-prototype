@@ -50,7 +50,6 @@ module.exports = router => {
         }
         res.render(vGet + '/school/home/change/change-lead-provider')
     })
-   
 
      router.post(v + school + 'home/change/change-lead-provider', (req, res) => {
         const ectName = req.session.data['fullName'] || 'John Smith'
