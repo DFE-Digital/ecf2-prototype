@@ -1,0 +1,32 @@
+{% extends "layouts/ects.html" %}
+
+{% if data['mentor'] and data['mentor'] != "Register a new mentor" %}
+{% set name = data['mentor'] %}
+{% else %}
+{% set name = 'Samuel Taylor' %}
+{% endif %}
+
+{% set pageName="You've assigned " + name + " as a mentor" %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-panel govuk-panel--confirmation">
+            <h1 class="govuk-panel__title">
+                {{ pageName }}
+            </h1>
+            <div class="govuk-panel__body">
+                for<br><strong>John Smith</strong>
+            </div>
+        </div>
+        <p class="govuk-body">You have successfully registered John Smith for training.</p>
+        <p class="govuk-body">They do not need to provide us with any further details.</p>
+        <p><a href="#">Back to ECTs</a></p>
+    </div>
+</div>
+
+{% endblock %}

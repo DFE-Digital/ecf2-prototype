@@ -1,6 +1,6 @@
 // Change versions here
-var v = '/v11/'
-var vGet = 'v11/'
+var v = '/v12/'
+var vGet = 'v12/'
 
 // Add any directory variables here
 var school = 'school/'
@@ -11,6 +11,15 @@ var admin = 'admin/'
 module.exports = router => {
 
     router.use((req, res, next) => {
+        // Make sure the session data is initialized
+        if (!req.session.data.ects) {
+            // Take a deep copy of the data so that the original is not changed
+            req.session.data.ects = JSON.parse(JSON.stringify(req.app.locals.data.ects));
+        }
+        if (!req.session.data.mentors) {
+            req.session.data.mentors = JSON.parse(JSON.stringify(req.app.locals.data.mentors));
+        }
+
         // Override session data if the environment variable is set
         if (process.env.ENVIRONMENT === 'research' && !req.session.data['variablesInitialized']) {
             req.session.data['ab'] = process.env.AB;
@@ -41,98 +50,6 @@ module.exports = router => {
         }
         res.redirect(v + school + 'dfe-sign-in')
     })
-
-    // change lead provider 
-     router.get(v + school + 'home/change/change-lead-provider', (req, res) => {
-        // Set the fullName from query parameter
-        if (req.query.fullName) {
-            req.session.data['fullName'] = req.query.fullName
-        }
-        res.render(vGet + '/school/home/change/change-lead-provider')
-    })
-   
-
-     router.post(v + school + 'home/change/change-lead-provider', (req, res) => {
-        const ectName = req.session.data['fullName'] || 'John Smith'
-        const ectKey = ectName.replace(/\s+/g, '-').toLowerCase()
-        
-        // Store the current lead provider before making changes
-        const currentLeadProviderKey = 'leadProvider_' + ectKey
-        const currentLeadProvider = req.session.data[currentLeadProviderKey] || getDefaultLeadProvider(ectName)
-        req.session.data['previousLeadProvider'] = currentLeadProvider
-        
-        // Store the new lead provider selection (but don't update the main data yet)
-        req.session.data['newLeadProvider'] = req.body.leadProvider
-        
-        res.redirect(v + school + 'home/change/confirm-change')
-    })
-
-    // New route for confirm-change page
-    router.post(v + school + 'home/change/confirm-change', (req, res) => {
-        const ectName = req.session.data['fullName'] || 'John Smith'
-        const ectKey = ectName.replace(/\s+/g, '-').toLowerCase()
-        
-        // Now actually update the lead provider data
-        req.session.data['leadProviderChanged_' + ectKey] = 'yes'
-        req.session.data['leadProvider_' + ectKey] = req.session.data['newLeadProvider']
-        
-        // Clean up temporary data
-        req.session.data['previousLeadProvider'] = undefined
-        req.session.data['newLeadProvider'] = undefined
-        
-        res.redirect(v + school + 'home/change/change-lead-provider-confirmation')
-    })
-
-    // Helper function to get default lead provider based on ECT name
-    function getDefaultLeadProvider(ectName) {
-        switch(ectName) {
-            case 'Maelle Obscur':
-                return 'Teach First'
-            case 'John Smith':
-            case 'Gustav Brown':
-            case 'Lune Delaney':
-            case 'Sciel Wright':
-            default:
-                return 'Ambition Institute'
-        }
-    }
-
-     router.post(v + school + 'home/change/change-lead-provider-mentor', (req, res) => {
-        const mentorName = req.session.data['fullName'] || 'John Doe'
-        const mentorKey = mentorName.replace(/\s+/g, '-').toLowerCase()
-        
-        // Store the current lead provider before making changes
-        const currentLeadProviderKey = 'leadProvider_' + mentorKey
-        const currentLeadProvider = req.session.data[currentLeadProviderKey] || getDefaultMentorLeadProvider(mentorName)
-        req.session.data['previousLeadProvider'] = currentLeadProvider
-        
-        // Store the new lead provider selection (but don't update the main data yet)
-        req.session.data['newLeadProvider'] = req.body.leadProvider
-        
-        res.redirect(v + school + 'home/change/confirm-change-mentor')
-    })
-
-    // New route for confirm-change-mentor page
-    router.post(v + school + 'home/change/confirm-change-mentor', (req, res) => {
-        const mentorName = req.session.data['fullName'] || 'John Doe'
-        const mentorKey = mentorName.replace(/\s+/g, '-').toLowerCase()
-        
-        // Now actually update the lead provider data
-        req.session.data['leadProviderChanged_' + mentorKey] = 'yes'
-        req.session.data['leadProvider_' + mentorKey] = req.session.data['newLeadProvider']
-        
-        // Clean up temporary data
-        req.session.data['previousLeadProvider'] = undefined
-        req.session.data['newLeadProvider'] = undefined
-        
-        res.redirect(v + school + 'home/change/change-lead-provider-confirmation-mentor')
-    })
-
-    // Helper function to get default lead provider for mentors
-    function getDefaultMentorLeadProvider(mentorName) {
-        // Based on the view-mentor.html, mentors default to 'Ambition Institute'
-        return 'Ambition Institute'
-    }
 
     // dfe sign in page
     router.post(v + school + 'dfe-sign-in', (req, res) => {
@@ -538,6 +455,242 @@ module.exports = router => {
         req.session.data['mentor'] = 'Tom Jones'
         res.redirect(v + school + mentor + 'assigned')
     })
+
+    // change journeys
+
+        // change lead provider 
+        router.get(v + school + 'home/change/ects/change-lead-provider', (req, res) => {
+            // Set the fullName from query parameter
+            if (req.query.fullName) {
+                req.session.data['fullName'] = req.query.fullName
+            }
+            res.render(vGet + '/school/home/change/ects/change-lead-provider')
+        })
+       
+    
+         router.post(v + school + 'home/change/ects/change-lead-provider', (req, res) => {
+            const { leadProvider, id } = req.body;
+            const ect = req.session.data.ects.find(e => e.id === id);
+            
+            if (ect) {
+                // Store current and new lead provider for confirmation
+                req.session.data.previousLeadProvider = ect.leadProvider;
+                req.session.data.newLeadProvider = leadProvider;
+                req.session.data.fullName = ect.name;
+                req.session.data.selectedEctId = ect.id;
+                req.session.data.changeType = 'leadProvider';
+            }
+        
+            res.redirect(v + school + 'home/change/ects/confirm-change');
+        })
+    
+        // New route for confirm-change page
+        router.post(v + school + 'home/change/ects/confirm-change', (req, res) => {
+            const { id } = req.body;
+            const ectId = id || req.session.data.selectedEctId;
+            const ect = req.session.data.ects.find(e => e.id === ectId);
+            
+            if (ect) {
+                if (req.session.data.changeType === 'name' && req.session.data.newName) {
+                    // Update the ECT's name
+                    ect.name = req.session.data.newName;
+                    req.session.data.changedEctId = ect.id;
+                    req.session.data.changedName = req.session.data.newName;
+                    
+                    // Clean up temporary data
+                    req.session.data.previousName = undefined;
+                    req.session.data.newName = undefined;
+                    req.session.data.changeType = undefined;
+                    
+                    // Clear any previous change data
+                    req.session.data.changedEmail = undefined;
+                    req.session.data.leadProvider = undefined;
+                    
+                    res.redirect(v + school + 'home/change/ects/change-confirmation');
+                } else if (req.session.data.changeType === 'email' && req.session.data.newEmail) {
+                    // Update the ECT's email
+                    ect.email = req.session.data.newEmail;
+                    req.session.data.changedEctId = ect.id;
+                    req.session.data.changedEmail = req.session.data.newEmail;
+                    
+                    // Clean up temporary data
+                    req.session.data.previousEmail = undefined;
+                    req.session.data.newEmail = undefined;
+                    req.session.data.changeType = undefined;
+                    
+                    // Clear any previous change data
+                    req.session.data.changedName = undefined;
+                    req.session.data.leadProvider = undefined;
+                    
+                    res.redirect(v + school + 'home/change/ects/change-confirmation');
+                } else if (req.session.data.newLeadProvider) {
+                    // Update the ECT's lead provider
+                    ect.leadProvider = req.session.data.newLeadProvider;
+                    req.session.data.changedEctId = ect.id;
+                    req.session.data.leadProvider = req.session.data.newLeadProvider;
+                    
+                    // Clean up temporary data
+                    req.session.data.previousLeadProvider = undefined;
+                    req.session.data.newLeadProvider = undefined;
+                    req.session.data.changeType = undefined;
+                    
+                    // Clear any previous change data
+                    req.session.data.changedName = undefined;
+                    req.session.data.changedEmail = undefined;
+                    
+                    res.redirect(v + school + 'home/change/ects/change-confirmation');
+                }
+            }
+            
+            // Clean up common data
+            req.session.data.selectedEctId = undefined;
+        })
+    
+                   router.post(v + school + 'home/change/mentors/change-lead-provider', (req, res) => {
+             const { leadProvider, id } = req.body;
+             const mentor = req.session.data.mentors.find(m => m.id === id);
+     
+             if (mentor) {
+                 // Store current and new lead provider for confirmation
+                 req.session.data.previousLeadProvider = mentor.leadProvider;
+                 req.session.data.newLeadProvider = leadProvider;
+                 req.session.data.fullName = mentor.name;
+                 req.session.data.selectedMentorId = mentor.id;
+                 req.session.data.changeType = 'leadProvider';
+             }
+     
+             res.redirect(v + school + 'home/change/mentors/confirm-change');
+         })
+    
+        // New route for confirm-change-mentor page
+        router.post(v + school + 'home/change/mentors/confirm-change', (req, res) => {
+            const { id } = req.body;
+            const mentorId = id || req.session.data.selectedMentorId;
+            const mentor = req.session.data.mentors.find(m => m.id === mentorId);
+            
+            if (mentor) {
+                if (req.session.data.changeType === 'name' && req.session.data.newName) {
+                    // Update the mentor's name
+                    mentor.name = req.session.data.newName;
+                    req.session.data.changedMentorId = mentor.id;
+                    req.session.data.changedName = req.session.data.newName;
+                    
+                    // Clean up temporary data
+                    req.session.data.previousName = undefined;
+                    req.session.data.newName = undefined;
+                    req.session.data.changeType = undefined;
+                    
+                    // Clear any previous change data
+                    req.session.data.changedEmail = undefined;
+                    req.session.data.leadProvider = undefined;
+                    
+                    res.redirect(v + school + 'home/change/mentors/change-confirmation');
+                } else if (req.session.data.changeType === 'email' && req.session.data.newEmail) {
+                    // Update the mentor's email
+                    mentor.email = req.session.data.newEmail;
+                    req.session.data.changedMentorId = mentor.id;
+                    req.session.data.changedEmail = req.session.data.newEmail;
+                    
+                    // Clean up temporary data
+                    req.session.data.previousEmail = undefined;
+                    req.session.data.newEmail = undefined;
+                    req.session.data.changeType = undefined;
+                    
+                    // Clear any previous change data
+                    req.session.data.changedName = undefined;
+                    req.session.data.leadProvider = undefined;
+                    
+                    res.redirect(v + school + 'home/change/mentors/change-confirmation');
+                } else if (req.session.data.newLeadProvider) {
+                    // Update the mentor's lead provider
+                    mentor.leadProvider = req.session.data.newLeadProvider;
+                    req.session.data.changedMentorId = mentor.id;
+                    req.session.data.leadProvider = req.session.data.newLeadProvider;
+                    
+                    // Clean up temporary data
+                    req.session.data.previousLeadProvider = undefined;
+                    req.session.data.newLeadProvider = undefined;
+                    req.session.data.changeType = undefined;
+                    
+                    // Clear any previous change data
+                    req.session.data.changedName = undefined;
+                    req.session.data.changedEmail = undefined;
+                    
+                    res.redirect(v + school + 'home/change/mentors/change-confirmation');
+                }
+            }
+            
+            // Clean up common data
+            req.session.data.selectedMentorId = undefined;
+        })
+    
+        // Change name routes for ECTs
+        router.post(v + school + 'home/change/ects/change-name', (req, res) => {
+            const { newName, ectId } = req.body;
+            const ect = req.session.data.ects.find(e => e.id === ectId);
+            
+            if (ect && newName) {
+                // Store current and new name for confirmation
+                req.session.data.previousName = ect.name;
+                req.session.data.newName = newName;
+                req.session.data.fullName = ect.name;
+                req.session.data.selectedEctId = ect.id;
+                req.session.data.changeType = 'name';
+            }
+            
+            res.redirect(v + school + 'home/change/ects/confirm-change');
+        })
+    
+        // Change name routes for mentors
+        router.post(v + school + 'home/change/mentors/change-name', (req, res) => {
+            const { newName, id } = req.body;
+            const mentor = req.session.data.mentors.find(m => m.id === id);
+            
+            if (mentor && newName) {
+                // Store current and new name for confirmation
+                req.session.data.previousName = mentor.name;
+                req.session.data.newName = newName;
+                req.session.data.fullName = mentor.name;
+                req.session.data.selectedMentorId = mentor.id;
+                req.session.data.changeType = 'name';
+            }
+            
+            res.redirect(v + school + 'home/change/mentors/confirm-change');
+        })
+
+        // Change email routes for ECTs
+        router.post(v + school + 'home/change/ects/change-email', (req, res) => {
+            const { newEmail, ectId } = req.body;
+            const ect = req.session.data.ects.find(e => e.id === ectId);
+            
+            if (ect && newEmail) {
+                // Store current and new email for confirmation
+                req.session.data.previousEmail = ect.email;
+                req.session.data.newEmail = newEmail;
+                req.session.data.fullName = ect.name;
+                req.session.data.selectedEctId = ect.id;
+                req.session.data.changeType = 'email';
+            }
+            
+            res.redirect(v + school + 'home/change/ects/confirm-change');
+        })
+
+        // Change email routes for mentors
+        router.post(v + school + 'home/change/mentors/change-email', (req, res) => {
+            const { newEmail, id } = req.body;
+            const mentor = req.session.data.mentors.find(m => m.id === id);
+            
+            if (mentor && newEmail) {
+                // Store current and new email for confirmation
+                req.session.data.previousEmail = mentor.email;
+                req.session.data.newEmail = newEmail;
+                req.session.data.fullName = mentor.name;
+                req.session.data.selectedMentorId = mentor.id;
+                req.session.data.changeType = 'email';
+            }
+            
+            res.redirect(v + school + 'home/change/mentors/confirm-change');
+        })
 
     // **********************
     // **********************

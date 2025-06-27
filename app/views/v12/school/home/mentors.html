@@ -1,0 +1,82 @@
+{% extends "layouts/mentors.html" %}
+
+{% block head %}
+{{ super() }} <!-- This includes the content from the base head block -->
+{% include "./filters.njk" %}
+{% endblock %}
+
+{% set pageName="Mentors" %}
+
+{% if data['schoolName'] %}
+{% set schoolName = data['schoolName'] %}
+{% else %}
+{% set schoolName = 'Test Primary School' %}
+{% endif %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-caption-l">{{schoolName}}</h1>
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+        <p>To add a new mentor you need to <a href="ects">assign one to an ECT</a>.</p>
+        <hr class="govuk-section-break--m">
+    </div>
+
+    <div class="govuk-grid-column-full">
+
+        <div class="search-box">
+            <form class="search-box__form" accept-charset="UTF-8" style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
+                <div class="search-box__input" style="flex-grow: 1;">
+                    <div class="govuk-form-group">
+                        <label for="query-field" class="govuk-label govuk-label--s">
+                            Search by name or teacher reference number (TRN)
+                        </label>
+                        <input id="query-field" class="govuk-input" type="text" name="query">
+                    </div>
+                </div>
+
+                <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Search</button>
+            </form>
+        </div>
+
+        {% for mentor in data.mentors %}
+        <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+                <h3 class="govuk-summary-card__title">
+                    <a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold govuk-!-font-size-24" href="view-mentor?id={{ mentor.id }}">{{ mentor.name }}</a></h3>
+            </div>
+            <div class="govuk-summary-card__content">
+                <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">TRN</dt>
+                        <dd class="govuk-summary-list__value">
+                                {{ mentor.trn }}
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Assigned ECTs</dt>
+                        <dd class="govuk-summary-list__value">
+                            <ul class="govuk-list">
+                                {% set assignedEcts = false %}
+                                {% for ect in data.ects %}
+                                    {% if ect.mentorId == mentor.id %}
+                                        {% set assignedEcts = true %}
+                                        <li><a class="govuk-link" href="view-ect?ect={{ ect.id }}">{{ ect.name }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if not assignedEcts %}
+                                    <li>Not assigned to any ECTs</li>
+                                {% endif %}
+                            </ul>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock %}

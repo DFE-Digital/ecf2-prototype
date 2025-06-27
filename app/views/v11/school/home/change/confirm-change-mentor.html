@@ -1,0 +1,83 @@
+{% extends "layouts/mentors.html" %}
+
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'John Smith' %}
+{% endif %}
+ {% if data['newLeadProvider'] %}
+{% set lp = data['newLeadProvider'] %}
+{% else %}
+{% set lp = 'Ambition Institute' %}
+{% endif %}
+
+{% if data['previousLeadProvider'] %}
+{% set currentLeadProvider = data['previousLeadProvider'] %}
+{% else %}
+{% set currentLeadProvider = 'Ambition Institute' %}
+{% endif %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">Check and confirm change</h1>
+
+            {{ govukSummaryList({
+                classes: "govuk-!-margin-bottom-8",
+                rows: [
+                  {
+                    key: {
+                      text: "Mentor"
+                    },
+                    value: {
+                      text: name
+                    }
+                  },
+                  {
+                    key: {
+                      text: "Current lead provider"
+                    },
+                    value: {
+                      html: currentLeadProvider
+                    }
+                  },
+                  {
+                    key: {
+                      text: "New lead provider"
+                    },
+                    value: {
+                      text: lp
+                    },
+                    actions: {
+                      items: [
+                        {
+                          href: "javascript:window.history.back()",
+                          text: "Change",
+                          visuallyHiddenText: "lead provider"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }) }}
+
+        <form method="post" novalidate>
+    
+            {{ govukButton({
+              text: "Confirm change"
+            }) }}
+    
+          </form>
+
+    </div>
+</div>
+
+{% endblock %}

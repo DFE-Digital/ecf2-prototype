@@ -1,0 +1,85 @@
+{% extends "layouts/ects.html" %}
+
+{# Find the active ECT from the ects array based on the 'ectId' query parameter #}
+{% set ectId = data.ectId %}
+{% set activeEct = {} %}
+{% for person in data.ects %}
+  {% if person.id == ectId %}
+    {% set activeEct = person %}
+  {% endif %}
+{% endfor %}
+
+{% set name = activeEct.name %}
+{% set currentLeadProvider = activeEct.leadProvider %}
+
+{# Create array of available lead providers excluding the current one #}
+{% set availableProviders = [] %}
+{% if currentLeadProvider != 'Ambition Institute' %}
+  {% set availableProviders = availableProviders.concat([{value: 'Ambition Institute', text: 'Ambition Institute'}]) %}
+{% endif %}
+{% if currentLeadProvider != 'Best Practice Network (home of Outstanding Leaders Partnership)' %}
+  {% set availableProviders = availableProviders.concat([{value: 'Best Practice Network (home of Outstanding Leaders Partnership)', text: 'Best Practice Network (home of Outstanding Leaders Partnership)'}]) %}
+{% endif %}
+{% if currentLeadProvider != 'Education Development Trust' %}
+  {% set availableProviders = availableProviders.concat([{value: 'Education Development Trust', text: 'Education Development Trust'}]) %}
+{% endif %}
+{% if currentLeadProvider != 'National Institute of Teaching' %}
+  {% set availableProviders = availableProviders.concat([{value: 'National Institute of Teaching', text: 'National Institute of Teaching'}]) %}
+{% endif %}
+{% if currentLeadProvider != 'Teach First' %}
+  {% set availableProviders = availableProviders.concat([{value: 'Teach First', text: 'Teach First'}]) %}
+{% endif %}
+{% if currentLeadProvider != 'UCL Institute of Education' %}
+  {% set availableProviders = availableProviders.concat([{value: 'UCL Institute of Education', text: 'UCL Institute of Education'}]) %}
+{% endif %}
+
+{% set pageName="Select a new lead provider for " + name %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+        <form method="post">
+        <input type="hidden" name="id" value="{{ ectId }}">
+
+        {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+        {{ govukRadios({
+        name: "leadProvider",
+            label: {
+            classes: "govuk-visually-hidden",
+            text: pageName
+        },
+        hint: {
+            html: "<p class='govuk-body'>We'll let the new lead provider know your school wants to work with them so they can arrange training. They'll confirm which delivery partner they'll be working with to deliver the training events.</p>"
+            },
+            
+        items: availableProviders
+        }) }}
+
+            {{ govukDetails({
+            summaryText: "What are the roles of an appropriate body, lead provider and delivery partner?",
+            text: "
+            <p>An appropriate body is responsible for assuring the quality of the statutory induction of ECTs. A lead provider provides the online learning platform used for training ECTs and mentors, while the delivery partner delivers training events.
+            </p>
+            <p>These roles are sometimes undertaken by the same organisation, for example an appropriate body might be the same organisation as the delivery partner.</p>"
+    
+            |safe }) }}
+
+            <button class="govuk-button">Continue</button>
+            <p><a href="javascript:window.history.back()">Cancel and go back to {{ name }}'s details</a></p>
+        </form>
+    </div>
+</div>
+
+{% endblock %} 
