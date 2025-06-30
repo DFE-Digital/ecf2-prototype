@@ -140,8 +140,9 @@ href: "ects"
             </dt>
             <dd class="govuk-summary-list__value">
               {{ activeEct.leadProvider }}
+              <!-- DEBUG: researchMode={{ data.researchMode }}, session.leadProvider={{ data.leadProvider }}, activeEct.leadProvider={{ activeEct.leadProvider }} -->
               {% if data.researchMode %}
-                {% if activeEct.leadProvider == data.leadProvider %}
+                {% if activeEct.leadProvider == data._researchDefaults.leadProvider %}
                 <span class="govuk-caption-m">Confirmed by {{ activeEct.leadProvider }}</span>
                 {% else %}
                 <span class="govuk-caption-m">Awaiting confirmation by {{ activeEct.leadProvider }}</span>

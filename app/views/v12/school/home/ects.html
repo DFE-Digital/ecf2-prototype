@@ -111,8 +111,9 @@
                                 <dt class="govuk-summary-list__key">Lead provider</dt>
                                 <dd class="govuk-summary-list__value">
                                     {{ ect.leadProvider }}
+                                    <!-- DEBUG: researchMode={{ data.researchMode }}, session.leadProvider={{ data.leadProvider }}, ect.leadProvider={{ ect.leadProvider }} -->
                                     {% if data.researchMode %}
-                                      {% if ect.leadProvider == data.leadProvider %}
+                                      {% if ect.leadProvider == data._researchDefaults.leadProvider %}
                                       <span class="govuk-caption-m">Confirmed by {{ ect.leadProvider }}</span>
                                       {% else %}
                                       <span class="govuk-caption-m">Awaiting confirmation by {{ ect.leadProvider }}</span>
