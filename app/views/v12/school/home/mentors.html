@@ -81,8 +81,9 @@
                                 <dt class="govuk-summary-list__key">Lead provider</dt>
                                 <dd class="govuk-summary-list__value">
                                     {{ mentor.leadProvider }}
+                                    <!-- DEBUG: researchMode={{ data.researchMode }}, session.leadProvider={{ data.leadProvider }}, mentor.leadProvider={{ mentor.leadProvider }} -->
                                     {% if data.researchMode %}
-                                      {% if mentor.leadProvider == data.leadProvider %}
+                                      {% if mentor.leadProvider == data._researchDefaults.leadProvider %}
                                       <span class="govuk-caption-m">Confirmed by {{ mentor.leadProvider }}</span>
                                       {% else %}
                                       <span class="govuk-caption-m">Awaiting confirmation by {{ mentor.leadProvider }}</span>

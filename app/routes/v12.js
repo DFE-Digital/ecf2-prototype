@@ -12,16 +12,40 @@ module.exports = router => {
 
     router.use((req, res, next) => {
         // Make sure the session data is initialized
-        if (!req.session.data.ects) {
-            // Take a deep copy of the data so that the original is not changed
-            req.session.data.ects = JSON.parse(JSON.stringify(req.app.locals.data.ects));
+        if (!req.session.data) {
+            req.session.data = {};
         }
-        if (!req.session.data.mentors) {
-            req.session.data.mentors = JSON.parse(JSON.stringify(req.app.locals.data.mentors));
+
+        // If the participants are not in the session, load them fresh from the source file.
+        // This ensures every new session starts with the original, unmodified data.
+        if (!req.session.data.ects || !req.session.data.mentors) {
+            const participants = require('../data/participants.js');
+            if (!req.session.data.ects) {
+                 req.session.data.ects = JSON.parse(JSON.stringify(participants.ects));
+            }
+            if (!req.session.data.mentors) {
+                req.session.data.mentors = JSON.parse(JSON.stringify(participants.mentors));
+            }
         }
+
+        // Check if we need to reset research mode (for testing)
+        if (req.query.resetResearch === 'true') {
+            console.log('Research mode reset: Reloading fresh participant data and marking for override.');
+            // Reload the original participant data to wipe out any manual changes.
+            const participants = require('../data/participants.js');
+            req.session.data.ects = JSON.parse(JSON.stringify(participants.ects));
+            req.session.data.mentors = JSON.parse(JSON.stringify(participants.mentors));
+            // Mark the session for re-initialization with research variables.
+            req.session.data['variablesInitialized'] = false;
+        }
+
+        console.log('--- Debugging Middleware ---');
+        console.log('ENVIRONMENT:', process.env.ENVIRONMENT);
+        console.log('variablesInitialized before check:', req.session.data['variablesInitialized']);
 
         // Override session data if the environment variable is set
         if (process.env.ENVIRONMENT === 'research' && !req.session.data['variablesInitialized']) {
+            console.log('== Research Mode: Applying environment variable overrides ==');
             req.session.data.researchMode = true;
 
             // Set session-level defaults for new participants and page titles
@@ -34,21 +58,50 @@ module.exports = router => {
             const leadProvider = process.env.LP;
             const deliveryPartner = process.env.DP;
             const programmeType = process.env.PROG;
+            const appropriateBody = process.env.AB;
+
+            console.log('Research mode environment variables:');
+            console.log('Lead Provider:', leadProvider);
+            console.log('Delivery Partner:', deliveryPartner);
+            console.log('Programme Type:', programmeType);
+            console.log('Appropriate Body:', appropriateBody);
+            console.log('ECTs array length:', req.session.data.ects ? req.session.data.ects.length : 'undefined');
+            console.log('Mentors array length:', req.session.data.mentors ? req.session.data.mentors.length : 'undefined');
 
             // Override the data for all existing participants in the session
-            req.session.data.ects.forEach(ect => {
-                ect.leadProvider = leadProvider;
-                ect.trainingProgramme = programmeType;
-                ect.deliveryPartner = deliveryPartner;
-            });
+            if (req.session.data.ects && Array.isArray(req.session.data.ects)) {
+                console.log('Overriding ECT data...');
+                req.session.data.ects.forEach((ect, index) => {
+                    console.log(`Before override - ECT ${index} (${ect.name}): LP=${ect.leadProvider}, DP=${ect.deliveryPartner}, TP=${ect.trainingProgramme}, AB=${ect.appropriateBody}`);
+                    ect.leadProvider = leadProvider;
+                    ect.trainingProgramme = programmeType;
+                    ect.deliveryPartner = deliveryPartner;
+                    ect.appropriateBody = appropriateBody;
+                    console.log(`After override - ECT ${index} (${ect.name}): LP=${ect.leadProvider}, DP=${ect.deliveryPartner}, TP=${ect.trainingProgramme}, AB=${ect.appropriateBody}`);
+                });
+            }
 
-            req.session.data.mentors.forEach(mentor => {
-                mentor.leadProvider = leadProvider;
-                mentor.deliveryPartner = deliveryPartner;
-            });
+            if (req.session.data.mentors && Array.isArray(req.session.data.mentors)) {
+                console.log('Overriding mentor data...');
+                req.session.data.mentors.forEach((mentor, index) => {
+                    console.log(`Before override - Mentor ${index} (${mentor.name}): LP=${mentor.leadProvider}, DP=${mentor.deliveryPartner}`);
+                    mentor.leadProvider = leadProvider;
+                    mentor.deliveryPartner = deliveryPartner;
+                    console.log(`After override - Mentor ${index} (${mentor.name}): LP=${mentor.leadProvider}, DP=${mentor.deliveryPartner}`);
+                });
+            }
 
             // Mark session variables as initialized to prevent this from running again
             req.session.data['variablesInitialized'] = true;
+            console.log('Research mode initialization complete');
+            
+            // Store the original research mode values so they can't be accidentally overwritten
+            req.session.data['_researchDefaults'] = {
+                leadProvider: leadProvider,
+                deliveryPartner: deliveryPartner,
+                programmeType: programmeType,
+                appropriateBody: appropriateBody
+            };
         }
         next();
     });
@@ -523,7 +576,6 @@ module.exports = router => {
                     
                     // Clear any previous change data
                     req.session.data.changedEmail = undefined;
-                    req.session.data.leadProvider = undefined;
                     
                     res.redirect(v + school + 'home/change/ects/change-confirmation');
                 } else if (req.session.data.changeType === 'email' && req.session.data.newEmail) {
@@ -539,22 +591,23 @@ module.exports = router => {
                     
                     // Clear any previous change data
                     req.session.data.changedName = undefined;
-                    req.session.data.leadProvider = undefined;
                     
                     res.redirect(v + school + 'home/change/ects/change-confirmation');
                 } else if (req.session.data.newLeadProvider) {
                     // Update the ECT's lead provider
                     ect.leadProvider = req.session.data.newLeadProvider;
                     
+                    // In research mode, changing the lead provider has special rules.
                     if (req.session.data.researchMode) {
-                        // Dynamic logic for research mode
-                        if (req.session.data.newLeadProvider === req.session.data.leadProvider) {
-                            ect.deliveryPartner = req.session.data.deliveryPartner;
+                        // If the new provider matches the session's default, align the delivery partner.
+                        // Otherwise, the delivery partner is unknown until the new provider confirms.
+                        if (req.session.data.newLeadProvider === req.session.data._researchDefaults.leadProvider) {
+                            ect.deliveryPartner = req.session.data._researchDefaults.deliveryPartner;
                         } else {
                             ect.deliveryPartner = null;
                         }
                     } else {
-                        // Static, default logic
+                        // Static, default logic for non-research mode.
                         if (req.session.data.newLeadProvider === 'Ambition Institute') {
                             ect.deliveryPartner = 'Alpha Teaching School Hub';
                         } else {
@@ -563,10 +616,8 @@ module.exports = router => {
                     }
 
                     req.session.data.changedEctId = ect.id;
-                    // Note: We are deliberately not updating req.session.data.leadProvider here
-                    // because it should remain as the environment default for comparison.
                     
-                    // Clean up temporary data
+                    // Clean up temporary data for this specific change
                     req.session.data.previousLeadProvider = undefined;
                     req.session.data.newLeadProvider = undefined;
                     req.session.data.changeType = undefined;
@@ -619,7 +670,6 @@ module.exports = router => {
                     
                     // Clear any previous change data
                     req.session.data.changedEmail = undefined;
-                    req.session.data.leadProvider = undefined;
                     
                     res.redirect(v + school + 'home/change/mentors/change-confirmation');
                 } else if (req.session.data.changeType === 'email' && req.session.data.newEmail) {
@@ -635,22 +685,23 @@ module.exports = router => {
                     
                     // Clear any previous change data
                     req.session.data.changedName = undefined;
-                    req.session.data.leadProvider = undefined;
                     
                     res.redirect(v + school + 'home/change/mentors/change-confirmation');
                 } else if (req.session.data.newLeadProvider) {
                     // Update the mentor's lead provider
                     mentor.leadProvider = req.session.data.newLeadProvider;
 
+                    // In research mode, changing the lead provider has special rules.
                     if (req.session.data.researchMode) {
-                        // Dynamic logic for research mode
-                        if (req.session.data.newLeadProvider === req.session.data.leadProvider) {
-                            mentor.deliveryPartner = req.session.data.deliveryPartner;
+                        // If the new provider matches the session's default, align the delivery partner.
+                        // Otherwise, the delivery partner is unknown until the new provider confirms.
+                        if (req.session.data.newLeadProvider === req.session.data._researchDefaults.leadProvider) {
+                            mentor.deliveryPartner = req.session.data._researchDefaults.deliveryPartner;
                         } else {
                             mentor.deliveryPartner = null;
                         }
                     } else {
-                        // Static, default logic
+                        // Static, default logic for non-research mode.
                         if (req.session.data.newLeadProvider === 'Ambition Institute') {
                             mentor.deliveryPartner = 'Alpha Teaching School Hub';
                         } else {
@@ -659,10 +710,8 @@ module.exports = router => {
                     }
                     
                     req.session.data.changedMentorId = mentor.id;
-                    // Note: We are deliberately not updating req.session.data.leadProvider here
-                    // because it should remain as the environment default for comparison.
                     
-                    // Clean up temporary data
+                    // Clean up temporary data for this specific change
                     req.session.data.previousLeadProvider = undefined;
                     req.session.data.newLeadProvider = undefined;
                     req.session.data.changeType = undefined;
