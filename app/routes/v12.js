@@ -11,57 +11,43 @@ var admin = 'admin/'
 module.exports = router => {
 
     router.use((req, res, next) => {
-        // Initialize session data only if it hasn't been done before
-        if (!req.session.data['variablesInitialized']) {
+        // Make sure the session data is initialized
+        if (!req.session.data.ects) {
+            // Take a deep copy of the data so that the original is not changed
+            req.session.data.ects = JSON.parse(JSON.stringify(req.app.locals.data.ects));
+        }
+        if (!req.session.data.mentors) {
+            req.session.data.mentors = JSON.parse(JSON.stringify(req.app.locals.data.mentors));
+        }
 
-            // Check if we are in research mode
-            if (process.env.ENVIRONMENT === 'research') {
-                // === RESEARCH MODE INITIALIZATION ===
-                req.session.data.researchMode = true;
+        // Override session data if the environment variable is set
+        if (process.env.ENVIRONMENT === 'research' && !req.session.data['variablesInitialized']) {
+            req.session.data.researchMode = true;
 
-                // Set session-level defaults for new participants and page titles
-                req.session.data['ab'] = process.env.AB;
-                req.session.data['deliveryPartner'] = process.env.DP;
-                req.session.data['leadProvider'] = process.env.LP;
-                req.session.data['programmeType'] = process.env.PROG;
-                req.session.data['schoolName'] = process.env.SCHOOLNAME;
+            // Set session-level defaults for new participants and page titles
+            req.session.data['ab'] = process.env.AB;
+            req.session.data['deliveryPartner'] = process.env.DP;
+            req.session.data['leadProvider'] = process.env.LP;
+            req.session.data['programmeType'] = process.env.PROG;
+            req.session.data['schoolName'] = process.env.SCHOOLNAME;
 
-                // Create constants from environment variables for the override
-                const leadProvider = process.env.LP;
-                const deliveryPartner = process.env.DP;
-                const programmeType = process.env.PROG;
-                const appropriateBody = process.env.AB;
+            const leadProvider = process.env.LP;
+            const deliveryPartner = process.env.DP;
+            const programmeType = process.env.PROG;
 
-                // Take a fresh deep copy of the original data
-                const ects = JSON.parse(JSON.stringify(req.app.locals.data.ects));
-                const mentors = JSON.parse(JSON.stringify(req.app.locals.data.mentors));
+            // Override the data for all existing participants in the session
+            req.session.data.ects.forEach(ect => {
+                ect.leadProvider = leadProvider;
+                ect.trainingProgramme = programmeType;
+                ect.deliveryPartner = deliveryPartner;
+            });
 
-                // Override the data for all existing participants
-                ects.forEach(ect => {
-                    ect.leadProvider = leadProvider;
-                    ect.trainingProgramme = programmeType;
-                    ect.deliveryPartner = deliveryPartner;
-                    ect.appropriateBody = appropriateBody;
-                });
+            req.session.data.mentors.forEach(mentor => {
+                mentor.leadProvider = leadProvider;
+                mentor.deliveryPartner = deliveryPartner;
+            });
 
-                mentors.forEach(mentor => {
-                    mentor.leadProvider = leadProvider;
-                    mentor.deliveryPartner = deliveryPartner;
-                });
-
-                // Replace the session data with the newly modified data
-                req.session.data.ects = ects;
-                req.session.data.mentors = mentors;
-
-            } else {
-                // === STANDARD MODE INITIALIZATION ===
-                req.session.data.researchMode = false;
-                // Just copy the default data from the source files
-                req.session.data.ects = JSON.parse(JSON.stringify(req.app.locals.data.ects));
-                req.session.data.mentors = JSON.parse(JSON.stringify(req.app.locals.data.mentors));
-            }
-
-            // Mark the session as initialized to prevent this from running again
+            // Mark session variables as initialized to prevent this from running again
             req.session.data['variablesInitialized'] = true;
         }
         next();
