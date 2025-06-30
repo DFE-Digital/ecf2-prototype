@@ -47,31 +47,68 @@
                     <a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold govuk-!-font-size-24" href="view-mentor?id={{ mentor.id }}">{{ mentor.name }}</a></h3>
             </div>
             <div class="govuk-summary-card__content">
-                <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">TRN</dt>
-                        <dd class="govuk-summary-list__value">
-                                {{ mentor.trn }}
-                        </dd>
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-one-half">
+                        <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">TRN</dt>
+                                <dd class="govuk-summary-list__value">
+                                        {{ mentor.trn }}
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Assigned ECTs</dt>
+                                <dd class="govuk-summary-list__value">
+                                    <ul class="govuk-list">
+                                        {% set assignedEcts = false %}
+                                        {% for ect in data.ects %}
+                                            {% if ect.mentorId == mentor.id %}
+                                                {% set assignedEcts = true %}
+                                                <li><a class="govuk-link" href="view-ect?ect={{ ect.id }}">{{ ect.name }}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if not assignedEcts %}
+                                            <li>Not assigned to any ECTs</li>
+                                        {% endif %}
+                                    </ul>
+                                </dd>
+                            </div>
+                        </dl>
                     </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">Assigned ECTs</dt>
-                        <dd class="govuk-summary-list__value">
-                            <ul class="govuk-list">
-                                {% set assignedEcts = false %}
-                                {% for ect in data.ects %}
-                                    {% if ect.mentorId == mentor.id %}
-                                        {% set assignedEcts = true %}
-                                        <li><a class="govuk-link" href="view-ect?ect={{ ect.id }}">{{ ect.name }}</a></li>
+                    <div class="govuk-grid-column-one-half">
+                        <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Lead provider</dt>
+                                <dd class="govuk-summary-list__value">
+                                    {{ mentor.leadProvider }}
+                                    {% if data.researchMode %}
+                                      {% if mentor.leadProvider == data.leadProvider %}
+                                      <span class="govuk-caption-m">Confirmed by {{ mentor.leadProvider }}</span>
+                                      {% else %}
+                                      <span class="govuk-caption-m">Awaiting confirmation by {{ mentor.leadProvider }}</span>
+                                      {% endif %}
+                                    {% else %}
+                                      {% if mentor.leadProvider == 'Ambition Institute' %}
+                                      <span class="govuk-caption-m">Confirmed by {{ mentor.leadProvider }}</span>
+                                      {% else %}
+                                      <span class="govuk-caption-m">Awaiting confirmation by {{ mentor.leadProvider }}</span>
+                                      {% endif %}
                                     {% endif %}
-                                {% endfor %}
-                                {% if not assignedEcts %}
-                                    <li>Not assigned to any ECTs</li>
-                                {% endif %}
-                            </ul>
-                        </dd>
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Delivery partner</dt>
+                                <dd class="govuk-summary-list__value">
+                                    {% if mentor.deliveryPartner %}
+                                    {{ mentor.deliveryPartner }}
+                                    {% else %}
+                                    Yet to be reported by the lead provider
+                                    {% endif %}
+                                </dd>
+                            </div>
+                        </dl>
                     </div>
-                </dl>
+                </div>
             </div>
         </div>
         {% endfor %}
