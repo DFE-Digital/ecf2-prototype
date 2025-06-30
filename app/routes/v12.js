@@ -1,50 +1,18 @@
 // Change versions here
 var v = '/v12/'
 var vGet = 'v12/'
+var vSingle = 'v12/'
 
 // Add any directory variables here
 var school = 'school/'
 var mentor = 'mentor/'
 var admin = 'admin/'
 
-
 module.exports = router => {
 
     router.use((req, res, next) => {
-        // Make sure the session data is initialized
-        if (!req.session.data) {
-            req.session.data = {};
-        }
-
-        // If the participants are not in the session, load them fresh from the source file.
-        // This ensures every new session starts with the original, unmodified data.
-        if (!req.session.data.ects || !req.session.data.mentors) {
-            const participants = require('../data/participants.js');
-            if (!req.session.data.ects) {
-                 req.session.data.ects = JSON.parse(JSON.stringify(participants.ects));
-            }
-            if (!req.session.data.mentors) {
-                req.session.data.mentors = JSON.parse(JSON.stringify(participants.mentors));
-            }
-        }
-
-        // Check if we need to reset research mode (for testing)
-        if (req.query.resetResearch === 'true') {
-            console.log('Research mode reset: Reloading fresh participant data and marking for override.');
-            // Reload the original participant data to wipe out any manual changes.
-            const participants = require('../data/participants.js');
-            req.session.data.ects = JSON.parse(JSON.stringify(participants.ects));
-            req.session.data.mentors = JSON.parse(JSON.stringify(participants.mentors));
-            // Mark the session for re-initialization with research variables.
-            req.session.data['variablesInitialized'] = false;
-        }
-
-        console.log('--- Debugging Middleware ---');
-        console.log('ENVIRONMENT:', process.env.ENVIRONMENT);
-        console.log('variablesInitialized before check:', req.session.data['variablesInitialized']);
-
         // Override session data if the environment variable is set
-        if (process.env.ENVIRONMENT === 'research' && !req.session.data['variablesInitialized']) {
+        if (process.env.ENVIRONMENT === 'research' && req.session.data['variablesInitialized' + vSingle] !== true) {
             console.log('== Research Mode: Applying environment variable overrides ==');
             req.session.data.researchMode = true;
 
@@ -54,53 +22,52 @@ module.exports = router => {
             req.session.data['leadProvider'] = process.env.LP;
             req.session.data['programmeType'] = process.env.PROG;
             req.session.data['schoolName'] = process.env.SCHOOLNAME;
-
-            const leadProvider = process.env.LP;
-            const deliveryPartner = process.env.DP;
-            const programmeType = process.env.PROG;
-            const appropriateBody = process.env.AB;
+            console.log('Session data:', req.session.data);
 
             console.log('Research mode environment variables:');
-            console.log('Lead Provider:', leadProvider);
-            console.log('Delivery Partner:', deliveryPartner);
-            console.log('Programme Type:', programmeType);
-            console.log('Appropriate Body:', appropriateBody);
+            console.log('Lead Provider:', process.env.LP);
+            console.log('Delivery Partner:', process.env.DP);
+            console.log('Programme Type:', process.env.PROG);
+            console.log('Appropriate Body:', process.env.AB);
             console.log('ECTs array length:', req.session.data.ects ? req.session.data.ects.length : 'undefined');
             console.log('Mentors array length:', req.session.data.mentors ? req.session.data.mentors.length : 'undefined');
 
             // Override the data for all existing participants in the session
-            if (req.session.data.ects && Array.isArray(req.session.data.ects)) {
+            if (req.session.data.ects && req.session.data.ects.length > 0) {
                 console.log('Overriding ECT data...');
                 req.session.data.ects.forEach((ect, index) => {
                     console.log(`Before override - ECT ${index} (${ect.name}): LP=${ect.leadProvider}, DP=${ect.deliveryPartner}, TP=${ect.trainingProgramme}, AB=${ect.appropriateBody}`);
-                    ect.leadProvider = leadProvider;
-                    ect.trainingProgramme = programmeType;
-                    ect.deliveryPartner = deliveryPartner;
-                    ect.appropriateBody = appropriateBody;
+                    ect.leadProvider = process.env.LP;
+                    ect.trainingProgramme = process.env.PROG;
+                    ect.deliveryPartner = process.env.DP;
+                    ect.appropriateBody = process.env.AB;
                     console.log(`After override - ECT ${index} (${ect.name}): LP=${ect.leadProvider}, DP=${ect.deliveryPartner}, TP=${ect.trainingProgramme}, AB=${ect.appropriateBody}`);
                 });
+            } else {
+                console.log('No ECTs found to override or ECTs array is undefined');
             }
 
-            if (req.session.data.mentors && Array.isArray(req.session.data.mentors)) {
+            if (req.session.data.mentors && req.session.data.mentors.length > 0) {
                 console.log('Overriding mentor data...');
                 req.session.data.mentors.forEach((mentor, index) => {
                     console.log(`Before override - Mentor ${index} (${mentor.name}): LP=${mentor.leadProvider}, DP=${mentor.deliveryPartner}`);
-                    mentor.leadProvider = leadProvider;
-                    mentor.deliveryPartner = deliveryPartner;
+                    mentor.leadProvider = process.env.LP;
+                    mentor.deliveryPartner = process.env.DP;
                     console.log(`After override - Mentor ${index} (${mentor.name}): LP=${mentor.leadProvider}, DP=${mentor.deliveryPartner}`);
                 });
+            } else {
+                console.log('No mentors found to override or mentors array is undefined');
             }
-
             // Mark session variables as initialized to prevent this from running again
-            req.session.data['variablesInitialized'] = true;
+            req.session.data['variablesInitialized' + vSingle] = true;
             console.log('Research mode initialization complete');
-            
+
             // Store the original research mode values so they can't be accidentally overwritten
             req.session.data['_researchDefaults'] = {
-                leadProvider: leadProvider,
-                deliveryPartner: deliveryPartner,
-                programmeType: programmeType,
-                appropriateBody: appropriateBody
+                leadProvider: process.env.LP,
+                deliveryPartner: process.env.DP,
+                programmeType: process.env.PROG,
+                appropriateBody: process.env.AB
             };
         }
         next();
