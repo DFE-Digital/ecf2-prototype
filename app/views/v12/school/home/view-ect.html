@@ -7,18 +7,6 @@ href: "ects"
 }) }}
 {% endblock %}
 
-{% if data['ab'] %}
-{% set ab = data['ab'] %}
-{% else %}
-{% set ab = 'Alpha Teaching School Hub' %}
-{% endif %}
-
-{% if data['deliveryPartner'] %}
-{% set dp = data['deliveryPartner'] %}
-{% else %}
-{% set dp = 'Alpha Teaching School Hub' %}
-{% endif %}
-
 {# Find the active ECT from the ects array based on the 'ect' query parameter #}
 {% set ectId = data.ect or 'john-smith' %}
 {% set activeEct = {} %}
@@ -116,7 +104,7 @@ href: "ects"
               Appropriate body
             </dt>
             <dd class="govuk-summary-list__value">
-              {{ ab }}
+              {{ activeEct.appropriateBody }}
             </dd>
             <dd class="govuk-summary-list__actions">
               <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> appropriate body</span></a>
@@ -140,7 +128,7 @@ href: "ects"
               Training programme
             </dt>
             <dd class="govuk-summary-list__value">
-              Provider-led
+              {{ activeEct.trainingProgramme }}
             </dd>
             <dd class="govuk-summary-list__actions">
               <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> training programme</span></a>
@@ -152,10 +140,18 @@ href: "ects"
             </dt>
             <dd class="govuk-summary-list__value">
               {{ activeEct.leadProvider }}
-              {% if activeEct.leadProvider == 'Ambition Institute' %}
-              <span class="govuk-caption-m">Confirmed by {{ activeEct.leadProvider }}</span>
+              {% if data.researchMode %}
+                {% if activeEct.leadProvider == data.leadProvider %}
+                <span class="govuk-caption-m">Confirmed by {{ activeEct.leadProvider }}</span>
+                {% else %}
+                <span class="govuk-caption-m">Awaiting confirmation by {{ activeEct.leadProvider }}</span>
+                {% endif %}
               {% else %}
-              <span class="govuk-caption-m">Awaiting confirmation by {{ activeEct.leadProvider }}</span>
+                {% if activeEct.leadProvider == 'Ambition Institute' %}
+                <span class="govuk-caption-m">Confirmed by {{ activeEct.leadProvider }}</span>
+                {% else %}
+                <span class="govuk-caption-m">Awaiting confirmation by {{ activeEct.leadProvider }}</span>
+                {% endif %}
               {% endif %}
             </dd>
             <dd class="govuk-summary-list__actions">
@@ -167,8 +163,8 @@ href: "ects"
               Delivery partner
             </dt>
             <dd class="govuk-summary-list__value">
-              {% if activeEct.leadProvider == 'Ambition Institute' %}
-              {{ dp }}
+              {% if activeEct.deliveryPartner %}
+              {{ activeEct.deliveryPartner }}
               <span class="govuk-caption-m">To change the delivery partner, you must contact the lead provider</span>
               {% else %}
               Yet to be reported by the lead provider

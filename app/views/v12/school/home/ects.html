@@ -15,18 +15,6 @@
 {% set schoolName = 'Test Primary School' %}
 {% endif %}
 
-{% if data['ab'] %}
-{% set ab = data['ab'] %}
-{% else %}
-{% set ab = 'Alpha Teaching School Hub' %}
-{% endif %}
-
-{% if data['deliveryPartner'] %}
-{% set dp = data['deliveryPartner'] %}
-{% else %}
-{% set dp = 'Alpha Teaching School Hub' %}
-{% endif %}
-
 {% if data['leadProvider'] %}
 {% set lp = data['leadProvider'] %}
 {% else %}
@@ -91,25 +79,58 @@
                                 <dt class="govuk-summary-list__key">School start date</dt>
                                 <dd class="govuk-summary-list__value">{{ ect.schoolStartDate }}</dd>
                             </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Mentor</dt>
+                                <dd class="govuk-summary-list__value">
+                                    {% set mentorName = "Not assigned" %}
+                                    {% for mentorInList in data.mentors %}
+                                        {% if mentorInList.id == ect.mentorId %}
+                                            {% set mentorName = mentorInList.name %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    
+                                    {% if mentorName != "Not assigned" %}
+                                        {{ mentorName }}
+                                    {% else %}
+                                        {{ govukWarningText({
+                                        html: 'You must <a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">assign a mentor or register a new one</a> for this ECT.',
+                                        iconFallbackText: "Warning"
+                                        }) }}
+                                    {% endif %}
+                                </dd>
+                            </div>
                         </dl>
                     </div>
                     <div class="govuk-grid-column-one-half">
                         <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">Appropriate body</dt>
-                                <dd class="govuk-summary-list__value">{{ab}}</dd>
+                                <dd class="govuk-summary-list__value">{{ect.appropriateBody}}</dd>
                             </div>
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">Lead provider</dt>
                                 <dd class="govuk-summary-list__value">
                                     {{ ect.leadProvider }}
+                                    {% if data.researchMode %}
+                                      {% if ect.leadProvider == data.leadProvider %}
+                                      <span class="govuk-caption-m">Confirmed by {{ ect.leadProvider }}</span>
+                                      {% else %}
+                                      <span class="govuk-caption-m">Awaiting confirmation by {{ ect.leadProvider }}</span>
+                                      {% endif %}
+                                    {% else %}
+                                      {% if ect.leadProvider == 'Ambition Institute' %}
+                                      <span class="govuk-caption-m">Confirmed by {{ ect.leadProvider }}</span>
+                                      {% else %}
+                                      <span class="govuk-caption-m">Awaiting confirmation by {{ ect.leadProvider }}</span>
+                                      {% endif %}
+                                    {% endif %}
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">Delivery partner</dt>
                                 <dd class="govuk-summary-list__value">
-                                    {% if ect.leadProvider == 'Ambition Institute' %}
-                                    {{dp}}
+                                    {% if ect.deliveryPartner %}
+                                    {{ect.deliveryPartner}}
                                     {% else %}
                                     Yet to be reported by the lead provider
                                     {% endif %}
@@ -119,26 +140,7 @@
                     </div>
                 </div>
                 <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key" style="width: 15%">Mentor</dt>
-                        <dd class="govuk-summary-list__value">
-                            {% set mentorName = "Not assigned" %}
-                            {% for mentorInList in data.mentors %}
-                                {% if mentorInList.id == ect.mentorId %}
-                                    {% set mentorName = mentorInList.name %}
-                                {% endif %}
-                            {% endfor %}
-                            
-                            {% if mentorName != "Not assigned" %}
-                                {{ mentorName }}
-                            {% else %}
-                                {{ govukWarningText({
-                                html: 'You must <a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">assign a mentor or register a new one</a> for this ECT.',
-                                iconFallbackText: "Warning"
-                                }) }}
-                            {% endif %}
-                        </dd>
-                    </div>
+                    
                 </dl>
             </div>
         </div>

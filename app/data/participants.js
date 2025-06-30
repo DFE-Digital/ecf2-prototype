@@ -11,6 +11,9 @@ const ects = [
         inductionStartDate: '7 September 2024',
         workingPattern: 'Full time',
         leadProvider: 'Ambition Institute',
+        appropriateBody: 'Alpha Teaching School Hub',
+        trainingProgramme: 'Provider-led',
+        deliveryPartner: 'Alpha Teaching School Hub',
     },
     {
         id: 'maelle-obscur',
@@ -24,6 +27,9 @@ const ects = [
         inductionStartDate: '9 September 2024',
         workingPattern: 'Full time',
         leadProvider: 'Teach First',
+        appropriateBody: 'Alpha Teaching School Hub',
+        trainingProgramme: 'Provider-led',
+        deliveryPartner: null,
     },
     {
         id: 'gustav-brown',
@@ -37,6 +43,9 @@ const ects = [
         inductionStartDate: '11 September 2023',
         workingPattern: 'Full time',
         leadProvider: 'Ambition Institute',
+        appropriateBody: 'Alpha Teaching School Hub',
+        trainingProgramme: 'Provider-led',
+        deliveryPartner: 'Alpha Teaching School Hub',
     },
     {
         id: 'lune-delaney',
@@ -50,6 +59,9 @@ const ects = [
         inductionStartDate: '1 September 2024',
         workingPattern: 'Full time',
         leadProvider: 'Ambition Institute',
+        appropriateBody: 'Alpha Teaching School Hub',
+        trainingProgramme: 'Provider-led',
+        deliveryPartner: 'Alpha Teaching School Hub',
     },
     {
         id: 'sciel-wright',
@@ -63,6 +75,9 @@ const ects = [
         inductionStartDate: '1 September 2021',
         workingPattern: 'Full time',
         leadProvider: 'Ambition Institute',
+        appropriateBody: 'Alpha Teaching School Hub',
+        trainingProgramme: 'Provider-led',
+        deliveryPartner: 'Alpha Teaching School Hub',
     },
     {
         id: 'steven-taylor',
@@ -76,6 +91,9 @@ const ects = [
         inductionStartDate: '8 September 2024',
         workingPattern: 'Full time',
         leadProvider: 'Ambition Institute',
+        appropriateBody: 'Alpha Teaching School Hub',
+        trainingProgramme: 'Provider-led',
+        deliveryPartner: 'Alpha Teaching School Hub',
     },
     {
         id: 'emily-brown',
@@ -89,6 +107,9 @@ const ects = [
         inductionStartDate: '10 September 2024',
         workingPattern: 'Full time',
         leadProvider: 'Education Development Trust',
+        appropriateBody: 'Alpha Teaching School Hub',
+        trainingProgramme: 'Provider-led',
+        deliveryPartner: null,
     }
 ];
 
@@ -99,6 +120,7 @@ const mentors = [
         trn: '5924029',
         email: 'john.doe@email.com',
         leadProvider: 'Ambition Institute',
+        deliveryPartner: 'Alpha Teaching School Hub',
     },
     {
         id: 'tom-jones',
@@ -106,6 +128,7 @@ const mentors = [
         trn: '1144020',
         email: 'tom.jones@email.com',
         leadProvider: 'Teach First',
+        deliveryPartner: null,
     }
 ];
 

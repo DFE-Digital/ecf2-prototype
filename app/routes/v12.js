@@ -22,13 +22,32 @@ module.exports = router => {
 
         // Override session data if the environment variable is set
         if (process.env.ENVIRONMENT === 'research' && !req.session.data['variablesInitialized']) {
+            req.session.data.researchMode = true;
+
+            // Set session-level defaults for new participants and page titles
             req.session.data['ab'] = process.env.AB;
             req.session.data['deliveryPartner'] = process.env.DP;
             req.session.data['leadProvider'] = process.env.LP;
             req.session.data['programmeType'] = process.env.PROG;
             req.session.data['schoolName'] = process.env.SCHOOLNAME;
 
-            // Mark session variables as initialized
+            const leadProvider = process.env.LP;
+            const deliveryPartner = process.env.DP;
+            const programmeType = process.env.PROG;
+
+            // Override the data for all existing participants in the session
+            req.session.data.ects.forEach(ect => {
+                ect.leadProvider = leadProvider;
+                ect.trainingProgramme = programmeType;
+                ect.deliveryPartner = deliveryPartner;
+            });
+
+            req.session.data.mentors.forEach(mentor => {
+                mentor.leadProvider = leadProvider;
+                mentor.deliveryPartner = deliveryPartner;
+            });
+
+            // Mark session variables as initialized to prevent this from running again
             req.session.data['variablesInitialized'] = true;
         }
         next();
@@ -526,8 +545,26 @@ module.exports = router => {
                 } else if (req.session.data.newLeadProvider) {
                     // Update the ECT's lead provider
                     ect.leadProvider = req.session.data.newLeadProvider;
+                    
+                    if (req.session.data.researchMode) {
+                        // Dynamic logic for research mode
+                        if (req.session.data.newLeadProvider === req.session.data.leadProvider) {
+                            ect.deliveryPartner = req.session.data.deliveryPartner;
+                        } else {
+                            ect.deliveryPartner = null;
+                        }
+                    } else {
+                        // Static, default logic
+                        if (req.session.data.newLeadProvider === 'Ambition Institute') {
+                            ect.deliveryPartner = 'Alpha Teaching School Hub';
+                        } else {
+                            ect.deliveryPartner = null;
+                        }
+                    }
+
                     req.session.data.changedEctId = ect.id;
-                    req.session.data.leadProvider = req.session.data.newLeadProvider;
+                    // Note: We are deliberately not updating req.session.data.leadProvider here
+                    // because it should remain as the environment default for comparison.
                     
                     // Clean up temporary data
                     req.session.data.previousLeadProvider = undefined;
@@ -604,8 +641,26 @@ module.exports = router => {
                 } else if (req.session.data.newLeadProvider) {
                     // Update the mentor's lead provider
                     mentor.leadProvider = req.session.data.newLeadProvider;
+
+                    if (req.session.data.researchMode) {
+                        // Dynamic logic for research mode
+                        if (req.session.data.newLeadProvider === req.session.data.leadProvider) {
+                            mentor.deliveryPartner = req.session.data.deliveryPartner;
+                        } else {
+                            mentor.deliveryPartner = null;
+                        }
+                    } else {
+                        // Static, default logic
+                        if (req.session.data.newLeadProvider === 'Ambition Institute') {
+                            mentor.deliveryPartner = 'Alpha Teaching School Hub';
+                        } else {
+                            mentor.deliveryPartner = null;
+                        }
+                    }
+                    
                     req.session.data.changedMentorId = mentor.id;
-                    req.session.data.leadProvider = req.session.data.newLeadProvider;
+                    // Note: We are deliberately not updating req.session.data.leadProvider here
+                    // because it should remain as the environment default for comparison.
                     
                     // Clean up temporary data
                     req.session.data.previousLeadProvider = undefined;

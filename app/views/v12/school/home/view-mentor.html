@@ -7,12 +7,6 @@ href: "mentors"
 }) }}
 {% endblock %}
 
-{% if data['deliveryPartner'] %}
-{% set dp = data['deliveryPartner'] %}
-{% else %}
-{% set dp = 'Alpha Teaching School Hub' %}
-{% endif %}
-
 {# Find the active mentor from the mentors array based on the 'id' query parameter #}
 {% set mentorId = data.id or 'john-doe' %}
 {% set activeMentor = {} %}
@@ -87,10 +81,18 @@ href: "mentors"
             </dt>
             <dd class="govuk-summary-list__value">
               {{ activeMentor.leadProvider }}
-              {% if activeMentor.leadProvider == 'Ambition Institute' %}
-              <span class="govuk-caption-m">Confirmed by {{ activeMentor.leadProvider }}</span>
+              {% if data.researchMode %}
+                {% if activeMentor.leadProvider == data.leadProvider %}
+                <span class="govuk-caption-m">Confirmed by {{ activeMentor.leadProvider }}</span>
+                {% else %}
+                <span class="govuk-caption-m">Awaiting confirmation by {{ activeMentor.leadProvider }}</span>
+                {% endif %}
               {% else %}
-              <span class="govuk-caption-m">Awaiting confirmation by {{ activeMentor.leadProvider }}</span>
+                {% if activeMentor.leadProvider == 'Ambition Institute' %}
+                <span class="govuk-caption-m">Confirmed by {{ activeMentor.leadProvider }}</span>
+                {% else %}
+                <span class="govuk-caption-m">Awaiting confirmation by {{ activeMentor.leadProvider }}</span>
+                {% endif %}
               {% endif %}
             </dd>
             <dd class="govuk-summary-list__actions">
@@ -103,8 +105,8 @@ href: "mentors"
               Delivery partner
             </dt>
                         <dd class="govuk-summary-list__value">
-              {% if activeMentor.leadProvider == 'Ambition Institute' %}
-              {{ dp }}
+              {% if activeMentor.deliveryPartner %}
+              {{ activeMentor.deliveryPartner }}
               <span class="govuk-caption-m">To change the delivery partner, you must contact the lead provider</span>
               {% else %}
               Yet to be reported by the lead provider
