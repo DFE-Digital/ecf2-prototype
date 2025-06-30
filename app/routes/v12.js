@@ -31,24 +31,32 @@ module.exports = router => {
             req.session.data['programmeType'] = process.env.PROG;
             req.session.data['schoolName'] = process.env.SCHOOLNAME;
 
+            // Mark session variables as initialized to prevent this from running again
+            req.session.data['variablesInitialized'] = true;
+
             const leadProvider = process.env.LP;
             const deliveryPartner = process.env.DP;
             const programmeType = process.env.PROG;
 
-            // Override the data for all existing participants in the session
-            req.session.data.ects.forEach(ect => {
+            // Take a fresh deep copy of the original data
+            const ects = JSON.parse(JSON.stringify(req.app.locals.data.ects));
+            const mentors = JSON.parse(JSON.stringify(req.app.locals.data.mentors));
+
+            // Override the data for all existing participants in the copied data
+            ects.forEach(ect => {
                 ect.leadProvider = leadProvider;
                 ect.trainingProgramme = programmeType;
                 ect.deliveryPartner = deliveryPartner;
             });
 
-            req.session.data.mentors.forEach(mentor => {
+            mentors.forEach(mentor => {
                 mentor.leadProvider = leadProvider;
                 mentor.deliveryPartner = deliveryPartner;
             });
 
-            // Mark session variables as initialized to prevent this from running again
-            req.session.data['variablesInitialized'] = true;
+            // Replace the session data with the newly modified data
+            req.session.data.ects = ects;
+            req.session.data.mentors = mentors;
         }
         next();
     });
