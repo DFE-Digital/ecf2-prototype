@@ -1,0 +1,63 @@
+{% extends "layouts/ects.html" %}
+
+{# Find the active ECT from the ects array based on the 'ectId' query parameter #}
+{% set ectId = data.ectId %}
+{% set activeEct = {} %}
+{% for person in data.ects %}
+  {% if person.id == ectId %}
+    {% set activeEct = person %}
+  {% endif %}
+{% endfor %}
+
+{% set name = activeEct.name %}
+{% set currentWorkingPattern = activeEct.workingPattern %}
+
+{# Determine the new working pattern (the opposite of current) #}
+{% if currentWorkingPattern == 'Full time' %}
+  {% set newWorkingPattern = 'Part time' %}
+{% else %}
+  {% set newWorkingPattern = 'Full time' %}
+{% endif %}
+
+{% set pageName="Change " + name + "'s working pattern to " + newWorkingPattern | lower %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+        {% if newWorkingPattern == 'Part time' %}
+            <p class="govuk-body">You're changing from full time to part time. This means:</p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>We'll pass this information on so adjustments can be made to training if needed</li>
+                <li>The ECT's induction period may be extended to reflect their part-time schedule</li>
+                <li>Training sessions and support will be adjusted to accommodate the part-time working pattern</li>
+            </ul>
+        {% else %}
+            <p class="govuk-body">You're changing from part time to full time. This means:</p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>We'll pass this information on so adjustments can be made to training if needed</li>
+                <li>The ECT will follow the standard full-time induction schedule</li>
+                <li>Training sessions and support will be delivered according to the full-time programme</li>
+            </ul>
+        {% endif %}
+
+        <form method="post">
+            <input type="hidden" name="id" value="{{ ectId }}">
+            <input type="hidden" name="workingPattern" value="{{ newWorkingPattern }}">
+
+            <button class="govuk-button">Change working pattern</button>
+            <p><a href="javascript:window.history.back()">Cancel and go back to {{ name }}'s details</a></p>
+        </form>
+    </div>
+</div>
+
+{% endblock %} 

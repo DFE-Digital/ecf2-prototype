@@ -505,6 +505,33 @@ module.exports = router => {
             }
             res.render(vGet + '/school/home/change/ects/change-lead-provider')
         })
+
+        // change appropriate body 
+        router.get(v + school + 'home/change/ects/change-appropriate-body', (req, res) => {
+            // Set the ectId from query parameter
+            if (req.query.ectId) {
+                req.session.data['ectId'] = req.query.ectId
+            }
+            res.render(vGet + '/school/home/change/ects/change-appropriate-body')
+        })
+
+        // change working pattern 
+        router.get(v + school + 'home/change/ects/change-working-pattern', (req, res) => {
+            // Set the ectId from query parameter
+            if (req.query.ectId) {
+                req.session.data['ectId'] = req.query.ectId
+            }
+            res.render(vGet + '/school/home/change/ects/change-working-pattern')
+        })
+
+        // change training programme 
+        router.get(v + school + 'home/change/ects/change-training-programme', (req, res) => {
+            // Set the ectId from query parameter
+            if (req.query.ectId) {
+                req.session.data['ectId'] = req.query.ectId
+            }
+            res.render(vGet + '/school/home/change/ects/change-training-programme')
+        })
        
     
          router.post(v + school + 'home/change/ects/change-lead-provider', (req, res) => {
@@ -518,6 +545,77 @@ module.exports = router => {
                 req.session.data.fullName = ect.name;
                 req.session.data.selectedEctId = ect.id;
                 req.session.data.changeType = 'leadProvider';
+            }
+        
+            res.redirect(v + school + 'home/change/ects/confirm-change');
+        })
+
+        router.post(v + school + 'home/change/ects/change-appropriate-body', (req, res) => {
+            const { appropriateBody, id } = req.body;
+            const ect = req.session.data.ects.find(e => e.id === id);
+            
+            if (ect) {
+                // Store current and new appropriate body for confirmation
+                req.session.data.previousAppropriateBody = ect.appropriateBody;
+                req.session.data.newAppropriateBody = appropriateBody;
+                req.session.data.fullName = ect.name;
+                req.session.data.selectedEctId = ect.id;
+                req.session.data.changeType = 'appropriateBody';
+            }
+        
+            res.redirect(v + school + 'home/change/ects/confirm-change');
+        })
+
+        router.post(v + school + 'home/change/ects/change-working-pattern', (req, res) => {
+            const { workingPattern, id } = req.body;
+            const ect = req.session.data.ects.find(e => e.id === id);
+            
+            if (ect) {
+                // Store current and new working pattern for confirmation
+                req.session.data.previousWorkingPattern = ect.workingPattern;
+                req.session.data.newWorkingPattern = workingPattern;
+                req.session.data.fullName = ect.name;
+                req.session.data.selectedEctId = ect.id;
+                req.session.data.changeType = 'workingPattern';
+            }
+        
+            res.redirect(v + school + 'home/change/ects/confirm-change');
+        })
+
+        router.post(v + school + 'home/change/ects/change-training-programme', (req, res) => {
+            const { newTrainingProgramme, id } = req.body;
+            const ect = req.session.data.ects.find(e => e.id === id);
+            
+            if (ect) {
+                // Store current and new training programme for confirmation
+                req.session.data.previousTrainingProgramme = ect.trainingProgramme;
+                req.session.data.newTrainingProgramme = newTrainingProgramme;
+                req.session.data.fullName = ect.name;
+                req.session.data.selectedEctId = ect.id;
+                req.session.data.changeType = 'trainingProgramme';
+            }
+
+            // If changing to Provider-led, need to select a lead provider
+            if (newTrainingProgramme === 'Provider-led') {
+                res.redirect(v + school + 'home/change/ects/change-training-programme-lead-provider');
+            } else {
+                // If changing to School-led, go straight to confirmation
+                res.redirect(v + school + 'home/change/ects/confirm-change');
+            }
+        })
+
+        router.post(v + school + 'home/change/ects/change-training-programme-lead-provider', (req, res) => {
+            const { leadProvider, id, newTrainingProgramme } = req.body;
+            const ect = req.session.data.ects.find(e => e.id === id);
+            
+            if (ect) {
+                // Store the lead provider selection
+                req.session.data.newLeadProvider = leadProvider;
+                // Ensure we maintain the training programme change data
+                req.session.data.newTrainingProgramme = newTrainingProgramme;
+                req.session.data.fullName = ect.name;
+                req.session.data.selectedEctId = ect.id;
+                req.session.data.changeType = 'trainingProgramme';
             }
         
             res.redirect(v + school + 'home/change/ects/confirm-change');
@@ -543,6 +641,10 @@ module.exports = router => {
                     
                     // Clear any previous change data
                     req.session.data.changedEmail = undefined;
+                    req.session.data.changedAppropriateBody = undefined;
+                    req.session.data.changedWorkingPattern = undefined;
+                    req.session.data.changedTrainingProgramme = undefined;
+                    req.session.data.changedLeadProvider = undefined;
                     
                     res.redirect(v + school + 'home/change/ects/change-confirmation');
                 } else if (req.session.data.changeType === 'email' && req.session.data.newEmail) {
@@ -558,10 +660,65 @@ module.exports = router => {
                     
                     // Clear any previous change data
                     req.session.data.changedName = undefined;
+                    req.session.data.changedAppropriateBody = undefined;
+                    req.session.data.changedWorkingPattern = undefined;
+                    req.session.data.changedTrainingProgramme = undefined;
+                    req.session.data.changedLeadProvider = undefined;
+                    
+                    res.redirect(v + school + 'home/change/ects/change-confirmation');
+                } else if (req.session.data.newTrainingProgramme) {
+                    // Update the ECT's training programme
+                    ect.trainingProgramme = req.session.data.newTrainingProgramme;
+
+                    // If changing to Provider-led, also update lead provider and delivery partner
+                    if (req.session.data.newTrainingProgramme === 'Provider-led' && req.session.data.newLeadProvider) {
+                        ect.leadProvider = req.session.data.newLeadProvider;
+                        
+                        // In research mode, changing the lead provider has special rules.
+                        if (req.session.data.researchMode) {
+                            // If the new provider matches the session's default, align the delivery partner.
+                            // Otherwise, the delivery partner is unknown until the new provider confirms.
+                            if (req.session.data.newLeadProvider === req.session.data._researchDefaults.leadProvider) {
+                                ect.deliveryPartner = req.session.data._researchDefaults.deliveryPartner;
+                            } else {
+                                ect.deliveryPartner = null;
+                            }
+                        } else {
+                            // Static, default logic for non-research mode.
+                            if (req.session.data.newLeadProvider === 'Ambition Institute') {
+                                ect.deliveryPartner = 'Alpha Teaching School Hub';
+                            } else {
+                                ect.deliveryPartner = null;
+                            }
+                        }
+                        
+                        // Store lead provider for confirmation page
+                        req.session.data.changedLeadProvider = req.session.data.newLeadProvider;
+                    } else if (req.session.data.newTrainingProgramme === 'School-led') {
+                        // Clear lead provider and delivery partner for school-led
+                        ect.leadProvider = null;
+                        ect.deliveryPartner = null;
+                    }
+
+                    req.session.data.changedEctId = ect.id;
+                    req.session.data.changedTrainingProgramme = req.session.data.newTrainingProgramme;
+                    
+                    // Clean up temporary data for this specific change
+                    req.session.data.previousTrainingProgramme = undefined;
+                    req.session.data.newTrainingProgramme = undefined;
+                    req.session.data.newLeadProvider = undefined;
+                    req.session.data.changeType = undefined;
+                    
+                    // Clear any previous change data
+                    req.session.data.changedName = undefined;
+                    req.session.data.changedEmail = undefined;
+                    req.session.data.changedAppropriateBody = undefined;
+                    req.session.data.changedWorkingPattern = undefined;
+                    req.session.data.changedLeadProvider = undefined;
                     
                     res.redirect(v + school + 'home/change/ects/change-confirmation');
                 } else if (req.session.data.newLeadProvider) {
-                    // Update the ECT's lead provider
+                    // Update the ECT's lead provider (standalone lead provider change)
                     ect.leadProvider = req.session.data.newLeadProvider;
                     
                     // In research mode, changing the lead provider has special rules.
@@ -592,6 +749,49 @@ module.exports = router => {
                     // Clear any previous change data
                     req.session.data.changedName = undefined;
                     req.session.data.changedEmail = undefined;
+                    req.session.data.changedAppropriateBody = undefined;
+                    req.session.data.changedWorkingPattern = undefined;
+                    req.session.data.changedLeadProvider = undefined;
+                    
+                    res.redirect(v + school + 'home/change/ects/change-confirmation');
+                } else if (req.session.data.newAppropriateBody) {
+                    // Update the ECT's appropriate body
+                    ect.appropriateBody = req.session.data.newAppropriateBody;
+
+                    req.session.data.changedEctId = ect.id;
+                    req.session.data.changedAppropriateBody = req.session.data.newAppropriateBody;
+                    
+                    // Clean up temporary data for this specific change
+                    req.session.data.previousAppropriateBody = undefined;
+                    req.session.data.newAppropriateBody = undefined;
+                    req.session.data.changeType = undefined;
+                    
+                    // Clear any previous change data
+                    req.session.data.changedName = undefined;
+                    req.session.data.changedEmail = undefined;
+                    req.session.data.changedWorkingPattern = undefined;
+                    req.session.data.changedTrainingProgramme = undefined;
+                    req.session.data.changedLeadProvider = undefined;
+                    
+                    res.redirect(v + school + 'home/change/ects/change-confirmation');
+                } else if (req.session.data.newWorkingPattern) {
+                    // Update the ECT's working pattern
+                    ect.workingPattern = req.session.data.newWorkingPattern;
+
+                    req.session.data.changedEctId = ect.id;
+                    req.session.data.changedWorkingPattern = req.session.data.newWorkingPattern;
+                    
+                    // Clean up temporary data for this specific change
+                    req.session.data.previousWorkingPattern = undefined;
+                    req.session.data.newWorkingPattern = undefined;
+                    req.session.data.changeType = undefined;
+                    
+                    // Clear any previous change data
+                    req.session.data.changedName = undefined;
+                    req.session.data.changedEmail = undefined;
+                    req.session.data.changedAppropriateBody = undefined;
+                    req.session.data.changedTrainingProgramme = undefined;
+                    req.session.data.changedLeadProvider = undefined;
                     
                     res.redirect(v + school + 'home/change/ects/change-confirmation');
                 }
@@ -637,6 +837,10 @@ module.exports = router => {
                     
                     // Clear any previous change data
                     req.session.data.changedEmail = undefined;
+                    req.session.data.changedAppropriateBody = undefined;
+                    req.session.data.changedWorkingPattern = undefined;
+                    req.session.data.changedTrainingProgramme = undefined;
+                    req.session.data.changedLeadProvider = undefined;
                     
                     res.redirect(v + school + 'home/change/mentors/change-confirmation');
                 } else if (req.session.data.changeType === 'email' && req.session.data.newEmail) {
@@ -652,6 +856,10 @@ module.exports = router => {
                     
                     // Clear any previous change data
                     req.session.data.changedName = undefined;
+                    req.session.data.changedAppropriateBody = undefined;
+                    req.session.data.changedWorkingPattern = undefined;
+                    req.session.data.changedTrainingProgramme = undefined;
+                    req.session.data.changedLeadProvider = undefined;
                     
                     res.redirect(v + school + 'home/change/mentors/change-confirmation');
                 } else if (req.session.data.newLeadProvider) {
@@ -686,6 +894,9 @@ module.exports = router => {
                     // Clear any previous change data
                     req.session.data.changedName = undefined;
                     req.session.data.changedEmail = undefined;
+                    req.session.data.changedAppropriateBody = undefined;
+                    req.session.data.changedWorkingPattern = undefined;
+                    req.session.data.changedLeadProvider = undefined;
                     
                     res.redirect(v + school + 'home/change/mentors/change-confirmation');
                 }

@@ -1,0 +1,63 @@
+{% extends "layouts/ects.html" %}
+
+{# Find the active ECT from the ects array based on the 'ectId' query parameter #}
+{% set ectId = data.ectId %}
+{% set activeEct = {} %}
+{% for person in data.ects %}
+  {% if person.id == ectId %}
+    {% set activeEct = person %}
+  {% endif %}
+{% endfor %}
+
+{% set name = activeEct.name %}
+{% set currentTrainingProgramme = activeEct.trainingProgramme %}
+
+{# Determine the new training programme (the opposite of current) #}
+{% if currentTrainingProgramme == 'School-led' %}
+  {% set newTrainingProgramme = 'Provider-led' %}
+{% else %}
+  {% set newTrainingProgramme = 'School-led' %}
+{% endif %}
+
+{% set pageName="Change " + name + "'s training programme to " + newTrainingProgramme %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+        {% if newTrainingProgramme == 'Provider-led' %}
+            <p class="govuk-body">You're changing from school-led training to provider-led training. This means:</p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>Your school will work with providers who will deliver early career framework based training funded by the Department for Education</li>
+                <li>You'll need to select a lead provider who will arrange the training</li>
+                <li>The lead provider will confirm which delivery partner they'll work with to deliver training events</li>
+            </ul>
+        {% else %}
+            <p class="govuk-body">You're changing from provider-led training to school-led training. This means:</p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>Your school will deliver training based on the early career framework</li>
+                <li>You won't need a lead provider or delivery partner</li>
+                <li>Your school will be responsible for designing and delivering the training programme</li>
+            </ul>
+        {% endif %}
+
+        <form method="post">
+            <input type="hidden" name="id" value="{{ ectId }}">
+            <input type="hidden" name="newTrainingProgramme" value="{{ newTrainingProgramme }}">
+
+            <button class="govuk-button">Change training programme</button>
+            <p><a href="javascript:window.history.back()">Cancel and go back to {{ name }}'s details</a></p>
+        </form>
+    </div>
+</div>
+
+{% endblock %} 

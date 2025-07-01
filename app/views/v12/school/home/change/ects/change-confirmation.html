@@ -7,22 +7,58 @@
 {% endif %}
 
 {# Determine what type of change was made #}
-{% if data['changedName'] and not data['leadProvider'] %}
+{% if data['changedName'] and not data['leadProvider'] and not data['changedAppropriateBody'] and not data['changedWorkingPattern'] and not data['changedTrainingProgramme'] %}
   {% set isNameChange = true %}
   {% set isEmailChange = false %}
   {% set isLeadProviderChange = false %}
+  {% set isAppropriateBodyChange = false %}
+  {% set isWorkingPatternChange = false %}
+  {% set isTrainingProgrammeChange = false %}
   {% set changedValue = data['changedName'] %}
   {% set changeType = 'name' %}
-{% elif data['changedEmail'] and not data['leadProvider'] %}
+{% elif data['changedEmail'] and not data['leadProvider'] and not data['changedAppropriateBody'] and not data['changedWorkingPattern'] and not data['changedTrainingProgramme'] %}
   {% set isNameChange = false %}
   {% set isEmailChange = true %}
   {% set isLeadProviderChange = false %}
+  {% set isAppropriateBodyChange = false %}
+  {% set isWorkingPatternChange = false %}
+  {% set isTrainingProgrammeChange = false %}
   {% set changedValue = data['changedEmail'] %}
   {% set changeType = 'email address' %}
+{% elif data['changedAppropriateBody'] %}
+  {% set isNameChange = false %}
+  {% set isEmailChange = false %}
+  {% set isLeadProviderChange = false %}
+  {% set isAppropriateBodyChange = true %}
+  {% set isWorkingPatternChange = false %}
+  {% set isTrainingProgrammeChange = false %}
+  {% set changedValue = data['changedAppropriateBody'] %}
+  {% set changeType = 'appropriate body' %}
+{% elif data['changedWorkingPattern'] %}
+  {% set isNameChange = false %}
+  {% set isEmailChange = false %}
+  {% set isLeadProviderChange = false %}
+  {% set isAppropriateBodyChange = false %}
+  {% set isWorkingPatternChange = true %}
+  {% set isTrainingProgrammeChange = false %}
+  {% set changedValue = data['changedWorkingPattern'] %}
+  {% set changeType = 'working pattern' %}
+{% elif data['changedTrainingProgramme'] %}
+  {% set isNameChange = false %}
+  {% set isEmailChange = false %}
+  {% set isLeadProviderChange = false %}
+  {% set isAppropriateBodyChange = false %}
+  {% set isWorkingPatternChange = false %}
+  {% set isTrainingProgrammeChange = true %}
+  {% set changedValue = data['changedTrainingProgramme'] %}
+  {% set changeType = 'training programme' %}
 {% else %}
   {% set isNameChange = false %}
   {% set isEmailChange = false %}
   {% set isLeadProviderChange = true %}
+  {% set isAppropriateBodyChange = false %}
+  {% set isWorkingPatternChange = false %}
+  {% set isTrainingProgrammeChange = false %}
   {% set changedValue = data['leadProvider'] or 'Ambition Institute' %}
   {% set changeType = 'lead provider' %}
 {% endif %}
@@ -40,6 +76,16 @@
                     You have changed the ECT's name to {{changedValue}}
                 {% elif isEmailChange %}
                     You have changed the ECT's email address to {{changedValue}}
+                {% elif isAppropriateBodyChange %}
+                    You have chosen {{changedValue}} as the new appropriate body for {{name}}
+                {% elif isWorkingPatternChange %}
+                    You have changed {{name}}'s working pattern to {{changedValue | lower}}
+                {% elif isTrainingProgrammeChange %}
+                    {% if changedValue == 'Provider-led' and data['changedLeadProvider'] %}
+                        You have changed {{name}}'s training programme to {{changedValue | lower}} with {{data['changedLeadProvider']}}
+                    {% else %}
+                        You have changed {{name}}'s training programme to {{changedValue | lower}}
+                    {% endif %}
                 {% else %}
                     You have chosen {{changedValue}} as the new lead provider for {{name}}
                 {% endif %}
@@ -52,6 +98,16 @@
             <p class="govuk-body">The name has been updated in this service. The ECT can update their name in their teacher record using the Access your teaching qualifications service.</p>
         {% elif isEmailChange %}
             <p class="govuk-body">The email address has been updated in this service.</p>
+        {% elif isAppropriateBodyChange %}
+            <p class="govuk-body">We will let {{changedValue}} know they are now the appropriate body for {{name}}'s induction. They'll contact us to confirm the change and begin quality assuring the induction process.</p>
+        {% elif isWorkingPatternChange %}
+            <p class="govuk-body">The working pattern has been updated in this service. We'll pass this information on so adjustments can be made to training if needed.</p>
+        {% elif isTrainingProgrammeChange %}
+            {% if changedValue == 'Provider-led' %}
+                <p class="govuk-body">The training programme has been changed to provider-led. {% if data['changedLeadProvider'] %}We will let {{data['changedLeadProvider']}} know your school wants to work with them so they can arrange training.{% else %}We will let the lead provider know your school wants to work with them so they can arrange training.{% endif %}</p>
+            {% else %}
+                <p class="govuk-body">The training programme has been changed to school-led. Your school will now be responsible for delivering training based on the early career framework.</p>
+            {% endif %}
         {% else %}
             <p class="govuk-body">We will let {{changedValue}} know your school wants to work with them. They'll contact us to confirm the change.</p>
         {% endif %}

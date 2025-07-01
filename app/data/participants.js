@@ -104,7 +104,7 @@ const ects = [
         status: 'Registered',
         statusClass: 'govuk-tag--green',
         schoolStartDate: '10 September 2024',
-        inductionStartDate: '10 September 2024',
+        inductionStartDate: null,
         workingPattern: 'Full time',
         leadProvider: 'Education Development Trust',
         appropriateBody: 'Alpha Teaching School Hub',
