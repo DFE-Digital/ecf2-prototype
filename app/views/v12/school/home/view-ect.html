@@ -72,6 +72,11 @@ href: "ects"
             <a class="govuk-link" href="view-mentor?id={{ activeEct.mentorId }}">{{ mentorName }}</a>
           {% endif %}
         </dd>
+        {% if mentorName != 'Not assigned' %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="change/ects/change-mentor?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> mentor</span></a>
+        </dd>
+        {% endif %}
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Status</dt>

@@ -14,6 +14,7 @@
   {% set isAppropriateBodyChange = false %}
   {% set isWorkingPatternChange = false %}
   {% set isTrainingProgrammeChange = false %}
+  {% set isMentorChange = false %}
   {% set changedValue = data['changedName'] %}
   {% set changeType = 'name' %}
 {% elif data['changedEmail'] %}
@@ -23,6 +24,7 @@
   {% set isAppropriateBodyChange = false %}
   {% set isWorkingPatternChange = false %}
   {% set isTrainingProgrammeChange = false %}
+  {% set isMentorChange = false %}
   {% set changedValue = data['changedEmail'] %}
   {% set changeType = 'email address' %}
 {% elif data['changedAppropriateBody'] %}
@@ -32,6 +34,7 @@
   {% set isAppropriateBodyChange = true %}
   {% set isWorkingPatternChange = false %}
   {% set isTrainingProgrammeChange = false %}
+  {% set isMentorChange = false %}
   {% set changedValue = data['changedAppropriateBody'] %}
   {% set changeType = 'appropriate body' %}
 {% elif data['changedWorkingPattern'] %}
@@ -41,6 +44,7 @@
   {% set isAppropriateBodyChange = false %}
   {% set isWorkingPatternChange = true %}
   {% set isTrainingProgrammeChange = false %}
+  {% set isMentorChange = false %}
   {% set changedValue = data['changedWorkingPattern'] %}
   {% set changeType = 'working pattern' %}
 {% elif data['changedTrainingProgramme'] %}
@@ -50,8 +54,19 @@
   {% set isAppropriateBodyChange = false %}
   {% set isWorkingPatternChange = false %}
   {% set isTrainingProgrammeChange = true %}
+  {% set isMentorChange = false %}
   {% set changedValue = data['changedTrainingProgramme'] %}
   {% set changeType = 'training programme' %}
+{% elif data['changedMentorName'] %}
+  {% set isNameChange = false %}
+  {% set isEmailChange = false %}
+  {% set isLeadProviderChange = false %}
+  {% set isAppropriateBodyChange = false %}
+  {% set isWorkingPatternChange = false %}
+  {% set isTrainingProgrammeChange = false %}
+  {% set isMentorChange = true %}
+  {% set changedValue = data['changedMentorName'] %}
+  {% set changeType = 'mentor' %}
 {% else %}
   {% set isNameChange = false %}
   {% set isEmailChange = false %}
@@ -59,6 +74,7 @@
   {% set isAppropriateBodyChange = false %}
   {% set isWorkingPatternChange = false %}
   {% set isTrainingProgrammeChange = false %}
+  {% set isMentorChange = false %}
   {% set changedValue = data['leadProvider'] or 'Ambition Institute' %}
   {% set changeType = 'lead provider' %}
 {% endif %}
@@ -86,6 +102,8 @@
                     {% else %}
                         You have changed {{name}}'s training programme to {{changedValue | lower}}
                     {% endif %}
+                {% elif isMentorChange %}
+                    You have changed {{name}}'s mentor to {{changedValue}}
                 {% else %}
                     You have chosen {{changedValue}} as the new lead provider for {{name}}
                 {% endif %}
@@ -108,6 +126,8 @@
             {% else %}
                 <p class="govuk-body">The training programme has been changed to school-led. Your school will now be responsible for delivering training based on the early career framework.</p>
             {% endif %}
+        {% elif isMentorChange %}
+            <p class="govuk-body">The mentor has been changed. {{changedValue}} will now be responsible for mentoring {{name}} during their induction.</p>
         {% else %}
             <p class="govuk-body">We will let {{changedValue}} know your school wants to work with them. They'll contact us to confirm the change.</p>
         {% endif %}

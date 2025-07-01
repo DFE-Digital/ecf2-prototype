@@ -532,6 +532,15 @@ module.exports = router => {
             }
             res.render(vGet + '/school/home/change/ects/change-training-programme')
         })
+
+        // change mentor 
+        router.get(v + school + 'home/change/ects/change-mentor', (req, res) => {
+            // Set the ectId from query parameter
+            if (req.query.ectId) {
+                req.session.data['ectId'] = req.query.ectId
+            }
+            res.render(vGet + '/school/home/change/ects/change-mentor')
+        })
        
     
          router.post(v + school + 'home/change/ects/change-lead-provider', (req, res) => {
@@ -616,6 +625,37 @@ module.exports = router => {
                 req.session.data.fullName = ect.name;
                 req.session.data.selectedEctId = ect.id;
                 req.session.data.changeType = 'trainingProgramme';
+            }
+        
+            res.redirect(v + school + 'home/change/ects/confirm-change');
+        })
+
+        router.post(v + school + 'home/change/ects/change-mentor', (req, res) => {
+            const { newMentorId, ectId } = req.body;
+            const ect = req.session.data.ects.find(e => e.id === ectId);
+            
+            if (ect) {
+                // Find current mentor name
+                let currentMentorName = 'Not assigned';
+                if (ect.mentorId) {
+                    const currentMentor = req.session.data.mentors.find(m => m.id === ect.mentorId);
+                    if (currentMentor) {
+                        currentMentorName = currentMentor.name;
+                    }
+                }
+                
+                // Find new mentor name
+                const newMentor = req.session.data.mentors.find(m => m.id === newMentorId);
+                const newMentorName = newMentor ? newMentor.name : 'Unknown';
+                
+                // Store current and new mentor for confirmation
+                req.session.data.previousMentorId = ect.mentorId;
+                req.session.data.previousMentorName = currentMentorName;
+                req.session.data.newMentorId = newMentorId;
+                req.session.data.newMentorName = newMentorName;
+                req.session.data.fullName = ect.name;
+                req.session.data.selectedEctId = ect.id;
+                req.session.data.changeType = 'mentor';
             }
         
             res.redirect(v + school + 'home/change/ects/confirm-change');
@@ -715,6 +755,29 @@ module.exports = router => {
                     req.session.data.changedAppropriateBody = undefined;
                     req.session.data.changedWorkingPattern = undefined;
                     // Note: Don't clear changedLeadProvider here as it may be part of training programme change
+                    
+                    res.redirect(v + school + 'home/change/ects/change-confirmation');
+                } else if (req.session.data.changeType === 'mentor' && req.session.data.newMentorId) {
+                    // Update the ECT's mentor
+                    ect.mentorId = req.session.data.newMentorId;
+
+                    req.session.data.changedEctId = ect.id;
+                    req.session.data.changedMentorName = req.session.data.newMentorName;
+                    
+                    // Clean up temporary data for this specific change
+                    req.session.data.previousMentorId = undefined;
+                    req.session.data.previousMentorName = undefined;
+                    req.session.data.newMentorId = undefined;
+                    req.session.data.newMentorName = undefined;
+                    req.session.data.changeType = undefined;
+                    
+                    // Clear any previous change data
+                    req.session.data.changedName = undefined;
+                    req.session.data.changedEmail = undefined;
+                    req.session.data.changedAppropriateBody = undefined;
+                    req.session.data.changedWorkingPattern = undefined;
+                    req.session.data.changedTrainingProgramme = undefined;
+                    req.session.data.changedLeadProvider = undefined;
                     
                     res.redirect(v + school + 'home/change/ects/change-confirmation');
                 } else if (req.session.data.changeType === 'leadProvider' && req.session.data.newLeadProvider) {
