@@ -102,7 +102,7 @@
             <p class="govuk-body">We'll also tell the lead provider about this change.</p>
         {% elif isAppropriateBodyChange %}
             <p class="govuk-body">We'll let {{changedValue}} know they are now the appropriate body for {{name}}'s induction.</p>
-                <p>They'll contact us to confirm the change and begin quality assuring the induction process.</p>
+                <p>They'll contact us to confirm the change.</p>
         {% elif isWorkingPatternChange %}
             <p class="govuk-body">{{name}}'s working pattern has been updated in this service.</p>
                <p>We'll pass this information on so adjustments can be made to their training if needed.</p>
@@ -115,7 +115,7 @@
                     <p>Your school will now be responsible for delivering training based on the ITTECF.</p>
             {% endif %}
         {% else %}
-            <p class="govuk-body">We'll let {{changedValue}} know your school wants to work with them. They'll contact us to confirm the change and tell us the delivery partner they'll be working with..</p>
+            <p class="govuk-body">We'll let {{changedValue}} know your school wants to work with them. They'll contact us to confirm the change and tell us the delivery partner they'll be working with.</p>
             <p class="govuk-body">We'll also let the old delivery partner know that they'll no loonger be training {{name}}.</p>
         {% endif %}
 
