@@ -75,7 +75,7 @@
                 {% if isNameChange %}
                     You have changed the ECT's name to {{changedValue}}
                 {% elif isEmailChange %}
-                    You have changed the ECT's email address to {{changedValue}}
+                    You have changed {{name}}'s email address to {{changedValue}}
                 {% elif isAppropriateBodyChange %}
                     You have chosen {{changedValue}} as the new appropriate body for {{name}}
                 {% elif isWorkingPatternChange %}
@@ -95,21 +95,28 @@
         <h2 class="govuk-heading-m">What happens next</h2>
         
         {% if isNameChange %}
-            <p class="govuk-body">The name has been updated in this service. The ECT can update their name in their teacher record using the Access your teaching qualifications service.</p>
+            <p class="govuk-body">The name has been updated in this service. </p>
+                <p>The ECT can update their name in their teacher record using the Access your teaching qualifications service.</p>
         {% elif isEmailChange %}
             <p class="govuk-body">The email address has been updated in this service.</p>
+            <p class="govuk-body">We'll also tell the lead provider about this change.</p>
         {% elif isAppropriateBodyChange %}
-            <p class="govuk-body">We will let {{changedValue}} know they are now the appropriate body for {{name}}'s induction. They'll contact us to confirm the change and begin quality assuring the induction process.</p>
+            <p class="govuk-body">We'll let {{changedValue}} know they are now the appropriate body for {{name}}'s induction.</p>
+                <p>They'll contact us to confirm the change and begin quality assuring the induction process.</p>
         {% elif isWorkingPatternChange %}
-            <p class="govuk-body">The working pattern has been updated in this service. We'll pass this information on so adjustments can be made to training if needed.</p>
+            <p class="govuk-body">The working pattern has been updated in this service.</p>
+               <p>We'll pass this information on so adjustments can be made to their training if needed.</p>
         {% elif isTrainingProgrammeChange %}
             {% if changedValue == 'Provider-led' %}
-                <p class="govuk-body">The training programme has been changed to provider-led. {% if data['changedLeadProvider'] %}We will let {{data['changedLeadProvider']}} know your school wants to work with them so they can arrange training.{% else %}We will let the lead provider know your school wants to work with them so they can arrange training.{% endif %}</p>
+                <p class="govuk-body">{{name}}'s training programme has been changed to provider-led.</p>
+                   <p>  {% if data['changedLeadProvider'] %}We'll let {{data['changedLeadProvider']}} know your school wants to work with them so they can arrange training.{% else %}We will let the lead provider know your school wants to work with them so they can arrange training.{% endif %}</p>
             {% else %}
-                <p class="govuk-body">The training programme has been changed to school-led. Your school will now be responsible for delivering training based on the early career framework.</p>
+                <p class="govuk-body">{{name}}'s training programme has been changed to school-led. </p>
+                    <p>Your school will now be responsible for delivering training based on the ITTECF.</p>
             {% endif %}
         {% else %}
-            <p class="govuk-body">We will let {{changedValue}} know your school wants to work with them. They'll contact us to confirm the change.</p>
+            <p class="govuk-body">We'll let {{changedValue}} know your school wants to work with them. They'll contact us to confirm the change and tell us the delivery partner they'll be working with..</p>
+            <p class="govuk-body">We'll also let the old delivery partner know that they'll no loonger be training {{name}}.</p>
         {% endif %}
 
         <p><a href="../../view-ect?ect={{data.changedEctId}}">Back to {{changedValue if isNameChange else name}}'s details</a></p>

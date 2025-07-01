@@ -35,19 +35,24 @@ href: "javascript:window.history.back()"
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
         {% if newWorkingPattern == 'Part time' %}
-            <p class="govuk-body">You're changing from full time to part time. This means:</p>
-            <ul class="govuk-list govuk-list--bullet">
+            <p class="govuk-body">You're changing from {{name}}'s working pattern from full time to part time.</p>
+                        <p class="govuk-body">We'll pass this information on so adjustments can be made to their training if needed.</p>
+
+          <!--  <ul class="govuk-list govuk-list--bullet">
                 <li>We'll pass this information on so adjustments can be made to training if needed</li>
                 <li>The ECT's induction period may be extended to reflect their part-time schedule</li>
                 <li>Training sessions and support will be adjusted to accommodate the part-time working pattern</li>
             </ul>
+          -->
         {% else %}
-            <p class="govuk-body">You're changing from part time to full time. This means:</p>
-            <ul class="govuk-list govuk-list--bullet">
+            <p class="govuk-body">You're changing from {{name}}'s working pattern from part time to full time.</p>
+            <p class="govuk-body">We'll pass this information on so adjustments can be made to their training if needed.</p>
+           <!-- <ul class="govuk-list govuk-list--bullet">
                 <li>We'll pass this information on so adjustments can be made to training if needed</li>
                 <li>The ECT will follow the standard full-time induction schedule</li>
                 <li>Training sessions and support will be delivered according to the full-time programme</li>
             </ul>
+          -->
         {% endif %}
 
         <form method="post">

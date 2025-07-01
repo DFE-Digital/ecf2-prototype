@@ -33,7 +33,7 @@
   {% set availableProviders = availableProviders.concat([{value: 'UCL Institute of Education', text: 'UCL Institute of Education'}]) %}
 {% endif %}
 
-{% set pageName="Select a new lead provider for " + name %}
+{% set pageName="Change lead provider for " + name %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -52,6 +52,26 @@ href: "javascript:window.history.back()"
         <form method="post">
         <input type="hidden" name="id" value="{{ ectId }}">
 
+              <p class='govuk-body'>You should try to make lead provider changes at the end of the school year. </p>
+              <p>Changing the ECT's lead provider will mean:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>the old lead provider will no longer have access to ECT's training record</li>
+  <li>training will stop immediately and the ECT will have to wait until the new lead provider confirms the partnership before they can continue</li>
+  <li>the ECT might have a different delivery partner and their training could be delivered differently
+  </li>
+  </ul>
+
+  <p>If you do change the lead provider, we'll let the:</p>
+  <ul class="govuk-list govuk-list--bullet">
+        <li>new provider know that you want to work with them</li>
+        <li>old provider know they're no longer working with the ECT</li>
+  </ul>
+
+  <p>The new provider will confirm the delivery partner they're working with.</p>
+
+  <h2 class="govuk-heading-m">Select the new lead provider for {{ name }}</h1>
+
+
         {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
         {{ govukRadios({
@@ -60,14 +80,12 @@ href: "javascript:window.history.back()"
             classes: "govuk-visually-hidden",
             text: pageName
         },
-        hint: {
-            html: "<p class='govuk-body'>We'll let the new lead provider know your school wants to work with them so they can arrange training. They'll confirm which delivery partner they'll be working with to deliver the training events.</p>"
-            },
             
         items: availableProviders
         }) }}
 
-            {{ govukDetails({
+        <!--   
+        {{ govukDetails({
             summaryText: "What are the roles of an appropriate body, lead provider and delivery partner?",
             text: "
             <p>An appropriate body is responsible for assuring the quality of the statutory induction of ECTs. A lead provider provides the online learning platform used for training ECTs and mentors, while the delivery partner delivers training events.
@@ -75,7 +93,7 @@ href: "javascript:window.history.back()"
             <p>These roles are sometimes undertaken by the same organisation, for example an appropriate body might be the same organisation as the delivery partner.</p>"
     
             |safe }) }}
-
+          -->
             <button class="govuk-button">Continue</button>
             <p><a href="javascript:window.history.back()">Cancel and go back to {{ name }}'s details</a></p>
         </form>
