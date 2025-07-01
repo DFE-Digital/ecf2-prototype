@@ -104,7 +104,7 @@
             <p class="govuk-body">We'll let {{changedValue}} know they are now the appropriate body for {{name}}'s induction.</p>
                 <p>They'll contact us to confirm the change and begin quality assuring the induction process.</p>
         {% elif isWorkingPatternChange %}
-            <p class="govuk-body">The working pattern has been updated in this service.</p>
+            <p class="govuk-body">{{name}}'s working pattern has been updated in this service.</p>
                <p>We'll pass this information on so adjustments can be made to their training if needed.</p>
         {% elif isTrainingProgrammeChange %}
             {% if changedValue == 'Provider-led' %}
