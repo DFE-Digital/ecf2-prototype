@@ -7,7 +7,7 @@
 {% endif %}
 
 {# Determine what type of change was made #}
-{% if data['changedName'] and not data['leadProvider'] and not data['changedAppropriateBody'] and not data['changedWorkingPattern'] and not data['changedTrainingProgramme'] %}
+{% if data['changedName'] %}
   {% set isNameChange = true %}
   {% set isEmailChange = false %}
   {% set isLeadProviderChange = false %}
@@ -16,7 +16,7 @@
   {% set isTrainingProgrammeChange = false %}
   {% set changedValue = data['changedName'] %}
   {% set changeType = 'name' %}
-{% elif data['changedEmail'] and not data['leadProvider'] and not data['changedAppropriateBody'] and not data['changedWorkingPattern'] and not data['changedTrainingProgramme'] %}
+{% elif data['changedEmail'] %}
   {% set isNameChange = false %}
   {% set isEmailChange = true %}
   {% set isLeadProviderChange = false %}
