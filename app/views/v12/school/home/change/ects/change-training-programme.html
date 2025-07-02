@@ -19,7 +19,7 @@
   {% set newTrainingProgramme = 'School-led' %}
 {% endif %}
 
-{% set pageName="Change " + name + "'s training programme to " + newTrainingProgramme %}
+{% set pageName="Change " + name + "'s training programme to " + newTrainingProgramme | lower %}
 
 {% block beforeContent %}
 {{ govukBackLink({
