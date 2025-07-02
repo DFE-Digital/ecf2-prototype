@@ -72,6 +72,11 @@ href: "ects"
             <a class="govuk-link" href="view-mentor?id={{ activeEct.mentorId }}">{{ mentorName }}</a>
           {% endif %}
         </dd>
+        {% if mentorName != 'Not assigned' %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="change/ects/change-mentor?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> mentor</span></a>
+        </dd>
+        {% endif %}
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Status</dt>
@@ -94,6 +99,9 @@ href: "ects"
         <dd class="govuk-summary-list__value">
           {{ activeEct.workingPattern }}
         </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="change/ects/change-working-pattern?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> working pattern</span></a>
+        </dd>
       </div>
     </dl>
 
@@ -107,7 +115,7 @@ href: "ects"
               {{ activeEct.appropriateBody }}
             </dd>
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> appropriate body</span></a>
+              <a class="govuk-link" href="change/ects/change-appropriate-body?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> appropriate body</span></a>
             </dd>
           </div>
               <div class="govuk-summary-list__row">
@@ -115,8 +123,12 @@ href: "ects"
           Induction start date
         </dt>
         <dd class="govuk-summary-list__value">
+          {% if activeEct.inductionStartDate === null %}
+          Yet to be reported by an appropriate body
+          {% else %}
           {{ activeEct.inductionStartDate }}
           <span class="govuk-caption-m">This has been reported by an appropriate body</span>
+          {% endif %}
         </dd>
       </div>
         </dl>
@@ -131,9 +143,10 @@ href: "ects"
               {{ activeEct.trainingProgramme }}
             </dd>
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> training programme</span></a>
+              <a class="govuk-link" href="change/ects/change-training-programme?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> training programme</span></a>
             </dd>
           </div>
+          {% if activeEct.trainingProgramme != 'School-led' %}
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               Lead provider
@@ -172,6 +185,7 @@ href: "ects"
               {% endif %}
             </dd>
           </div>
+          {% endif %}
         </dl>
 
       </div>

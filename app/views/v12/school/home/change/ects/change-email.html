@@ -30,6 +30,10 @@ href: "javascript:window.history.back()"
         <input type="hidden" name="ectId" value="{{ ectId }}">
         <input type="hidden" name="personType" value="ECT">
 
+        <p>Make sure you use an email the ECT can access.</p>
+        <p>Try to use their school email and do not use a generic email like headteacher@school.com.</p>
+
+
         {% from "govuk/components/input/macro.njk" import govukInput %}
 
         {{ govukInput({
@@ -37,9 +41,9 @@ href: "javascript:window.history.back()"
             text: "What is the correct email address for " + name + "?",
             classes: "govuk-label--m"
           },
-          hint: {
-            text: "We ask for an email so we can share their details if needed for training."
-          },
+         
+          
+          
           id: "newEmail",
           name: "newEmail",
           type: "email",

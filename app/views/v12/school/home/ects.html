@@ -107,6 +107,7 @@
                                 <dt class="govuk-summary-list__key">Appropriate body</dt>
                                 <dd class="govuk-summary-list__value">{{ect.appropriateBody}}</dd>
                             </div>
+                            {% if ect.trainingProgramme != 'School-led' %}
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">Lead provider</dt>
                                 <dd class="govuk-summary-list__value">
@@ -137,6 +138,7 @@
                                     {% endif %}
                                 </dd>
                             </div>
+                            {% endif %}
                         </dl>
                     </div>
                 </div>
