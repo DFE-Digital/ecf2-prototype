@@ -19,7 +19,7 @@
   {% set newTrainingProgramme = 'School-led' %}
 {% endif %}
 
-{% set pageName="Change " + name + "'s training programme to " + newTrainingProgramme %}
+{% set pageName="Change " + name + "'s training programme to " + newTrainingProgramme | lower %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -34,21 +34,30 @@ href: "javascript:window.history.back()"
     <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
+        <p>For continuity, we recommend that you do not change training programmes part way through your ECT's training.</p>
+
         {% if newTrainingProgramme == 'Provider-led' %}
-            <p class="govuk-body">You're changing from school-led training to provider-led training. This means:</p>
+            <p class="govuk-body">You've told us you want to change {{name}}'s training from school-led to provider-led. This means:</p>
             <ul class="govuk-list govuk-list--bullet">
-                <li>Your school will work with providers who will deliver early career framework based training funded by the Department for Education</li>
-                <li>You'll need to select a lead provider who will arrange the training</li>
-                <li>The lead provider will confirm which delivery partner they'll work with to deliver training events</li>
+                <li>your school will work with providers who'll deliver training funded by the Department for Education</li>
+                <li>your school will need to choose a lead provider who'll arrange the training</li>
+                <li>the lead provider will confirm which delivery partner they'll work with to deliver training events</li>
             </ul>
+                    <p class="govuk-body">Read our guidance on <a href="https://www.gov.uk/guidance/set-up-and-manage-the-early-career-teacher-entitlement#choose-your-schools-training-option">choosing and setting up a training programme</a>.</p>
+
         {% else %}
-            <p class="govuk-body">You're changing from provider-led training to school-led training. This means:</p>
+            <p class="govuk-body">You've told us you want to change {{name}}'s training from provider-led to school-led. This means:</p>
             <ul class="govuk-list govuk-list--bullet">
-                <li>Your school will deliver training based on the early career framework</li>
-                <li>You won't need a lead provider or delivery partner</li>
-                <li>Your school will be responsible for designing and delivering the training programme</li>
+              <li>your school is responsible for designing and delivering your ECT's training programme</li>
+              <li>you should base your programmme on the initial teacher training and early career framework (ITTECF)</li>
+               <li>you should tell your appropriate body as they'll need to check your programme </li>
             </ul>
+                    <p class="govuk-body">Read our guidance on <a href="https://www.gov.uk/guidance/set-up-and-manage-the-early-career-teacher-entitlement#choose-your-schools-training-option">choosing and setting up a training programme</a>.</p>
+            <p class="govuk-body">You should not change to a school-led programme in this service until it's been approved by your appropriate body.</p>
+
         {% endif %}
+
+
 
         <form method="post">
             <input type="hidden" name="id" value="{{ ectId }}">

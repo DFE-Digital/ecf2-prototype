@@ -33,7 +33,7 @@
   {% set availableProviders = availableProviders.concat([{value: 'UCL Institute of Education', text: 'UCL Institute of Education'}]) %}
 {% endif %}
 
-{% set pageName="Select a new lead provider for " + name %}
+{% set pageName="Change lead provider for " + name %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -50,6 +50,29 @@ href: "javascript:window.history.back()"
 
         <form method="post">
         <input type="hidden" name="id" value="{{ mentorId }}">
+
+       <p>For mentor training continuity, we recommend that lead provider changes are made at the end of the school year.</p>
+              <p>You've told us you want to change the mentor's lead provider. This means:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>the old lead provider will no longer have access to the mentor's training record</li>
+  <li>training will stop immediately and the mentor will have to wait until the new lead provider confirms the partnership before they can continue</li>
+  <li>the mentor might have a different delivery partner and their training could be delivered differently
+  </li>
+  </ul>
+
+
+  <p>If you do change the lead provider, we'll let the:</p>
+  <ul class="govuk-list govuk-list--bullet">
+        <li>new provider know that you want to work with them</li>
+        <li>old provider know they're no longer working with the mentor</li>
+  </ul>
+
+  <p>The new provider will confirm the delivery partner they're working with.</p>
+
+
+  <h2 class="govuk-heading-m">Select the new lead provider for {{ name }}</h1>
+
+
         {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
         {{ govukRadios({
@@ -58,9 +81,6 @@ href: "javascript:window.history.back()"
             classes: "govuk-visually-hidden",
             text: pageName
         },
-            hint: {
-            html: "<p class='govuk-body'>We'll let the new lead provider know that your school wants to work with them so they can arrange training. They'll contact your school to discuss this further before you decide if you want to go ahead with the mentor training.</p>"
-            },
         items: availableProviders
         }) }}
 
