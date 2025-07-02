@@ -29,15 +29,16 @@ href: "javascript:window.history.back()"
         <input type="hidden" name="ectId" value="{{ ectId }}">
         <input type="hidden" name="personType" value="ECT">
 
+                <p>The name will be used in this service and communications with the ECT.</p>
+        <p>The ECT can update their name in their teacher record later using the Access your teaching qualifications service.</p>
+
+
         {% from "govuk/components/input/macro.njk" import govukInput %}
 
         {{ govukInput({
           label: {
             text: "What's the correct full name for " + name + "?",
             classes: "govuk-label--m"
-          },
-          hint: {
-            text: "The name will be used in this service and communications with the ECT. The ECT can update their name in their teacher record later using the Access your teaching qualifications service."
           },
           id: "newName",
           name: "newName",
