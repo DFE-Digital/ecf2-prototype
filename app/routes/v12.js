@@ -685,6 +685,7 @@ module.exports = router => {
                     req.session.data.changedWorkingPattern = undefined;
                     req.session.data.changedTrainingProgramme = undefined;
                     req.session.data.changedLeadProvider = undefined;
+                    req.session.data.changedMentorName = undefined;
                     
                     res.redirect(v + school + 'home/change/ects/change-confirmation');
                 } else if (req.session.data.changeType === 'email' && req.session.data.newEmail) {
@@ -704,6 +705,7 @@ module.exports = router => {
                     req.session.data.changedWorkingPattern = undefined;
                     req.session.data.changedTrainingProgramme = undefined;
                     req.session.data.changedLeadProvider = undefined;
+                    req.session.data.changedMentorName = undefined;
                     
                     res.redirect(v + school + 'home/change/ects/change-confirmation');
                 } else if (req.session.data.changeType === 'trainingProgramme' && req.session.data.newTrainingProgramme) {
@@ -754,6 +756,7 @@ module.exports = router => {
                     req.session.data.changedEmail = undefined;
                     req.session.data.changedAppropriateBody = undefined;
                     req.session.data.changedWorkingPattern = undefined;
+                    req.session.data.changedMentorName = undefined;
                     // Note: Don't clear changedLeadProvider here as it may be part of training programme change
                     
                     res.redirect(v + school + 'home/change/ects/change-confirmation');
@@ -816,6 +819,7 @@ module.exports = router => {
                     req.session.data.changedAppropriateBody = undefined;
                     req.session.data.changedWorkingPattern = undefined;
                     req.session.data.changedTrainingProgramme = undefined;
+                    req.session.data.changedMentorName = undefined;
                     
                     res.redirect(v + school + 'home/change/ects/change-confirmation');
                 } else if (req.session.data.newAppropriateBody) {
@@ -836,6 +840,7 @@ module.exports = router => {
                     req.session.data.changedWorkingPattern = undefined;
                     req.session.data.changedTrainingProgramme = undefined;
                     req.session.data.changedLeadProvider = undefined;
+                    req.session.data.changedMentorName = undefined;
                     
                     res.redirect(v + school + 'home/change/ects/change-confirmation');
                 } else if (req.session.data.newWorkingPattern) {
@@ -856,6 +861,7 @@ module.exports = router => {
                     req.session.data.changedAppropriateBody = undefined;
                     req.session.data.changedTrainingProgramme = undefined;
                     req.session.data.changedLeadProvider = undefined;
+                    req.session.data.changedMentorName = undefined;
                     
                     res.redirect(v + school + 'home/change/ects/change-confirmation');
                 }
@@ -905,6 +911,7 @@ module.exports = router => {
                     req.session.data.changedWorkingPattern = undefined;
                     req.session.data.changedTrainingProgramme = undefined;
                     req.session.data.changedLeadProvider = undefined;
+                    req.session.data.changedMentorName = undefined;
                     
                     res.redirect(v + school + 'home/change/mentors/change-confirmation');
                 } else if (req.session.data.changeType === 'email' && req.session.data.newEmail) {
@@ -924,6 +931,7 @@ module.exports = router => {
                     req.session.data.changedWorkingPattern = undefined;
                     req.session.data.changedTrainingProgramme = undefined;
                     req.session.data.changedLeadProvider = undefined;
+                    req.session.data.changedMentorName = undefined;
                     
                     res.redirect(v + school + 'home/change/mentors/change-confirmation');
                 } else if (req.session.data.changeType === 'leadProvider' && req.session.data.newLeadProvider) {
@@ -962,6 +970,7 @@ module.exports = router => {
                     req.session.data.changedAppropriateBody = undefined;
                     req.session.data.changedWorkingPattern = undefined;
                     req.session.data.changedTrainingProgramme = undefined;
+                    req.session.data.changedMentorName = undefined;
                     
                     res.redirect(v + school + 'home/change/mentors/change-confirmation');
                 }
