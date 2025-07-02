@@ -49,11 +49,9 @@
         <h2 class="govuk-heading-m">What happens next</h2>
         
         {% if isNameChange %}
-            <p class="govuk-body">The name has been updated in this service.</p>
-            <p>The mentor can update their name in their teacher record using the Access your teaching qualifications service.</p>
+            <p class="govuk-body">The mentor can update their name in their teacher record using the Access your teaching qualifications service.</p>
         {% elif isEmailChange %}
-            <p class="govuk-body">The email address has been updated in this service.</p>
-            <p>We'll also tell the lead provider about this change.</p>
+            <p class="govuk-body">We'll tell the lead provider about this change.</p>
         {% else %}
             <p class="govuk-body">We'll let {{changedValue}} know your school wants to work with them. They'll contact us to confirm the change and tell us the delivery partner they'll be working with.</p>
             <p class="govuk-body">We'll also let the old lead provider know that they'll no longer be training {{name}}.</p>
