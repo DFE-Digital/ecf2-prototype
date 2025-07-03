@@ -117,7 +117,7 @@
         {% elif isEmailChange %}
             <p class="govuk-body">We'll tell the lead provider about this change.</p>
         {% elif isAppropriateBodyChange %}
-            <p class="govuk-body">We'll let {{changedValue}} know they are now the appropriate body for {{name}}'s induction.</p>
+            <p class="govuk-body">We'll let {{changedValue}} know they're now the appropriate body for {{name}}'s induction.</p>
                 <p>They'll contact us to confirm the change.</p>
         {% elif isWorkingPatternChange %}
                <p class="govuk-body">We'll pass this information on so adjustments can be made to {{name}}'s training if needed.</p>
@@ -125,7 +125,7 @@
             {% if changedValue == 'Provider-led' %}
                    <p class="govuk-body">  {% if data['changedLeadProvider'] %}We'll let {{data['changedLeadProvider']}} know your school wants to work with them so they can arrange training.{% else %}We will let the lead provider know your school wants to work with them so they can arrange training.{% endif %}</p>
             {% else %}
-                    <p class="govuk-body">Your school will now be responsible for delivering training to {{name}} based on the ITTECF.</p>
+                    <p class="govuk-body">Your school will now be responsible for delivering training to {{name}}.</p>
                     <p class="govuk-body">If your programme is new, tell your appropriate body. They'll need to check it to make sure it covers the ITTECF in full. </p>
             {% endif %}
         {% elif isMentorChange %}
