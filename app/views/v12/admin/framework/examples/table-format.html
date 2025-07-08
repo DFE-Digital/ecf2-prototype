@@ -8,20 +8,12 @@
 {% endblock %}
 
 {% block header %}
-{{ govukHeader({
-homepageUrl: "/",
-classes: "govuk-header--full-width-border"
-}) }}
+{{ super() }}
 
 {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
-{% from "govuk/components/table/macro.njk" import govukTable %}
 
 {{ govukServiceNavigation({
   navigation: [
-    {
-        href: "../index",
-        text: "All examples"
-    },
     {
       href: "?view=default",
       text: "Default",
@@ -39,14 +31,19 @@ classes: "govuk-header--full-width-border"
 {% set pageName="List of things in a table format" %}
 
 {% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "../index"
+}) }}
 {% endblock %}
 
 {% block content %}
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-        <h1 class="govuk-heading-l govuk-!-margin-bottom-8">{{pageName}}</h1>
-        
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+        <p>This example shows how to use the table component to display items in a list. We'd use this when there's a large number of items to display, and there's information that needs to be displayed in a table format.</p>
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
         {% if data.view == "pagination" %}
             {% set currentPage = data.page | int if data.page else 1 %}
             {% set itemsPerPage = 20 %}
@@ -79,7 +76,7 @@ classes: "govuk-header--full-width-border"
                         
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">
-                                <a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Item {{i}}</a>
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Item {{i}}</a>
                             </td>
                             <td class="govuk-table__cell">{{refNum}}</td>
                             <td class="govuk-table__cell">{{startDay}} {{startMonth}} 2024</td>
@@ -111,7 +108,7 @@ classes: "govuk-header--full-width-border"
                 rows: [
                     [
                         {
-                            html: '<a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Item 1</a>'
+                            html: '<a class="govuk-link govuk-link--no-visited-state" href="#">Item 1</a>'
                         },
                         {
                             text: "REF001"
@@ -128,7 +125,7 @@ classes: "govuk-header--full-width-border"
                     ],
                     [
                         {
-                            html: '<a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Item 2</a>'
+                            html: '<a class="govuk-link govuk-link--no-visited-state" href="#">Item 2</a>'
                         },
                         {
                             text: "REF002"
@@ -145,7 +142,7 @@ classes: "govuk-header--full-width-border"
                     ],
                     [
                         {
-                            html: '<a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Item 3</a>'
+                            html: '<a class="govuk-link govuk-link--no-visited-state" href="#">Item 3</a>'
                         },
                         {
                             text: "REF003"
