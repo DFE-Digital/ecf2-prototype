@@ -1,3 +1,8 @@
 {
-  "serviceName": "Register early career teachers"
+  "serviceName": "Register early career teachers",
+  "plugins": {
+    "govuk-frontend": {
+    "rebrand": true
+    }
+  }
 }
