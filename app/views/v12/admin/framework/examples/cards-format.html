@@ -1,0 +1,307 @@
+{% extends "layouts/plain.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    /* Custom styles for cards format example */
+</style>
+{% endblock %}
+
+{% block header %}
+{{ govukHeader({
+homepageUrl: "/",
+classes: "govuk-header--full-width-border"
+}) }}
+
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{{ govukServiceNavigation({
+  navigation: [
+    {
+        href: "../index",
+        text: "All examples"
+    },
+    {
+      href: "?view=default",
+      text: "Default",
+      current: true if (data.view == "default" or not data.view) else false
+    },
+    {
+      href: "?view=pagination",
+      text: "Pagination",
+      current: true if data.view == "pagination" else false
+    }
+  ]
+}) }}
+{% endblock %}
+
+{% set pageName="List of things in cards format" %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-8">{{pageName}}</h1>
+        
+        {% if data.view == "pagination" %}
+            {% set currentPage = data.page | int if data.page else 1 %}
+            {% set itemsPerPage = 20 %}
+            {% set totalItems = 120 %}
+            {% set totalPages = 6 %}
+            {% set startItem = ((currentPage - 1) * itemsPerPage) + 1 %}
+            {% set endItem = currentPage * itemsPerPage %}
+            
+            {% set statusList = [
+                {text: "Active", class: "govuk-tag--green"},
+                {text: "Pending", class: "govuk-tag--yellow"},
+                {text: "Inactive", class: "govuk-tag--red"},
+                {text: "Complete", class: "govuk-tag--blue"},
+                {text: "Under review", class: "govuk-tag--purple"}
+            ] %}
+            {% set assignees = ["John Smith", "Sarah Johnson", "Mike Davis", "Emma Wilson", "Tom Brown", "Lisa Garcia", "Not assigned"] %}
+            {% set months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] %}
+            
+            {% for i in range(startItem, endItem + 1) %}
+                {% set statusIndex = (i - 1) % statusList.length %}
+                {% set currentStatus = statusList[statusIndex] %}
+                {% set refNum = "REF" + (1000 + i) | string %}
+                {% set startDay = ((i * 3) % 28) + 1 %}
+                {% set startMonth = months[(i % 12)] %}
+                {% set birthDay = ((i * 7) % 28) + 1 %}
+                {% set birthMonth = months[((i * 2) % 12)] %}
+                {% set birthYear = 1970 + ((i * 3) % 30) %}
+                
+                <div class="govuk-summary-card">
+                    <div class="govuk-summary-card__title-wrapper">
+                        <h3 class="govuk-summary-card__title govuk-!-font-size-24">
+                            <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Item {{i}}</a></strong>
+                        </h3>
+                    </div>
+                    <div class="govuk-summary-card__content">
+                        <div class="govuk-grid-row">
+                            <div class="govuk-grid-column-one-half">
+                                <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                                    <div class="govuk-summary-list__row">
+                                        <dt class="govuk-summary-list__key">Status</dt>
+                                        <dd class="govuk-summary-list__value">
+                                            <strong class="govuk-tag {{currentStatus.class}}">{{currentStatus.text}}</strong>
+                                        </dd>
+                                    </div>
+                                    <div class="govuk-summary-list__row">
+                                        <dt class="govuk-summary-list__key">Reference number</dt>
+                                        <dd class="govuk-summary-list__value">{{refNum}}</dd>
+                                    </div>
+                                    <div class="govuk-summary-list__row">
+                                        <dt class="govuk-summary-list__key">Start date</dt>
+                                        <dd class="govuk-summary-list__value">{{startDay}} {{startMonth}} 2024</dd>
+                                    </div>
+                                </dl>
+                            </div>
+                            <div class="govuk-grid-column-one-half">
+                                <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                                    <div class="govuk-summary-list__row">
+                                        <dt class="govuk-summary-list__key">Date of birth</dt>
+                                        <dd class="govuk-summary-list__value">{{birthDay}} {{birthMonth}} {{birthYear}}</dd>
+                                    </div>
+                                    <div class="govuk-summary-list__row">
+                                        <dt class="govuk-summary-list__key">Assigned to</dt>
+                                        <dd class="govuk-summary-list__value">{{assignees[((i - 1) % assignees.length)]}}</dd>
+                                    </div>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                    <h3 class="govuk-summary-card__title govuk-!-font-size-24">
+                        <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Item 1</a></strong>
+                    </h3>
+                </div>
+                <div class="govuk-summary-card__content">
+                    <div class="govuk-grid-row">
+                        <div class="govuk-grid-column-one-half">
+                            <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                                <div class="govuk-summary-list__row">
+                                    <dt class="govuk-summary-list__key">Status</dt>
+                                    <dd class="govuk-summary-list__value">
+                                        <strong class="govuk-tag govuk-tag--green">Active</strong>
+                                    </dd>
+                                </div>
+                                <div class="govuk-summary-list__row">
+                                    <dt class="govuk-summary-list__key">Reference number</dt>
+                                    <dd class="govuk-summary-list__value">REF001</dd>
+                                </div>
+                                <div class="govuk-summary-list__row">
+                                    <dt class="govuk-summary-list__key">Start date</dt>
+                                    <dd class="govuk-summary-list__value">1 September 2024</dd>
+                                </div>
+                            </dl>
+                        </div>
+                        <div class="govuk-grid-column-one-half">
+                            <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                                <div class="govuk-summary-list__row">
+                                    <dt class="govuk-summary-list__key">Category</dt>
+                                    <dd class="govuk-summary-list__value">Category A</dd>
+                                </div>
+                                <div class="govuk-summary-list__row">
+                                    <dt class="govuk-summary-list__key">Assigned to</dt>
+                                    <dd class="govuk-summary-list__value">John Smith</dd>
+                                </div>
+                                <div class="govuk-summary-list__row">
+                                    <dt class="govuk-summary-list__key">Priority</dt>
+                                    <dd class="govuk-summary-list__value">High</dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                    <h3 class="govuk-summary-card__title govuk-!-font-size-24">
+                        <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Item 2</a></strong>
+                    </h3>
+                </div>
+                <div class="govuk-summary-card__content">
+                    <div class="govuk-grid-row">
+                        <div class="govuk-grid-column-one-half">
+                            <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                                <div class="govuk-summary-list__row">
+                                    <dt class="govuk-summary-list__key">Status</dt>
+                                    <dd class="govuk-summary-list__value">
+                                        <strong class="govuk-tag govuk-tag--yellow">Pending</strong>
+                                    </dd>
+                                </div>
+                                <div class="govuk-summary-list__row">
+                                    <dt class="govuk-summary-list__key">Reference number</dt>
+                                    <dd class="govuk-summary-list__value">REF002</dd>
+                                </div>
+                                <div class="govuk-summary-list__row">
+                                    <dt class="govuk-summary-list__key">Start date</dt>
+                                    <dd class="govuk-summary-list__value">15 October 2024</dd>
+                                </div>
+                            </dl>
+                        </div>
+                        <div class="govuk-grid-column-one-half">
+                            <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                                <div class="govuk-summary-list__row">
+                                    <dt class="govuk-summary-list__key">Category</dt>
+                                    <dd class="govuk-summary-list__value">Category B</dd>
+                                </div>
+                                <div class="govuk-summary-list__row">
+                                    <dt class="govuk-summary-list__key">Assigned to</dt>
+                                    <dd class="govuk-summary-list__value">Sarah Johnson</dd>
+                                </div>
+                                <div class="govuk-summary-list__row">
+                                    <dt class="govuk-summary-list__key">Priority</dt>
+                                    <dd class="govuk-summary-list__value">Medium</dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                    <h3 class="govuk-summary-card__title govuk-!-font-size-24">
+                        <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="#">Item 3</a></strong>
+                    </h3>
+                </div>
+                <div class="govuk-summary-card__content">
+                    <div class="govuk-grid-row">
+                        <div class="govuk-grid-column-one-half">
+                            <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                                <div class="govuk-summary-list__row">
+                                    <dt class="govuk-summary-list__key">Status</dt>
+                                    <dd class="govuk-summary-list__value">
+                                        <strong class="govuk-tag govuk-tag--red">Inactive</strong>
+                                    </dd>
+                                </div>
+                                <div class="govuk-summary-list__row">
+                                    <dt class="govuk-summary-list__key">Reference number</dt>
+                                    <dd class="govuk-summary-list__value">REF003</dd>
+                                </div>
+                                <div class="govuk-summary-list__row">
+                                    <dt class="govuk-summary-list__key">Start date</dt>
+                                    <dd class="govuk-summary-list__value">12 August 2024</dd>
+                                </div>
+                            </dl>
+                        </div>
+                        <div class="govuk-grid-column-one-half">
+                            <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                                <div class="govuk-summary-list__row">
+                                    <dt class="govuk-summary-list__key">Category</dt>
+                                    <dd class="govuk-summary-list__value">Category C</dd>
+                                </div>
+                                <div class="govuk-summary-list__row">
+                                    <dt class="govuk-summary-list__key">Assigned to</dt>
+                                    <dd class="govuk-summary-list__value">Not assigned</dd>
+                                </div>
+                                <div class="govuk-summary-list__row">
+                                    <dt class="govuk-summary-list__key">Priority</dt>
+                                    <dd class="govuk-summary-list__value">Low</dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        
+        {% if data.view == "pagination" %}
+        <nav class="govuk-pagination" aria-label="Pagination">
+            {% if currentPage > 1 %}
+            <div class="govuk-pagination__prev">
+                <a class="govuk-link govuk-pagination__link" href="?view=pagination&page={{currentPage - 1}}" rel="prev">
+                    <svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+                        <path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path>
+                    </svg>
+                    <span class="govuk-pagination__link-title">
+                        Previous<span class="govuk-visually-hidden"> page</span>
+                    </span>
+                </a>
+            </div>
+            {% endif %}
+            <ul class="govuk-pagination__list">
+                {% for pageNum in range(1, totalPages + 1) %}
+                <li class="govuk-pagination__item{% if pageNum == currentPage %} govuk-pagination__item--current{% endif %}">
+                    <a class="govuk-link govuk-pagination__link" href="?view=pagination&page={{pageNum}}" aria-label="Page {{pageNum}}"{% if pageNum == currentPage %} aria-current="page"{% endif %}>{{pageNum}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% if currentPage < totalPages %}
+            <div class="govuk-pagination__next">
+                <a class="govuk-link govuk-pagination__link" href="?view=pagination&page={{currentPage + 1}}" rel="next">
+                    <span class="govuk-pagination__link-title">
+                        Next<span class="govuk-visually-hidden"> page</span>
+                    </span>
+                    <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+                        <path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path>
+                    </svg>
+                </a>
+            </div>
+            {% endif %}
+        </nav>
+
+        <div class="govuk-body govuk-!-margin-bottom-1">
+            Showing 
+            <span class="govuk-!-font-weight-bold">{{startItem}}</span> 
+            to 
+            <span class="govuk-!-font-weight-bold">{{endItem}}</span> 
+            of 
+            <span class="govuk-!-font-weight-bold">{{totalItems}}</span> 
+            results</div>
+        {% endif %}
+        
+    </div>
+</div>
+
+{% endblock %} 
