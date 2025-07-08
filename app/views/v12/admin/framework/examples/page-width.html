@@ -1,0 +1,45 @@
+{% extends "layouts/plain.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+</style>
+{% endblock %}
+
+{% block header %}
+{{ super() }}
+{% endblock %}
+
+{% set pageName="Page width" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "../index"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+        <p>The current page width for examples within the design framework is set to 1020px.</p>
+
+        <p>This is the default maximum width as specified by the GOV.UK Design System. However, it can be adjusted where there's a need to increase the width of the page, if the content requires it.</p>
+
+        <p>This may get adjusted in the future for that purpose.</p>
+
+        <p>To adjust the page width for all examples and pages within the design framework, you can update the <code>govuk-width-container</code> class in the <code>layouts/plain.html</code> file.</p>
+
+        <p>For example, to set the page width to 1200px, you can update the <code>govuk-width-container</code> class to:</p>
+
+        <pre><code class="language-html">.govuk-width-container 
+{
+    max-width: 1200px;
+}</code></pre>
+    </div>
+</div>
+
+{% endblock %} 
