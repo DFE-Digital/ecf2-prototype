@@ -19,18 +19,6 @@
 
 {% block header %}
 {{ super() }}
-
-{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
-
-{{ govukServiceNavigation({
-  navigation: [
-    {
-      href: "?view=default",
-      text: "Search results",
-      current: true if (data.view == "default" or not data.view) else false
-    }
-  ]
-}) }}
 {% endblock %}
 
 {% set pageName="Search for items" %}
@@ -48,7 +36,7 @@
     <div class="govuk-grid-column-full">
         <h1 class="govuk-heading-l govuk-!-margin-bottom-8">{{pageName}}</h1>
         <p>This example shows how to use a search function with table results. Users can search for items and see the results displayed in a table format.</p>
-        
+          
         <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
         <!-- Search form -->

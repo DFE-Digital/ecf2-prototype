@@ -9,23 +9,6 @@
 
 {% block header %}
 {{ super() }}
-
-{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
-
-{{ govukServiceNavigation({
-  navigation: [
-    {
-      href: "?view=default",
-      text: "Short list",
-      current: true if (data.view == "default" or not data.view) else false
-    },
-    {
-      href: "?view=pagination",
-      text: "Long list",
-      current: true if data.view == "pagination" else false
-    }
-  ]
-}) }}
 {% endblock %}
 
 {% set pageName="List of things in cards format" %}
@@ -47,7 +30,20 @@
 
         <p>The short list example shows how to use the component on a page such as a view details page, where we may be displaying a few items within each card. The long list example shows how to use the component on a page such as a list page, where we may be displaying a large number of cards with lots of information within each card.</p>
 
-        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+        {{ xGovukSecondaryNavigation({
+          visuallyHiddenTitle: "Secondary menu",
+          items: [{
+            text: "Short list",
+            href: "?view=default",
+            current: true if (data.view == "default" or not data.view) else false
+          }, {
+            text: "Long list",
+            href: "?view=pagination",
+            current: true if data.view == "pagination" else false
+          }]
+        }) }}
+
+        <hr class="govuk-section-break govuk-section-break--m">
         
         {% if data.view == "pagination" %}
             {% set currentPage = data.page | int if data.page else 1 %}

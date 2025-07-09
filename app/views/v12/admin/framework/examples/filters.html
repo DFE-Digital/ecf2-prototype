@@ -33,18 +33,6 @@
 
 {% block header %}
 {{ super() }}
-
-{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
-
-{{ govukServiceNavigation({
-  navigation: [
-    {
-      href: "?view=default",
-      text: "Filter results",
-      current: true if (data.view == "default" or not data.view) else false
-    }
-  ]
-}) }}
 {% endblock %}
 
 {% set pageName="Filter results" %}
