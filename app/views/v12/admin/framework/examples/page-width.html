@@ -3,6 +3,20 @@
 {% block head %}
 {{ super() }}
 <style>
+    pre {
+        background-color: #f3f2f1;
+        border: 1px solid #b1b4b6;
+        padding: 15px;
+        border-radius: 4px;
+        overflow-x: auto;
+    }
+    
+    code {
+        font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #0b0c0c;
+    }
 </style>
 {% endblock %}
 
@@ -35,8 +49,7 @@
 
         <p>For example, to set the page width to 1200px, you can update the <code>govuk-width-container</code> class to:</p>
 
-        <pre><code class="language-html">.govuk-width-container 
-{
+        <pre><code class="language-css">.govuk-width-container {
     max-width: 1200px;
 }</code></pre>
     </div>

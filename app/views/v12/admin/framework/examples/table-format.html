@@ -20,6 +20,11 @@
       current: true if (data.view == "default" or not data.view) else false
     },
     {
+      href: "?view=with-view-link",
+      text: "With view link",
+      current: true if data.view == "with-view-link" else false
+    },
+    {
       href: "?view=pagination",
       text: "Pagination",
       current: true if data.view == "pagination" else false
@@ -43,8 +48,99 @@
     <div class="govuk-grid-column-full">
         <h1 class="govuk-heading-l">{{pageName}}</h1>
         <p>This example shows how to use the table component to display items in a list. We'd use this when there's a large number of items to display, and there's information that needs to be displayed in a table format.</p>
+        <p>There is a variant of this example that shows how to use the table component with a view link. This is useful when there's not a unique identifier for each item, and we need to provide a link to view the item.</p>
         <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
-        {% if data.view == "pagination" %}
+        {% if data.view == "with-view-link" %}
+            {{ govukTable({
+                head: [
+                    {
+                        text: "Lead provider"
+                    },
+                    {
+                        text: "Statement date"
+                    },
+                    {
+                        text: "Contract year"
+                    },
+                    {
+                        text: "",
+                        classes: ""
+                    }
+                ],
+                rows: [
+                    [
+                        {
+                            text: "Ambition Institute"
+                        },
+                        {
+                            text: "July 2024"
+                        },
+                        {
+                            text: "2023"
+                        },
+                        {
+                            html: '<a class="govuk-link govuk-link--no-visited-state" href="#">View</a>'
+                        }
+                    ],
+                    [
+                        {
+                            text: "Teach First"
+                        },
+                        {
+                            text: "July 2024"
+                        },
+                        {
+                            text: "2023"
+                        },
+                        {
+                            html: '<a class="govuk-link govuk-link--no-visited-state" href="#">View</a>'
+                        }
+                    ],
+                    [
+                        {
+                            text: "National Institute of Teaching"
+                        },
+                        {
+                            text: "July 2024"
+                        },
+                        {
+                            text: "2023"
+                        },
+                        {
+                            html: '<a class="govuk-link govuk-link--no-visited-state" href="#">View</a>'
+                        }
+                    ],
+                    [
+                        {
+                            text: "UCL Institute of Education"
+                        },
+                        {
+                            text: "July 2024"
+                        },
+                        {
+                            text: "2023"
+                        },
+                        {
+                            html: '<a class="govuk-link govuk-link--no-visited-state" href="#">View</a>'
+                        }
+                    ],
+                    [
+                        {
+                            text: "Education Development Trust"
+                        },
+                        {
+                            text: "July 2024"
+                        },
+                        {
+                            text: "2023"
+                        },
+                        {
+                            html: '<a class="govuk-link govuk-link--no-visited-state" href="#">View</a>'
+                        }
+                    ]
+                ]
+            }) }}
+        {% elif data.view == "pagination" %}
             {% set currentPage = data.page | int if data.page else 1 %}
             {% set itemsPerPage = 20 %}
             {% set totalItems = 120 %}
@@ -52,36 +148,33 @@
             {% set startItem = ((currentPage - 1) * itemsPerPage) + 1 %}
             {% set endItem = currentPage * itemsPerPage %}
             
-            {% set assignees = ["John Smith", "Sarah Johnson", "Mike Davis", "Emma Wilson", "Tom Brown", "Lisa Garcia", "Not assigned"] %}
-            {% set months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] %}
+            {% set letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"] %}
             
             <table class="govuk-table">
                 <thead class="govuk-table__head">
                     <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header">Item</th>
-                        <th scope="col" class="govuk-table__header">Reference number</th>
-                        <th scope="col" class="govuk-table__header">Start date</th>
-                        <th scope="col" class="govuk-table__header">Date of birth</th>
-                        <th scope="col" class="govuk-table__header">Assigned to</th>
+                        <th scope="col" class="govuk-table__header">Delivery partner</th>
+                        <th scope="col" class="govuk-table__header">Contact email address</th>
                     </tr>
                 </thead>
                 <tbody class="govuk-table__body">
                     {% for i in range(startItem, endItem + 1) %}
-                        {% set refNum = "REF" + (1000 + i) | string %}
-                        {% set startDay = ((i * 3) % 28) + 1 %}
-                        {% set startMonth = months[(i % 12)] %}
-                        {% set birthDay = ((i * 7) % 28) + 1 %}
-                        {% set birthMonth = months[((i * 2) % 12)] %}
-                        {% set birthYear = 1970 + ((i * 3) % 30) %}
+                        {% set emailLength = 7 + (i % 2) %}
+                        {% set domainLength = 3 + (i % 2) %}
+                        {% set emailPrefix = "" %}
+                        {% set emailDomain = "" %}
+                        {% for j in range(emailLength) %}
+                            {% set emailPrefix = emailPrefix + letters[((i * j + j * 3) % 26)] %}
+                        {% endfor %}
+                        {% for k in range(domainLength) %}
+                            {% set emailDomain = emailDomain + letters[((i * k + k * 7) % 26)] %}
+                        {% endfor %}
                         
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">
-                                <a class="govuk-link govuk-link--no-visited-state" href="#">Item {{i}}</a>
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Delivery partner {{i}}</a>
                             </td>
-                            <td class="govuk-table__cell">{{refNum}}</td>
-                            <td class="govuk-table__cell">{{startDay}} {{startMonth}} 2024</td>
-                            <td class="govuk-table__cell">{{birthDay}} {{birthMonth}} {{birthYear}}</td>
-                            <td class="govuk-table__cell">{{assignees[((i - 1) % assignees.length)]}}</td>
+                            <td class="govuk-table__cell">{{emailPrefix}}@{{emailDomain}}.com</td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -90,71 +183,35 @@
             {{ govukTable({
                 head: [
                     {
-                        text: "Item"
+                        text: "Delivery partner"
                     },
                     {
-                        text: "Reference number"
-                    },
-                    {
-                        text: "Start date"
-                    },
-                    {
-                        text: "Date of birth"
-                    },
-                    {
-                        text: "Assigned to"
+                        text: "Contact email address"
                     }
                 ],
                 rows: [
                     [
                         {
-                            html: '<a class="govuk-link govuk-link--no-visited-state" href="#">Item 1</a>'
+                            html: '<a class="govuk-link govuk-link--no-visited-state" href="#">Delivery partner 1</a>'
                         },
                         {
-                            text: "REF001"
-                        },
-                        {
-                            text: "1 September 2024"
-                        },
-                        {
-                            text: "15 March 1985"
-                        },
-                        {
-                            text: "John Smith"
+                            text: "abcdefg@abc.com"
                         }
                     ],
                     [
                         {
-                            html: '<a class="govuk-link govuk-link--no-visited-state" href="#">Item 2</a>'
+                            html: '<a class="govuk-link govuk-link--no-visited-state" href="#">Delivery partner 2</a>'
                         },
                         {
-                            text: "REF002"
-                        },
-                        {
-                            text: "15 October 2024"
-                        },
-                        {
-                            text: "22 July 1978"
-                        },
-                        {
-                            text: "Sarah Johnson"
+                            text: "hijklmno@defg.com"
                         }
                     ],
                     [
                         {
-                            html: '<a class="govuk-link govuk-link--no-visited-state" href="#">Item 3</a>'
+                            html: '<a class="govuk-link govuk-link--no-visited-state" href="#">Delivery partner 3</a>'
                         },
                         {
-                            text: "REF003"
-                        },
-                        {
-                            text: "12 August 2024"
-                        },
-                        {
-                            text: "8 November 1990"
-                        },
-                        {
-                            text: "Not assigned"
+                            text: "pqrstuv@hij.com"
                         }
                     ]
                 ]
