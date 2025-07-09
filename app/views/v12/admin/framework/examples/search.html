@@ -74,7 +74,7 @@
             {% if searchTerm in "westfield school" or searchTerm in "101543" or searchTerm in "kl89 0mn" %}{% set resultCount = resultCount + 1 %}{% endif %}
         {% endif %}
 
-        {% if data.q %}
+        {% if data.q and resultCount > 0 %}
         <p class="govuk-body">
             <span class="govuk-!-font-weight-bold">{{ resultCount }}</span> result{% if resultCount != 1 %}s{% endif %} found for "{{data.q}}"
         </p>
@@ -82,17 +82,16 @@
 
         <!-- Results table -->
         {% if data.q or not data.q %}
-            
-            <table class="govuk-table">
-                <thead class="govuk-table__head">
-                    <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header">Name</th>
-                        <th scope="col" class="govuk-table__header">URN</th>
-                        <th scope="col" class="govuk-table__header">Postcode</th>
-                    </tr>
-                </thead>
-                <tbody class="govuk-table__body">
-                    {% if resultCount > 0 %}
+            {% if resultCount > 0 %}
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">Name</th>
+                            <th scope="col" class="govuk-table__header">URN</th>
+                            <th scope="col" class="govuk-table__header">Postcode</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
                         {% if not data.q or searchTerm in "st mary's school" or searchTerm in "130579" or searchTerm in "ab12 3cd" %}
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">
@@ -183,13 +182,11 @@
                             <td class="govuk-table__cell">KL89 0MN</td>
                         </tr>
                         {% endif %}
-                    {% else %}
-                        <tr class="govuk-table__row">
-                            <td class="govuk-table__cell" colspan="3">No results found</td>
-                        </tr>
-                    {% endif %}
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="govuk-body">No results found</p>
+            {% endif %}
         {% endif %}
         
     </div>
