@@ -244,7 +244,7 @@
 
         <!-- Show filter results count -->
         {% if data.provider or data.year or data.date or data.statementType %}
-            {% if (data.provider and data.provider != 'All') or (data.year and data.year != 'All') or (data.date and data.date != 'All') or (data.statementType and data.statementType != 'All') %}
+            {% if ((data.provider and data.provider != 'All') or (data.year and data.year != 'All') or (data.date and data.date != 'All') or (data.statementType and data.statementType != 'All')) and filteredStatements.length > 0 %}
                 <p class="govuk-body">
                     <span class="govuk-!-font-weight-bold">{{ filteredStatements.length }}</span> result{% if filteredStatements.length != 1 %}s{% endif %} found
                 </p>
@@ -252,18 +252,18 @@
         {% endif %}
 
         <!-- Results table -->
-        <table class="govuk-table">
-            <thead class="govuk-table__head">
-                <tr class="govuk-table__row">
-                    <th scope="col" class="govuk-table__header">Lead provider</th>
-                    <th scope="col" class="govuk-table__header">Contract year</th>
-                    <th scope="col" class="govuk-table__header">Statement</th>
-                    <th scope="col" class="govuk-table__header">Status</th>
-                    <th scope="col" class="govuk-table__header"></th>
-                </tr>
-            </thead>
-            <tbody class="govuk-table__body">
-                {% if filteredStatements.length > 0 %}
+        {% if filteredStatements.length > 0 %}
+            <table class="govuk-table">
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Lead provider</th>
+                        <th scope="col" class="govuk-table__header">Contract year</th>
+                        <th scope="col" class="govuk-table__header">Statement</th>
+                        <th scope="col" class="govuk-table__header">Status</th>
+                        <th scope="col" class="govuk-table__header"></th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
                     {% for statement in filteredStatements %}
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">{{ statement.provider }}</td>
@@ -277,13 +277,11 @@
                             </td>
                         </tr>
                     {% endfor %}
-                {% else %}
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell" colspan="5">No results found</td>
-                    </tr>
-                {% endif %}
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        {% else %}
+            <p class="govuk-body">No results found</p>
+        {% endif %}
         
     </div>
 </div>
