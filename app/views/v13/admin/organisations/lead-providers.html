@@ -1,0 +1,144 @@
+{% extends "layouts/admin.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    /* Custom styles for search example */
+    .search-box__form {
+        display: flex;
+        gap: 15px;
+        align-items: flex-end;
+        flex-wrap: wrap;
+    }
+    
+    .search-box__input {
+        flex-grow: 1;
+    }
+</style>
+{% endblock %}
+
+{% set pageName="Lead providers" %}
+{% set activeNav="organisations" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "index"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-8">{{pageName}}</h1>
+          
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+        <!-- Search form -->
+        <form class="search-box__form" accept-charset="UTF-8">
+                <div class="search-box__input">
+                    <div class="govuk-form-group">
+                        <label for="q-field" class="govuk-label govuk-label--s">
+                            Search for lead provider
+                        </label>
+                        <div class="govuk-hint" id="q-hint">Search by name</div>
+                        <input id="q-field" class="govuk-input" aria-describedby="q-hint" type="text" name="q" value="{{data.q}}">
+                    </div>
+                </div>
+
+                <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Search</button>
+        </form>
+
+        <!-- Calculate results for count display -->
+        {% set searchTerm = (data.q | lower) if data.q else "" %}
+        {% set resultCount = 0 %}
+        
+        <!-- Count results first -->
+        {% if not data.q %}
+            {% set resultCount = 6 %}
+        {% else %}
+            {% if searchTerm in "ambition institute" %}{% set resultCount = resultCount + 1 %}{% endif %}
+            {% if searchTerm in "education development trust" %}{% set resultCount = resultCount + 1 %}{% endif %}
+            {% if searchTerm in "teach first" %}{% set resultCount = resultCount + 1 %}{% endif %}
+            {% if searchTerm in "best practice network" %}{% set resultCount = resultCount + 1 %}{% endif %}
+            {% if searchTerm in "national institute of teaching" %}{% set resultCount = resultCount + 1 %}{% endif %}
+            {% if searchTerm in "ucl institute of education" %}{% set resultCount = resultCount + 1 %}{% endif %}
+        {% endif %}
+
+        {% if data.q and resultCount > 0 %}
+        <p class="govuk-body">
+            <span class="govuk-!-font-weight-bold">{{ resultCount }}</span> result{% if resultCount != 1 %}s{% endif %} found for "{{data.q}}"
+        </p>
+        {% endif %}
+
+        <!-- Results table -->
+        {% if data.q or not data.q %}
+            {% if resultCount > 0 %}
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">Lead provider</th>
+                            <th scope="col" class="govuk-table__header">Contract periods</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        {% if not data.q or searchTerm in "ambition institute" %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Ambition Institute</a>
+                            </td>
+                            <td class="govuk-table__cell">2020 to 2026</td>
+                        </tr>
+                        {% endif %}
+                        {% if not data.q or searchTerm in "education development trust" %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Education Development Trust</a>
+                            </td>
+                            <td class="govuk-table__cell">2020 to 2026</td>
+                        </tr>
+                        {% endif %}
+                        {% if not data.q or searchTerm in "teach first" %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Teach First</a>
+                            </td>
+                            <td class="govuk-table__cell">2020 to 2026</td>
+                        </tr>
+                        {% endif %}
+                        {% if not data.q or searchTerm in "best practice network" %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Best Practice Network</a>
+                            </td>
+                            <td class="govuk-table__cell">2020 to 2026</td>
+                        </tr>
+                        {% endif %}
+                        {% if not data.q or searchTerm in "national institute of teaching" %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">National Institute of Teaching</a>
+                            </td>
+                            <td class="govuk-table__cell">2020 to 2026</td>
+                        </tr>
+                        {% endif %}
+                        {% if not data.q or searchTerm in "ucl institute of education" %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">UCL Institute of Education</a>
+                            </td>
+                            <td class="govuk-table__cell">2020 to 2026</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="govuk-body">No results found</p>
+            {% endif %}
+        {% endif %}
+        
+    </div>
+</div>
+
+{% endblock %} 
