@@ -21,10 +21,17 @@
 {% set activeNav="organisations" %}
 
 {% block beforeContent %}
-{{ govukBackLink({
-    text: "Back",
-    href: "index"
-}) }}
+{{govukBreadcrumbs({
+    items: [
+        {
+            text: "Organisations",
+            href: "index"
+        },
+        {
+            text: pageName
+        }
+    ]
+})}}
 {% endblock %}
 
 {% block content %}
