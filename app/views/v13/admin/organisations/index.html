@@ -1,0 +1,48 @@
+{% extends "layouts/admin.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+</style>
+{% endblock %}
+
+{% set pageName="Organisations" %}
+{% set activeNav="organisations" %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-8">{{pageName}}</h1>
+        <h2 class="govuk-heading-m">
+        <a class="govuk-link govuk-link--no-underline govuk-link--no-visited-state" href="#">Schools</a>
+        </h2>
+        <p class="govuk-body">
+        The schools who have teachers or mentors undertaking ECF training
+        </p>
+        <hr class="govuk-section-break--l govuk-section-break--visible">
+        <h2 class="govuk-heading-m">
+        <a class="govuk-link govuk-link--no-underline govuk-link--no-visited-state" href="#">Appropriate bodies</a>
+        </h2>
+        <p class="govuk-body">
+        Appropriate bodies are responsible for assuring the quality of the statutory induction of ECTs
+        </p>
+        <hr class="govuk-section-break--l govuk-section-break--visible">
+                 <h2 class="govuk-heading-m">
+         <a class="govuk-link govuk-link--no-underline govuk-link--no-visited-state" href="lead-providers">Lead providers</a>
+         </h2>
+         <p class="govuk-body">
+         </p>
+        <hr class="govuk-section-break--l govuk-section-break--visible">
+                 <h2 class="govuk-heading-m">
+         <a class="govuk-link govuk-link--no-underline govuk-link--no-visited-state" href="delivery-partners">Delivery partners</a>
+         </h2>
+         <p class="govuk-body">
+         </p>
+    </div> 
+</div>
+
+{% endblock %}

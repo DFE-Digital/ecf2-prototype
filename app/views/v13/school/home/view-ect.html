@@ -1,0 +1,214 @@
+{% extends "layouts/ects.html" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "ects"
+}) }}
+{% endblock %}
+
+{# Find the active ECT from the ects array based on the 'ect' query parameter #}
+{% set ectId = data.ect or 'john-smith' %}
+{% set activeEct = {} %}
+{% for person in data.ects %}
+  {% if person.id == ectId %}
+    {% set activeEct = person %}
+  {% endif %}
+{% endfor %}
+
+{# Find the mentor for this ECT #}
+{% set mentorName = 'Not assigned' %}
+{% if activeEct.mentorId %}
+    {% for person in data.mentors %}
+        {% if person.id == activeEct.mentorId %}
+            {% set mentorName = person.name %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% set pageName = activeEct.name %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-l">TRN: {{ activeEct.trn }}</span>
+    <h1 class="govuk-heading-l">{{ activeEct.name }}</h1>
+    <h2 class="govuk-heading-m">ECT details</h2>
+
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Name
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ activeEct.name }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="change/ects/change-name?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> name</span></a>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Email address
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ activeEct.email }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="change/ects/change-email?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> email address</span></a>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Mentor
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {% if mentorName == 'Not assigned' %}
+            {{ govukWarningText({
+            html: 'You must <a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">assign a mentor or register a new one</a> for this ECT.',
+            iconFallbackText: "Warning"
+            }) }}
+          {% else %}
+            <a class="govuk-link" href="view-mentor?id={{ activeEct.mentorId }}">{{ mentorName }}</a>
+          {% endif %}
+        </dd>
+        {% if mentorName != 'Not assigned' %}
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="change/ects/change-mentor?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> mentor</span></a>
+        </dd>
+        {% endif %}
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Status</dt>
+        <dd class="govuk-summary-list__value">
+          <strong class="govuk-tag {{ activeEct.statusClass }}">{{ activeEct.status }}</strong>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          School start date
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ activeEct.schoolStartDate }}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Working pattern
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ activeEct.workingPattern }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="change/ects/change-working-pattern?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> working pattern</span></a>
+        </dd>
+      </div>
+    </dl>
+
+    <h2 class="govuk-heading-m">Induction details</h2>
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Appropriate body
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ activeEct.appropriateBody }}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="change/ects/change-appropriate-body?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> appropriate body</span></a>
+            </dd>
+          </div>
+              <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Induction start date
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {% if activeEct.inductionStartDate === null %}
+          Yet to be reported by an appropriate body
+          {% else %}
+          {{ activeEct.inductionStartDate }}
+          <span class="govuk-caption-m">This has been reported by an appropriate body</span>
+          {% endif %}
+        </dd>
+      </div>
+        </dl>
+
+    <h2 class="govuk-heading-m">Training details</h2>
+       <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Training programme
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ activeEct.trainingProgramme }}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="change/ects/change-training-programme?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> training programme</span></a>
+            </dd>
+          </div>
+          {% if activeEct.trainingProgramme != 'School-led' %}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Lead provider
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ activeEct.leadProvider }}
+              <!-- DEBUG: researchMode={{ data.researchMode }}, session.leadProvider={{ data.leadProvider }}, activeEct.leadProvider={{ activeEct.leadProvider }} -->
+              {% if data.researchMode %}
+                {% if activeEct.leadProvider == data._researchDefaults.leadProvider %}
+                <span class="govuk-caption-m">Confirmed by {{ activeEct.leadProvider }}</span>
+                {% else %}
+                <span class="govuk-caption-m">Awaiting confirmation by {{ activeEct.leadProvider }}</span>
+                {% endif %}
+              {% else %}
+                {% if activeEct.leadProvider == 'Ambition Institute' %}
+                <span class="govuk-caption-m">Confirmed by {{ activeEct.leadProvider }}</span>
+                {% else %}
+                <span class="govuk-caption-m">Awaiting confirmation by {{ activeEct.leadProvider }}</span>
+                {% endif %}
+              {% endif %}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+                <a class="govuk-link" href="change/ects/change-lead-provider?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> lead provider</span></a>
+              </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Delivery partner
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {% if activeEct.deliveryPartner %}
+              {{ activeEct.deliveryPartner }}
+              <span class="govuk-caption-m">To change the delivery partner, you must contact the lead provider</span>
+              {% else %}
+              Yet to be reported by the lead provider
+              {% endif %}
+            </dd>
+          </div>
+          {% endif %}
+        </dl>
+
+      </div>
+    </div>
+    </div>
+</div>
+</div>
+
+{{ super() }}
+<script src="/node_modules/dfe-frontend/dist/dfefrontend.min.js"></script>
+
+<script>
+  // Ensure DOM is fully loaded before manipulating
+  document.addEventListener("DOMContentLoaded", function() {
+    // Get the current URL
+    const url = window.location.href;
+
+    // Use the match() method to find the value in the URL
+    const currentV = url.match(/v\d+/);
+
+    // Set the value as the href attribute of the link
+    document.getElementById("ects").href = "/" + currentV + "/school/home/ects"
+    document.getElementById("mentors").href = "/" + currentV + "/school/home/mentors"
+  });
+</script>
+{% endblock %}
