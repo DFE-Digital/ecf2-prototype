@@ -132,6 +132,16 @@ module.exports = router => {
         res.redirect(v + school + 'find-ect')
     })
 
+    // what you'll need in place
+    router.post(v + school + 'what-youll-need-in-place', (req, res) => {
+        res.redirect(v + school + 'dfe-sign-in')
+    })
+
+     // start what you'll need
+    router.post(v + school + 'start-what-youll-need', (req, res) => {
+        res.redirect(v + school + 'dfe-sign-in')
+    })
+
     // add ECT from here
 
     router.post(v + school + 'find-ect', (req, res) => {
