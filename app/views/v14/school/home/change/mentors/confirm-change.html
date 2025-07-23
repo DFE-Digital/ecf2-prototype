@@ -1,0 +1,158 @@
+{% extends "layouts/mentors.html" %}
+
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'John Doe' %}
+{% endif %}
+
+{# Check what type of change this is #}
+{% if data['changeType'] == 'name' %}
+  {% set isNameChange = true %}
+  {% set isEmailChange = false %}
+  {% set isLeadProviderChange = false %}
+  {% set currentValue = data['previousName'] or name %}
+  {% set newValue = data['newName'] %}
+  {% set changeField = "name" %}
+  {% set changeLabel = "Name" %}
+{% elif data['changeType'] == 'email' %}
+  {% set isNameChange = false %}
+  {% set isEmailChange = true %}
+  {% set isLeadProviderChange = false %}
+  {% set currentValue = data['previousEmail'] or 'email@example.com' %}
+  {% set newValue = data['newEmail'] %}
+  {% set changeField = "email address" %}
+  {% set changeLabel = "Email address" %}
+{% else %}
+  {% set isNameChange = false %}
+  {% set isEmailChange = false %}
+  {% set isLeadProviderChange = true %}
+  {% set currentValue = data['previousLeadProvider'] or 'Ambition Institute' %}
+  {% set newValue = data['newLeadProvider'] or 'Ambition Institute' %}
+  {% set changeField = "lead provider" %}
+  {% set changeLabel = "Lead provider" %}
+{% endif %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">Check and confirm change</h1>
+
+        {% set summaryRows = [
+          {
+            key: {
+              text: "Mentor"
+            },
+            value: {
+              text: name
+            }
+          }
+        ] %}
+
+        {% if isNameChange %}
+          {% set summaryRows = summaryRows.concat([
+            {
+              key: {
+                text: "New name"
+              },
+              value: {
+                text: newValue
+              },
+              actions: {
+                items: [
+                  {
+                    href: "javascript:window.history.back()",
+                    text: "Change",
+                    visuallyHiddenText: "name"
+                  }
+                ]
+              }
+            }
+          ]) %}
+        {% elif isEmailChange %}
+          {% set summaryRows = summaryRows.concat([
+            {
+              key: {
+                text: "Current email address"
+              },
+              value: {
+                text: currentValue
+              }
+            },
+            {
+              key: {
+                text: "New email address"
+              },
+              value: {
+                text: newValue
+              },
+              actions: {
+                items: [
+                  {
+                    href: "javascript:window.history.back()",
+                    text: "Change",
+                    visuallyHiddenText: "email address"
+                  }
+                ]
+              }
+            }
+          ]) %}
+        {% else %}
+          {% set summaryRows = summaryRows.concat([
+            {
+              key: {
+                text: "Current lead provider"
+              },
+              value: {
+                text: currentValue
+              }
+            },
+            {
+              key: {
+                text: "New lead provider"
+              },
+              value: {
+                text: newValue
+              },
+              actions: {
+                items: [
+                  {
+                    href: "javascript:window.history.back()",
+                    text: "Change",
+                    visuallyHiddenText: "lead provider"
+                  }
+                ]
+              }
+            }
+          ]) %}
+        {% endif %}
+
+        {{ govukSummaryList({
+          classes: "govuk-!-margin-bottom-8",
+          rows: summaryRows
+        }) }}
+
+        <form method="post" novalidate>
+            <!-- Pass the mentor ID through the form -->
+            {% if data['selectedMentorId'] %}
+            <input type="hidden" name="id" value="{{ data['selectedMentorId'] }}">
+            {% endif %}
+    
+            {{ govukButton({
+              text: "Confirm change"
+            }) }}
+    
+          </form>
+
+    </div>
+</div>
+
+{% endblock %} 

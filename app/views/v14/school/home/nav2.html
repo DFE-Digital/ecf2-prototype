@@ -1,22 +1,13 @@
-{#
-For guidance on how to use layouts see:
-https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
-#}
+{% extends "layouts/ects.html" %}
 
-{% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
+{% block head %}
+{{ super() }}
+<style>
 
-{% if data['schoolName'] %}
-{% set schoolName = data['schoolName'] %}
-{% else %}
-{% set schoolName = 'School name' %}
-{% endif %}
+    </style>
+{% endblock %}
 
 {% block header %}
-<!--<style>-->
-<!--    .govuk-width-container {-->
-<!--        max-width: 1200px;-->
-<!--    }-->
-<!--</style>-->
 <header data-module="govuk-header" class="govuk-header govuk-header--full-width-border app-header--purple" data-govuk-header-init="">
     <div class="govuk-header__container govuk-width-container">
         <div class="govuk-header__logo">
@@ -32,69 +23,90 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
             <nav class="govuk-header__navigation" aria-label="Menu">
                 <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" hidden="" aria-controls="navigation" aria-label="Show or hide menu">Menu</button>
                 <ul id="navigation" class="govuk-header__navigation-list">
-                    <li class="govuk-header__navigation-item">Department for Education</li>
-                    <li class="govuk-header__navigation-item"><a class="govuk-header__link" href="#">Sign out</a></li>
+                    <li class="govuk-header__navigation-item">School name</li>
+                    <li class="govuk-header__navigation-item"><a class="govuk-header__link" href="">Sign out</a></li>
                 </ul>
             </nav>
         </div>
     </div>
 </header>
-
 <section aria-label="Service information" class="govuk-service-navigation" data-module="govuk-service-navigation">
+
     <div class="govuk-width-container">
+
         <div class="govuk-service-navigation__container">
-      <span class="govuk-service-navigation__service-name">
-        <a href="#" id="home" class="govuk-service-navigation__link"> Register early career teachers </a>
-      </span>
+
+
+        <span class="govuk-service-navigation__service-name">
+
+            <a href="#" class="govuk-service-navigation__link">
+              Service name
+            </a>
+
+        </span>
+
+
+
+
             <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
-                <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden=""> Menu </button>
+                <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden="">
+                    Menu
+                </button>
+
                 <ul class="govuk-service-navigation__list" id="navigation">
-                    <li class="govuk-service-navigation__item{% if activeNav == 'teachers' or not activeNav %} govuk-service-navigation__item--active{% endif %}">
-                        <a class="govuk-service-navigation__link" href="#"{% if activeNav == 'teachers' or not activeNav %} aria-current="true"{% endif %} id="teachers">
-                            {% if activeNav == 'teachers' or not activeNav %}<strong class="govuk-service-navigation__active-fallback">Teachers</strong>{% else %}Teachers{% endif %}
+
+
+
+
+
+                    <li class="govuk-service-navigation__item">
+
+                        <a class="govuk-service-navigation__link" href="#">
+
+
+                            Link 1
+
                         </a>
+
                     </li>
-                    <li class="govuk-service-navigation__item{% if activeNav == 'organisations' %} govuk-service-navigation__item--active{% endif %}">
-                        <a class="govuk-service-navigation__link" href="#"{% if activeNav == 'organisations' %} aria-current="true"{% endif %} id="organisations">
-                            {% if activeNav == 'organisations' %}<strong class="govuk-service-navigation__active-fallback">Organisations</strong>{% else %}Organisations{% endif %}
+
+
+
+
+                    <li class="govuk-service-navigation__item">
+
+                        <a class="govuk-service-navigation__link" href="#">
+
+
+                            Link 2
+
                         </a>
+
                     </li>
-                    <li class="govuk-service-navigation__item{% if activeNav == 'schools' %} govuk-service-navigation__item--active{% endif %}">
-                        <a class="govuk-service-navigation__link" href="#"{% if activeNav == 'schools' %} aria-current="true"{% endif %} id="schools">
-                            {% if activeNav == 'schools' %}<strong class="govuk-service-navigation__active-fallback">Schools</strong>{% else %}Schools{% endif %}
+                    <li class="govuk-service-navigation__item">
+
+                        <a class="govuk-service-navigation__link" href="#">
+
+
+                            Link 3
+
                         </a>
+
                     </li>
-                    <li class="govuk-service-navigation__item{% if activeNav == 'finance' %} govuk-service-navigation__item--active{% endif %}">
-                        <a class="govuk-service-navigation__link" href="#"{% if activeNav == 'finance' %} aria-current="true"{% endif %} id="finance">
-                            {% if activeNav == 'finance' %}<strong class="govuk-service-navigation__active-fallback">Finance</strong>{% else %}Finance{% endif %}
-                        </a>
-                    </li>
+
+
                 </ul>
             </nav>
+
         </div>
+
     </div>
+
 </section>
 {% endblock %}
 
-{% block scripts %}
-{{ super() }}
-<script src="/node_modules/dfe-frontend/dist/dfefrontend.min.js"></script>
 
-<script>
-    // Ensure DOM is fully loaded before manipulating
-    document.addEventListener("DOMContentLoaded", function() {
-        // Get the current URL
-        const url = window.location.href;
+{% set pageName="Nav" %}
 
-        // Use the match() method to find the value in the URL
-        const currentV = url.match(/v\d+/);
-
-        // Set the value as the href attribute of the link
-        document.getElementById("home").href = "/" + currentV + "/admin/teachers"
-        document.getElementById("teachers").href = "/" + currentV + "/admin/teachers"
-        document.getElementById("organisations").href = "/" + currentV + "/admin/organisations/index"
-        document.getElementById("schools").href = "/" + currentV + "/admin/organisations/schools"
-        document.getElementById("finance").href = "/" + currentV + "/admin/finance-home"
-    });
-</script>
+{% block content %}
 {% endblock %}

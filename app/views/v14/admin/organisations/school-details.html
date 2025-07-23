@@ -1,0 +1,146 @@
+{% extends "layouts/admin.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    /* Custom styles for school details page */
+</style>
+{% endblock %}
+
+{% set pageName="Abacus Primary School" %}
+{% set activeNav="schools" %}
+
+{% block beforeContent %}
+{{govukBreadcrumbs({
+    items: [
+        {
+            text: "Schools",
+            href: "schools"
+        },
+        {
+            text: pageName
+        }
+    ]
+})}}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <span class="govuk-caption-l">URN: 100001</span>
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+        {% set currentSection = data.section or "overview" %}
+
+        {{ xGovukSecondaryNavigation({
+          visuallyHiddenTitle: "Secondary menu",
+          items: [{
+            text: "Overview",
+            href: "?section=overview",
+            current: true if currentSection == "overview" else false
+          }, {
+            text: "Participants",
+            href: "?section=participants",
+            current: true if currentSection == "participants" else false
+          }, {
+            text: "Partnerships",
+            href: "?section=partnerships",
+            current: true if currentSection == "partnerships" else false
+          }]
+        }) }}
+
+        <div class="govuk-!-margin-top-6">
+            {% if currentSection == "overview" %}
+                <h3 class="govuk-heading-m">Overview</h3>
+                <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">URN</dt>
+                        <dd class="govuk-summary-list__value">100001</dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="#">Open in GIAS <span class="govuk-visually-hidden">URN</span></a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Induction tutor</dt>
+                        <dd class="govuk-summary-list__value">John Jones</dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="#">Change <span class="govuk-visually-hidden">induction tutor</span></a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Induction tutor email</dt>
+                        <dd class="govuk-summary-list__value"><a class="govuk-link" href="mailto:abc@email.com">abc@email.com</a></dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="#">Change <span class="govuk-visually-hidden">induction tutor email</span></a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Local authority</dt>
+                        <dd class="govuk-summary-list__value">Essex</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Address</dt>
+                        <dd class="govuk-summary-list__value">
+                            Line 1<br>
+                            Line 2<br>
+                            London<br>
+                            AA1 1AA
+                        </dd>
+                    </div>
+                </dl>
+            {% endif %}
+
+            {% if currentSection == "participants" %}
+                <h3 class="govuk-heading-m">Participants</h3>
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">Name</th>
+                            <th scope="col" class="govuk-table__header">Type</th>
+                            <th scope="col" class="govuk-table__header">Contract period start</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Sarah Johnson</a>
+                            </td>
+                            <td class="govuk-table__cell">Early career teacher</td>
+                            <td class="govuk-table__cell">2023</td>
+                        </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Michael Brown</a>
+                            </td>
+                            <td class="govuk-table__cell">Mentor</td>
+                            <td class="govuk-table__cell">2024</td>
+                        </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Emma Wilson</a>
+                            </td>
+                            <td class="govuk-table__cell">Early career teacher</td>
+                            <td class="govuk-table__cell">2024</td>
+                        </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">David Thompson</a>
+                            </td>
+                            <td class="govuk-table__cell">Early career teacher</td>
+                            <td class="govuk-table__cell">2024</td>
+                        </tr>
+                    </tbody>
+                </table>
+            {% endif %}
+
+            {% if currentSection == "partnerships" %}
+                <h3 class="govuk-heading-m">Partnerships</h3>
+                <p class="govuk-body">Partnerships content will go here.</p>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+{% endblock %} 
