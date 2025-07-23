@@ -1,0 +1,269 @@
+{% extends "layouts/admin.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    /* Custom styles for search example */
+    .search-box__form {
+        display: flex;
+        gap: 15px;
+        align-items: flex-end;
+        flex-wrap: wrap;
+    }
+    
+    .search-box__input {
+        flex-grow: 1;
+    }
+</style>
+{% endblock %}
+
+{% set pageName="Delivery partners" %}
+{% set activeNav="organisations" %}
+
+{% block beforeContent %}
+{{govukBreadcrumbs({
+    items: [
+        {
+            text: "Organisations",
+            href: "index"
+        },
+        {
+            text: pageName
+        }
+    ]
+})}}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+          
+        <!-- Search form -->
+        <form class="search-box__form" accept-charset="UTF-8">
+                <div class="search-box__input">
+                    <div class="govuk-form-group">
+                        <label for="q-field" class="govuk-label govuk-label--s">
+                            Search for delivery partner
+                        </label>
+                        <div class="govuk-hint" id="q-hint">Search by name</div>
+                        <input id="q-field" class="govuk-input" aria-describedby="q-hint" type="text" name="q" value="{{data.q}}">
+                    </div>
+                </div>
+
+                <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Search</button>
+        </form>
+
+        <!-- Delivery partners data -->
+        {% set deliveryPartners = [
+            "Advantage Schools",
+            "Ambition",
+            "Aquila Trust",
+            "Ark Learning Institute (formerly known as Ark Teaching School Hub Sep 2021 - Aug 2024)",
+            "Arthur Terry Teaching School Hub",
+            "Aspire Academy Trust",
+            "Astra Teaching School Hub",
+            "Astrea Academy Trust",
+            "BDAT (In partnership with Beckfoot and Dixons)",
+            "Birmingham City University",
+            "Community Academies Trust Institute of Education",
+            "ConnectEd Partnership",
+            "Diocese of Hallam",
+            "East London Teaching School Hub",
+            "East Midlands Teacher Training Partnership",
+            "Eden Academy Trust",
+            "Flying High Teaching School Hub",
+            "Futures Education Institute",
+            "Generate Teaching School Hub",
+            "Greenwood Academies Trust",
+            "Haybridge Teaching School Hub",
+            "Inspire Teaching School Hub",
+            "InvestEd",
+            "King's College London",
+            "Leeds Teaching School Hub",
+            "Manor MAT",
+            "Milton Keynes Education Partnership",
+            "Odyssey Teaching School Hub",
+            "One Cumbria Teaching School Hub",
+            "Ormiston Academies Trust",
+            "Professional Learning Network (PLN)",
+            "Professional Learning Network (PLN)",
+            "REAch2 Academy Trust",
+            "Rainbow Teaching School Hub",
+            "Redbridge Education Partnership",
+            "Rivers Teaching Alliance",
+            "SFET Teaching School Hub",
+            "Saffron Teaching School Hub",
+            "Shaw Education Trust",
+            "Spencer Teaching School Hub",
+            "Star Teaching School Hub",
+            "Swindon and Wiltshire Teaching School Hub",
+            "Teach First",
+            "Teach West London Teaching School Hub",
+            "Thames Gateway Teaching School Hub",
+            "Thames South Teaching School Hub",
+            "The David Ross Education Trust",
+            "The Mercian Trust",
+            "The Prince Henry's High School Academy Trust",
+            "The Tenax Schools Trust (Kent Teaching School Hub)",
+            "Tudor Grange Academy",
+            "Unity Schools Partnership",
+            "Unity TSH-PLN",
+            "Westcountry Schools Trust"
+        ] %}
+
+        <!-- Pagination setup -->
+        {% set currentPage = data.page | int if data.page else 1 %}
+        {% set itemsPerPage = 20 %}
+        {% set totalItems = 54 %}
+        {% set totalPages = 3 %}
+        {% set startItem = ((currentPage - 1) * itemsPerPage) + 1 %}
+        {% set endItem = currentPage * itemsPerPage %}
+        {% if endItem > totalItems %}{% set endItem = totalItems %}{% endif %}
+
+        <!-- Calculate results for count display -->
+        {% set searchTerm = (data.q | lower) if data.q else "" %}
+        {% set resultCount = 0 %}
+        {% set currentPageResultCount = 0 %}
+        {% set searchResults = [] %}
+        
+        <!-- Count results first -->
+        {% if not data.q %}
+            {% set resultCount = totalItems %}
+            {% set currentPageResultCount = endItem - startItem + 1 %}
+        {% else %}
+            <!-- Count search results -->
+            {% set resultCount = 0 %}
+            {% for partner in deliveryPartners %}
+                {% if searchTerm in partner | lower %}
+                    {% set resultCount = resultCount + 1 %}
+                {% endif %}
+            {% endfor %}
+            
+            <!-- Calculate pagination for search results -->
+            {% set searchTotalPages = ((resultCount - 1) // itemsPerPage) + 1 if resultCount > 0 else 0 %}
+            {% set searchStartItem = ((currentPage - 1) * itemsPerPage) + 1 %}
+            {% set searchEndItem = currentPage * itemsPerPage %}
+            {% if searchEndItem > resultCount %}{% set searchEndItem = resultCount %}{% endif %}
+            {% set currentPageResultCount = searchEndItem - searchStartItem + 1 if resultCount > 0 else 0 %}
+        {% endif %}
+
+        <!-- Search count display (like search.html) -->
+        {% if data.q and resultCount > 0 %}
+        <p class="govuk-body">
+            <span class="govuk-!-font-weight-bold">{{ resultCount }}</span> result{% if resultCount != 1 %}s{% endif %} found for "{{data.q}}"
+        </p>
+        {% endif %}
+
+        <button class="govuk-button">Add a new delivery partner</a></button>
+
+        <!-- Results table -->
+        {% if data.q or not data.q %}
+            {% if resultCount > 0 %}
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">Delivery partner</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        {% if data.q %}
+                            <!-- Show paginated search results -->
+                            {% set matchCount = 0 %}
+                            {% for partner in deliveryPartners %}
+                                {% if searchTerm in partner | lower %}
+                                    {% set matchCount = matchCount + 1 %}
+                                    {% if matchCount >= searchStartItem and matchCount <= searchEndItem %}
+                                    <tr class="govuk-table__row">
+                                        <td class="govuk-table__cell">
+                                            <a class="govuk-link govuk-link--no-visited-state" href="#">{{ partner }}</a>
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <!-- Show paginated results -->
+                            {% for i in range(startItem, endItem + 1) %}
+                                {% if i <= deliveryPartners | length %}
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">
+                                        <a class="govuk-link govuk-link--no-visited-state" href="#">{{ deliveryPartners[i - 1] }}</a>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="govuk-body">No results found</p>
+            {% endif %}
+        {% endif %}
+
+        <!-- Pagination controls -->
+        {% if resultCount > itemsPerPage %}
+        {% set paginationTotalPages = searchTotalPages if data.q else totalPages %}
+        <nav class="govuk-pagination" aria-label="Pagination">
+            {% if currentPage > 1 %}
+            <div class="govuk-pagination__prev">
+                <a class="govuk-link govuk-pagination__link" href="?{% if data.q %}q={{data.q}}&{% endif %}page={{currentPage - 1}}" rel="prev">
+                    <svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+                        <path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path>
+                    </svg>
+                    <span class="govuk-pagination__link-title">
+                        Previous<span class="govuk-visually-hidden"> page</span>
+                    </span>
+                </a>
+            </div>
+            {% endif %}
+            <ul class="govuk-pagination__list">
+                {% for pageNum in range(1, paginationTotalPages + 1) %}
+                <li class="govuk-pagination__item{% if pageNum == currentPage %} govuk-pagination__item--current{% endif %}">
+                    <a class="govuk-link govuk-pagination__link" href="?{% if data.q %}q={{data.q}}&{% endif %}page={{pageNum}}" aria-label="Page {{pageNum}}"{% if pageNum == currentPage %} aria-current="page"{% endif %}>{{pageNum}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% if currentPage < paginationTotalPages %}
+            <div class="govuk-pagination__next">
+                <a class="govuk-link govuk-pagination__link" href="?{% if data.q %}q={{data.q}}&{% endif %}page={{currentPage + 1}}" rel="next">
+                    <span class="govuk-pagination__link-title">
+                        Next<span class="govuk-visually-hidden"> page</span>
+                    </span>
+                    <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+                        <path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path>
+                    </svg>
+                </a>
+            </div>
+            {% endif %}
+        </nav>
+        {% endif %}
+
+        <!-- Results summary (like table-format.html) -->
+        {% if resultCount > 0 and resultCount > itemsPerPage %}
+        <div class="govuk-body govuk-!-margin-bottom-1">
+            {% if data.q %}
+                Showing 
+                <span class="govuk-!-font-weight-bold">{{searchStartItem}}</span> 
+                to 
+                <span class="govuk-!-font-weight-bold">{{searchEndItem}}</span> 
+                of 
+                <span class="govuk-!-font-weight-bold">{{resultCount}}</span> 
+                results
+            {% else %}
+                Showing 
+                <span class="govuk-!-font-weight-bold">{{startItem}}</span> 
+                to 
+                <span class="govuk-!-font-weight-bold">{{endItem}}</span> 
+                of 
+                <span class="govuk-!-font-weight-bold">{{totalItems}}</span> 
+                results
+            {% endif %}
+        </div>
+        {% endif %}
+        
+    </div>
+</div>
+
+{% endblock %} 
