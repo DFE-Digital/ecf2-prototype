@@ -59,6 +59,11 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
                             {% if activeNav == 'organisations' %}<strong class="govuk-service-navigation__active-fallback">Organisations</strong>{% else %}Organisations{% endif %}
                         </a>
                     </li>
+                    <li class="govuk-service-navigation__item{% if activeNav == 'schools' %} govuk-service-navigation__item--active{% endif %}">
+                        <a class="govuk-service-navigation__link" href="#"{% if activeNav == 'schools' %} aria-current="true"{% endif %} id="schools">
+                            {% if activeNav == 'schools' %}<strong class="govuk-service-navigation__active-fallback">Schools</strong>{% else %}Schools{% endif %}
+                        </a>
+                    </li>
                     <li class="govuk-service-navigation__item{% if activeNav == 'finance' %} govuk-service-navigation__item--active{% endif %}">
                         <a class="govuk-service-navigation__link" href="#"{% if activeNav == 'finance' %} aria-current="true"{% endif %} id="finance">
                             {% if activeNav == 'finance' %}<strong class="govuk-service-navigation__active-fallback">Finance</strong>{% else %}Finance{% endif %}
@@ -88,6 +93,7 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
         document.getElementById("home").href = "/" + currentV + "/admin/teachers"
         document.getElementById("teachers").href = "/" + currentV + "/admin/teachers"
         document.getElementById("organisations").href = "/" + currentV + "/admin/organisations/index"
+        document.getElementById("schools").href = "/" + currentV + "/admin/organisations/schools"
         document.getElementById("finance").href = "/" + currentV + "/admin/finance-home"
     });
 </script>
