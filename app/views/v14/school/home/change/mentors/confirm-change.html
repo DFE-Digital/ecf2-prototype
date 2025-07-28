@@ -65,15 +65,6 @@ href: "javascript:window.history.back()"
               },
               value: {
                 text: newValue
-              },
-              actions: {
-                items: [
-                  {
-                    href: "javascript:window.history.back()",
-                    text: "Change",
-                    visuallyHiddenText: "name"
-                  }
-                ]
               }
             }
           ]) %}
@@ -93,15 +84,6 @@ href: "javascript:window.history.back()"
               },
               value: {
                 text: newValue
-              },
-              actions: {
-                items: [
-                  {
-                    href: "javascript:window.history.back()",
-                    text: "Change",
-                    visuallyHiddenText: "email address"
-                  }
-                ]
               }
             }
           ]) %}
@@ -121,15 +103,6 @@ href: "javascript:window.history.back()"
               },
               value: {
                 text: newValue
-              },
-              actions: {
-                items: [
-                  {
-                    href: "javascript:window.history.back()",
-                    text: "Change",
-                    visuallyHiddenText: "lead provider"
-                  }
-                ]
               }
             }
           ]) %}
@@ -150,7 +123,11 @@ href: "javascript:window.history.back()"
               text: "Confirm change"
             }) }}
     
-          </form>
+        </form>
+
+        <p class="govuk-body">
+            <a href="../../view-mentor?mentor={{ name | lower | replace(' ', '-') }}" class="govuk-link">Cancel and go back to {{ name }}'s details</a>
+        </p>
 
     </div>
 </div>

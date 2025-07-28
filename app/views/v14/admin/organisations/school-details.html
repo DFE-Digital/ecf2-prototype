@@ -40,9 +40,9 @@
             href: "?section=overview",
             current: true if currentSection == "overview" else false
           }, {
-            text: "Participants",
-            href: "?section=participants",
-            current: true if currentSection == "participants" else false
+            text: "Teachers",
+            href: "?section=teachers",
+            current: true if currentSection == "teachers" else false
           }, {
             text: "Partnerships",
             href: "?section=partnerships",
@@ -91,8 +91,8 @@
                 </dl>
             {% endif %}
 
-            {% if currentSection == "participants" %}
-                <h3 class="govuk-heading-m">Participants</h3>
+            {% if currentSection == "teachers" %}
+                <h3 class="govuk-heading-m">Teachers</h3>
                 <table class="govuk-table">
                     <thead class="govuk-table__head">
                         <tr class="govuk-table__row">
