@@ -125,15 +125,6 @@ href: "javascript:window.history.back()"
               },
               value: {
                 text: newValue
-              },
-              actions: {
-                items: [
-                  {
-                    href: "javascript:window.history.back()",
-                    text: "Change",
-                    visuallyHiddenText: "name"
-                  }
-                ]
               }
             }
           ]) %}
@@ -153,15 +144,6 @@ href: "javascript:window.history.back()"
               },
               value: {
                 text: newValue
-              },
-              actions: {
-                items: [
-                  {
-                    href: "javascript:window.history.back()",
-                    text: "Change",
-                    visuallyHiddenText: "email address"
-                  }
-                ]
               }
             }
           ]) %}
@@ -181,15 +163,6 @@ href: "javascript:window.history.back()"
               },
               value: {
                 text: newValue
-              },
-              actions: {
-                items: [
-                  {
-                    href: "javascript:window.history.back()",
-                    text: "Change",
-                    visuallyHiddenText: "appropriate body"
-                  }
-                ]
               }
             }
           ]) %}
@@ -209,15 +182,6 @@ href: "javascript:window.history.back()"
               },
               value: {
                 text: newValue
-              },
-              actions: {
-                items: [
-                  {
-                    href: "javascript:window.history.back()",
-                    text: "Change",
-                    visuallyHiddenText: "working pattern"
-                  }
-                ]
               }
             }
           ]) %}
@@ -237,15 +201,6 @@ href: "javascript:window.history.back()"
               },
               value: {
                 text: newValue
-              },
-              actions: {
-                items: [
-                  {
-                    href: "javascript:window.history.back()",
-                    text: "Change",
-                    visuallyHiddenText: "training programme"
-                  }
-                ]
               }
             }
           ]) %}
@@ -259,15 +214,6 @@ href: "javascript:window.history.back()"
                 },
                 value: {
                   text: data['newLeadProvider']
-                },
-                actions: {
-                  items: [
-                    {
-                      href: "javascript:window.history.back()",
-                      text: "Change",
-                      visuallyHiddenText: "lead provider"
-                    }
-                  ]
                 }
               }
             ]) %}
@@ -288,15 +234,6 @@ href: "javascript:window.history.back()"
               },
               value: {
                 text: newValue
-              },
-              actions: {
-                items: [
-                  {
-                    href: "javascript:window.history.back()",
-                    text: "Change",
-                    visuallyHiddenText: "mentor"
-                  }
-                ]
               }
             }
           ]) %}
@@ -316,15 +253,6 @@ href: "javascript:window.history.back()"
               },
               value: {
                 text: newValue
-              },
-              actions: {
-                items: [
-                  {
-                    href: "javascript:window.history.back()",
-                    text: "Change",
-                    visuallyHiddenText: "lead provider"
-                  }
-                ]
               }
             }
           ]) %}
@@ -345,7 +273,11 @@ href: "javascript:window.history.back()"
               text: "Confirm change"
             }) }}
     
-          </form>
+        </form>
+
+        <p class="govuk-body">
+            <a href="../../view-ect?ect={{ name | lower | replace(' ', '-') }}" class="govuk-link">Cancel and go back to {{ name }}'s details</a>
+        </p>
 
     </div>
 </div>
