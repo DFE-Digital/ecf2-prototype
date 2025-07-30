@@ -35,22 +35,30 @@ href: "javascript:window.history.back()"
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
             <p>If your school wants to change its training programme, you should, for continuity, make changes at the end of the school year.</p>
-
         {% if newTrainingProgramme == 'Provider-led' %}
-    <p class="govuk-body">If you change {{name}}'s training from school-led to provider-led, it means:</p>  
-    <ul class="govuk-list govuk-list--bullet">
+
+  <p class="govuk-body">If you change {{name}}'s training from school-led to provider-led, it means:</p>  
+   <ul class="govuk-list govuk-list--bullet">
                   <li>your school will work with providers who'll deliver training funded by the Department for Education</li>
                 <li>your school will need to choose a lead provider who'll arrange the training</li>
                 <li>the lead provider will confirm which delivery partner they'll work with to deliver training events</li>
             </ul>
+         
+          
                     <p class="govuk-body">Read our guidance on <a href="https://www.gov.uk/guidance/set-up-and-manage-the-early-career-teacher-entitlement#choose-your-schools-training-option">choosing and setting up a training programme</a>.</p>
 
         {% else %}
-<p class="govuk-body">If you change {{name}}'s training from provider-led to school-led, it means immediately:</p>          
+
+                 <p>If you change {{name}}'s training from school-led to provider-led it means that their training with their current lead provider will stop immediately. They'll need to wait until your school-led programme is in place before they can continue.</p>
+
+<!--
+        <p class="govuk-body">If you change {{name}}'s training from provider-led to school-led, it means immediately:</p>          
               <ul class="govuk-list govuk-list--bullet">
                       <li>the old lead provider will no longer have access to {{name}}'s training record</li>
   <li>{{name}}'s training with the lead provider will end</li>
   </ul>
+
+-->
 
   <p class="govuk-body">Your school is responsible for designing and delivery a school-led training programme. You should tell your appropriate body if your programme is school-led as they'll need to check and approve it.</p>
 
