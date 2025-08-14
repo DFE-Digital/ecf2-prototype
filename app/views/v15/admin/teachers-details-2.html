@@ -1,0 +1,219 @@
+{% extends "layouts/admin.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    /* Profile panel using GOV.UK design system conventions */
+    .profile-panel {
+        background-color: #f3f2f1;
+        border-left: 5px solid #1d70b8;
+        padding: 15px 20px;
+        margin-bottom: 30px;
+    }
+    
+    .profile-panel__content {
+        display: flex;
+        gap: 40px;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+    
+    .profile-panel__left {
+        flex: 1;
+    }
+    
+    .profile-panel__right {
+        flex: 0 0 auto;
+        display: flex;
+        gap: 30px;
+        align-items: flex-start;
+    }
+    
+    .profile-panel__record {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .profile-panel__record-label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    
+    @media (max-width: 768px) {
+        .profile-panel__content {
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .profile-panel__right {
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .profile-panel__record {
+            flex-direction: row;
+            align-items: center;
+            text-align: left;
+            gap: 10px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% set pageName="John Smith" %}
+{% set activeNav="teachers" %}
+
+{% block beforeContent %}
+{{govukBreadcrumbs({
+    items: [
+        {
+            text: "Teachers",
+            href: "teachers"
+        },
+        {
+            text: "John Smith"
+        }
+    ]
+})}}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        
+        <!-- Profile Panel -->
+        <div class="profile-panel">
+            <div class="profile-panel__content">
+                <div class="profile-panel__left">
+                    <span class="govuk-caption-l">TRN: 2959198</span>
+                    <h1 class="govuk-heading-l govuk-!-margin-bottom-0">{{pageName}}</h1>
+                </div>
+                
+                <div class="profile-panel__right">
+                    <div class="profile-panel__record">
+                        <span class="profile-panel__record-label govuk-body-s govuk-!-font-weight-regular">ECT record</span>
+                        <strong class="govuk-tag govuk-tag--green">Yes</strong>
+                    </div>
+                    <div class="profile-panel__record">
+                        <span class="profile-panel__record-label govuk-body-s govuk-!-font-weight-regular">Mentor record</span>
+                        <strong class="govuk-tag govuk-tag--red">No</strong>
+                    </div>
+                    <div class="profile-panel__record">
+                        <span class="profile-panel__record-label govuk-body-s govuk-!-font-weight-regular">Induction record</span>
+                        <strong class="govuk-tag govuk-tag--green">Yes</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {% set currentSection = data.section or "overview" %}
+
+        {{ xGovukSecondaryNavigation({
+          visuallyHiddenTitle: "Secondary menu",
+          items: [{
+            text: "Overview",
+            href: "?section=overview",
+            current: true if currentSection == "overview" else false
+          }, {
+            text: "Induction",
+            href: "?section=induction",
+            current: true if currentSection == "induction" else false
+          }, {
+            text: "School",
+            href: "?section=school",
+            current: true if currentSection == "school" else false
+          }, {
+            text: "Training",
+            href: "?section=training",
+            current: true if currentSection == "training" else false
+          }, {
+            text: "Declarations",
+            href: "?section=declarations",
+            current: true if currentSection == "declarations" else false
+          }, {
+            text: "Timeline",
+            href: "?section=timeline",
+            current: true if currentSection == "timeline" else false
+          }]
+        }) }}
+
+        <div class="govuk-!-margin-top-6">
+            {% if currentSection == "overview" %}
+                <h3 class="govuk-heading-m">Overview</h3>
+                
+                {{govukSummaryList({
+                    rows: [
+                        {
+                            key: { text: "Name" },
+                            value: { text: "John Smith" },
+                            actions: {
+                                items: [
+                                    {
+                                        href: "#",
+                                        text: "Change",
+                                        visuallyHiddenText: "name"
+                                    }
+                                    ]
+                                }
+                        },
+                        {
+                            key: { text: "TRS name" },
+                            value: { text: "John Smith" }
+                        },
+                        {
+                            key: { text: "TRN" },
+                            value: { text: "2959198" }
+                        },
+                        {
+                            key: { text: "Email address" },
+                            value: { text: "john.smith@example.com" }
+                        },
+                        {
+                            key: { text: "Lead provider" },
+                            value: { text: "Ambition Institute" }
+                        },
+                        {
+                            key: { text: "Delivery partner" },
+                            value: { text: "Education Development Trust" }
+                        },
+                        {
+                            key: { text: "Appropriate body" },
+                            value: { text: "Alpha Teaching School Hub" }
+                        }
+                    ]
+                })}}
+            {% endif %}
+
+            {% if currentSection == "induction" %}
+                <h3 class="govuk-heading-m">Induction</h3>
+                <!-- Induction content to be added -->
+            {% endif %}
+
+            {% if currentSection == "school" %}
+                <h3 class="govuk-heading-m">School</h3>
+                <!-- School content to be added -->
+            {% endif %}
+
+            {% if currentSection == "training" %}
+                <h3 class="govuk-heading-m">Training</h3>
+                <!-- Training content to be added -->
+            {% endif %}
+
+            {% if currentSection == "declarations" %}
+                <h3 class="govuk-heading-m">Declarations</h3>
+                <!-- Declarations content to be added -->
+            {% endif %}
+
+            {% if currentSection == "timeline" %}
+                <h3 class="govuk-heading-m">Timeline</h3>
+                <!-- Timeline content to be added -->
+            {% endif %}
+        </div>
+        
+    </div>
+</div>
+
+{% endblock %} 
