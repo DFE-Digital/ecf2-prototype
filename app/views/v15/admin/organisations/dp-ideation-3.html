@@ -1,0 +1,49 @@
+{% extends "layouts/admin.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    /* Custom styles for search example */
+    .search-box__form {
+        display: flex;
+        gap: 15px;
+        align-items: flex-end;
+        flex-wrap: wrap;
+    }
+    
+    .search-box__input {
+        flex-grow: 1;
+    }
+</style>
+{% endblock %}
+
+{% set pageName="Change delivery partner name for Aquila Trust" %}
+{% set activeNav="organisations" %}
+
+{% block beforeContent %}
+{{govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+})}}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+        {{govukInput({
+            label: {
+                text: "Enter new name for Aquila Trust",
+                isPageHeading: false
+            },
+            id: "dp-name",
+            name: "dp-name",
+            value: "Aquila Trust"
+        })}}
+
+        <button class="govuk-button">Confirm</button>
+    </div>
+</div>
+
+{% endblock %} 
