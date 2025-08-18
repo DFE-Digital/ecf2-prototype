@@ -13,7 +13,7 @@
 
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
-        <p>Our records show that the following person is your school induction tutor:</p>
+        <p>Our records show that the following person is currently your school induction tutor:</p>
 
         {{ govukSummaryList({
             rows: [
@@ -28,6 +28,31 @@
             ]
         }) }}
 
+
+{% set newsitdetails %}
+        <p>Enter new school induction tutor details.</p>
+            {{ govukInput({
+                id: "tutor-name",
+                classes: "govuk-input--width-20",
+                name: "tutor-name",
+                label: {
+                    text: "Name"
+                }
+            }) }}
+
+            {{ govukInput({
+                id: "tutor-email",
+                classes: "govuk-input--width-20",
+                name: "tutor-email",
+                label: {
+                    text: "Email"
+                }
+            }) }}
+        {% endset %}
+
+
+       
+
         {{govukRadios({
             idPrefix: "confirm-school-induction-tutor",
             name: "confirm-school-induction-tutor",
@@ -40,12 +65,20 @@
             },
             items: [
                 {
+                    id: "new-sit",
+                    name: "NewSit",
                     value: "yes",   
                     text: "Yes"
                 },
                 {
+                   id: "new-sit-email",
+                    name: "NewSitEmail",
                     value: "no",
-                    text: "No"
+                    text: "No, someone else will be the school induction tutor",
+                    conditional: {
+        html: newsitdetails
+      }
+      
                 }
             ]
         }) }}
