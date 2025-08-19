@@ -3,6 +3,10 @@
 {% set pageName="Tom Jones has been confirmed as your school induction tutor" %}
 
 {% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
 {% endblock %} 
 
 {% block content %} 
@@ -14,7 +18,7 @@
 
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
-                 <p>We'll email Tom Jones to let them know.</p>
+                 <p>We'll email Tom Jones at TJ@school.org.uk to let them know.</p>
 
                  <button class="govuk-button">Continue</button>
         </form>
