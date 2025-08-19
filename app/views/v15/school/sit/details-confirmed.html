@@ -3,6 +3,10 @@
 {% set pageName="John Doe has been confirmed as your school induction tutor" %}
 
 {% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
 {% endblock %}
 
 {% block content %}
