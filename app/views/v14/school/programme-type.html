@@ -6,7 +6,7 @@
 {% set name = 'John Smith' %}
 {% endif %}
 
-{% set pageName="What training programme will " + name + " follow?" %}
+{% set pageName="Which training programme will " + name + " follow?" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -37,14 +37,14 @@
             value: "Provider-led",
             text: "Provider-led",
             hint: {
-            text: "Your school will work with providers who will deliver early career framework based training funded by the Department for Education."
+            text: "Your school will use Department for Education funded providers to design and deliver training based on the initial teacher training and early career framework."
             }
           },
           {
             value: "School-led",
             text: "School-led",
             hint: {
-            text: "Your school will deliver training based on the early career framework."
+            text: "Your school will design and deliver your own training based on the initial teacher training and early career framework."
             }
           }
         ]
