@@ -70,14 +70,18 @@
                             key: { text: "Name" },
                             value: { html: "
                             John Smith
-                            <!-- <span class='govuk-caption-m'> -->
-                              <!-- Name from TRS record: John James -->
-                            <!-- </span> -->
+                            <span class='govuk-caption-m'>
+                              Name from TRS record: John James
+                            </span>
                             " }
                         },
                         {
                             key: { text: "TRN" },
                             value: { text: "2959198" }
+                        },
+                        {
+                            key: { text: "Role" },
+                            value: { text: "Early career teacher" }
                         },
                         {
                             key: { text: "Most recent email address" },
@@ -94,15 +98,15 @@
                             " }
                         },
                         {
-                            key: { text: "Registered for ECT training" },
+                            key: { text: "ECT training currently" },
                             value: { text: "Yes" }
                         },
                         {
-                            key: { text: "Registered for mentor training" },
-                            value: { text: "Yes" }
+                            key: { text: "Mentor training currently" },
+                            value: { text: "No" }
                         },
                         {
-                            key: { text: "Induction recorded with appropriate body" },
+                            key: { text: "Induction claimed by appropriate body" },
                             value: { text: "Yes" }
                         }
                     ]
@@ -179,7 +183,7 @@
             {% endif %}
 
             {% if currentSection == "school" %}
-                <h3 class="govuk-heading-m">Current school</h3>
+                <h3 class="govuk-heading-m">ECT history</h3>
 
                 {{govukSummaryList({
                   card: {
@@ -188,6 +192,10 @@
                     }
                   },
                   rows: [
+                      {
+                        key: { text: "Role" },
+                        value: { text: "Early career teacher" }
+                      },
                       {
                         key: { text: "School URN" },
                         value: { text: "1103052" }
@@ -199,10 +207,6 @@
                       {
                         key: { text: "Email address" },
                         value: { text: "john.smith@stjohnsprimary.org.uk" }
-                      },
-                      {
-                        key: { text: "Role" },
-                        value: { text: "Early career teacher" }
                       },
                       {
                         key: { text: "Appropriate body" },
@@ -222,47 +226,14 @@
                 {{govukSummaryList({
                   card: {
                     title: {
-                      text: "St John's C of E Primary School"
-                    }
-                  },
-                  rows: [
-                      {
-                        key: { text: "School URN" },
-                        value: { text: "1103052" }
-                      },
-                      {
-                        key: { text: "School start date" },
-                        value: { text: "25 September 2024" }
-                      },
-                      {
-                        key: { text: "Email address" },
-                        value: { text: "john.smith@stjohnsprimary.org.uk" }
-                      },
-                      {
-                        key: { text: "Role" },
-                        value: { text: "Mentor" }
-                      },
-                      {
-                        key: { text: "Assigned ECTs" },
-                        value: { html: "
-                        <ul class='govuk-list govuk-!-margin-bottom-0'>
-                          <li><a class='govuk-link govuk-link--no-visited-state' href='#'>Gustav Brown</a></li>
-                          <li><a class='govuk-link govuk-link--no-visited-state' href='#'>Steven Taylor</a></li>
-                        </ul>
-                        " }
-                      }
-                    ]
-                })}}
-
-                <h3 class="govuk-heading-m">Previous schools</h3>
-
-                {{govukSummaryList({
-                  card: {
-                    title: {
                       text: "Alpha Primary School"
                     }
                   },
                     rows: [
+                        {
+                            key: { text: "Role" },
+                            value: { text: "Early career teacher" }
+                        },
                         {
                             key: { text: "School URN" },
                             value: { text: "1195201" }
@@ -280,15 +251,49 @@
                             value: { text: "Umber Teaching School Hub" }
                         },
                         {
-                            key: { text: "Role" },
-                            value: { text: "Early career teacher" }
-                        },
-                        {
                             key: { text: "Working pattern" },
                             value: { text: "Full time" }
                         }
                     ]
                 })}}
+
+                <h3 class="govuk-heading-m">Mentor history</h3>
+
+                {{govukSummaryList({
+                  card: {
+                    title: {
+                      text: "St John's C of E Primary School"
+                    }
+                  },
+                  rows: [
+                      {
+                        key: { text: "Role" },
+                        value: { text: "Mentor" }
+                      },
+                      {
+                        key: { text: "School URN" },
+                        value: { text: "1103052" }
+                      },
+                      {
+                        key: { text: "School start date" },
+                        value: { text: "25 September 2024" }
+                      },
+                      {
+                        key: { text: "Email address" },
+                        value: { text: "john.smith@stjohnsprimary.org.uk" }
+                      },
+                      {
+                        key: { text: "Assigned ECTs" },
+                        value: { html: "
+                        <ul class='govuk-list govuk-!-margin-bottom-0'>
+                          <li><a class='govuk-link govuk-link--no-visited-state' href='#'>Gustav Brown</a></li>
+                          <li><a class='govuk-link govuk-link--no-visited-state' href='#'>Steven Taylor</a></li>
+                        </ul>
+                        " }
+                      }
+                    ]
+                })}}
+
             {% endif %}
 
             {% if currentSection == "training" %}
