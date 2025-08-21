@@ -1,8 +1,18 @@
 {% extends "layouts/home.html" %}
 
-{% set pageName="John Doe has been confirmed as your school induction tutor" %}
+{% if data['confirm-school-induction-tutor'] == 'yes' %}
+{% set name = "John Doe" %}
+{% else %}
+{% set name = data['tutor-name'] %}
+{% endif %}
+
+{% set pageName= name + " has been confirmed as your school induction tutor" %}
 
 {% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
 {% endblock %}
 
 {% block content %}
@@ -14,7 +24,7 @@
 
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
-        <p>We'll let John Doe know that they're your school induction tutor.</p>
+        <p>We'll let {{name}} know that they're your school induction tutor.</p>
         
         <button class="govuk-button">Continue</button>
         </form>
