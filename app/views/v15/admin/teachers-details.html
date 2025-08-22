@@ -175,7 +175,8 @@
             {% endif %}
 
             {% if currentSection == "school" %}
-                <h3 class="govuk-heading-m">ECT history</h3>
+                <h3 class="govuk-heading-m">School</h3>
+                <h4 class="govuk-heading-s">ECT history</h4>
 
                 {{govukSummaryList({
                   card: {
@@ -241,7 +242,7 @@
                     ]
                 })}}
 
-                <h3 class="govuk-heading-m">Mentor history</h3>
+                <h4 class="govuk-heading-s">Mentor history</h4>
 
                 {{govukSummaryList({
                   card: {
@@ -277,8 +278,23 @@
             {% endif %}
 
             {% if currentSection == "training" %}
-                <h3 class="govuk-heading-m">Training</h3>
-                <!-- Training content to be added -->
+                <h3 class="govuk-heading-m">ECT history</h3>
+
+                {{govukSummaryList({
+                  card: {
+                    title: {
+                      html: "<a href='#' class='govuk-link govuk-link--no-visited-state'>St John's C of E Primary School</a>"
+                    }
+                  },
+                  rows: [
+                    {
+                      key: { text: "School URN" },
+                      value: { text: "1103052" }
+                    }
+                  ]
+                })}}
+
+                <h3 class="govuk-heading-m">Mentor history</h3>
             {% endif %}
 
             {% if currentSection == "declarations" %}
