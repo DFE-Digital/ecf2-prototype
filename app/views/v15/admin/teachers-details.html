@@ -90,24 +90,16 @@
                         {
                             key: { text: "Current school" },
                             value: { html: "
-                            St John's C of E Primary School
-                            <!-- <ul class='govuk-list govuk-!-margin-bottom-0'> -->
-                              <!-- <li>St John's C of E Primary School</li> -->
-                              <!-- <li>Abacus Primary School</li> -->
-                            <!-- </ul> -->
+                            <!-- St John's C of E Primary School -->
+                            <ul class='govuk-list govuk-!-margin-bottom-0'>
+                              <li><a class='govuk-link govuk-link--no-visited-state' href='#'>St John's C of E Primary School (URN: 1103052)</a></li>
+                              <li><a class='govuk-link govuk-link--no-visited-state' href='#'>Abacus Primary School (URN: 1195201)</a></li>
+                            </ul>
                             " }
                         },
                         {
-                            key: { text: "ECT training currently" },
-                            value: { text: "Yes" }
-                        },
-                        {
-                            key: { text: "Mentor training currently" },
-                            value: { text: "No" }
-                        },
-                        {
-                            key: { text: "Induction claimed by appropriate body" },
-                            value: { text: "Yes" }
+                            key: { text: "Induction status" },
+                            value: { html: '<strong class="govuk-tag govuk-tag--blue">In progress</strong>' }
                         }
                     ]
                 })}}
@@ -188,14 +180,10 @@
                 {{govukSummaryList({
                   card: {
                     title: {
-                      text: "St John's C of E Primary School"
+                      html: "<a href='#' class='govuk-link govuk-link--no-visited-state'>St John's C of E Primary School</a>"
                     }
                   },
                   rows: [
-                      {
-                        key: { text: "Role" },
-                        value: { text: "Early career teacher" }
-                      },
                       {
                         key: { text: "School URN" },
                         value: { text: "1103052" }
@@ -226,14 +214,10 @@
                 {{govukSummaryList({
                   card: {
                     title: {
-                      text: "Alpha Primary School"
+                      html: "<a href='#' class='govuk-link govuk-link--no-visited-state'>Alpha Primary School</a>"
                     }
                   },
                     rows: [
-                        {
-                            key: { text: "Role" },
-                            value: { text: "Early career teacher" }
-                        },
                         {
                             key: { text: "School URN" },
                             value: { text: "1195201" }
@@ -262,14 +246,10 @@
                 {{govukSummaryList({
                   card: {
                     title: {
-                      text: "St John's C of E Primary School"
+                      html: "<a href='#' class='govuk-link govuk-link--no-visited-state'>St John's C of E Primary School</a>"
                     }
                   },
                   rows: [
-                      {
-                        key: { text: "Role" },
-                        value: { text: "Mentor" }
-                      },
                       {
                         key: { text: "School URN" },
                         value: { text: "1103052" }

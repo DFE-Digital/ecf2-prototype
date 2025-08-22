@@ -73,6 +73,16 @@ module.exports = router => {
         next();
     });
 
+    // SIT pages when logging in
+
+    router.post(v + school + 'sit/check-school-induction-tutor-1', (req, res) => {
+        res.redirect(v + school + 'sit/details-confirmed-1')
+    })
+
+    router.post(v + school + 'sit/details-confirmed-1', (req, res) => {
+        res.redirect(v + school + 'home/ects')
+    })
+
     // start page
     router.post(v + school + 'start', (req, res) => {
         if (req.query.rollover === 'yes') {
