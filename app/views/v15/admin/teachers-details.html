@@ -278,23 +278,83 @@
             {% endif %}
 
             {% if currentSection == "training" %}
-                <h3 class="govuk-heading-m">ECT history</h3>
+                <h3 class="govuk-heading-m">Training</h3>
+                <h4 class="govuk-heading-s">ECT history</h4>
 
                 {{govukSummaryList({
                   card: {
                     title: {
-                      html: "<a href='#' class='govuk-link govuk-link--no-visited-state'>St John's C of E Primary School</a>"
+                      html: "Ambition Institute"
                     }
                   },
                   rows: [
                     {
-                      key: { text: "School URN" },
-                      value: { text: "1103052" }
+                      key: { text: "Lead provider" },
+                      value: { text: "Ambition Institute" }
+                    },
+                    {
+                      key: { text: "Delivery partner" },
+                      value: { text: "Alpha Teaching School Hub" }
+                    },
+                    {
+                      key: { text: "Contract period" },
+                      value: { text: "2022" }
+                    },
+                    {
+                      key: { text: "Induction programme" },
+                      value: { text: "Provider-led" }
+                    },
+                    {
+                      key: { text: "Schedule" },
+                      value: { text: "ecf-standard-september" }
+                    },
+                    {
+                      key: { text: "Start date" },
+                      value: { text: "1 September 2022" }
+                    },
+                    {
+                      key: { text: "End date" },
+                      value: { text: "1 April 2024" }
                     }
                   ]
                 })}}
 
-                <h3 class="govuk-heading-m">Mentor history</h3>
+                <h4 class="govuk-heading-s">Mentor history</h4>
+
+                {{govukSummaryList({
+                  card: {
+                    title: {
+                      html: "Ambition Institute"
+                    }
+                  },
+                  rows: [
+                    {
+                      key: { text: "Lead provider" },
+                      value: { text: "Ambition Institute" }
+                    },
+                    {
+                      key: { text: "Delivery partner" },
+                      value: { text: "Alpha Teaching School Hub" }
+                    },
+                    {
+                      key: { text: "Contract period" },
+                      value: { text: "2024" }
+                    },
+                    {
+                      key: { text: "Schedule" },
+                      value: { text: "ecf-standard-september" }
+                    },
+                    {
+                      key: { text: "Start date" },
+                      value: { text: "1 September 2024" }
+                    },
+                    {
+                      key: { text: "End date" },
+                      value: { text: "No end date recorded" }
+                    }
+                  ]
+                })}}
+
             {% endif %}
 
             {% if currentSection == "declarations" %}
