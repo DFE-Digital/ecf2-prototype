@@ -137,6 +137,12 @@ module.exports = router => {
         res.redirect(v + school + 'start?mentorTransfer=yes')
     })
 
+    router.get(v + school + 'setup-scenario-5', (req, res) => {
+        req.session.data['transferJourney'] = ''
+        req.session.data['defaultsAlreadyAdded'] = 'yes'
+        res.redirect(v + school + 'sit/check-school-induction-tutor-1')
+    })
+
     // what you'll need
     router.post(v + school + 'what-youll-need', (req, res) => {
         res.redirect(v + school + 'find-ect')
@@ -343,6 +349,21 @@ module.exports = router => {
                 res.redirect(v + school + 'check-answers')
             }
         }
+    })
+
+    // view ect and withdrawal
+    
+    router.post(v + school + 'home/ect-leaving', (req, res) => {        
+        if (req.session.data['ectLeaving'] === 'no') {
+            res.redirect(v + school + 'home/ect-not-leaving');
+        }
+        else {
+            res.redirect(v + school + 'home/ect-leaving-check-answers?ect=' + req.query.ect);
+        }
+    })
+
+    router.post(v + school + 'home/ect-leaving-check-answers', (req, res) => {
+        res.redirect(v + school + 'home/ect-leaving-confirmation?ect=' + req.query.ect);
     })
 
     // end of adding non-default programme information
