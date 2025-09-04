@@ -9,12 +9,6 @@
 
 {% block content %}
 
-{% if data['schoolName'] %}
-{% set schoolName = data['schoolName'] %}
-{% else %}
-{% set schoolName = 'Test Primary School' %}
-{% endif %}
-
 {% if data['leadProvider'] %}
 {% set lp = data['leadProvider'] %}
 {% else %}

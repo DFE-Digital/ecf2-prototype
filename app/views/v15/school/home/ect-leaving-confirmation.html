@@ -1,0 +1,23 @@
+{% extends "layouts/ects.html" %}
+
+{% set ectId = data.ectId %}
+{% set ectName = data.ectName %}
+{% set ectLeaving = data.ectLeaving %}
+
+{% set pageName = "Confirmation" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    
+    {{ govukPanel({
+      titleText: "We've recorded that " + ectName + " is leaving on " + data.day + " " + data.month | monthName + " " + data.year + " and is not expected to return"
+    }) }}
+    
+    <p class="govuk-body">
+      <a class="govuk-link" href="ects">Back to ECTs</a>
+    </p>
+    
+  </div>
+</div>
+{% endblock %} 

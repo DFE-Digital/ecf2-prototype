@@ -1,0 +1,41 @@
+{% extends "layouts/ects.html" %}
+
+{% set ectId = data.ectId %}
+{% set ectName = data.ectName %}
+{% set ectLeavingDate = data.dateLeaving %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    
+    <h1 class="govuk-heading-l">Confirm that {{ ectName }} is leaving your school and is not expected to return</h1>
+
+    <p>You are confirming that {{ ectName }} is leaving your school on {{ data.day if data.day else "1" }} {{ data.month | monthName if data.month else "January" }} {{ data.year if data.year else "2025" }} and is not expected to return.</p>
+
+    <p>You will not be able to make any further changes to {{ ectName }}'s details after confirming they are leaving.</p>
+    
+    <form action="ect-leaving-confirmation" method="post">
+      <input type="hidden" name="ectId" value="{{ ectId }}">
+      <input type="hidden" name="ectName" value="{{ ectName }}">
+      <input type="hidden" name="ectLeaving" value="yes">
+      <input type="hidden" name="ectLeavingDate" value="{{ (ectLeavingDate | date('j F Y') if ectLeavingDate else '1 January 2025') }}">
+      
+      {{ govukButton({
+        text: "Confirm and continue"
+      }) }}
+    </form>
+    
+    <p class="govuk-body">
+      <a class="govuk-link" href="view-ect?ect={{ ectId }}">Back to {{ ectName }}'s details</a>
+    </p>
+    
+  </div>
+</div>
+{% endblock %} 
