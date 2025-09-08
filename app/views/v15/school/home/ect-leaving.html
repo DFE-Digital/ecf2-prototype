@@ -16,11 +16,13 @@ href: "view-ect?ect=" + data.ect
   {% endif %}
 {% endfor %}
 
+{% set pageName = "Tell us if " + activeEct.name + " is leaving your school and is not expected to return" %}
+
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     
-    <h1 class="govuk-heading-l">Tell us if {{activeEct.name}} is leaving your school and is not expected to return</h1>
+    <h1 class="govuk-heading-l">{{pageName}}</h1>
         
     <p class="govuk-body">This could be because they are:</p>
 

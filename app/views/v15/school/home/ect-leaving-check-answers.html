@@ -11,15 +11,17 @@
   }) }}
 {% endblock %}
 
+{% set pageName = "Confirm that " + ectName + " is leaving your school and is not expected to return" %}
+
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     
-    <h1 class="govuk-heading-l">Confirm that {{ ectName }} is leaving your school and is not expected to return</h1>
+    <h1 class="govuk-heading-l">{{pageName}}</h1>
 
     <p>You are confirming that {{ ectName }} is leaving your school on {{ data.day if data.day else "1" }} {{ data.month | monthName if data.month else "January" }} {{ data.year if data.year else "2025" }} and is not expected to return.</p>
 
-    <p>You will not be able to make any further changes to {{ ectName }}'s details after confirming they are leaving.</p>
+    <p>You will not be able to view or edit {{ ectName }}'s details after {{ data.day if data.day else "1" }} {{ data.month | monthName if data.month else "January" }} {{ data.year if data.year else "2025" }}.</p>
     
     <form action="ect-leaving-confirmation" method="post">
       <input type="hidden" name="ectId" value="{{ ectId }}">
@@ -33,7 +35,7 @@
     </form>
     
     <p class="govuk-body">
-      <a class="govuk-link" href="view-ect?ect={{ ectId }}">Back to {{ ectName }}'s details</a>
+      <a class="govuk-link" href="view-ect?ect={{ ectId }}">Cancel and go back to {{ ectName }}'s details</a>
     </p>
     
   </div>
