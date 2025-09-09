@@ -1,0 +1,47 @@
+{% extends "layouts/mentors.html" %}
+
+{% set mentorId = data.mentorId %}
+{% set mentorName = data.mentorName %}
+{% set mentorLeaving = data.mentorLeaving %}
+
+{% set pageName = "Confirmation" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+        <h1 class="govuk-panel__title">
+          {{ mentorName }} is leaving your school on {{ data.day if data.day else "1" }} {{ data.month | monthName if data.month else "January" }} {{ data.year if data.year else "2025" }} and is not expected to return
+        </h1>
+    </div>
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+
+    <p>We'll also notify the lead provider for {{ mentorName }} that you've reported they're leaving your school and are not expected to return.</p>
+
+    <p>They should continue with their current training programme until their leaving date.</p>
+
+    <p>{{mentorName}} will be removed from your school's mentors list after {{ data.day if data.day else "1" }} {{ data.month | monthName if data.month else "January" }} {{ data.year if data.year else "2025" }}.</p>
+
+    <p>ECTs currently assigned to {{ mentorName }} will need to be reassigned to another mentor.</p>
+
+    <p class="govuk-body">
+      <a class="govuk-link" href="mentors">Back to mentors</a>
+    </p>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var panelTitle = document.querySelector('.govuk-panel__title');
+    if (panelTitle && panelTitle.textContent.trim().length > 0) {
+      document.title = panelTitle.textContent.trim();
+    }
+  });
+</script>
+
+{% endblock %}

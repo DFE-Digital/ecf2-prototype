@@ -366,6 +366,21 @@ module.exports = router => {
         res.redirect(v + school + 'home/ect-leaving-confirmation?ect=' + req.query.ect);
     })
 
+    // mentor leaving routes
+    
+    router.post(v + school + 'home/mentor-leaving', (req, res) => {        
+        if (req.session.data['mentorLeaving'] === 'no') {
+            res.redirect(v + school + 'home/mentor-not-leaving');
+        }
+        else {
+            res.redirect(v + school + 'home/mentor-leaving-check-answers?id=' + req.query.id);
+        }
+    })
+
+    router.post(v + school + 'home/mentor-leaving-check-answers', (req, res) => {
+        res.redirect(v + school + 'home/mentor-leaving-confirmation?id=' + req.query.id);
+    })
+
     // end of adding non-default programme information
 
     router.post(v + school + 'mentor', (req, res) => {
