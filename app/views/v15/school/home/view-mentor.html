@@ -70,6 +70,7 @@ href: "mentors"
     </div>
   </dl>
 
+  {% if activeMentor.trainingProgramme == 'Provider-led' %}
   <h2 class="govuk-heading-m">ECT mentor training details</h2>
   <dl class="govuk-summary-list">
           <div class="govuk-summary-list__row">
@@ -112,6 +113,7 @@ href: "mentors"
             </dd>
           </div>
         </dl>
+        {% endif %}
 
         <hr class="govuk-section-break govuk-section-break--m">
 

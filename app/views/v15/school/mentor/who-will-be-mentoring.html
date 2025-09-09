@@ -23,6 +23,20 @@ href: "javascript:window.history.back()"
 
         {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
+        {% set mentorItems = [] %}
+        {% for mentor in data.mentors %}
+        {% set mentorItems = mentorItems.concat([{
+        value: mentor.name,
+        text: mentor.name
+        }]) %}
+        {% endfor %}
+        {% set mentorItems = mentorItems.concat([{
+        divider: "or"
+        }, {
+        value: "Register a new mentor",
+        text: "Register a new mentor"
+        }]) %}
+
         {{ govukRadios({
         name: "mentor",
         fieldset: {
@@ -32,23 +46,7 @@ href: "javascript:window.history.back()"
         classes: "govuk-fieldset__legend--l"
         }
         },
-        items: [
-        {
-        value: "John Doe",
-        text: "John Doe"
-        },
-        {
-        value: "Tom Jones",
-        text: "Tom Jones"
-        },
-        {
-        divider: "or"
-        },
-        {
-        value: "Register a new mentor",
-        text: "Register a new mentor"
-        }
-        ]
+        items: mentorItems
         }) }}
 
             <button class="govuk-button">Continue</button>
