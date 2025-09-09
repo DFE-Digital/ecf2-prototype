@@ -18,13 +18,11 @@
 
     <h2 class="govuk-heading-m">What happens next</h2>
 
-    <p>We'll tell {{ ectName }} that you've reported they're leaving your school and are not expected to return.</p>
-
     <p>We'll also notify the lead provider and appropriate body for {{ ectName }} that you've reported they're leaving your school and are not expected to return.</p>
 
     <p>They should continue with their current training programme until their leaving date.</p>
     
-    <p>You will not be able to make any further changes to {{ ectName }}'s details, and they will be removed from your school's ECTs list after {{ data.day if data.day else "1" }} {{ data.month | monthName if data.month else "January" }} {{ data.year if data.year else "2025" }}.</p>
+    <p>{{ectName}} will be removed from your school's ECTs list after {{ data.day if data.day else "1" }} {{ data.month | monthName if data.month else "January" }} {{ data.year if data.year else "2025" }}.</p>
 
     <p>The person mentoring {{ ectName }} can continue their mentor training, even if they do not have another ECT assigned to them yet.</p>
     

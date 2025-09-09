@@ -1,0 +1,43 @@
+{% extends "layouts/mentors.html" %}
+
+{% set mentorId = data.mentorId %}
+{% set mentorName = data.mentorName %}
+{% set mentorLeavingDate = data.dateLeaving %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+  }) }}
+{% endblock %}
+
+{% set pageName = "Confirm that " + mentorName + " is leaving your school and is not expected to return" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+    <p>You are confirming that {{ mentorName }} is leaving your school on {{ data.day if data.day else "1" }} {{ data.month | monthName if data.month else "January" }} {{ data.year if data.year else "2025" }} and is not expected to return.</p>
+
+    <p>You will not be able to view or edit {{ mentorName }}'s details after {{ data.day if data.day else "1" }} {{ data.month | monthName if data.month else "January" }} {{ data.year if data.year else "2025" }}.</p>
+
+    <form action="mentor-leaving-confirmation" method="post">
+      <input type="hidden" name="mentorId" value="{{ mentorId }}">
+      <input type="hidden" name="mentorName" value="{{ mentorName }}">
+      <input type="hidden" name="mentorLeaving" value="yes">
+      <input type="hidden" name="mentorLeavingDate" value="{{ (mentorLeavingDate | date('j F Y') if mentorLeavingDate else '1 January 2025') }}">
+
+      {{ govukButton({
+        text: "Confirm and continue"
+      }) }}
+    </form>
+
+    <p class="govuk-body">
+      <a class="govuk-link" href="view-mentor?id={{ mentorId }}">Cancel and go back to {{ mentorName }}'s details</a>
+    </p>
+
+  </div>
+</div>
+{% endblock %}

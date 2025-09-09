@@ -1,0 +1,94 @@
+{% extends "layouts/mentors.html" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "view-mentor?id=" + data.id
+}) }}
+{% endblock %}
+
+{# Find the active mentor from the mentors array based on the 'id' query parameter #}
+{% set mentorId = data.id or 'john-doe' %}
+{% set activeMentor = {} %}
+{% for person in data.mentors %}
+  {% if person.id == mentorId %}
+    {% set activeMentor = person %}
+  {% endif %}
+{% endfor %}
+
+{% set pageName = "Tell us if " + activeMentor.name + " is leaving your school and is not expected to return" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+    <p class="govuk-body">This could be because they are:</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+        <li>moving to a different school</li>
+        <li>leaving the teaching profession</li>
+        <li>leaving for another reason and are not expected to return</li>
+    </ul>
+
+    <p>You should answer no if they are going on sick leave, parental leave or a break where they are intending to return.</p>
+
+    <form class="form" method="post">
+
+      <input type="hidden" name="mentorId" value="{{ activeMentor.id }}">
+      <input type="hidden" name="mentorName" value="{{ activeMentor.name }}">
+
+      {% set dateLeaving %}
+        {{ govukDateInput({
+          id: "dateLeaving",
+          name: "dateLeaving",
+          fieldset: {
+            legend: {
+              text: "When did or when will " + activeMentor.name + " be leaving as a mentor at your school?",
+              isPageHeading: false,
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          hint: {
+            text: "For example, 31 3 2025"
+          }
+        }) }}
+      {% endset %}
+
+      {{ govukRadios({
+        name: "mentorLeaving",
+        fieldset: {
+          legend: {
+            text: "Is " + activeMentor.name + " leaving your school and is not expected to return?",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes, " + activeMentor.name + " is leaving and is not expected to return",
+            conditional: {
+                html: dateLeaving
+            }
+          },
+          {
+            value: "no",
+            text: "No, " + activeMentor.name + " is leaving but is expected to return"
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+    <p class="govuk-body"><a class="govuk-link" href="view-mentor?id={{ activeMentor.id }}">Cancel and go back to {{ activeMentor.name }}'s details</a></p>
+
+  </div>
+</div>
+
+{% endblock %}
