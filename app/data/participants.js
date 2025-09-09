@@ -119,6 +119,7 @@ const mentors = [
         name: 'John Doe',
         trn: '5924029',
         email: 'john.doe@email.com',
+        trainingProgramme: 'Provider-led',
         leadProvider: 'Ambition Institute',
         deliveryPartner: 'Alpha Teaching School Hub',
     },
@@ -127,8 +128,16 @@ const mentors = [
         name: 'Tom Jones',
         trn: '1144020',
         email: 'tom.jones@email.com',
+        trainingProgramme: 'Provider-led',
         leadProvider: 'Teach First',
         deliveryPartner: null,
+    },
+    {
+        id: 'steven-davies',
+        name: 'Steven Davies',
+        trn: '1956013',
+        email: 'steven.davies@email.com',
+        trainingProgramme: 'School-led',
     }
 ];
 
