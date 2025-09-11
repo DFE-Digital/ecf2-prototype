@@ -190,9 +190,15 @@ href: "ects"
 
         <hr class="govuk-section-break govuk-section-break--m">
 
+        {% if activeEct.leavingDate %}
+        <h1 class="govuk-heading-m">{{ activeEct.name }} is leaving your school</h1>
+
+        <p>You've told us {{ activeEct.name }} is leaving your school on {{ activeEct.leavingDate }}. You will not be able to view or edit {{ activeEct.name }}'s details after {{ activeEct.leavingDate }}.</p>
+        {% else %}
         <h2 class="govuk-heading-m">Tell us if {{ activeEct.name }} is leaving your school and is not expected to return</h2>
 
         <p>If {{ activeEct.name }} is leaving your school and is not expected to return, you must <a class="govuk-link govuk-link--no-visited-state" href="ect-leaving?ect={{ activeEct.id }}">tell us so we can update our records</a>.</p>
+        {% endif %}
 
       </div>
     </div>

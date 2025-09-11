@@ -117,9 +117,15 @@ href: "mentors"
 
         <hr class="govuk-section-break govuk-section-break--m">
 
+        {% if activeMentor.leavingDate %}
+        <h1 class="govuk-heading-m">{{ activeMentor.name }} is leaving your school</h1>
+
+        <p>You've told us {{ activeMentor.name }} is leaving your school on {{ activeMentor.leavingDate }}. You will not be able to view or edit {{ activeMentor.name }}'s details after {{ activeMentor.leavingDate }}.</p>
+        {% else %}
         <h2 class="govuk-heading-m">Tell us if {{ activeMentor.name }} is leaving your school and is not expected to return</h2>
 
         <p>If {{ activeMentor.name }} is leaving your school and is not expected to return, you must <a class="govuk-link govuk-link--no-visited-state" href="mentor-leaving?id={{ activeMentor.id }}">tell us so we can update our records</a>.</p>
+        {% endif %}
 
       </div>
     </div>

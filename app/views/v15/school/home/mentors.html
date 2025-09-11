@@ -41,6 +41,26 @@
         </div>
 
         {% for mentor in data.mentors %}
+        {% if mentor.leavingDate %}
+        {% set leavingParts = mentor.leavingDate.split(' ') %}
+        {% set leavingDay = leavingParts[0] %}
+        {% set leavingMonthName = leavingParts[1] %}
+        {% set leavingYear = leavingParts[2] %}
+        
+        {# Convert month name to number #}
+        {% set months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] %}
+        {% set leavingMonth = 0 %}
+        {% for i in range(12) %}
+          {% if months[i] == leavingMonthName %}
+            {% set leavingMonth = i + 1 %}
+          {% endif %}
+        {% endfor %}
+        
+        {# Compare dates #}
+        {% set isPast = (leavingYear < data.currentYear) or (leavingYear == data.currentYear and leavingMonth < data.currentMonth) or (leavingYear == data.currentYear and leavingMonth == data.currentMonth and leavingDay < data.currentDay) %}
+        {% endif %}
+        
+        {% if not mentor.leavingDate or not isPast %}
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
                 <h3 class="govuk-summary-card__title">
@@ -114,6 +134,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
         {% endfor %}
 
     </div>

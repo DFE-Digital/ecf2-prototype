@@ -8,6 +8,8 @@ var school = 'school/'
 var mentor = 'mentor/'
 var admin = 'admin/'
 
+var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
 module.exports = router => {
 
     router.use((req, res, next) => {
@@ -354,11 +356,14 @@ module.exports = router => {
     // view ect and withdrawal
     
     router.post(v + school + 'home/ect-leaving', (req, res) => {        
-        if (req.session.data['ectLeaving'] === 'no') {
+        if (req.body.ectLeaving === 'no') {
             res.redirect(v + school + 'home/ect-not-leaving');
         }
         else {
-            res.redirect(v + school + 'home/ect-leaving-check-answers?ect=' + req.query.ect);
+            // Store form data for check-answers page
+            req.session.data.ectId = req.body.ectId;
+            req.session.data.ectName = req.body.ectName;
+            res.redirect(v + school + 'home/ect-leaving-check-answers?ect=' + req.body.ectId);
         }
     })
 
@@ -366,19 +371,49 @@ module.exports = router => {
         res.redirect(v + school + 'home/ect-leaving-confirmation?ect=' + req.query.ect);
     })
 
+    router.post(v + school + 'home/ect-leaving-confirmation', (req, res) => {
+        // Update ECT status to 'Leaving school'
+        const ectId = req.body.ectId;
+        const ect = req.session.data.ects.find(e => e.id === ectId);
+        if (ect) {
+            ect.status = 'Leaving school';
+            ect.statusClass = 'govuk-tag--yellow';
+            if (req.session.data.day && req.session.data.month && req.session.data.year) {
+                ect.leavingDate = req.session.data.day + ' ' + months[req.session.data.month - 1] + ' ' + req.session.data.year;
+            }
+        }
+        res.redirect(v + school + 'home/ect-leaving-confirmation?ect=' + ectId);
+    })
+
     // mentor leaving routes
     
     router.post(v + school + 'home/mentor-leaving', (req, res) => {        
-        if (req.session.data['mentorLeaving'] === 'no') {
+        if (req.body.mentorLeaving === 'no') {
             res.redirect(v + school + 'home/mentor-not-leaving');
         }
         else {
-            res.redirect(v + school + 'home/mentor-leaving-check-answers?id=' + req.query.id);
+            // Store form data for check-answers page
+            req.session.data.mentorId = req.body.mentorId;
+            req.session.data.mentorName = req.body.mentorName;
+            res.redirect(v + school + 'home/mentor-leaving-check-answers?id=' + req.body.mentorId);
         }
     })
 
     router.post(v + school + 'home/mentor-leaving-check-answers', (req, res) => {
         res.redirect(v + school + 'home/mentor-leaving-confirmation?id=' + req.query.id);
+    })
+
+    router.post(v + school + 'home/mentor-leaving-confirmation', (req, res) => {
+        // Update mentor status to 'Leaving school'
+        const mentorId = req.body.mentorId;
+        const mentor = req.session.data.mentors.find(m => m.id === mentorId);
+        if (mentor) {
+            mentor.status = 'Leaving school';
+            if (req.session.data.day && req.session.data.month && req.session.data.year) {
+                mentor.leavingDate = req.session.data.day + ' ' + months[req.session.data.month - 1] + ' ' + req.session.data.year;
+            }  
+        }
+        res.redirect(v + school + 'home/mentor-leaving-confirmation?id=' + mentorId);
     })
 
     // end of adding non-default programme information
