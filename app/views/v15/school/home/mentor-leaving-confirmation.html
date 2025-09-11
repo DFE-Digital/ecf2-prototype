@@ -12,7 +12,7 @@
 
     <div class="govuk-panel govuk-panel--confirmation">
       <h1 class="govuk-panel__title">
-        {{ mentorName }} is leaving your school
+        {{ mentorName if mentorName else "John Doe" }} is leaving your school
       </h1>
       <div class="govuk-panel__body">
         You will not be able to view or edit their details after {{ data.day if data.day else "1" }} {{ data.month | monthName if data.month else "January" }} {{ data.year if data.year else "2025" }}
@@ -21,13 +21,13 @@
 
     <h2 class="govuk-heading-m">What happens next</h2>
 
-    <p>We'll also notify the lead provider for {{ mentorName }} that you've reported they're leaving your school and are not expected to return.</p>
+    <p>We'll also notify the lead provider for {{ mentorName if mentorName else "John Doe" }} that you've reported they're leaving your school and are not expected to return.</p>
 
     <p>They should continue with their current training programme until their leaving date.</p>
 
-    <p>{{mentorName}} will be removed from your school's mentors list after {{ data.day if data.day else "1" }} {{ data.month | monthName if data.month else "January" }} {{ data.year if data.year else "2025" }}.</p>
+    <p>{{mentorName if mentorName else "John Doe"}} will be removed from your school's mentors list after {{ data.day if data.day else "1" }} {{ data.month | monthName if data.month else "January" }} {{ data.year if data.year else "2025" }}.</p>
 
-    <p>ECTs currently assigned to {{ mentorName }} will need to be reassigned to another mentor.</p>
+    <p>ECTs currently assigned to {{ mentorName if mentorName else "John Doe" }} will need to be reassigned to another mentor.</p>
 
     <p class="govuk-body">
       <a class="govuk-link" href="mentors">Back to mentors</a>

@@ -1,7 +1,7 @@
 {% extends "layouts/ects.html" %}
 
 {% set ectId = data.ectId %}
-{% set ectName = data.ectName %}
+{% set ectName = data.ectName or "John Smith" %}
 {% set ectLeavingDate = data.dateLeaving %}
 
 {% block beforeContent %}

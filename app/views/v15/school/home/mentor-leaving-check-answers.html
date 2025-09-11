@@ -1,7 +1,7 @@
 {% extends "layouts/mentors.html" %}
 
 {% set mentorId = data.mentorId %}
-{% set mentorName = data.mentorName %}
+{% set mentorName = data.mentorName or "John Doe" %}
 {% set mentorLeavingDate = data.dateLeaving %}
 
 {% block beforeContent %}
