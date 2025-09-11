@@ -22,6 +22,13 @@ href: "view-ect?ect=" + data.ect
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     
+    <div id="error-summary" class="govuk-error-summary" style="display: none;" aria-labelledby="error-summary-title" role="alert" tabindex="-1">
+      <h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2>
+      <div class="govuk-error-summary__body">
+        <ul class="govuk-list govuk-error-summary__list" id="error-list"></ul>
+      </div>
+    </div>
+    
     <h1 class="govuk-heading-l">{{pageName}}</h1>
         
     <p class="govuk-body">This could be because they are:</p>
@@ -34,7 +41,7 @@ href: "view-ect?ect=" + data.ect
 
     <p>You should answer no if they are going on sick leave, parental leave or a break where they are intending to return.</p>
     
-    <form class="form" method="post">
+    <form class="form" method="post" id="leaving-form">
       
       <input type="hidden" name="ectId" value="{{ activeEct.id }}">
       <input type="hidden" name="ectName" value="{{ activeEct.name }}">
@@ -90,5 +97,157 @@ href: "view-ect?ect=" + data.ect
     
   </div>
 </div>
+
+{% block pageScripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('leaving-form');
+    const errorSummary = document.getElementById('error-summary');
+    const errorList = document.getElementById('error-list');
+    const dateFields = {
+      day: document.getElementById('dateLeaving-day'),
+      month: document.getElementById('dateLeaving-month'),
+      year: document.getElementById('dateLeaving-year')
+    };
+    
+    const schoolStartDate = new Date('{{ activeEct.schoolStartDate }}');
+    const today = new Date();
+    const fourMonthsFromNow = new Date(today);
+    fourMonthsFromNow.setMonth(today.getMonth() + 4);
+    
+    form.addEventListener('submit', function(e) {
+      const ectLeaving = document.querySelector('input[name="ectLeaving"]:checked');
+      
+      if (ectLeaving && ectLeaving.value === 'yes') {
+        const day = dateFields.day.value.trim();
+        const month = dateFields.month.value.trim();
+        const year = dateFields.year.value.trim();
+        
+        // Clear previous errors
+        clearErrors();
+        
+        let hasErrors = false;
+        let errors = [];
+        
+        // Check if all date fields are filled
+        if (!day || !month || !year) {
+          errors.push({
+            text: 'Enter the date when the ECT will be leaving your school',
+            href: '#dateLeaving-day',
+            missingFields: { day: !day, month: !month, year: !year }
+          });
+          hasErrors = true;
+        } else {
+          // Validate the date
+          const leavingDate = new Date(year, month - 1, day);
+          
+          // Check if date is valid
+          if (leavingDate.getFullYear() != year || leavingDate.getMonth() != month - 1 || leavingDate.getDate() != day) {
+            errors.push({
+              text: 'Enter a valid date',
+              href: '#dateLeaving-day',
+              missingFields: { day: false, month: false, year: false }
+            });
+            hasErrors = true;
+          } else {
+            // Check if date is after school start date
+            if (leavingDate <= schoolStartDate) {
+              errors.push({
+                text: 'Enter a date which is after when the ECT started at your school',
+                href: '#dateLeaving-day',
+                missingFields: { day: false, month: false, year: false }
+              });
+              hasErrors = true;
+            }
+            
+            // Check if date is within 4 months from today
+            if (leavingDate > fourMonthsFromNow) {
+              errors.push({
+                text: 'Enter a date no further than 4 months from today',
+                href: '#dateLeaving-day',
+                missingFields: { day: false, month: false, year: false }
+              });
+              hasErrors = true;
+            }
+          }
+        }
+        
+        if (hasErrors) {
+          e.preventDefault();
+          showErrors(errors);
+          return false;
+        }
+      }
+    });
+    
+    function clearErrors() {
+      errorSummary.style.display = 'none';
+      errorList.innerHTML = '';
+      
+      // Remove error classes from date input container
+      const fieldset = document.querySelector('#dateLeaving fieldset');
+      if (fieldset) {
+        fieldset.classList.remove('govuk-form-group--error');
+      }
+      
+      // Remove error classes from individual date fields
+      Object.values(dateFields).forEach(field => {
+        if (field) {
+          field.classList.remove('govuk-input--error');
+        }
+      });
+      
+      // Remove error message
+      const existingError = document.querySelector('.govuk-error-message');
+      if (existingError) {
+        existingError.remove();
+      }
+    }
+    
+    function showErrors(errors) {
+      const error = errors[0]; // Take the first error
+      
+      errorList.innerHTML = '';
+      errors.forEach(error => {
+        const li = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = error.href;
+        link.textContent = error.text;
+        li.appendChild(link);
+        errorList.appendChild(li);
+      });
+      errorSummary.style.display = 'block';
+      errorSummary.focus();
+      
+      // Add error styling to the date input container
+      const fieldset = document.querySelector('#dateLeaving fieldset');
+      if (fieldset) {
+        fieldset.classList.add('govuk-form-group--error');
+        
+        // Add error message after the fieldset legend
+        const legend = fieldset.querySelector('.govuk-fieldset__legend');
+        if (legend) {
+          const errorMessage = document.createElement('p');
+          errorMessage.className = 'govuk-error-message';
+          errorMessage.innerHTML = '<span class="govuk-visually-hidden">Error:</span> ' + error.text;
+          legend.parentNode.insertBefore(errorMessage, legend.nextSibling);
+        }
+      }
+      
+      // Add error styling to individual input fields that are missing
+      if (error.missingFields) {
+        Object.entries(error.missingFields).forEach(([fieldName, isMissing]) => {
+          if (isMissing) {
+            const field = dateFields[fieldName];
+            if (field) {
+              field.classList.add('govuk-input--error');
+            }
+          }
+        });
+      }
+    }
+  });
+</script>
+{% endblock %}
 
 {% endblock %} 

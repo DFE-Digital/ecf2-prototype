@@ -62,6 +62,7 @@ const ects = [
         appropriateBody: 'Alpha Teaching School Hub',
         trainingProgramme: 'Provider-led',
         deliveryPartner: 'Alpha Teaching School Hub',
+        leavingDate: '1 January 2099'
     },
     {
         id: 'sciel-wright',
@@ -119,6 +120,8 @@ const mentors = [
         name: 'John Doe',
         trn: '5924029',
         email: 'john.doe@email.com',
+        schoolStartDate: '10 September 2024',
+        status: null,
         trainingProgramme: 'Provider-led',
         leadProvider: 'Ambition Institute',
         deliveryPartner: 'Alpha Teaching School Hub',
@@ -128,6 +131,8 @@ const mentors = [
         name: 'Tom Jones',
         trn: '1144020',
         email: 'tom.jones@email.com',
+        schoolStartDate: '10 September 2024',
+        status: null,
         trainingProgramme: 'Provider-led',
         leadProvider: 'Teach First',
         deliveryPartner: null,
@@ -137,6 +142,8 @@ const mentors = [
         name: 'Steven Davies',
         trn: '1956013',
         email: 'steven.davies@email.com',
+        schoolStartDate: '10 September 2024',
+        status: null,
         trainingProgramme: 'School-led',
     }
 ];

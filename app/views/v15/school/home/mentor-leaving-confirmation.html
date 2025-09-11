@@ -4,6 +4,20 @@
 {% set mentorName = data.mentorName %}
 {% set mentorLeaving = data.mentorLeaving %}
 
+{% set leavingDay = data.day if data.day else 1 %}
+{% set leavingMonth = data.month if data.month else 1 %}
+{% set leavingYear = data.year if data.year else 2026 %}
+
+{# Get current date components from session data #}
+{% set currentYear = data.currentYear %}
+{% set currentMonth = data.currentMonth %}
+{% set currentDay = data.currentDay %}
+
+{# Compare dates: first by year, then month, then day #}
+{% set isPast = (leavingYear < currentYear) or (leavingYear == currentYear and leavingMonth < currentMonth) or (leavingYear == currentYear and leavingMonth == currentMonth and leavingDay < currentDay) %}
+{% set isToday = (leavingYear == currentYear and leavingMonth == currentMonth and leavingDay == currentDay) %}
+{% set isPastOrToday = isPast or isToday %}
+
 {% set pageName = "Confirmation" %}
 
 {% block content %}
@@ -12,20 +26,22 @@
 
     <div class="govuk-panel govuk-panel--confirmation">
       <h1 class="govuk-panel__title">
-        {{ mentorName if mentorName else "John Doe" }} is leaving your school
+        {{ mentorName if mentorName else "John Doe" }} {% if isPastOrToday %}has left{% else %}is leaving{% endif %} your school
       </h1>
       <div class="govuk-panel__body">
-        You will not be able to view or edit their details after {{ data.day if data.day else "1" }} {{ data.month | monthName if data.month else "January" }} {{ data.year if data.year else "2025" }}
+        You will not be able to view or edit their details{% if not isPastOrToday %} after {{ leavingDay }} {{ leavingMonth | monthName }} {{ leavingYear }}{% endif %}
       </div>
   </div>
 
     <h2 class="govuk-heading-m">What happens next</h2>
 
-    <p>We'll also notify the lead provider for {{ mentorName if mentorName else "John Doe" }} that you've reported they're leaving your school and are not expected to return.</p>
+    <p>We'll also notify the lead provider for {{ mentorName if mentorName else "John Doe" }} that you've reported {% if isPastOrToday %}they've left{% else %}they're leaving{% endif %} your school and are not expected to return.</p>
 
+    {% if not isPastOrToday %}
     <p>They should continue with their current training programme until their leaving date.</p>
+    {% endif %}
 
-    <p>{{mentorName if mentorName else "John Doe"}} will be removed from your school's mentors list after {{ data.day if data.day else "1" }} {{ data.month | monthName if data.month else "January" }} {{ data.year if data.year else "2025" }}.</p>
+    <p>{{mentorName if mentorName else "John Doe"}} {% if isPastOrToday %}has been{% else %}will be{% endif %} removed from your school's mentors list{% if not isPastOrToday %} after {{ leavingDay }} {{ leavingMonth | monthName }} {{ leavingYear }}{% endif %}.</p>
 
     <p>ECTs currently assigned to {{ mentorName if mentorName else "John Doe" }} will need to be reassigned to another mentor.</p>
 
