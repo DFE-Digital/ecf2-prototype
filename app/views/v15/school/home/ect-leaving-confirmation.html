@@ -12,7 +12,7 @@
 
     <div class="govuk-panel govuk-panel--confirmation">
         <h1 class="govuk-panel__title">
-          {{ ectName }} is leaving your school
+          {{ ectName if ectName else "John Smith" }} is leaving your school
         </h1>
         <div class="govuk-panel__body">
           You will not be able to view or edit their details after {{ data.day if data.day else "1" }} {{ data.month | monthName if data.month else "January" }} {{ data.year if data.year else "2025" }}
@@ -21,13 +21,13 @@
 
     <h2 class="govuk-heading-m">What happens next</h2>
 
-    <p>We'll also notify the lead provider and appropriate body for {{ ectName }} that you've reported they're leaving your school and are not expected to return.</p>
+    <p>We'll also notify the lead provider and appropriate body for {{ ectName if ectName else "John Smith" }} that you've reported they're leaving your school and are not expected to return.</p>
 
     <p>They should continue with their current training programme until their leaving date.</p>
     
-    <p>{{ectName}} will be removed from your school's ECTs list after {{ data.day if data.day else "1" }} {{ data.month | monthName if data.month else "January" }} {{ data.year if data.year else "2025" }}.</p>
+    <p>{{ectName if ectName else "John Smith"}} will be removed from your school's ECTs list after {{ data.day if data.day else "1" }} {{ data.month | monthName if data.month else "January" }} {{ data.year if data.year else "2025" }}.</p>
 
-    <p>The person mentoring {{ ectName }} can continue their mentor training, even if they do not have another ECT assigned to them yet.</p>
+    <p>The person mentoring {{ ectName if ectName else "John Smith" }} can continue their mentor training, even if they do not have another ECT assigned to them yet.</p>
     
     <p class="govuk-body">
       <a class="govuk-link" href="ects">Back to ECTs</a>
