@@ -177,7 +177,7 @@
                                     {% if matchCount >= searchStartItem and matchCount <= searchEndItem %}
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell">
-                                            <a class="govuk-link govuk-link--no-visited-state" href="#">{{ partner }}</a>
+                                            <a class="govuk-link govuk-link--no-visited-state" href="view-delivery-partner">{{ partner }}</a>
                                         </td>
                                     </tr>
                                     {% endif %}
@@ -189,7 +189,7 @@
                                 {% if i <= deliveryPartners | length %}
                                 <tr class="govuk-table__row">
                                     <td class="govuk-table__cell">
-                                        <a class="govuk-link govuk-link--no-visited-state" href="#">{{ deliveryPartners[i - 1] }}</a>
+                                        <a class="govuk-link govuk-link--no-visited-state" href="view-delivery-partner">{{ deliveryPartners[i - 1] }}</a>
                                     </td>
                                 </tr>
                                 {% endif %}
