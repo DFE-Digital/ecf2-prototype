@@ -212,7 +212,7 @@
                                     {% if matchCount >= searchStartItem and matchCount <= searchEndItem %}
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell">
-                                            <a class="govuk-link govuk-link--no-visited-state" href="#">{{ school.name }}</a>
+                                            <a class="govuk-link govuk-link--no-visited-state" href="school-details?section=overview">{{ school.name }}</a>
                                         </td>
                                         <td class="govuk-table__cell">{{ school.urn }}</td>
                                     </tr>
@@ -225,7 +225,7 @@
                                 {% if i <= schools | length %}
                                 <tr class="govuk-table__row">
                                     <td class="govuk-table__cell">
-                                        <a class="govuk-link govuk-link--no-visited-state" href="#">{{ schools[i - 1].name }}</a>
+                                        <a class="govuk-link govuk-link--no-visited-state" href="school-details?section=overview">{{ schools[i - 1].name }}</a>
                                     </td>
                                     <td class="govuk-table__cell">{{ schools[i - 1].urn }}</td>
                                 </tr>

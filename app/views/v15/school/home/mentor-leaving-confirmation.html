@@ -35,11 +35,11 @@
 
     <h2 class="govuk-heading-m">What happens next</h2>
 
-    <p>We'll also notify the lead provider for {{ mentorName if mentorName else "John Doe" }} that you've reported {% if isPastOrToday %}they've left{% else %}they're leaving{% endif %} your school and are not expected to return.</p>
-
     {% if not isPastOrToday %}
-    <p>They should continue with their current training programme until their leaving date.</p>
+    <p>{{mentorName if mentorName else "John Doe"}} should continue with their current training programme until their leaving date.</p>
     {% endif %}
+
+    <p>We'll notify the lead provider for {{ mentorName if mentorName else "John Doe" }} that you've reported {% if isPastOrToday %}they've left{% else %}they're leaving{% endif %} your school and are not expected to return. They may contact your school for more information.</p>
 
     <p>{{mentorName if mentorName else "John Doe"}} {% if isPastOrToday %}has been{% else %}will be{% endif %} removed from your school's mentors list{% if not isPastOrToday %} after {{ leavingDay }} {{ leavingMonth | monthName }} {{ leavingYear }}{% endif %}.</p>
 
