@@ -30,7 +30,7 @@
 {% else %}
   {% set leavingVerb = "is leaving" %}
 {% endif %}
-{% set pageName = "Confirm that " + ectName + " " + leavingVerb + " your school and is not expected to return" %}
+{% set pageName = "Confirm that " + ectName + " " + leavingVerb + " your school permanently" %}
 
 {% block content %}
 <div class="govuk-grid-row">
@@ -38,7 +38,7 @@
     
     <h1 class="govuk-heading-l">{{pageName}}</h1>
 
-    <p>You are confirming that {{ ectName }} {% if isPastOrToday %}left{% else %}is leaving{% endif %} your school on {{ leavingDay }} {{ leavingMonth | monthName }} {{ leavingYear }} and is not expected to return.</p>
+    <p>You've told us that {{ ectName }} {% if isPastOrToday %}left{% else %}is leaving{% endif %} your school on {{ leavingDay }} {{ leavingMonth | monthName }} {{ leavingYear }}.</p>
 
     <p>You will not be able to view or edit {{ ectName }}'s details{% if not isPastOrToday %} after {{ leavingDay }} {{ leavingMonth | monthName }} {{ leavingYear }}{% endif %}.</p>
     

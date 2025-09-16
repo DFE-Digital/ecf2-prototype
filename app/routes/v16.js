@@ -356,15 +356,11 @@ module.exports = router => {
     // view ect and withdrawal
     
     router.post(v + school + 'home/ect-leaving', (req, res) => {        
-        if (req.body.ectLeaving === 'no') {
-            res.redirect(v + school + 'home/ect-not-leaving');
-        }
-        else {
-            // Store form data for check-answers page
-            req.session.data.ectId = req.body.ectId;
-            req.session.data.ectName = req.body.ectName;
-            res.redirect(v + school + 'home/ect-leaving-check-answers?ect=' + req.body.ectId);
-        }
+        // Store form data for check-answers page
+        req.session.data.ectId = req.body.ectId;
+        req.session.data.ectName = req.body.ectName;
+        res.redirect(v + school + 'home/ect-leaving-check-answers?ect=' + req.body.ectId);
+    
     })
 
     router.post(v + school + 'home/ect-leaving-check-answers', (req, res) => {

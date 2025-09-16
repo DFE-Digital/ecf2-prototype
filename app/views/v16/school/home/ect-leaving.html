@@ -16,7 +16,7 @@ href: "view-ect?ect=" + data.ect
   {% endif %}
 {% endfor %}
 
-{% set pageName = "Tell us if " + activeEct.name + " is leaving your school and is not expected to return" %}
+{% set pageName = "Tell us if " + activeEct.name + " has left or is leaving your school permanently" %}
 
 {% block content %}
 <div class="govuk-grid-row">
@@ -30,23 +30,14 @@ href: "view-ect?ect=" + data.ect
     </div>
     
     <h1 class="govuk-heading-l">{{pageName}}</h1>
-        
-    <p class="govuk-body">This could be because they are:</p>
 
-    <ul class="govuk-list govuk-list--bullet">
-        <li>moving to a different school</li>
-        <li>leaving the teaching profession</li>
-        <li>leaving for another reason and are not expected to return</li>
-    </ul>
-
-    <p>You should answer no if they are going on sick leave, parental leave or a break where they are intending to return.</p>
+    <p>You do not need to tell us if {{ activeEct.name }} is leaving but expected to return, for example, if they're taking parental leave.</p>
     
     <form class="form" method="post" id="leaving-form">
       
       <input type="hidden" name="ectId" value="{{ activeEct.id }}">
       <input type="hidden" name="ectName" value="{{ activeEct.name }}">
 
-      {% set dateLeaving %}
         {{ govukDateInput({
           id: "dateLeaving",
           name: "dateLeaving",
@@ -54,38 +45,13 @@ href: "view-ect?ect=" + data.ect
             legend: {
               text: "When did or when will " + activeEct.name + " be leaving your school?",
               isPageHeading: false,
-              classes: "govuk-fieldset__legend--s"
+              classes: "govuk-fieldset__legend--m"
             }
           },
           hint: {
             text: "For example, 31 3 2025"
           }
         }) }}
-      {% endset %}
-      
-      {{ govukRadios({
-        name: "ectLeaving",
-        fieldset: {
-          legend: {
-            text: "Is " + activeEct.name + " leaving your school and is not expected to return?",
-            isPageHeading: false,
-            classes: "govuk-fieldset__legend--s"
-          }
-        },
-        items: [
-          {
-            value: "yes",
-            text: "Yes, " + activeEct.name + " is leaving and is not expected to return",
-            conditional: {
-                html: dateLeaving
-            }
-          },
-          {
-            value: "no",
-            text: "No, " + activeEct.name + " is leaving but is expected to return"
-          }
-        ]
-      }) }}
       
       {{ govukButton({
         text: "Continue"
@@ -115,10 +81,7 @@ href: "view-ect?ect=" + data.ect
     const fourMonthsFromNow = new Date(today);
     fourMonthsFromNow.setMonth(today.getMonth() + 4);
     
-    form.addEventListener('submit', function(e) {
-      const ectLeaving = document.querySelector('input[name="ectLeaving"]:checked');
-      
-      if (ectLeaving && ectLeaving.value === 'yes') {
+    form.addEventListener('submit', function(e) {      
         const day = dateFields.day.value.trim();
         const month = dateFields.month.value.trim();
         const year = dateFields.year.value.trim();
@@ -177,7 +140,6 @@ href: "view-ect?ect=" + data.ect
           showErrors(errors);
           return false;
         }
-      }
     });
     
     function clearErrors() {

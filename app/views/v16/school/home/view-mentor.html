@@ -122,9 +122,12 @@ href: "mentors"
 
         <p>You've told us {{ activeMentor.name }} is leaving your school on {{ activeMentor.leavingDate }}. You will not be able to view or edit {{ activeMentor.name }}'s details after {{ activeMentor.leavingDate }}.</p>
         {% else %}
-        <h2 class="govuk-heading-m">Tell us if {{ activeMentor.name }} is leaving your school and is not expected to return</h2>
+        <h2 class="govuk-heading-m">Tell us if {{ activeMentor.name }} has left or is leaving your school permanently</h2>
+        <p>We need to know if {{ activeMentor.name }} is leaving your school and not expected to return. </p>
 
-        <p>If {{ activeMentor.name }} is leaving your school and is not expected to return, you must <a class="govuk-link govuk-link--no-visited-state" href="mentor-leaving?id={{ activeMentor.id }}">tell us so we can update our records</a>.</p>
+        <p>You do not need to tell us if {{ activeMentor.name }} is leaving but expected to return, for example, if they're taking parental leave. You should, however, tell their training provider (if they're on a mentor training programme).</p>
+
+        <p><a class="govuk-link govuk-link--no-visited-state" href="mentor-leaving?id={{ activeMentor.id }}">Tell us if {{ activeMentor.name }} is leaving permanently</a>.</p>
         {% endif %}
 
       </div>

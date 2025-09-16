@@ -26,25 +26,27 @@
 
     <div class="govuk-panel govuk-panel--confirmation">
         <h1 class="govuk-panel__title">
-          {{ ectName if ectName else "John Smith" }} {% if isPastOrToday %}has left{% else %}is leaving{% endif %} your school
+          {% if isPastOrToday %}
+          {{ ectName if ectName else "John Smith" }} has been removed from your school's list of ECTs
+          {% else %}
+          {{ ectName if ectName else "John Smith" }} will be removed from your school's ECTs list after {{ leavingDay }} {{ leavingMonth | monthName }} {{ leavingYear }}
+          {% endif %}
         </h1>
-        <div class="govuk-panel__body">
-          You will not be able to view or edit their details{% if not isPastOrToday %} after {{ leavingDay }} {{ leavingMonth | monthName }} {{ leavingYear }}{% endif %}
-        </div>
     </div>
 
     <h2 class="govuk-heading-m">What happens next</h2>
 
-    {% if not isPastOrToday %}
-    <p>{{ ectName if ectName else "John Smith" }} should continue with their current training programme until their leaving date.</p>
+    {% if isPastOrToday %}
+
+    <p>We'll let {{ ectName if ectName else "John Smith" }}'s appropriate body and lead provider (if they're on a provider-led programme) know that you've told us that they've left your school and are not expected to return. They may contact your school for more information.</p>
+    <p>{{ ectName if ectName else "John Smith" }}'s mentor can continue their mentor training, even if they do not have other ECTs assigned to them.</p>
+    
+    {% else %}
+    <p>{{ ectName if ectName else "John Smith"}} should continue with their current training programme until their leaving date.</p>
+    <p>We'll let their appropriate body and lead provider (if they're on a provider-led programme) know that you've told us that they're leaving your school and are not expected to return. They may contact your school for more information.</p>
+    <p>{{ ectName if ectName else "John Smith" }}'s mentor can continue their mentor training, even if they do not have other ECTs assigned to them.</p>
     {% endif %}
 
-    <p>We'll notify the lead provider and appropriate body for {{ ectName if ectName else "John Smith" }} that you've reported {% if isPastOrToday %}they've left{% else %}they're leaving{% endif %} your school and are not expected to return. They may contact your school for more information.</p>
-    
-    <p>{{ectName if ectName else "John Smith"}} {% if isPastOrToday %}has been{% else %}will be{% endif %} removed from your school's ECTs list{% if not isPastOrToday %} after {{ leavingDay }} {{ leavingMonth | monthName }} {{ leavingYear }}{% endif %}.</p>
-
-    <p>The person mentoring {{ ectName if ectName else "John Smith" }} can continue their mentor training, even if they do not have another ECT assigned to them yet.</p>
-    
     <p class="govuk-body">
       <a class="govuk-link" href="ects">Back to ECTs</a>
     </p>

@@ -195,9 +195,15 @@ href: "ects"
 
         <p>You've told us {{ activeEct.name }} is leaving your school on {{ activeEct.leavingDate }}. You will not be able to view or edit {{ activeEct.name }}'s details after {{ activeEct.leavingDate }}.</p>
         {% else %}
-        <h2 class="govuk-heading-m">Tell us if {{ activeEct.name }} is leaving your school and is not expected to return</h2>
+        <h2 class="govuk-heading-m">Tell us if {{ activeEct.name }} has left or is leaving your school permanently</h2>
 
-        <p>If {{ activeEct.name }} is leaving your school and is not expected to return, you must <a class="govuk-link govuk-link--no-visited-state" href="ect-leaving?ect={{ activeEct.id }}">tell us so we can update our records</a>.</p>
+        <p>We need to know if {{ activeEct.name }} is leaving your school and not expected to return. </p>
+
+        <p>You do not need to tell us if {{ activeEct.name }} is leaving but expected to return, for example, if they're taking parental leave. 
+          You should, however, tell their appropriate body and training provider (if they're on a provider-led programme).
+        </p>
+
+        <p><a class="govuk-link govuk-link--no-visited-state" href="ect-leaving?ect={{ activeEct.id }}">Tell us if {{ activeEct.name }} is leaving permanently</a>.</p>
         {% endif %}
 
       </div>
