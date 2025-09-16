@@ -1,0 +1,209 @@
+{% extends "layouts/finance.html" %}
+
+{% set pageName="Finance" %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full govuk-!-margin-bottom-4">
+            <h1 class="govuk-heading-l">{{pageName}}</h1>
+        {#
+        {{ xGovukSecondaryNavigation({
+        visuallyHiddenTitle: "Secondary menu",
+        items: [{
+        text: "Financial statements",
+        href: "#",
+        current: true
+        }, {
+        text: "Payment schedules",
+        href: "#"
+        }, {
+        text: "Duplicate records",
+        href: "#"
+        }]
+        }) }}
+        #}
+    </div>
+    <div class="govuk-grid-column-full">
+
+        <div> <!--style="background-color: #f3f2f1; padding: 20px 15px; margin-bottom: 30px;"!-->
+            <form action="" accept-charset="UTF-8" method="get">
+                <div style="display: flex; gap: 16px; flex-wrap: wrap">
+                    <div class="govuk-form-group" style="flex: 1 1 200px; min-width: 0;">
+                        <label for="course-provider" class="govuk-label">Lead provider</label>
+                        <select style="width: 100%" id="course-provider" class="govuk-select" name="Funding eligiblity status code"><option value=""></option>
+                            <option value="All" selected>All</option>
+                            <option value="Ambition Institute">Ambition Institute</option>
+                            <option value="Best Practice Network">Best Practice Network</option>
+                            <option value="Education Development Trust">Education Development Trust</option>
+                            <option value="National Institute of Teaching">National Institute of Teaching</option>
+                            <option value="Teach First">Teach First</option>
+                            <option value="UCL Institute of Education">UCL Institute of Education</option>
+                        </select>
+                    </div>
+                    <div class="govuk-form-group" style="flex: 1 1 200px; min-width: 0";>
+                        <label for="cohort" class="govuk-label">Contract year</label>
+                        <select style="width: 100%" id="cohort" class="govuk-select" name="Referral"><option value=""></option>
+                            <option value="All" selected>All</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                        </select>
+                    </div>
+
+                    <div class="govuk-form-group" style="flex: 1 1 200px; min-width: 0;">
+                        <label for="date" class="govuk-label">Statement date</label>
+                        <select style="width: 100%" id="date" class="govuk-select" name="Employment type"><option value=""></option>
+                            <option value="All" selected>All</option>
+                            <option value="January 2022 ">January 2022</option>
+                            <option value="February 2022">February 2022</option>
+                            <option value="March 2022">March 2022</option>
+                            <option value="April 2022">April 2022</option>
+                            <option value="May 2022">May 2022</option>
+                            <option value="June 2022">June 2022</option>
+                            <option value="July 2022">July 2022</option>
+                            <option value="August 2022">August 2022</option>
+                            <option value="September 2022">September 2022</option>
+                            <option value="October 2022">October 2022</option>
+                            <option value="November 2022">November 2022</option>
+                            <option value="December 2022">December 2022</option>
+                            <option value="January 2023 ">January 2023</option>
+                            <option value="February 2023">February 2023</option>
+                            <option value="March 2023">March 2023</option>
+                            <option value="April 2023">April 2023</option>
+                            <option value="May 2023">May 2023</option>
+                            <option value="June 2023">June 2023</option>
+                            <option value="July 2023">July 2023</option>
+                            <option value="August 2023">August 2023</option>
+                            <option value="September 2023">September 2023</option>
+                            <option value="October 2023">October 2023</option>
+                            <option value="November 2023">November 2023</option>
+                            <option value="December 2023">December 2023</option>
+                            <option value="January 2024 ">January 2024</option>
+                            <option value="February 2024">February 2024</option>
+                            <option value="March 2024">March 2024</option>
+                            <option value="April 2024">April 2024</option>
+                            <option value="May 2024">May 2024</option>
+                            <option value="June 2024">June 2024</option>
+                            <option value="July 2024">July 2024</option>
+                            <option value="August 2024">August 2024</option>
+                            <option value="September 2024">September 2024</option>
+                            <option value="October 2024">October 2024</option>
+                            <option value="November 2024">November 2024</option>
+                            <option value="December 2024">December 2024</option>
+                            <option value="January 2025 ">January 2025</option>
+                            <option value="February 2025">February 2025</option>
+                            <option value="March 2025">March 2025</option>
+                            <option value="April 2025">April 2025</option>
+                            <option value="May 2025">May 2025</option>
+                            <option value="June 2025">June 2025</option>
+                            <option value="July 2025">July 2025</option>
+                            <option value="August 2025">August 2025</option>
+                            <option value="September 2025">September 2025</option>
+                            <option value="October 2025">October 2025</option>
+                            <option value="November 2025">November 2025</option>
+                            <option value="December 2025">December 2025</option>
+
+                        </select>
+                    </div>
+                    <div class="govuk-form-group" style="flex: 1 1 200px; min-width: 0;">
+                        <label for="status" class="govuk-label">Status</label>
+                        <select style="width: 100%" id="status" class="govuk-select" name="Status">
+                            <option value="All" selected>All</option>
+                            <option value="Authorised for payment">Authorised for payment</option>
+                            <option value="Not yet authorised">Not yet authorised</option>
+                            <option value="Service fee statement">Service fee statement</option>
+                        </select>
+                    </div>
+                    <a href="#" class="govuk-button govuk-button--secondary" style="margin-top: auto" data-module="govuk-button">
+                        View
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        {% set providers = [
+        'Ambition Institute',
+        'Best Practice Network',
+        'Education Development Trust',
+        'National Institute of Teaching',
+        'Teach First',
+        'UCL Institute of Education'
+        ] %}
+
+        {% set months = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+        ] %}
+
+        {% set year = 2024 %}
+        {% set authorised_months = ['January', 'April', 'August', 'November'] %}
+
+        {% set count = 0 %}
+        {% set max_rows = 20 %}
+
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Lead provider</th>
+                <th scope="col" class="govuk-table__header">Contract year</th>
+                <th scope="col" class="govuk-table__header">Statement</th>
+                <th scope="col" class="govuk-table__header">Status</th>
+                <th scope="col" class="govuk-table__header"></th>
+            </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+            {% for month in months | reverse %}
+            {% for provider in providers %}
+            {% if count < max_rows %}
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">{{ provider }}</td>
+                <td class="govuk-table__cell">{{ year }}</td>
+                <td class="govuk-table__cell">{{ month }} {{ year }}</td>
+                <td class="govuk-table__cell">
+                    {% if month in authorised_months %}
+                    <strong class="govuk-tag govuk-tag--green" style="max-width: none">Authorised for payment</strong>
+                    {% else %}
+                    <strong class="govuk-tag govuk-tag--grey" style="max-width: none">Service fee statement</strong>
+                    {% endif %}
+                </td>
+                <td class="govuk-table__cell"><a href="#">View</a></td>
+            </tr>
+            {% set count = count + 1 %}
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {% from "govuk/components/pagination/macro.njk" import govukPagination %}
+
+        {{ govukPagination({
+        next: {
+        href: "#"
+        },
+        items: [
+        {
+        number: 1,
+        current: true,
+        href: "#"
+        },
+        {
+        number: 2,
+        href: "#"
+        },
+        {
+        number: 3,
+        href: "#"
+        }
+        ]
+        }) }}
+    </div>
+</div>
+
+{% endblock %}

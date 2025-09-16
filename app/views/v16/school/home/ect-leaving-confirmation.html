@@ -1,0 +1,66 @@
+{% extends "layouts/ects.html" %}
+
+{% set ectId = data.ectId %}
+{% set ectName = data.ectName %}
+{% set ectLeaving = data.ectLeaving %}
+
+{% set leavingDay = data.day if data.day else 1 %}
+{% set leavingMonth = data.month if data.month else 1 %}
+{% set leavingYear = data.year if data.year else 2026 %}
+
+{# Get current date components from session data #}
+{% set currentYear = data.currentYear %}
+{% set currentMonth = data.currentMonth %}
+{% set currentDay = data.currentDay %}
+
+{# Compare dates: first by year, then month, then day #}
+{% set isPast = (leavingYear < currentYear) or (leavingYear == currentYear and leavingMonth < currentMonth) or (leavingYear == currentYear and leavingMonth == currentMonth and leavingDay < currentDay) %}
+{% set isToday = (leavingYear == currentYear and leavingMonth == currentMonth and leavingDay == currentDay) %}
+{% set isPastOrToday = isPast or isToday %}
+
+{% set pageName = "Confirmation" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+        <h1 class="govuk-panel__title">
+          {{ ectName if ectName else "John Smith" }} {% if isPastOrToday %}has left{% else %}is leaving{% endif %} your school
+        </h1>
+        <div class="govuk-panel__body">
+          You will not be able to view or edit their details{% if not isPastOrToday %} after {{ leavingDay }} {{ leavingMonth | monthName }} {{ leavingYear }}{% endif %}
+        </div>
+    </div>
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+
+    {% if not isPastOrToday %}
+    <p>{{ ectName if ectName else "John Smith" }} should continue with their current training programme until their leaving date.</p>
+    {% endif %}
+
+    <p>We'll notify the lead provider and appropriate body for {{ ectName if ectName else "John Smith" }} that you've reported {% if isPastOrToday %}they've left{% else %}they're leaving{% endif %} your school and are not expected to return. They may contact your school for more information.</p>
+    
+    <p>{{ectName if ectName else "John Smith"}} {% if isPastOrToday %}has been{% else %}will be{% endif %} removed from your school's ECTs list{% if not isPastOrToday %} after {{ leavingDay }} {{ leavingMonth | monthName }} {{ leavingYear }}{% endif %}.</p>
+
+    <p>The person mentoring {{ ectName if ectName else "John Smith" }} can continue their mentor training, even if they do not have another ECT assigned to them yet.</p>
+    
+    <p class="govuk-body">
+      <a class="govuk-link" href="ects">Back to ECTs</a>
+    </p>
+    
+  </div>
+</div>
+{% endblock %} 
+
+{% block pageScripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var panelTitle = document.querySelector('.govuk-panel__title');
+    if (panelTitle && panelTitle.textContent.trim().length > 0) {
+      document.title = panelTitle.textContent.trim();
+    }
+  });
+</script>
+
+{% endblock %}

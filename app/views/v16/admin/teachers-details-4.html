@@ -1,0 +1,314 @@
+{% extends "layouts/admin.html" %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% set pageName="John Smith" %}
+{% set activeNav="teachers" %}
+
+{% block beforeContent %}
+{{govukBreadcrumbs({
+    items: [
+        {
+            text: "Teachers",
+            href: "teachers"
+        },
+        {
+            text: "John Smith"
+        }
+    ]
+})}}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        
+        <span class="govuk-caption-l">TRN: 2959198</span>
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+        
+        {% set currentSection = data.section or "overview" %}
+
+        {{ xGovukSecondaryNavigation({
+          visuallyHiddenTitle: "Secondary menu",
+          items: [{
+            text: "Overview",
+            href: "?section=overview",
+            current: true if currentSection == "overview" else false
+          }, {
+            text: "Induction",
+            href: "?section=induction",
+            current: true if currentSection == "induction" else false
+          }, {
+            text: "School",
+            href: "?section=school",
+            current: true if currentSection == "school" else false
+          }, {
+            text: "Training",
+            href: "?section=training",
+            current: true if currentSection == "training" else false
+          }, {
+            text: "Declarations",
+            href: "?section=declarations",
+            current: true if currentSection == "declarations" else false
+          }, {
+            text: "Timeline",
+            href: "?section=timeline",
+            current: true if currentSection == "timeline" else false
+          }]
+        }) }}
+
+        <div class="govuk-!-margin-top-6">
+            {% if currentSection == "overview" %}
+                <h3 class="govuk-heading-m">Overview</h3>
+                
+                {{govukSummaryList({
+                    rows: [
+                        {
+                            key: { text: "Name" },
+                            value: { html: "
+                            John Smith
+                            <!-- <span class='govuk-caption-m'> -->
+                              <!-- Name from TRS record: John James -->
+                            <!-- </span> -->
+                            " }
+                        },
+                        {
+                            key: { text: "TRN" },
+                            value: { text: "2959198" }
+                        },
+                        {
+                            key: { text: "Most recent email address" },
+                            value: { text: "john.smith@example.com" }
+                        },
+                        {
+                            key: { text: "Current school" },
+                            value: { html: "
+                            St John's C of E Primary School
+                            <!-- <ul class='govuk-list govuk-!-margin-bottom-0'> -->
+                              <!-- <li>St John's C of E Primary School</li> -->
+                              <!-- <li>Abacus Primary School</li> -->
+                            <!-- </ul> -->
+                            " }
+                        },
+                        {
+                            key: { text: "Registered for ECT training" },
+                            value: { text: "Yes" }
+                        },
+                        {
+                            key: { text: "Registered for mentor training" },
+                            value: { text: "Yes" }
+                        },
+                        {
+                            key: { text: "Induction recorded with appropriate body" },
+                            value: { text: "Yes" }
+                        }
+                    ]
+                })}}
+            {% endif %}
+
+            {% if currentSection == "induction" %}
+                <h3 class="govuk-heading-m">Induction</h3>
+                    <div class="govuk-button-group">
+                      <a class="govuk-button" data-module="govuk-button" href="#" data-govuk-button-init="">Pass induction</a>
+                      <a class="govuk-link" href="#">Fail induction</a>
+                    </div>
+                    <dl class="govuk-summary-list">
+                      <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                        <dt class="govuk-summary-list__key">
+                          <span class="govuk-visually-hidden">Induction</span> Start date
+                        </dt>
+                        <dd class="govuk-summary-list__value">25 January 2025</dd>
+                      </div>
+                      <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                        <dt class="govuk-summary-list__key">
+                          <span class="govuk-visually-hidden">Induction</span> Status
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                          <strong class="govuk-tag govuk-tag--blue">In progress</strong>
+                        </dd>
+                      </div>
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                          <span class="govuk-visually-hidden">Induction</span> Extensions
+                        </dt>
+                        <dd class="govuk-summary-list__value"> None </dd>
+                        <dd class="govuk-summary-list__actions">
+                          <a class="govuk-link govuk-link--no-visited-state" href="#">Add <span class="govuk-visually-hidden"> extensions</span>
+                          </a>
+                        </dd>
+                      </div>
+                      <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                        <dt class="govuk-summary-list__key">QTS awarded</dt>
+                        <dd class="govuk-summary-list__value"> 25 October 2022 </dd>
+                      </div>
+                    </dl>
+                    <p class="govuk-!-text-align-right govuk-!-margin-bottom-0">
+                      <a class="govuk-link" href="#">Add an induction period</a>
+                    </p>
+                    <h2 class="govuk-heading-m">Current induction period</h2>
+                    <div class="govuk-summary-card">
+                      <div class="govuk-summary-card__title-wrapper">
+                        <h3 class="govuk-summary-card__title">Umber Teaching School Hub</h3>
+                        <ul class="govuk-summary-card__actions">
+                          <li class="govuk-summary-card__action">
+                            <a class="govuk-link govuk-link--no-visited-state" href="#">Edit</a>
+                            <span class="govuk-visually-hidden"> (Umber Teaching School Hub)</span>
+                          </li>
+                          <li class="govuk-summary-card__action">
+                            <a class="govuk-link govuk-link--no-visited-state govuk-link--destructive" data-method="get" href="#">Delete</a>
+                            <span class="govuk-visually-hidden"> (Umber Teaching School Hub)</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="govuk-summary-card__content">
+                        <dl class="govuk-summary-list">
+                          <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                            <dt class="govuk-summary-list__key">Induction programme</dt>
+                            <dd class="govuk-summary-list__value">Provider-led</dd>
+                          </div>
+                          <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                            <dt class="govuk-summary-list__key">Start date</dt>
+                            <dd class="govuk-summary-list__value">25 January 2025</dd>
+                          </div>
+                        </dl>
+                      </div>
+                    </div>
+            {% endif %}
+
+            {% if currentSection == "school" %}
+                <h3 class="govuk-heading-m">ECT periods</h3>
+
+                {{govukSummaryList({
+                  card: {
+                    title: {
+                      text: "St John's C of E Primary School"
+                    }
+                  },
+                  rows: [
+                      {
+                        key: { text: "Role" },
+                        value: { text: "Early career teacher" }
+                      },
+                      {
+                        key: { text: "School URN" },
+                        value: { text: "1103052" }
+                      },
+                      {
+                        key: { text: "School start date" },
+                        value: { text: "25 September 2024" }
+                      },
+                      {
+                        key: { text: "Email address" },
+                        value: { text: "john.smith@stjohnsprimary.org.uk" }
+                      },
+                      {
+                        key: { text: "Appropriate body" },
+                        value: { text: "Umber Teaching School Hub" }
+                      },
+                      {
+                        key: { text: "Mentor" },
+                        value: { html: "<a href='#' class='govuk-link govuk-link--no-visited-state'>John Doe</a>" }
+                      },
+                      {
+                        key: { text: "Working pattern" },
+                        value: { text: "Full time" }
+                      }
+                    ]
+                })}}
+
+                {{govukSummaryList({
+                  card: {
+                    title: {
+                      text: "Alpha Primary School"
+                    }
+                  },
+                    rows: [
+                        {
+                            key: { text: "Role" },
+                            value: { text: "Early career teacher" }
+                        },
+                        {
+                            key: { text: "School URN" },
+                            value: { text: "1195201" }
+                        },
+                        {
+                            key: { text: "School start date" },
+                            value: { text: "25 September 2023" }
+                        },
+                        {
+                            key: { text: "School end date" },
+                            value: { text: "24 September 2024" }
+                        },
+                        {
+                            key: { text: "Appropriate body" },
+                            value: { text: "Umber Teaching School Hub" }
+                        },
+                        {
+                            key: { text: "Working pattern" },
+                            value: { text: "Full time" }
+                        }
+                    ]
+                })}}
+
+                <h3 class="govuk-heading-m">Mentor periods</h3>
+
+                {{govukSummaryList({
+                  card: {
+                    title: {
+                      text: "St John's C of E Primary School"
+                    }
+                  },
+                  rows: [
+                      {
+                        key: { text: "Role" },
+                        value: { text: "Mentor" }
+                      },
+                      {
+                        key: { text: "School URN" },
+                        value: { text: "1103052" }
+                      },
+                      {
+                        key: { text: "School start date" },
+                        value: { text: "25 September 2024" }
+                      },
+                      {
+                        key: { text: "Email address" },
+                        value: { text: "john.smith@stjohnsprimary.org.uk" }
+                      },
+                      {
+                        key: { text: "Assigned ECTs" },
+                        value: { html: "
+                        <ul class='govuk-list govuk-!-margin-bottom-0'>
+                          <li><a class='govuk-link govuk-link--no-visited-state' href='#'>Gustav Brown</a></li>
+                          <li><a class='govuk-link govuk-link--no-visited-state' href='#'>Steven Taylor</a></li>
+                        </ul>
+                        " }
+                      }
+                    ]
+                })}}
+
+            {% endif %}
+
+            {% if currentSection == "training" %}
+                <h3 class="govuk-heading-m">Training</h3>
+                <!-- Training content to be added -->
+            {% endif %}
+
+            {% if currentSection == "declarations" %}
+                <h3 class="govuk-heading-m">Declarations</h3>
+                <!-- Declarations content to be added -->
+            {% endif %}
+
+            {% if currentSection == "timeline" %}
+                <h3 class="govuk-heading-m">Timeline</h3>
+                <!-- Timeline content to be added -->
+            {% endif %}
+        </div>
+        
+    </div>
+</div>
+
+{% endblock %} 
