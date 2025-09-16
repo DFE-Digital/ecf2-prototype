@@ -1,0 +1,42 @@
+{% extends "layouts/home.html" %}
+
+{% if data['confirm-school-induction-tutor'] == 'yes' %}
+{% set name = "John Doe" %}
+{% else %}
+{% if data['tutor-name'] %}
+{% set name = data['tutor-name'] %}
+{% else %}
+{% set name = "John Doe" %}
+{% endif %}
+{% endif %}
+
+{% set pageName= name + " has been confirmed as your school induction tutor" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+        <p>We'll let {{name}} know that they're your school induction tutor.</p>
+        
+        <button class="govuk-button">Continue</button>
+        </form>
+
+    </div>
+</div>
+
+
+
+
+{% endblock %}

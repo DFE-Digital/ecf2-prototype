@@ -1,0 +1,61 @@
+{% extends "layouts/mentors.html" %}
+
+{% set mentorId = data.mentorId %}
+{% set mentorName = data.mentorName or "John Doe" %}
+{% set mentorLeavingDate = data.dateLeaving %}
+
+{% set leavingDay = data.day if data.day else 1 %}
+{% set leavingMonth = data.month if data.month else 1 %}
+{% set leavingYear = data.year if data.year else 2026 %}
+
+{# Get current date components from session data #}
+{% set currentYear = data.currentYear %}
+{% set currentMonth = data.currentMonth %}
+{% set currentDay = data.currentDay %}
+
+{# Compare dates: first by year, then month, then day #}
+{% set isPast = (leavingYear < currentYear) or (leavingYear == currentYear and leavingMonth < currentMonth) or (leavingYear == currentYear and leavingMonth == currentMonth and leavingDay < currentDay) %}
+{% set isToday = (leavingYear == currentYear and leavingMonth == currentMonth and leavingDay == currentDay) %}
+{% set isPastOrToday = isPast or isToday %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+  }) }}
+{% endblock %}
+
+{% if isPastOrToday %}
+  {% set leavingVerb = "has left" %}
+{% else %}
+  {% set leavingVerb = "is leaving" %}
+{% endif %}
+{% set pageName = "Confirm that " + mentorName + " " + leavingVerb + " your school permanently" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+    <p>You are confirming that {{ mentorName }} {{ leavingVerb }} your school on {{ leavingDay }} {{ leavingMonth | monthName }} {{ leavingYear }}.</p>
+    <p>You will not be able to view or edit {{ mentorName }}'s details{% if not isPastOrToday %} after {{ leavingDay }} {{ leavingMonth | monthName }} {{ leavingYear }}{% endif %}.</p>
+
+    <form action="mentor-leaving-confirmation" method="post">
+      <input type="hidden" name="mentorId" value="{{ mentorId }}">
+      <input type="hidden" name="mentorName" value="{{ mentorName }}">
+      <input type="hidden" name="mentorLeaving" value="yes">
+      <input type="hidden" name="mentorLeavingDate" value="{{ (mentorLeavingDate | date('j F Y') if mentorLeavingDate else leavingDay + ' ' + leavingMonth | monthName + ' ' + leavingYear) }}">
+
+      {{ govukButton({
+        text: "Confirm and continue"
+      }) }}
+    </form>
+
+    <p class="govuk-body">
+      <a class="govuk-link" href="view-mentor?id={{ mentorId }}">Cancel and go back to {{ mentorName }}'s details</a>
+    </p>
+
+  </div>
+</div>
+{% endblock %}
