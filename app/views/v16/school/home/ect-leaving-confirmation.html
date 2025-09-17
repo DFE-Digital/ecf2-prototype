@@ -27,9 +27,9 @@
     <div class="govuk-panel govuk-panel--confirmation">
         <h1 class="govuk-panel__title">
           {% if isPastOrToday %}
-          {{ ectName if ectName else "John Smith" }} has been removed from your school's list of ECTs
+          {{ ectName if ectName else "John Smith" }} has been removed from your school's ECT list
           {% else %}
-          {{ ectName if ectName else "John Smith" }} will be removed from your school's ECTs list after {{ leavingDay }} {{ leavingMonth | monthName }} {{ leavingYear }}
+          {{ ectName if ectName else "John Smith" }} will be removed from your school's ECT list after {{ leavingDay }} {{ leavingMonth | monthName }} {{ leavingYear }}
           {% endif %}
         </h1>
     </div>

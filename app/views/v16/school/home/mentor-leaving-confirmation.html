@@ -27,9 +27,9 @@
     <div class="govuk-panel govuk-panel--confirmation">
       <h1 class="govuk-panel__title">
         {% if isPastOrToday %}
-        {{ mentorName if mentorName else "John Doe" }} has been removed from your school's list of mentors
+        {{ mentorName if mentorName else "John Doe" }} has been removed from your school's mentor list
         {% else %}
-        {{ mentorName if mentorName else "John Doe" }} will be removed from your school's list of mentors after {{ leavingDay }} {{ leavingMonth | monthName }} {{ leavingYear }}
+        {{ mentorName if mentorName else "John Doe" }} will be removed from your school's mentor list after {{ leavingDay }} {{ leavingMonth | monthName }} {{ leavingYear }}
         {% endif %}
       </h1>
     </div>
