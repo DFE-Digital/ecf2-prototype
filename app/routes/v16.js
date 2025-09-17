@@ -384,15 +384,10 @@ module.exports = router => {
     // mentor leaving routes
     
     router.post(v + school + 'home/mentor-leaving', (req, res) => {        
-        if (req.body.mentorLeaving === 'no') {
-            res.redirect(v + school + 'home/mentor-not-leaving');
-        }
-        else {
-            // Store form data for check-answers page
-            req.session.data.mentorId = req.body.mentorId;
-            req.session.data.mentorName = req.body.mentorName;
-            res.redirect(v + school + 'home/mentor-leaving-check-answers?id=' + req.body.mentorId);
-        }
+         // Store form data for check-answers page
+        req.session.data.mentorId = req.body.mentorId;
+        req.session.data.mentorName = req.body.mentorName;
+        res.redirect(v + school + 'home/mentor-leaving-check-answers?id=' + req.body.mentorId);
     })
 
     router.post(v + school + 'home/mentor-leaving-check-answers', (req, res) => {
