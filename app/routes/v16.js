@@ -1135,8 +1135,11 @@ module.exports = router => {
     // **********************
 
         // admin add new partnership journey
-        router.get(v + admin + 'organisations/add-new-partnership/select-contract-period', (req, res) => {
-            res.render(vGet + '/admin/organisations/add-new-partnership/select-contract-period');
+
+        router.get(v + admin + 'organisations/school-details', (req, res) => {
+            res.render(vGet + '/admin/organisations/school-details', {
+                query: req.query
+            });
         })
 
         router.post(v + admin + 'organisations/add-new-partnership/select-contract-period', (req, res) => {
@@ -1147,10 +1150,6 @@ module.exports = router => {
             res.redirect(v + admin + 'organisations/add-new-partnership/select-lead-provider');
         })
 
-        router.get(v + admin + 'organisations/add-new-partnership/select-lead-provider', (req, res) => {
-            res.render(vGet + '/admin/organisations/add-new-partnership/select-lead-provider');
-        })
-
         router.post(v + admin + 'organisations/add-new-partnership/select-lead-provider', (req, res) => {
             if (!req.session.data) {
                 req.session.data = {};
@@ -1159,20 +1158,9 @@ module.exports = router => {
             res.redirect(v + admin + 'organisations/add-new-partnership/select-delivery-partner');
         })
 
-        router.get(v + admin + 'organisations/add-new-partnership/select-delivery-partner', (req, res) => {
-            res.render(vGet + '/admin/organisations/add-new-partnership/select-delivery-partner');
-        })
-
         router.post(v + admin + 'organisations/add-new-partnership/select-delivery-partner', (req, res) => {
-            if (!req.session.data) {
-                req.session.data = {};
-            }
             req.session.data.newPartnershipDeliveryPartner = req.body.deliveryPartner;
-            res.redirect(v + admin + 'organisations/add-new-partnership/confirmation');
-        })
-
-        router.get(v + admin + 'organisations/add-new-partnership/confirmation', (req, res) => {
-            res.render(vGet + '/admin/organisations/add-new-partnership/confirmation');
+            res.redirect(v + admin + `organisations/school-details?section=partnerships&partnershipAdded=true`);
         })
 
         // finance home page - direct access

@@ -28,10 +28,26 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
+      {% set partnershipAdded = query.partnershipAdded or false %}
+        {% if partnershipAdded != false %}
+        <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+          <div class="govuk-notification-banner__header">
+            <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+              Success
+            </h2>
+          </div>
+          <div class="govuk-notification-banner__content">
+            <h3 class="govuk-notification-banner__heading">
+              Partnership added
+            </h3>
+          </div>
+        </div>
+        {% endif %}
+
         <span class="govuk-caption-l">URN: 100001</span>
         <h1 class="govuk-heading-l">{{pageName}}</h1>
 
-        {% set currentSection = data.section or "overview" %}
+        {% set currentSection = query.section or data.section or "overview" %}
 
         {{ xGovukSecondaryNavigation({
           visuallyHiddenTitle: "Secondary menu",
