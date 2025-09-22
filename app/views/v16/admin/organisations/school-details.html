@@ -134,7 +134,52 @@
 
             {% if currentSection == "partnerships" %}
                 <h3 class="govuk-heading-m">Partnerships</h3>
-                <p class="govuk-body">Partnerships content will go here.</p>
+                <a class="govuk-button" href="add-new-partnership/select-contract-period">Add new partnership</a>
+                <h4 class="govuk-heading-s">2025 partnerships</h4>
+
+                {{govukSummaryList({
+                  card: {
+                    title: {
+                      html: "Ambition Institute"
+                    },
+                    actions: {
+                        items: [
+                          {
+                            href: "#",
+                            classes: "govuk-link govuk-link--no-visited-state",
+                            text: "Delete partnership",
+                            visuallyHiddenText: "of Ambition Institute"
+                          }
+                        ]
+                      }
+                  },
+                  rows: [
+                    {
+                      key: { text: "Lead provider" },
+                      value: { text: "Ambition Institute" }
+                    },
+                    {
+                      key: { text: "Delivery partner" },
+                      value: { text: "Alpha Teaching School Hub" }
+                    },
+                    {
+                      key: { text: "ECTs" },
+                      value: { html: "
+                      <ul class='govuk-list govuk-!-margin-bottom-0'>
+                        <li><a class='govuk-link govuk-link--no-visited-state' href='#'>John Smith</a></li>
+                      </ul>
+                      " }
+                    },
+                    {
+                      key: { text: "Mentors" },
+                      value: { html: "
+                      <ul class='govuk-list govuk-!-margin-bottom-0'>
+                        <li><a class='govuk-link govuk-link--no-visited-state' href='#'>John Doe</a></li>
+                      </ul>
+                      " }
+                    }
+                  ]
+                })}}
             {% endif %}
         </div>
 

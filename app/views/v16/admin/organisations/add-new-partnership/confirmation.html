@@ -1,0 +1,22 @@
+{% extends "layouts/admin.html" %}
+
+{% set pageName="Partnership added" %}
+{% set activeNav="organisations" %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {{ govukPanel({
+            titleText: pageName,
+            html: "The partnership has been added."
+        }) }}
+
+        <p class="govuk-body">Return to the school to review the new partnership.</p>
+        <p class="govuk-body"><a class="govuk-link govuk-link--no-visited-state" href="../school-details?section=partnerships">Back to school details</a></p>
+    </div>
+</div>
+{% endblock %}
