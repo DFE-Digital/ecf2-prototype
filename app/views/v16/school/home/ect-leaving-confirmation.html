@@ -38,12 +38,12 @@
 
     {% if isPastOrToday %}
 
-    <p>We'll let {{ ectName if ectName else "John Smith" }}'s appropriate body and lead provider (if they're on a provider-led programme) know that you've told us that they've left your school and are not expected to return. They may contact your school for more information.</p>
+    <p>We'll let {{ ectName if ectName else "John Smith" }}'s appropriate body and lead provider know (if they're on a provider-led programme) that you've told us that they've left your school and are not expected to return. They may contact your school for more information.</p>
     <p>{{ ectName if ectName else "John Smith" }}'s mentor can continue their mentor training, even if they do not have other ECTs assigned to them.</p>
     
     {% else %}
     <p>{{ ectName if ectName else "John Smith"}} should continue with their current training programme until their leaving date.</p>
-    <p>We'll let their appropriate body and lead provider (if they're on a provider-led programme) know that you've told us that they're leaving your school and are not expected to return. They may contact your school for more information.</p>
+    <p>We'll let their appropriate body and lead provider know (if they're on a provider-led programme) that you've told us that they're leaving your school and are not expected to return. They may contact your school for more information.</p>
     <p>{{ ectName if ectName else "John Smith" }}'s mentor can continue their mentor training, even if they do not have other ECTs assigned to them.</p>
     {% endif %}
 
