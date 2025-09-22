@@ -1134,6 +1134,47 @@ module.exports = router => {
     // **********************
     // **********************
 
+        // admin add new partnership journey
+        router.get(v + admin + 'organisations/add-new-partnership/select-contract-period', (req, res) => {
+            res.render(vGet + '/admin/organisations/add-new-partnership/select-contract-period');
+        })
+
+        router.post(v + admin + 'organisations/add-new-partnership/select-contract-period', (req, res) => {
+            if (!req.session.data) {
+                req.session.data = {};
+            }
+            req.session.data.newPartnershipContractPeriod = req.body.contractPeriod;
+            res.redirect(v + admin + 'organisations/add-new-partnership/select-lead-provider');
+        })
+
+        router.get(v + admin + 'organisations/add-new-partnership/select-lead-provider', (req, res) => {
+            res.render(vGet + '/admin/organisations/add-new-partnership/select-lead-provider');
+        })
+
+        router.post(v + admin + 'organisations/add-new-partnership/select-lead-provider', (req, res) => {
+            if (!req.session.data) {
+                req.session.data = {};
+            }
+            req.session.data.newPartnershipLeadProvider = req.body.leadProvider;
+            res.redirect(v + admin + 'organisations/add-new-partnership/select-delivery-partner');
+        })
+
+        router.get(v + admin + 'organisations/add-new-partnership/select-delivery-partner', (req, res) => {
+            res.render(vGet + '/admin/organisations/add-new-partnership/select-delivery-partner');
+        })
+
+        router.post(v + admin + 'organisations/add-new-partnership/select-delivery-partner', (req, res) => {
+            if (!req.session.data) {
+                req.session.data = {};
+            }
+            req.session.data.newPartnershipDeliveryPartner = req.body.deliveryPartner;
+            res.redirect(v + admin + 'organisations/add-new-partnership/confirmation');
+        })
+
+        router.get(v + admin + 'organisations/add-new-partnership/confirmation', (req, res) => {
+            res.render(vGet + '/admin/organisations/add-new-partnership/confirmation');
+        })
+
         // finance home page - direct access
         router.get(v + admin + 'finance-home', (req, res) => {
             const financeData = req.session.data.financeData || [];
