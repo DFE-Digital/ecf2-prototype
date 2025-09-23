@@ -1,12 +1,12 @@
 {% extends "layouts/home.html" %}
 
 {% if data['confirm-school-induction-tutor'] == 'yes' %}
-{% set name = "John Doe" %}
+{% set name = "Peter Davies" %}
 {% else %}
 {% if data['tutor-name'] %}
 {% set name = data['tutor-name'] %}
 {% else %}
-{% set name = "John Doe" %}
+{% set name = "Peter Davies" %}
 {% endif %}
 {% endif %}
 
