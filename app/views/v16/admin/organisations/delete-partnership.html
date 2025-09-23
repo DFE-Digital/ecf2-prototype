@@ -1,0 +1,51 @@
+{% extends "layouts/admin.html" %}
+
+{% set pageName="Delete partnership" %}
+{% set activeNav="organisations" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+    {{ govukSummaryList({
+      card: {
+        title: {
+          html: "Ambition Institute"
+        }
+      },
+      rows: [
+        {
+          key: { text: "Lead provider" },
+          value: { text: "Ambition Institute" }
+        },
+        {
+          key: { text: "Delivery partner" },
+          value: { text: "Alpha Teaching School Hub" }
+        },
+        {
+          key: { text: "ECTs" },
+          value: { html: "<ul class='govuk-list govuk-!-margin-bottom-0'><li><a class='govuk-link govuk-link--no-visited-state' href='#'>John Smith</a></li></ul>" }
+        },
+        {
+          key: { text: "Mentors" },
+          value: { html: "<ul class='govuk-list govuk-!-margin-bottom-0'><li><a class='govuk-link govuk-link--no-visited-state' href='#'>John Doe</a></li></ul>" }
+        }
+      ]
+    }) }}
+
+    <form method="post">
+      <button class="govuk-button" data-module="govuk-button">Confirm</button>
+    </form>
+
+    <p><a href="school-details?section=partnerships">Cancel and go back to Abacus Primary School</a></p>
+  </div>
+</div>
+{% endblock %}

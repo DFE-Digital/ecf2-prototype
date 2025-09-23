@@ -1142,6 +1142,14 @@ module.exports = router => {
             });
         })
 
+        router.get(v + admin + 'organisations/delete-partnership', (req, res) => {
+            res.render(vGet + '/admin/organisations/delete-partnership');
+        })
+
+        router.post(v + admin + 'organisations/delete-partnership', (req, res) => {
+            res.redirect(v + admin + 'organisations/school-details?section=partnerships&partnershipDeleted=1');
+        })
+
         router.post(v + admin + 'organisations/add-new-partnership/select-contract-period', (req, res) => {
             if (!req.session.data) {
                 req.session.data = {};
@@ -1160,7 +1168,7 @@ module.exports = router => {
 
         router.post(v + admin + 'organisations/add-new-partnership/select-delivery-partner', (req, res) => {
             req.session.data.newPartnershipDeliveryPartner = req.body.deliveryPartner;
-            res.redirect(v + admin + `organisations/school-details?section=partnerships&partnershipAdded=true`);
+            res.redirect(v + admin + 'organisations/school-details?section=partnerships&partnershipAdded=1');
         })
 
         // finance home page - direct access
