@@ -101,7 +101,7 @@ const ects = [
         name: 'Emily Brown',
         trn: '7654321',
         email: 'emily.brown@email.com',
-        mentorId: 'tom-jones',
+        mentorId: 'steven-davies',
         status: 'Registered',
         statusClass: 'govuk-tag--green',
         schoolStartDate: '10 September 2024',

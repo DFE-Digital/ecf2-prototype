@@ -99,12 +99,20 @@ module.exports = router => {
             req.session.data['defaultsAlreadyAdded'] = ''
             req.session.data['mentorTransfer'] = 'yes'
         }
+        if (req.query.checkSit === 'yes') {
+            req.session.data['checkSit'] = 'yes'
+        }
         res.redirect(v + school + 'dfe-sign-in')
     })
 
     // dfe sign in page
     router.post(v + school + 'dfe-sign-in', (req, res) => {
-        res.redirect(v + school + 'home/ects')
+        if (req.session.data['checkSit'] === 'yes') {
+            res.redirect(v + school + 'sit/check-school-induction-tutor-1')
+        }
+        else {
+            res.redirect(v + school + 'home/ects')
+        }
     })
 
     // **** prototype set up ****
@@ -142,7 +150,8 @@ module.exports = router => {
     router.get(v + school + 'setup-scenario-5', (req, res) => {
         req.session.data['transferJourney'] = ''
         req.session.data['defaultsAlreadyAdded'] = 'yes'
-        res.redirect(v + school + 'sit/check-school-induction-tutor-1')
+        req.session.data['checkSit'] = 'yes'
+        res.redirect(v + school + 'start?checkSit=yes')
     })
 
     // what you'll need
