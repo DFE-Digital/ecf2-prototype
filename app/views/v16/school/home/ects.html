@@ -106,10 +106,12 @@
                                     {% if mentorName != "Not assigned" %}
                                         {{ mentorName }}
                                     {% else %}
-                                        {{ govukWarningText({
-                                        html: 'You must <a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">assign a mentor or register a new one</a> for this ECT.',
-                                        iconFallbackText: "Warning"
-                                        }) }}
+                                   <!-- <p><a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">Assign a mentor</a> to this ECT</p> -->
+                                                  {{ govukWarningText({
+            html: '<a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">Assign a mentor to this ECT</a>',
+            iconFallbackText: "Warning"
+        }) }} 
+
                                     {% endif %}
                                 </dd>
                             </div>
