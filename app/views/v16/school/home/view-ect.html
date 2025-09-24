@@ -63,11 +63,13 @@ href: "ects"
           Mentor
         </dt>
         <dd class="govuk-summary-list__value">
-          {% if mentorName == 'Not assigned' %}
+       <!--   {% if mentorName == 'Not assigned' %}
+         <p><a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">Assign a mentor</a> to this ECT</p>
+        -->
             {{ govukWarningText({
-            html: 'You must <a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">assign a mentor or register a new one</a> for this ECT.',
+            html: '<a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">Assign a mentor to this ECT</a>',
             iconFallbackText: "Warning"
-            }) }}
+        }) }} 
           {% else %}
             <a class="govuk-link" href="view-mentor?id={{ activeEct.mentorId }}">{{ mentorName }}</a>
           {% endif %}
