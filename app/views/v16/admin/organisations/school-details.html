@@ -197,7 +197,52 @@
                       key: { text: "ECTs" },
                       value: { html: "
                       <ul class='govuk-list govuk-!-margin-bottom-0'>
-                        <li><a class='govuk-link govuk-link--no-visited-state' href='#'>John Smith</a></li>
+                        <li><a class='govuk-link govuk-link--no-visited-state' href='../teachers-details?section=overview'>John Smith</a></li>
+                      </ul>
+                      " }
+                    },
+                    {
+                      key: { text: "Mentors" },
+                      value: { html: "
+                      <ul class='govuk-list govuk-!-margin-bottom-0'>
+                        <li><a class='govuk-link govuk-link--no-visited-state' href='#ß'>John Doe</a></li>
+                      </ul>
+                      " }
+                    }
+                  ]
+                })}}
+
+                <h4 class="govuk-heading-s">2024 partnerships</h4>
+{{govukSummaryList({
+                  card: {
+                    title: {
+                      html: "Ambition Institute"
+                    },
+                    actions: {
+                        items: [
+                          {
+                            href: "delete-partnership",
+                            classes: "govuk-link govuk-link--no-visited-state",
+                            text: "Delete partnership",
+                            visuallyHiddenText: "of Ambition Institute"
+                          }
+                        ]
+                      }
+                  },
+                  rows: [
+                    {
+                      key: { text: "Lead provider" },
+                      value: { text: "Ambition Institute" }
+                    },
+                    {
+                      key: { text: "Delivery partner" },
+                      value: { text: "Alpha Teaching School Hub" }
+                    },
+                    {
+                      key: { text: "ECTs" },
+                      value: { html: "
+                      <ul class='govuk-list govuk-!-margin-bottom-0'>
+                        <li><a class='govuk-link govuk-link--no-visited-state' href='../teachers-details?section=overview'>John Smith</a></li>
                       </ul>
                       " }
                     },
@@ -211,7 +256,7 @@
                     }
                   ]
                 })}}
-            {% endif %}
+      {% endif %}
         </div>
 
     </div>
