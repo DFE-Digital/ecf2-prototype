@@ -1151,6 +1151,12 @@ module.exports = router => {
             });
         })
 
+        router.get(v + admin + 'teachers-details', (req, res) => {
+            res.render(vGet + '/admin/teachers-details', {
+                query: req.query
+            });
+        })
+
         router.get(v + admin + 'organisations/delete-partnership', (req, res) => {
             res.render(vGet + '/admin/organisations/delete-partnership');
         })
