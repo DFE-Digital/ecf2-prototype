@@ -15,13 +15,14 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
+    <p>You want to delete this partnership:</p>
+
     {{ govukSummaryList({
-      card: {
-        title: {
-          html: "Ambition Institute"
-        }
-      },
       rows: [
+        {
+          key: { text: "School" },
+          value: { text: "Abacus Primary School" }
+        },
         {
           key: { text: "Lead provider" },
           value: { text: "Ambition Institute" }
@@ -29,14 +30,6 @@
         {
           key: { text: "Delivery partner" },
           value: { text: "Alpha Teaching School Hub" }
-        },
-        {
-          key: { text: "ECTs" },
-          value: { html: "<ul class='govuk-list govuk-!-margin-bottom-0'><li><a class='govuk-link govuk-link--no-visited-state' href='#'>John Smith</a></li></ul>" }
-        },
-        {
-          key: { text: "Mentors" },
-          value: { html: "<ul class='govuk-list govuk-!-margin-bottom-0'><li><a class='govuk-link govuk-link--no-visited-state' href='#'>John Doe</a></li></ul>" }
         }
       ]
     }) }}

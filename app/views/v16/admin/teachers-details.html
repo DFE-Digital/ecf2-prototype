@@ -25,6 +25,22 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
+
+      {% set dpChanged = query.dpChanged or false %}
+        {% if dpChanged != false %}
+        <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+          <div class="govuk-notification-banner__header">
+            <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+              Success
+            </h2>
+          </div>
+          <div class="govuk-notification-banner__content">
+            <h3 class="govuk-notification-banner__heading">
+              Delivery partner updated
+            </h3>
+          </div>
+        </div>
+        {% endif %}
         
         <span class="govuk-caption-l">TRN: 2959198</span>
         <h1 class="govuk-heading-l">{{pageName}}</h1>
@@ -279,6 +295,11 @@
 
             {% if currentSection == "training" %}
                 <h3 class="govuk-heading-m">Training</h3>
+<!-- 
+                <p>John Smith is currently undertaking mentor training.</p>
+                
+                <p><a href="#">Move their mentor training to a different partnership</a></p> -->
+
                 <h4 class="govuk-heading-s">ECT history</h4>
 
                 {{govukSummaryList({
@@ -334,11 +355,17 @@
                     },
                     {
                       key: { text: "Delivery partner" },
-                      value: { text: "Alpha Teaching School Hub" }
+                      value: { text: "Alpha Teaching School Hub" },
+                      actions: {
+                        items: [{
+                          href: "teacher/change-delivery-partner",
+                          text: "Change"
+                        }]
+                      }
                     },
                     {
                       key: { text: "Contract period" },
-                      value: { text: "2024" }
+                      value: { text: "2025" }
                     },
                     {
                       key: { text: "Schedule" },
@@ -346,7 +373,7 @@
                     },
                     {
                       key: { text: "Start date" },
-                      value: { text: "1 September 2024" }
+                      value: { text: "1 September 2025" }
                     },
                     {
                       key: { text: "End date" },
