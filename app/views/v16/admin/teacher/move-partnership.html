@@ -43,21 +43,22 @@
     })}}
 
     <div class="govuk-inset-text">
-      If you need to create a new partnership, go to <a href="../organisations/school-details?section=partnerships">school partnerships</a>.
+      If you need to add a new partnership, go to <a href="../organisations/school-details?section=partnerships">school partnerships</a>.
     </div>
 
     <form method="post" action="../teachers-details?section=training&dpChanged=true">
       <button class="govuk-button" data-module="govuk-button">Confirm partnership</button>
     </form>
 
-    <p><a href="../teachers-details?section=overview">Cancel and go back to John Smith</a></p>
+    <p><a href="../teachers-details?section=overview">Cancel and go back to John Smith.</a></p>
 
     {% else %}
     <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
-    <p>You need to set up another partnership at Abacus Primary School before you can move John Smith to a different one.</p>
+    <p>You need to add another partnership for Abacus Primary School before you can move John Smith.</p>
 
-    <p><a href="../organisations/school-details?section=partnerships">View partnerships for Abacus Primary School</a></p>
+
+    <p><a href="../organisations/school-details?section=partnerships">Add another partnership for Abacus Primary School</a></p>
     {% endif %}
   </div>
 </div>
