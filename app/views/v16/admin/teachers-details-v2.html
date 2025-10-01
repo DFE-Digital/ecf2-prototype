@@ -25,6 +25,22 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
+
+      {% set dpChanged = query.dpChanged or false %}
+        {% if dpChanged != false %}
+        <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+          <div class="govuk-notification-banner__header">
+            <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+              Success
+            </h2>
+          </div>
+          <div class="govuk-notification-banner__content">
+            <h3 class="govuk-notification-banner__heading">
+              Delivery partner updated
+            </h3>
+          </div>
+        </div>
+        {% endif %}
         
         <span class="govuk-caption-l">TRN: 2959198</span>
         <h1 class="govuk-heading-l">{{pageName}}</h1>
@@ -70,14 +86,18 @@
                             key: { text: "Name" },
                             value: { html: "
                             John Smith
-                            <!-- <span class='govuk-caption-m'> -->
-                              <!-- Name from TRS record: John James -->
-                            <!-- </span> -->
+                            <span class='govuk-caption-m'>
+                              Name from TRS record: John James
+                            </span>
                             " }
                         },
                         {
                             key: { text: "TRN" },
                             value: { text: "2959198" }
+                        },
+                        {
+                            key: { text: "Role" },
+                            value: { text: "Early career teacher" }
                         },
                         {
                             key: { text: "Most recent email address" },
@@ -86,24 +106,16 @@
                         {
                             key: { text: "Current school" },
                             value: { html: "
-                            St John's C of E Primary School
-                            <!-- <ul class='govuk-list govuk-!-margin-bottom-0'> -->
-                              <!-- <li>St John's C of E Primary School</li> -->
-                              <!-- <li>Abacus Primary School</li> -->
-                            <!-- </ul> -->
+                            <!-- St John's C of E Primary School -->
+                            <ul class='govuk-list govuk-!-margin-bottom-0'>
+                              <li><a class='govuk-link govuk-link--no-visited-state' href='#'>St John's C of E Primary School (URN: 1103052)</a></li>
+                              <li><a class='govuk-link govuk-link--no-visited-state' href='#'>Abacus Primary School (URN: 1195201)</a></li>
+                            </ul>
                             " }
                         },
                         {
-                            key: { text: "Registered for ECT training" },
-                            value: { text: "Yes" }
-                        },
-                        {
-                            key: { text: "Registered for mentor training" },
-                            value: { text: "Yes" }
-                        },
-                        {
-                            key: { text: "Induction recorded with appropriate body" },
-                            value: { text: "Yes" }
+                            key: { text: "Induction status" },
+                            value: { html: '<strong class="govuk-tag govuk-tag--blue">In progress</strong>' }
                         }
                     ]
                 })}}
@@ -179,19 +191,16 @@
             {% endif %}
 
             {% if currentSection == "school" %}
-                <h3 class="govuk-heading-m">ECT periods</h3>
+                <h3 class="govuk-heading-m">School</h3>
+                <h4 class="govuk-heading-s">ECT history</h4>
 
                 {{govukSummaryList({
                   card: {
                     title: {
-                      text: "St John's C of E Primary School"
+                      html: "<a href='organisations/school-details?section=overview' class='govuk-link govuk-link--no-visited-state'>St John's C of E Primary School</a>"
                     }
                   },
                   rows: [
-                      {
-                        key: { text: "Role" },
-                        value: { text: "Early career teacher" }
-                      },
                       {
                         key: { text: "School URN" },
                         value: { text: "1103052" }
@@ -222,14 +231,10 @@
                 {{govukSummaryList({
                   card: {
                     title: {
-                      text: "Alpha Primary School"
+                      html: "<a href='organisations/school-details?section=overview' class='govuk-link govuk-link--no-visited-state'>Alpha Primary School</a>"
                     }
                   },
                     rows: [
-                        {
-                            key: { text: "Role" },
-                            value: { text: "Early career teacher" }
-                        },
                         {
                             key: { text: "School URN" },
                             value: { text: "1195201" }
@@ -253,19 +258,15 @@
                     ]
                 })}}
 
-                <h3 class="govuk-heading-m">Mentor periods</h3>
+                <h4 class="govuk-heading-s">Mentor history</h4>
 
                 {{govukSummaryList({
                   card: {
                     title: {
-                      text: "St John's C of E Primary School"
+                      html: "<a href='organisations/school-details?section=overview' class='govuk-link govuk-link--no-visited-state'>St John's C of E Primary School</a>"
                     }
                   },
                   rows: [
-                      {
-                        key: { text: "Role" },
-                        value: { text: "Mentor" }
-                      },
                       {
                         key: { text: "School URN" },
                         value: { text: "1103052" }
@@ -294,7 +295,103 @@
 
             {% if currentSection == "training" %}
                 <h3 class="govuk-heading-m">Training</h3>
-                <!-- Training content to be added -->
+
+                <h4 class="govuk-heading-s">ECT history</h4>
+
+                {{govukSummaryList({
+                  card: {
+                    title: {
+                      html: "Ambition Institute and Alpha Teaching School Hub"
+                    }
+                  },
+                  rows: [
+                    {
+                      key: { text: "Lead provider" },
+                      value: { text: "Ambition Institute" }
+                    },
+                    {
+                      key: { text: "Delivery partner" },
+                      value: { text: "Alpha Teaching School Hub" },
+                      actions: {
+                        items: [{
+                          href: "teacher/change-delivery-partner",
+                          text: "Change"
+                        }]
+                      }
+                    },
+                    {
+                      key: { text: "School" },
+                      value: { html: "<a class='govuk-link' href='organisations/school-details?section=overview'>Abacus Primary School</a>" }
+                    },
+                    {
+                      key: { text: "Contract period" },
+                      value: { text: "2022" }
+                    },
+                    {
+                      key: { text: "Induction programme" },
+                      value: { text: "Provider-led" }
+                    },
+                    {
+                      key: { text: "Schedule" },
+                      value: { text: "ecf-standard-september" }
+                    },
+                    {
+                      key: { text: "Start date" },
+                      value: { text: "1 September 2022" }
+                    },
+                    {
+                      key: { text: "End date" },
+                      value: { text: "1 April 2024" }
+                    }
+                  ]
+                })}}
+
+                <h4 class="govuk-heading-s">Mentor history</h4>
+
+                {{govukSummaryList({
+                  card: {
+                    title: {
+                      html: "Ambition Institute and Alpha Teaching School Hub"
+                    }
+                  },
+                  rows: [
+                    {
+                      key: { text: "Lead provider" },
+                      value: { text: "Ambition Institute" }
+                    },
+                    {
+                      key: { text: "Delivery partner" },
+                      value: { text: "Alpha Teaching School Hub" },
+                      actions: {
+                        items: [{
+                          href: "teacher/change-delivery-partner",
+                          text: "Change"
+                        }]
+                      }
+                    },
+                    {
+                      key: { text: "School" },
+                      value: { html: "<a class='govuk-link' href='organisations/school-details?section=overview'>Abacus Primary School</a>" }
+                    },
+                    {
+                      key: { text: "Contract period" },
+                      value: { text: "2025" }
+                    },
+                    {
+                      key: { text: "Schedule" },
+                      value: { text: "ecf-standard-september" }
+                    },
+                    {
+                      key: { text: "Start date" },
+                      value: { text: "1 September 2025" }
+                    },
+                    {
+                      key: { text: "End date" },
+                      value: { text: "No end date recorded" }
+                    }
+                  ]
+                })}}
+
             {% endif %}
 
             {% if currentSection == "declarations" %}

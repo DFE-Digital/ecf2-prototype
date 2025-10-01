@@ -36,7 +36,7 @@
           </div>
           <div class="govuk-notification-banner__content">
             <h3 class="govuk-notification-banner__heading">
-              Delivery partner updated
+              Partnership updated
             </h3>
           </div>
         </div>
@@ -294,18 +294,28 @@
             {% endif %}
 
             {% if currentSection == "training" %}
+
+            {% if dpChanged %}
+              {% set partnershipName="Ambition Institute & Saffron Teaching School Hub" %}
+              {% else %} 
+              {% set partnershipName="Ambition Institute & Alpha Teaching School Hub" %}
+              {% endif %}
+            
                 <h3 class="govuk-heading-m">Training</h3>
-<!-- 
-                <p>John Smith is currently undertaking mentor training.</p>
-                
-                <p><a href="#">Move their mentor training to a different partnership</a></p> -->
 
                 <h4 class="govuk-heading-s">ECT history</h4>
 
                 {{govukSummaryList({
                   card: {
                     title: {
-                      html: "Ambition Institute and Alpha Teaching School Hub"
+                      html: partnershipName
+                    },
+                    actions: {
+                      items: [{
+                        classes: "govuk-link--no-visited-state",
+                        href: "teacher/move-partnership",
+                        text: "Move to a different partnership"
+                      }]
                     }
                   },
                   rows: [
@@ -319,13 +329,7 @@
                     },
                     {
                       key: { text: "School" },
-                      value: { text: "Abacus Primary School" },
-                      actions: {
-                        items: [{
-                          href: "organisations/school-details?section=partnerships",
-                          text: "View partnerships"
-                        }]
-                      }
+                      value: { text: "Abacus Primary School" }
                     },
                     {
                       key: { text: "Contract period" },
@@ -355,8 +359,15 @@
                 {{govukSummaryList({
                   card: {
                     title: {
-                      html: "Ambition Institute and Alpha Teaching School Hub"
-                    }
+                      html: partnershipName
+                    },
+                    actions: {
+                      items: [{
+                        classes: "govuk-link--no-visited-state",
+                        href: "teacher/move-partnership",
+                        text: "Move to a different partnership"
+                      }]
+                    }                    
                   },
                   rows: [
                     {
@@ -365,23 +376,11 @@
                     },
                     {
                       key: { text: "Delivery partner" },
-                      value: { text: "Alpha Teaching School Hub" },
-                      actions: {
-                        items: [{
-                          href: "teacher/change-delivery-partner",
-                          text: "Change"
-                        }]
-                      }
+                      value: { text: "Alpha Teaching School Hub" }
                     },
                     {
                       key: { text: "School" },
-                      value: { text: "Abacus Primary School" },
-                      actions: {
-                        items: [{
-                          href: "organisations/school-details?section=partnerships",
-                          text: "View partnerships"
-                        }]
-                      }
+                      value: { text: "Abacus Primary School" }
                     },
                     {
                       key: { text: "Contract period" },

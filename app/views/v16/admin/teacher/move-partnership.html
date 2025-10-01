@@ -1,0 +1,64 @@
+{% extends "layouts/admin.html" %}
+
+{% if data['partnershipAdded'] == true %}
+{% set pageName="Select a partnership for John Smith" %}
+{% else %} 
+{% set pageName="There are no other partnerships set up" %}
+{% endif %}
+
+{% set activeNav="teachers" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if data['partnershipAdded'] == true %}
+
+    {{govukRadios({
+      name: "new-partnership",
+      fieldset: {
+        legend: {
+          text: pageName,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: "alpha",
+          text: "Ambition Institute & Alpha Teaching School Hub",
+          checked: true
+        },
+        {
+          value: "saffron",
+          text: "Ambition Institute & Saffron Teaching School Hub"
+        }
+      ]
+    })}}
+
+    <div class="govuk-inset-text">
+      If you need to create a new partnership, go to <a href="../organisations/school-details?section=partnerships">school partnerships</a>.
+    </div>
+
+    <form method="post" action="../teachers-details?section=training&dpChanged=true">
+      <button class="govuk-button" data-module="govuk-button">Confirm partnership</button>
+    </form>
+
+    <p><a href="../teachers-details?section=overview">Cancel and go back to John Smith</a></p>
+
+    {% else %}
+    <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+    <p>You need to set up another partnership at Abacus Primary School before you can move John Smith to a different one.</p>
+
+    <p><a href="../organisations/school-details?section=partnerships">View partnerships for Abacus Primary School</a></p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -167,7 +167,7 @@
                 <h3 class="govuk-heading-m">Partnerships</h3>
                 <a class="govuk-button" href="add-new-partnership/select-contract-period">Add new partnership</a>
                 <h4 class="govuk-heading-s">2025 partnerships</h4>
-
+                {% if data.partnershipAdded %}
                 {{govukSummaryList({
                   card: {
                     title: {
@@ -203,6 +203,7 @@
                     }
                   ]
                 })}}
+                {% endif %}
 
                 {{govukSummaryList({
                   card: {
@@ -239,7 +240,7 @@
                 })}}
 
                 <h4 class="govuk-heading-s">2024 partnerships</h4>
-{{govukSummaryList({
+                {{govukSummaryList({
                   card: {
                     title: {
                       html: "Ambition Institute and Alpha Teaching School Hub"
