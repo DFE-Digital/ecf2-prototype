@@ -1,0 +1,99 @@
+{% extends "layouts/contact-support.html" %}
+
+{% set pageName="Get help with registering early career teachers" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+            <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+          <p>Send us a message if you have a question or are having problems using this service.</p>
+
+ 
+          <p>We'll automatically include the following in your message:</p>
+
+         <dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Your name
+      </dt>
+      <dd class="govuk-summary-list__value">
+        John Smith
+      </dd>
+    </div>
+    
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Your school
+      </dt>
+      <dd class="govuk-summary-list__value">
+        Abacus Primary School
+      </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Your email address
+      </dt>
+      <dd class="govuk-summary-list__value">
+        jsmith@email.com
+      </dd>
+    </div>
+    
+      </dl>
+      <p>We'll reply by email as soon we can. We normally reply within 2 working days.</p>
+
+       
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{{ govukCharacterCount({
+  name: "withHint",
+  id: "with-hint",
+  maxlength: 500,
+  label: {
+    text: "Your message",
+    classes: "govuk-label--s",
+    isPageHeading: true
+  },
+  hint: {
+    text: "Include as much detail as you can"
+  }
+}) }}
+
+  
+<button type="submit" class="govuk-button" data-module="govuk-button">
+  Send
+</button>
+
+</div>
+    </div>
+     </div>
+
+
+{{ super() }}
+<script src="/node_modules/dfe-frontend/dist/dfefrontend.min.js"></script>
+
+<script>
+    // Ensure DOM is fully loaded before manipulating
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the current URL
+        const url = window.location.href;
+
+        // Use the match() method to find the value in the URL
+        const currentV = url.match(/v\d+/);
+
+        // Set the value as the href attribute of the link
+        document.getElementById("ects").href = "/" + currentV + "/school/home/ects"
+        document.getElementById("mentors").href = "/" + currentV + "/school/home/mentors"
+    });
+</script>
+{% endblock %}

@@ -75,6 +75,12 @@ module.exports = router => {
         next();
     });
 
+    // Send support form confirmation
+
+    router.post(v + school + 'get-help', (req, res) => {
+        res.redirect(v + school + '/get-help-confirm-send')
+    })
+
     // SIT pages when logging in
 
     router.post(v + school + 'sit/check-school-induction-tutor-1', (req, res) => {
