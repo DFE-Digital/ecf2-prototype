@@ -1,0 +1,27 @@
+{% extends "layouts/ects.html" %}
+
+{% set pageName="Get help with registering early career teachers" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+ <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Your request for help has been submitted
+      </h1>
+
+      <form class="form" action="/training-approved-answer" method="post">
+
+      <p>We'll reply by email as soon we can. We normally reply within 2 working days.</p>
+
+      <p><a href="#">Return</a></p>
+     
+{% endblock %}
