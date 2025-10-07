@@ -63,13 +63,11 @@ href: "ects"
           Mentor
         </dt>
         <dd class="govuk-summary-list__value">
-       <!--   {% if mentorName == 'Not assigned' %}
-         <p><a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">Assign a mentor</a> to this ECT</p>
-        -->
+       {% if mentorName == 'Not assigned' %}
             {{ govukWarningText({
             html: '<a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">Assign a mentor to this ECT</a>',
             iconFallbackText: "Warning"
-        }) }} 
+            }) }} 
           {% else %}
             <a class="govuk-link" href="view-mentor?id={{ activeEct.mentorId }}">{{ mentorName }}</a>
           {% endif %}
@@ -84,6 +82,9 @@ href: "ects"
         <dt class="govuk-summary-list__key">Status</dt>
         <dd class="govuk-summary-list__value">
           <strong style="max-width: max-content;" class="govuk-tag {{ activeEct.statusClass }}">{{ activeEct.status }}</strong>
+          {% if activeEct.status == 'No longer training' %}
+          <span class="govuk-caption-m govuk-!-margin-top-2">{{ activeEct.leadProvider }} have withdrawn {{ activeEct.name }} from training.</span>
+          {% endif %}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -136,6 +137,7 @@ href: "ects"
         </dl>
 
     <h2 class="govuk-heading-m">Training details</h2>
+    {% if not activeEct.status === 'No longer training' %}
        <dl class="govuk-summary-list">
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
@@ -189,6 +191,21 @@ href: "ects"
           </div>
           {% endif %}
         </dl>
+    {% endif %}
+
+    {% if activeEct.status === 'No longer training' %}
+    <p>
+      
+      {{activeEct.leadProvider}} has withdrawn {{activeEct.name}} from training.
+
+      <p><a href="#">Change programme type to school-led</a></p>
+
+      <p><a href="#">Select a different lead provider</a></p>      
+
+
+    </p>
+    {% endif %}
+
 
         <hr class="govuk-section-break govuk-section-break--m">
 
