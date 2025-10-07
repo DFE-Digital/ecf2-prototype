@@ -78,7 +78,7 @@ module.exports = router => {
     // Send support form confirmation
 
     router.post(v + school + 'get-help', (req, res) => {
-        res.redirect(v + school + '/get-help-confirm-send')
+        res.redirect(v + school + 'get-help-confirm-send')
     })
 
     // SIT pages when logging in
