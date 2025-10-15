@@ -42,6 +42,14 @@ href: "javascript:window.history.back()"
     </div>
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
+        Your school's URN
+      </dt>
+      <dd class="govuk-summary-list__value">
+        100001
+      </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
         Your email address
       </dt>
       <dd class="govuk-summary-list__value">
@@ -50,24 +58,23 @@ href: "javascript:window.history.back()"
     </div>
     
       </dl>
-      <p>We'll reply by email as soon we can. We normally reply within 2 working days.</p>
+      <p>We'll reply by email as soon we can. We normally reply within 5 working days.</p>     
 
-       
-{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
 
-{{ govukCharacterCount({
-  name: "withHint",
-  id: "with-hint",
-  maxlength: 1000,
-  label: {
-    text: "Your message",
-    classes: "govuk-label--s",
-    isPageHeading: true
-  },
-  hint: {
-    text: "Include as much detail as you can"
-  }
-}) }}
+
+
+<div class="govuk-form-group">
+  <h2 class="govuk-label-wrapper">
+    <label class="govuk-label govuk-label--s" for="more-detail">
+      Your message
+    </label>
+  </h2>
+  
+  <div id="more-detail-hint" class="govuk-hint">
+Include as much detail as you can
+  </div>
+  <textarea class="govuk-textarea" id="more-detail" name="moreDetail" rows="5" aria-describedby="more-detail-hint"></textarea>
+</div>
 
   
 <button type="submit" class="govuk-button" data-module="govuk-button">
