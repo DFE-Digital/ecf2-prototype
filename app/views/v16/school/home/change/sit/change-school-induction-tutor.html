@@ -1,0 +1,47 @@
+{% extends "layouts/home.html" %}
+
+{% set pageName="Change school induction tutor" %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+
+               <h2 class="govuk-heading-m">Enter your new school induction tutor details</h2>
+
+
+       {{ govukInput({
+                id: "tutor-name",
+                classes: "govuk-input--width-20",
+                name: "tutor-name",
+                label: {
+                    text: "Full name"
+                }
+            }) }}
+
+            {{ govukInput({
+                id: "tutor-email",
+                classes: "govuk-input--width-20",
+                name: "tutor-email",
+                label: {
+                    text: "Email"
+                },
+                hint: {
+    text: "Do not use a generic email like admin@example.com"
+  }
+            }) }}
+
+            <button class="govuk-button">Continue</button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
