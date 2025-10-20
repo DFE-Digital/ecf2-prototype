@@ -105,50 +105,56 @@ href: "javascript:window.history.back()"
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">Check and confirm change</h1>
+            <form method="post" novalidate>
 
-        {% set summaryRows = [
-          {
-            key: {
-              text: "New induction tutor"
-            },
-            value: {
-              text: name
-            }            
-          },
-          {
-              key: {
-              text: "New induction tutor email"
-              },
-              value: {
-                text: "johnsmith@yourschool.org"
-              }
-            }
-        ] %}
-
-       
-
-        {{ govukSummaryList({
-          classes: "govuk-!-margin-bottom-8",
-          rows: summaryRows
-        }) }}
-          
-
-        <form method="post" novalidate>
-            <!-- Pass the ECT ID through the form -->
-            {% if data['selectedEctId'] %}
-            <input type="hidden" name="id" value="{{ data['selectedEctId'] }}">
+            {% if data['tutorName'] %}
+            {% set tutorName = data['tutorName'] %}
+            {% else %}
+            {% set tutorName = 'John Smith' %}
             {% endif %}
-    
+
+            {% if data['tutorEmail'] %}
+            {% set tutorEemail = data['tutorEmail'] %}
+            {% else %}
+            {% set tutorEmail = 'email@email.com' %}
+            {% endif %}
+
+
+            {% set summaryRows = [
+              {
+                key: {
+                  text: "New induction tutor"
+                },
+                value: {
+                  text: data [ 'tutorName' ]
+                }            
+              },
+              {
+                  key: {
+                  text: "New induction tutor email"
+                  },
+                  value: {
+                    text: data [ 'tutorEmail' ]
+                  }
+                }
+            ] %}
+      
+
+            {{ govukSummaryList({
+              classes: "govuk-!-margin-bottom-8",
+              rows: summaryRows
+            }) }}
+          
+   
             {{ govukButton({
               text: "Confirm change"
             }) }}
+
+            <p class="govuk-body">
+                <a href="javascript:window.history.back()">Cancel and go back</a>
+            </p>
     
-        </form>
-
-        <p class="govuk-body">
-            <a href="../../view-ect?ect={{ name | lower | replace(' ', '-') }}" class="govuk-link">Cancel and go back</a>
-        </p>
-
+        </form>     
     </div>
 </div>
 

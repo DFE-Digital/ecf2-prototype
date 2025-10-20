@@ -87,64 +87,21 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <div class="govuk-panel govuk-panel--confirmation">
+
             <h1 class="govuk-panel__title">
-                You've changed your school's induction tutor to John Smith
-                <!-- {% if isNameChange %}
-                    You have changed the ECT's name to {{changedValue}}
-                {% elif isEmailChange %}
-                    You have changed {{name}}'s email address to {{changedValue}}
-                {% elif isAppropriateBodyChange %}
-                    You have chosen {{changedValue}} as the new appropriate body for {{name}}
-                {% elif isWorkingPatternChange %}
-                    You have changed {{name}}'s working pattern to {{changedValue | lower}}
-                {% elif isTrainingProgrammeChange %}
-                    {% if changedValue == 'Provider-led' and data['changedLeadProvider'] %}
-                        You have changed {{name}}'s training programme to {{changedValue | lower}} with {{data['changedLeadProvider']}}
-                    {% else %}
-                        You have changed {{name}}'s training programme to {{changedValue | lower}}
-                    {% endif %}
-                {% elif isMentorChange %}
-                    You have changed {{name}}'s mentor to {{changedValue}}
-                {% else %}
-                    You have chosen {{changedValue}} as the new lead provider for {{name}}
-                {% endif %} -->
+                <form method="post" novalidate>
+                You've changed your school's induction tutor to {{  data['tutorName']  }}
             </h1>
         </div>
         
         <h2 class="govuk-heading-m">What happens next</h2>
 
-        <p>We'll send an email to John Smith at Johnsmith@yourschool.org to let them know.</p>
+        <p>We'll send an email to {{  data['tutorName']  }} at {{  data['tutorEmail']  }} to let them know.</p>
 
-        <p>We'll also let your school's appropriate body and lead providers know about the change. John Smith will be their primary contact for early career training and induction at your school.</p>
+        <p>We'll also let your school's appropriate body and lead providers know about the change. {{  data['tutorName']  }} will be their primary contact for early career training and induction at your school.</p>
         
-       <!-- {% if isNameChange %}
-            <p>The ECT can update their name in their teacher record using the Access your teaching qualifications service.</p>
-        {% elif isEmailChange %}
-            <p class="govuk-body">We'll tell the lead provider about this change.</p>
-        {% elif isAppropriateBodyChange %}
-            <p class="govuk-body">We'll let {{changedValue}} know they're now the appropriate body for {{name}}'s induction.</p>
-                <p>They'll contact us to confirm the change.</p>
-        {% elif isWorkingPatternChange %}
-               <p class="govuk-body">We'll pass this information on so adjustments can be made to {{name}}'s training if needed.</p>
-        {% elif isTrainingProgrammeChange %}
-            {% if changedValue == 'Provider-led' %}
-                   <p class="govuk-body">  {% if data['changedLeadProvider'] %}We'll let {{data['changedLeadProvider']}} know your school wants to work with them so they can arrange training.{% else %}We will let the lead provider know your school wants to work with them so they can arrange training.{% endif %}</p>
-            {% else %}
-                    <p class="govuk-body">Your school will now be responsible for delivering training to {{name}}.</p>
-                    <p class="govuk-body">If your programme is new, tell your appropriate body. They'll need to check it to make sure it covers the ITTECF in full. </p>
-            {% endif %}
-        {% elif isMentorChange %}
-            <p class="govuk-body">{{changedValue}} is now responsible for mentoring {{name}}.</p>
-        {% else %}
-            <p class="govuk-body">We'll let {{changedValue}} know your school wants to work with them. They'll contact us to confirm the change and tell us the delivery partner they'll be working with.</p>
-            <p class="govuk-body">We'll also let the old lead provider know that they'll no longer be training {{name}}.</p>
-        {% endif %}
-    -->
-
-                 <button class="govuk-button">Continue</button>
-
-
-        <!-- <p><a href="../../view-ect?ect={{data.changedEctId}}">Continue</a></p> -->
+        <button class="govuk-button">Continue</button>
+                 </form>
     </div>
 </div>
 
