@@ -3,6 +3,10 @@
 {% set pageName="Change school induction tutor" %}
 
 {% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
 {% endblock %}
 
 {% block content %}
@@ -13,19 +17,8 @@
 
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
-        {% if data['tutorName'] %}
-            {% set tutorName = data['tutorName'] %}
-            {% else %}
-            {% set tutorName = 'John Smith' %}
-            {% endif %}
-
-            {% if data['tutorEmail'] %}
-            {% set tutorEemail = data['tutorEmail'] %}
-            {% else %}
-            {% set tutorEmail = 'email@email.com' %}
-            {% endif %}
-
-
+      
+ 
         <h2 class="govuk-heading-m">Enter your new school induction tutor details</h2>
 
 
@@ -34,8 +27,8 @@
                 label: {
                     text: "Full name"
                 },
-                id: "tutorName",
-                name: "tutorName"
+                id: "newTutorName",
+                name: "newTutorName"                
             }) }}
 
 
@@ -47,14 +40,15 @@
                 hint: {
                         text: "Do not use a generic email like headteacher@school.com"
                       },
-                        id: "tutorEmail",
-                        name: "tutorEmail"
+                        id: "newTutorEmail",
+                        name: "newTutorEmail"
             }) }}
 
             <button class="govuk-button">Continue</button>
 
                     <p class="govuk-body">
-                    <p><a href="javascript:window.history.back()">Cancel and go back</a>
+                    <p><a href="javascript:window.history.back()">Cancel and go back to induction tutor details</a></p>
+
         </p>
 
         </form>

@@ -1,10 +1,6 @@
 {% extends "layouts/induction-tutor.html" %}
 
-{% if data['fullName'] %}
-{% set name = data['fullName'] %}
-{% else %}
-{% set name = 'John Smith' %}
-{% endif %}
+
 
 {# Determine what type of change was made #}
 {% if data['changedName'] %}
@@ -90,15 +86,15 @@
 
             <h1 class="govuk-panel__title">
                 <form method="post" novalidate>
-                You've changed your school's induction tutor to {{  data['tutorName']  }}
+                You've changed your school's induction tutor to {{  data['newTutorName']  }}
             </h1>
         </div>
         
         <h2 class="govuk-heading-m">What happens next</h2>
 
-        <p>We'll send an email to {{  data['tutorName']  }} at {{  data['tutorEmail']  }} to let them know.</p>
+        <p>We'll send an email to {{  data['newTutorName']  }} at {{  data['newTutorEmail']  }} to let them know.</p>
 
-        <p>We'll also let your school's appropriate body and lead providers know about the change. {{  data['tutorName']  }} will be their primary contact for early career training and induction at your school.</p>
+        <p>We'll also let your school's appropriate body and lead providers know about the change. {{  data['newTutorName']  }} will be their primary contact for early career training and induction at your school.</p>
         
         <button class="govuk-button">Continue</button>
                  </form>

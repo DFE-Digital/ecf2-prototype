@@ -1,10 +1,13 @@
 {% extends "layouts/induction-tutor.html" %}
 
-{% if data['fullName'] %}
-{% set name = data['fullName'] %}
-{% else %}
-{% set name = 'John Smith' %}
+{% if data['newTutorName'] %}
+{% set tutorName = data['newTutorName'] %}
 {% endif %}
+
+{% if data['newTutorEmail'] %}
+{% set tutorEmail = data['newTutorEmail'] %}
+{% endif %}
+
 
 {# Check what type of change this is #}
 {% if data['changeType'] == 'name' %}
@@ -107,26 +110,14 @@ href: "javascript:window.history.back()"
         <h1 class="govuk-heading-l">Check and confirm change</h1>
             <form method="post" novalidate>
 
-            {% if data['tutorName'] %}
-            {% set tutorName = data['tutorName'] %}
-            {% else %}
-            {% set tutorName = 'John Smith' %}
-            {% endif %}
-
-            {% if data['tutorEmail'] %}
-            {% set tutorEemail = data['tutorEmail'] %}
-            {% else %}
-            {% set tutorEmail = 'email@email.com' %}
-            {% endif %}
-
-
+            
             {% set summaryRows = [
               {
                 key: {
                   text: "New induction tutor"
                 },
                 value: {
-                  text: data [ 'tutorName' ]
+                  text: data [ 'newTutorName' ]
                 }            
               },
               {
@@ -134,7 +125,7 @@ href: "javascript:window.history.back()"
                   text: "New induction tutor email"
                   },
                   value: {
-                    text: data [ 'tutorEmail' ]
+                    text: data [ 'newTutorEmail' ]
                   }
                 }
             ] %}
@@ -150,11 +141,24 @@ href: "javascript:window.history.back()"
               text: "Confirm change"
             }) }}
 
+            {% if data['newTutorName'] %}
+{% set tutorName = data['newTutorName'] %}
+{% endif %}
+
+{% if data['newTutorEmail'] %}
+{% set tutorEmail = data['newTutorEmail'] %}
+{% endif %}
+
+
+
             <p class="govuk-body">
-                <a href="javascript:window.history.back()">Cancel and go back</a>
+
+            <p><a href="../../induction-tutor" class="govuk-link">Cancel and go back to induction tutor details</a></p>
+
             </p>
     
         </form>     
+
     </div>
 </div>
 

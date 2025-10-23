@@ -7,63 +7,53 @@
 
 {% set pageName="Induction tutor" %}
 
-{% block content %}
-
-{% if data['leadProvider'] %}
-{% set lp = data['leadProvider'] %}
+{% if data['tutorName'] %}
+{% set tutorName = data['tutorName'] %}
 {% else %}
-{% set lp = 'Ambition Institute' %}
+{% set tutorName = 'John Smith' %}
+{% endif %}
+
+{% if data['tutorEmail'] %}
+{% set tutorEmail = data['tutorEmail'] %}
+{% else %}
+{% set tutorEmail = 'JohnSmith@school.org' %}
 {% endif %}
 
 
+{% block content %}
 
-
-   <div class="govuk-grid-row">
+<div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
         <form method="post">
 
-    <h1 class="govuk-caption-l">{{schoolName}}</h1>
-        <h1 class="govuk-heading-l">{{pageName}}</h1>
+            <h1 class="govuk-caption-l">{{schoolName}}</h1>
+                <h1 class="govuk-heading-l">{{pageName}}</h1>
+                    <p class="govuk-body">Our records show that the following person is your main school induction tutor. </p> 
+                    <p>We share these details with your appropriate body, and lead providers (if your school is using a provider-led training programme).</p>
+            <h1 class="govuk-heading-m">Induction tutor details</h1>          
+                        
 
-                    <p class="govuk-body">Our records show that the following person is your school induction tutor. Their details have been passed to your appropriate body and lead providers.</p>
-
-<h1 class="govuk-heading-m">Induction tutor details</h1>
-
-{% if data['tutorName'] %}
-            {% set tutorName = data['tutorName'] %}
-            {% else %}
-            {% set tutorName = 'John Smith' %}
-            {% endif %}
-
-            {% if data['tutorEmail'] %}
-            {% set tutorEemail = data['tutorEmail'] %}
-            {% else %}
-            {% set tutorEmail = 'email@email.com' %}
-            {% endif %}
-
-
-                   
-
-                    {{ govukSummaryList({
-            rows: [
+            {{ govukSummaryList({
+                rows: [
                 {
-                    key: { text: "Name" },
-                    value: {
-                             text: data [ 'tutorName' ]
-            }  
+                key: { text: "Name" },
+                value: {                        
+                        text: tutorName
+                }  
                 },
                 {
-                    key: { text: "Email" },
-                    value: {
-                            text: data [ 'tutorEmail' ]
-              }                }
+                key: { text: "Email" },
+                value: {
+                        text: tutorEmail
+                }
+                }               
             ]
-        }) }}
+            }) }}
 
-                    <button class="govuk-button">Change induction tutor</button>
+            <button class="govuk-button">Change induction tutor</button>
 
         </form>
-
-
+    </div>
 </div>
+
 {% endblock %}
