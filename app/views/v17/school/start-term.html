@@ -1,0 +1,60 @@
+{% extends "layouts/ects.html" %}
+
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'John Smith' %}
+{% endif %}
+
+{% set pageName="When will " + name + " start their induction?" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+            {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+            {{ govukRadios({
+            name: "startTerm",
+            fieldset: {
+            legend: {
+            text: pageName,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+            }
+            },
+            hint: {
+            text: "This is when " + name + " will start their induction and begin ECF-based training at your school."
+            },
+            items: [
+            {
+            value: "Summer term 2024",
+            text: "Summer term 2024"
+            },
+            {
+            value: "Autumn term 2024",
+            text: "Autumn term 2024"
+            },
+            {
+            value: "Spring term 2025",
+            text: "Spring term 2025"
+            }
+            ]
+            }) }}
+
+            <button class="govuk-button">Continue</button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

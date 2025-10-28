@@ -6,7 +6,7 @@ const ects = [
         email: 'john.smith@email.com',
         mentorId: null,
         status: 'Mentor required',
-        statusClass: 'govuk-tag--orange',
+        statusClass: 'govuk-tag--red',
         schoolStartDate: '7 September 2024',
         inductionStartDate: '7 September 2024',
         workingPattern: 'Full time',
