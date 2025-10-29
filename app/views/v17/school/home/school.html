@@ -1,0 +1,72 @@
+{% extends "layouts/school.html" %}
+
+{% block head %}
+{{ super() }} <!-- This includes the content from the base head block -->
+{% include "./filters.njk" %}
+{% endblock %}
+
+{% set pageName="School" %}
+
+{% if data['schoolName'] %}
+{% set schoolName = data['schoolName'] %}
+{% else %}
+{% set schoolName = 'Test Primary School' %}
+{% endif %}
+
+{% if data['tutorName'] %}
+{% set tutorName = data['tutorName'] %}
+{% else %}
+{% set tutorName = 'John Smith' %}
+{% endif %}
+
+{% if data['tutorEmail'] %}
+{% set tutorEmail = data['tutorEmail'] %}
+{% else %}
+{% set tutorEmail = 'JohnSmith@school.org' %}
+{% endif %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-caption-l">{{schoolName}}</h1>
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+        <hr class="govuk-section-break--m">
+    </div>
+
+    <div class="govuk-grid-column-two-thirds">
+
+        <h1 class="govuk-heading-m">Induction tutor details</h1>         
+               
+            <!-- <p class="govuk-body">Our records show that the following person is your school induction tutor. </p> -->
+            <p>This person is your school's main point of contact for early career training and induction. We share these details with your appropriate body and lead providers (if your school uses provider-led training programmes).</p>
+
+                        
+
+            {{ govukSummaryList({
+                rows: [
+                {
+                key: { text: "Name" },
+                value: {                        
+                        text: tutorName
+                }  
+                },
+                {
+                key: { text: "Email" },
+                value: {
+                        text: tutorEmail
+                },
+                hint: {
+                text: "Do not use a generic email like headteacher@school.com"
+                }
+                    }               
+            ]
+            }) }}
+        <form method="post">
+            <button class="govuk-button">Change induction tutor</button>
+        </form>
+              
+    </div>
+</div>
+
+{% endblock %}

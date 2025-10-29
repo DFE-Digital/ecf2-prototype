@@ -46,18 +46,17 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
                 <ul class="govuk-service-navigation__list" id="navigation">
                     <li class="govuk-service-navigation__item">
                         <a class="govuk-service-navigation__link" href="#" id="ects">ECTs</a>
+                    </li>                   
+                     <li class="govuk-service-navigation__item">
+                        <a class="govuk-service-navigation__link" href="#" id="mentors">Mentors</a>
                     </li>
                     <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
-                        <a class="govuk-service-navigation__link" href="#" aria-current="true" id="mentors">
-                            <strong class="govuk-service-navigation__active-fallback">Mentors</strong>
+                        <a class="govuk-service-navigation__link" href="#" aria-current="true" id="school">
+                            <strong class="govuk-service-navigation__active-fallback">School</strong>
                         </a>
                     </li>
-                    <li class="govuk-service-navigation__item">
-                        <a class="govuk-service-navigation__link" href="#" id="school">School</a>
-                    </li>
-                    <!-- <li class="govuk-service-navigation__item">
-                        <a class="govuk-service-navigation__link" href="#" id="inductionTutor">Induction tutor</a>
-                    </li> -->
+
+                   
                 </ul>
             </nav>
         </div>
@@ -161,9 +160,7 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
         document.getElementById("home").href = "/" + currentV + "/school/home/ects"
         document.getElementById("ects").href = "/" + currentV + "/school/home/ects"
         document.getElementById("mentors").href = "/" + currentV + "/school/home/mentors"
-        // document.getElementById("inductionTutor").href = "/" + currentV + "/school/home/induction-tutor"
         document.getElementById("school").href = "/" + currentV + "/school/home/school"
-
 
     });
 </script>
