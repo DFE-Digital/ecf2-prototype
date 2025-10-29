@@ -1,0 +1,70 @@
+{% extends "layouts/mentors.html" %}
+
+{% set mentorId = data.mentorId %}
+{% set mentorName = data.mentorName %}
+{% set mentorLeaving = data.mentorLeaving %}
+
+{% set leavingDay = data.day if data.day else 1 %}
+{% set leavingMonth = data.month if data.month else 1 %}
+{% set leavingYear = data.year if data.year else 2026 %}
+
+{# Get current date components from session data #}
+{% set currentYear = data.currentYear %}
+{% set currentMonth = data.currentMonth %}
+{% set currentDay = data.currentDay %}
+
+{# Compare dates: first by year, then month, then day #}
+{% set isPast = (leavingYear < currentYear) or (leavingYear == currentYear and leavingMonth < currentMonth) or (leavingYear == currentYear and leavingMonth == currentMonth and leavingDay < currentDay) %}
+{% set isToday = (leavingYear == currentYear and leavingMonth == currentMonth and leavingDay == currentDay) %}
+{% set isPastOrToday = isPast or isToday %}
+
+{% set pageName = "Confirmation" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        {% if isPastOrToday %}
+        {{ mentorName if mentorName else "John Doe" }} has been removed from your school's mentor list
+        {% else %}
+        {{ mentorName if mentorName else "John Doe" }} will be removed from your school's mentor list after {{ leavingDay }} {{ leavingMonth | monthName }} {{ leavingYear }}
+        {% endif %}
+      </h1>
+    </div>
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+
+    <p>ECTs currently assigned to {{ mentorName if mentorName else "John Doe" }} will need to be reassigned to another mentor.</p>
+
+    {% if isPastOrToday %}
+
+    <p>We'll let {{ mentorName if mentorName else "John Doe" }}'s lead provider know (if they were doing a mentor training programme) that you've told us that they've left your school and are not expected to return. They may contact your school for more information.</p>
+    
+    {% else %}
+            <h3 class="govuk-heading-s">If {{ mentorName if mentorName else "John Doe" }} is doing mentor training</h3>
+
+    <p>They should continue with their current training programme until their leaving date.</p>
+    <p>We'll let their lead provider know that you've told us that they're leaving your school and are not expected to return. They may contact your school for more information.</p>
+    {% endif %}
+
+    <p class="govuk-body">
+      <a class="govuk-link" href="mentors">Back to mentors</a>
+    </p>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var panelTitle = document.querySelector('.govuk-panel__title');
+    if (panelTitle && panelTitle.textContent.trim().length > 0) {
+      document.title = panelTitle.textContent.trim();
+    }
+  });
+</script>
+
+{% endblock %}

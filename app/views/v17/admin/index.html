@@ -1,0 +1,59 @@
+{% extends "layouts/main.html" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back to prototype home",
+    href: "/index"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-xl">
+      Admin console: links to designs
+    </h1>
+
+    <h2 class="govuk-heading-m">Organisations</h2>
+    <ul class="govuk-list">
+      <li><a class="govuk-link govuk-link--no-visited-state" href="organisations/index">Organisations - index page</a></li>
+      <li><a class="govuk-link govuk-link--no-visited-state" href="organisations/lead-providers">List of lead providers</a></li>
+      <li><a class="govuk-link govuk-link--no-visited-state" href="organisations/delivery-partners">List of delivery partners</a></li>
+    </ul>
+
+    <h2 class="govuk-heading-m">Schools</h2>
+    <ul class="govuk-list">
+      <li><a class="govuk-link govuk-link--no-visited-state" href="organisations/schools">List of schools</a></li>
+      <li><a class="govuk-link govuk-link--no-visited-state" href="organisations/school-details?section=overview">School details page - overview</a></li>
+      <li><a class="govuk-link govuk-link--no-visited-state" href="organisations/school-details-with-button?section=overview">School details with impersonate button</a></li>
+      <li><a class="govuk-link govuk-link--no-visited-state" href="organisations/school-details?section=teachers">School details - teachers section</a></li>
+      <li><a class="govuk-link govuk-link--no-visited-state" href="organisations/school-details?section=partnerships">School details - partnerships section</a></li>
+      <li><a class="govuk-link govuk-link--no-visited-state" href="../school/home/ects-impersonate">Log out of school impersonation</a></li>
+    </ul>
+
+    <h2 class="govuk-heading-m">Teachers</h2>
+    <ul class="govuk-list">
+      <li><a class="govuk-link govuk-link--no-visited-state" href="teachers">List of teachers</a></li>
+      <li><a class="govuk-link govuk-link--no-visited-state" href="teachers-details?section=overview">Teacher details page - overview</a></li>
+      <li><a class="govuk-link govuk-link--no-visited-state" href="teachers-details?section=induction">Teacher details page - induction section</a></li>
+      <li><a class="govuk-link govuk-link--no-visited-state" href="teachers-details?section=school">Teacher details page - school section</a></li>
+      <li><a class="govuk-link govuk-link--no-visited-state" href="teachers-details?section=training">Teacher details page - training section</a></li>
+      <li><a class="govuk-link govuk-link--no-visited-state" href="teachers-details?section=declarations">Teacher details page - declaration section</a></li>
+      <li><a class="govuk-link govuk-link--no-visited-state" href="teachers-details?section=timeline">Teacher details page - timeline section</a></li>
+    </ul>
+
+    <h2 class="govuk-heading-m">Finance</h2>
+    <ul class="govuk-list">
+      <li><a class="govuk-link govuk-link--no-visited-state" href="finance-home">Finance - home page</a></li>
+      <li><a class="govuk-link govuk-link--no-visited-state" href="finance/statement?provider=Ambition%20Institute&contractYear=2023&statement=August%202025">Financial statement - open</a></li>
+      <li><a class="govuk-link govuk-link--no-visited-state" href="finance/statement?provider=UCL%20Institute%20of%20Education&contractYear=2023&statement=April%202025">Financial statement - payable</a></li>
+      <li><a class="govuk-link govuk-link--no-visited-state" href="finance/statement?provider=UCL%20Institute%20of%20Education&contractYear=2023&statement=August%202024">Financial statement - authorised for payment</a></li>
+      <li><a class="govuk-link govuk-link--no-visited-state" href="finance/add-adjustment?provider=UCL%20Institute%20of%20Education&contractYear=2023&statement=August%202025">Financial statement - add new adjustment</a></li>
+    </ul>
+
+  </div>
+</div>
+
+{% endblock %}

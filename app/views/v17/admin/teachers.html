@@ -1,0 +1,210 @@
+{% extends "layouts/admin.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    /* Custom styles for search and filter */
+    .search-filter-form {
+        display: flex;
+        gap: 15px;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+    }
+    
+    .search-input-group {
+        flex-grow: 1;
+        min-width: 250px;
+    }
+    
+    .filter-group {
+        flex: 0 0 200px;
+    }
+    
+    .filter-button {
+        align-self: flex-end;
+    }
+    
+    .full-width-select {
+        width: 100%;
+    }
+</style>
+{% endblock %}
+
+{% set pageName="Teachers" %}
+{% set activeNav="teachers" %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+        
+        <!-- Search and filter form -->
+        <form class="search-filter-form" accept-charset="UTF-8">
+            <div class="search-input-group">
+                <div class="govuk-form-group">
+                    <label for="q-field" class="govuk-label govuk-label--s">
+                        Search for teacher
+                    </label>
+                    <div class="govuk-hint" id="q-hint">Name, TRN or URN</div>
+                    <input id="q-field" class="govuk-input" aria-describedby="q-hint" type="text" name="q" value="{{data.q}}">
+                </div>
+            </div>
+
+            <div class="govuk-form-group filter-group">
+                <label for="roleFilter" class="govuk-label govuk-label--s">Role</label>
+                <select class="govuk-select full-width-select" id="roleFilter" name="roleFilter">
+                    <option value="All" {% if data.roleFilter == 'All' or not data.roleFilter %}selected{% endif %}>All</option>
+                    <option value="Early career teacher" {% if data.roleFilter == 'Early career teacher' %}selected{% endif %}>Early career teacher</option>
+                    <option value="Mentor" {% if data.roleFilter == 'Mentor' %}selected{% endif %}>Mentor</option>
+                </select>
+            </div>
+
+            <button type="submit" class="govuk-button govuk-button--secondary filter-button" data-module="govuk-button">Search</button>
+        </form>
+        
+        <!-- Generate teacher data -->
+        {% set firstNames = ["James", "Mary", "John", "Patricia", "Robert", "Jennifer", "Michael", "Linda", "William", "Elizabeth", "David", "Barbara", "Richard", "Susan", "Joseph", "Jessica", "Thomas", "Sarah", "Christopher", "Karen", "Charles", "Nancy", "Daniel", "Lisa", "Matthew", "Betty", "Anthony", "Helen", "Mark", "Sandra", "Donald", "Donna", "Steven", "Carol", "Paul", "Ruth", "Andrew", "Sharon", "Joshua", "Michelle", "Kenneth", "Laura", "Kevin", "Sarah", "Brian", "Kimberly", "George", "Deborah", "Timothy", "Dorothy", "Ronald", "Lisa", "Jason", "Nancy", "Edward", "Karen", "Jeffrey", "Betty", "Ryan", "Helen", "Jacob", "Sandra", "Gary", "Donna", "Nicholas", "Carol", "Eric", "Ruth", "Jonathan", "Sharon", "Stephen", "Michelle", "Larry", "Laura", "Justin", "Sarah", "Scott", "Kimberly", "Brandon", "Deborah", "Benjamin", "Dorothy", "Samuel", "Amy", "Frank", "Angela", "Gregory", "Ashley", "Raymond", "Brenda", "Alexander", "Emma", "Patrick", "Olivia", "Jack", "Cynthia", "Dennis", "Marie"] %}
+        {% set lastNames = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin", "Lee", "Perez", "Thompson", "White", "Harris", "Sanchez", "Clark", "Ramirez", "Lewis", "Robinson", "Walker", "Young", "Allen", "King", "Wright", "Scott", "Torres", "Nguyen", "Hill", "Flores", "Green", "Adams", "Nelson", "Baker", "Hall", "Rivera", "Campbell", "Mitchell", "Carter", "Roberts", "Gomez", "Phillips", "Evans", "Turner", "Diaz", "Parker", "Cruz", "Edwards", "Collins", "Reyes", "Stewart", "Morris", "Morales", "Murphy", "Cook", "Rogers", "Gutierrez", "Ortiz", "Morgan", "Cooper", "Peterson", "Bailey", "Reed", "Kelly", "Howard", "Ramos", "Kim", "Cox", "Ward", "Richardson", "Watson", "Brooks", "Chavez", "Wood", "James", "Bennett", "Gray", "Mendoza", "Ruiz", "Hughes", "Price", "Alvarez", "Castillo", "Sanders", "Patel", "Myers", "Long", "Ross", "Foster", "Jimenez"] %}
+        {% set roles = ["Early career teacher", "Mentor"] %}
+
+        <!-- Generate all teacher data first -->
+        {% set allTeachers = [] %}
+        {% for i in range(100) %}
+            {% set firstName = firstNames[(i * 7 + 13) % (firstNames | length)] %}
+            {% set lastName = lastNames[(i * 11 + 17) % (lastNames | length)] %}
+            {% set fullName = firstName + " " + lastName %}
+            {% set trn = (1000000 + ((i * 123456 + 789012) % 9000000)) %}
+            {% set role = roles[i % 2] %}
+            {% set urn = (100000 + ((i * 54321 + 98765) % 899999)) %}
+            
+            {% set teacher = {
+                "name": fullName,
+                "trn": trn | string,
+                "role": role,
+                "urn": urn | string
+            } %}
+            {% set allTeachers = allTeachers.concat([teacher]) %}
+        {% endfor %}
+
+        <!-- Filter the results -->
+        {% set searchTerm = (data.q | lower) if data.q else "" %}
+        {% set filteredTeachers = [] %}
+        
+        {% for teacher in allTeachers %}
+            {% set matchesSearch = (not data.q or 
+                (teacher.name | lower) in searchTerm or 
+                searchTerm in (teacher.name | lower) or
+                teacher.trn in searchTerm or 
+                searchTerm in teacher.trn or
+                teacher.urn in searchTerm or 
+                searchTerm in teacher.urn) %}
+            {% set matchesRole = (not data.roleFilter or data.roleFilter == 'All' or teacher.role == data.roleFilter) %}
+            
+            {% if matchesSearch and matchesRole %}
+                {% set filteredTeachers = filteredTeachers.concat([teacher]) %}
+            {% endif %}
+        {% endfor %}
+
+        <!-- Show results count -->
+        {% if (data.q or (data.roleFilter and data.roleFilter != 'All')) and filteredTeachers.length > 0 %}
+            <p class="govuk-body">
+                <span class="govuk-!-font-weight-bold">{{ filteredTeachers.length }}</span> result{% if filteredTeachers.length != 1 %}s{% endif %} found
+                {% if data.q %}for "{{data.q}}"{% endif %}
+            </p>
+        {% endif %}
+
+        <!-- Pagination setup for filtered results -->
+        {% set currentPage = data.page | int if data.page else 1 %}
+        {% set itemsPerPage = 50 %}
+        {% set totalFilteredItems = filteredTeachers.length %}
+        {% set totalPages = ((totalFilteredItems - 1) // itemsPerPage) + 1 if totalFilteredItems > 0 else 1 %}
+        {% set startItem = ((currentPage - 1) * itemsPerPage) + 1 %}
+        {% set endItem = currentPage * itemsPerPage %}
+        {% if endItem > totalFilteredItems %}{% set endItem = totalFilteredItems %}{% endif %}
+
+        <!-- Results table -->
+        {% if filteredTeachers.length > 0 %}
+            <table class="govuk-table">
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Name</th>
+                        <th scope="col" class="govuk-table__header">TRN</th>
+                        <th scope="col" class="govuk-table__header">Role</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    {% for i in range(startItem, endItem + 1) %}
+                        {% if i <= filteredTeachers.length %}
+                            {% set teacher = filteredTeachers[i - 1] %}
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">
+                                    <a class="govuk-link govuk-link--no-visited-state" href="teachers-details?section=overview">{{ teacher.name }}</a>
+                                </td>
+                                <td class="govuk-table__cell">{{ teacher.trn }}</td>
+                                <td class="govuk-table__cell">{{ teacher.role }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="govuk-body">No results found</p>
+        {% endif %}
+
+        <!-- Pagination controls -->
+        {% if totalFilteredItems > itemsPerPage %}
+        <nav class="govuk-pagination" aria-label="Pagination">
+            {% if currentPage > 1 %}
+            <div class="govuk-pagination__prev">
+                <a class="govuk-link govuk-pagination__link" href="?{% if data.q %}q={{data.q}}&{% endif %}{% if data.roleFilter %}roleFilter={{data.roleFilter}}&{% endif %}page={{currentPage - 1}}" rel="prev">
+                    <svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+                        <path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path>
+                    </svg>
+                    <span class="govuk-pagination__link-title">
+                        Previous<span class="govuk-visually-hidden"> page</span>
+                    </span>
+                </a>
+            </div>
+            {% endif %}
+            <ul class="govuk-pagination__list">
+                {% for pageNum in range(1, totalPages + 1) %}
+                <li class="govuk-pagination__item{% if pageNum == currentPage %} govuk-pagination__item--current{% endif %}">
+                    <a class="govuk-link govuk-pagination__link" href="?{% if data.q %}q={{data.q}}&{% endif %}{% if data.roleFilter %}roleFilter={{data.roleFilter}}&{% endif %}page={{pageNum}}" aria-label="Page {{pageNum}}"{% if pageNum == currentPage %} aria-current="page"{% endif %}>{{pageNum}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% if currentPage < totalPages %}
+            <div class="govuk-pagination__next">
+                <a class="govuk-link govuk-pagination__link" href="?{% if data.q %}q={{data.q}}&{% endif %}{% if data.roleFilter %}roleFilter={{data.roleFilter}}&{% endif %}page={{currentPage + 1}}" rel="next">
+                    <span class="govuk-pagination__link-title">
+                        Next<span class="govuk-visually-hidden"> page</span>
+                    </span>
+                    <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+                        <path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path>
+                    </svg>
+                </a>
+            </div>
+            {% endif %}
+        </nav>
+
+        <div class="govuk-body govuk-!-margin-bottom-1">
+            Showing 
+            <span class="govuk-!-font-weight-bold">{{startItem}}</span> 
+            to 
+            <span class="govuk-!-font-weight-bold">{{endItem}}</span> 
+            of 
+            <span class="govuk-!-font-weight-bold">{{totalFilteredItems}}</span> 
+            results
+        </div>
+        {% endif %}
+        
+    </div>
+</div>
+
+{% endblock %} 
