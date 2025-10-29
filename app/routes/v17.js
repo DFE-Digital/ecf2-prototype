@@ -75,6 +75,24 @@ module.exports = router => {
         next();
     });
 
+    // change induction tutor journey
+    
+    router.post(v + school + 'home/school', (req, res) => {
+        res.redirect(v + school + 'home/change/sit/change-school-induction-tutor')
+    })
+
+    router.post(v + school + 'home/change/sit/change-school-induction-tutor', (req, res) => {
+        res.redirect(v + school + 'home/change/sit/confirm-change')
+    })
+
+    router.post(v + school + 'home/change/sit/confirm-change', (req, res) => {
+        res.redirect(v + school + 'home/change/sit/change-confirmation')
+    })
+
+    router.post(v + school + 'home/change/sit/change-confirmation', (req, res) => {
+        res.redirect(v + school + 'home/school')
+    })
+
     // Send support form confirmation
 
     router.post(v + school + 'get-help', (req, res) => {

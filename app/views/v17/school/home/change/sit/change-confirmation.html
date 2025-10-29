@@ -1,0 +1,104 @@
+{% extends "layouts/induction-tutor.html" %}
+
+
+
+{# Determine what type of change was made #}
+{% if data['changedName'] %}
+  {% set isNameChange = true %}
+  {% set isEmailChange = false %}
+  {% set isLeadProviderChange = false %}
+  {% set isAppropriateBodyChange = false %}
+  {% set isWorkingPatternChange = false %}
+  {% set isTrainingProgrammeChange = false %}
+  {% set isMentorChange = false %}
+  {% set changedValue = data['changedName'] %}
+  {% set changeType = 'name' %}
+{% elif data['changedEmail'] %}
+  {% set isNameChange = false %}
+  {% set isEmailChange = true %}
+  {% set isLeadProviderChange = false %}
+  {% set isAppropriateBodyChange = false %}
+  {% set isWorkingPatternChange = false %}
+  {% set isTrainingProgrammeChange = false %}
+  {% set isMentorChange = false %}
+  {% set changedValue = data['changedEmail'] %}
+  {% set changeType = 'email address' %}
+{% elif data['changedAppropriateBody'] %}
+  {% set isNameChange = false %}
+  {% set isEmailChange = false %}
+  {% set isLeadProviderChange = false %}
+  {% set isAppropriateBodyChange = true %}
+  {% set isWorkingPatternChange = false %}
+  {% set isTrainingProgrammeChange = false %}
+  {% set isMentorChange = false %}
+  {% set changedValue = data['changedAppropriateBody'] %}
+  {% set changeType = 'appropriate body' %}
+{% elif data['changedWorkingPattern'] %}
+  {% set isNameChange = false %}
+  {% set isEmailChange = false %}
+  {% set isLeadProviderChange = false %}
+  {% set isAppropriateBodyChange = false %}
+  {% set isWorkingPatternChange = true %}
+  {% set isTrainingProgrammeChange = false %}
+  {% set isMentorChange = false %}
+  {% set changedValue = data['changedWorkingPattern'] %}
+  {% set changeType = 'working pattern' %}
+{% elif data['changedTrainingProgramme'] %}
+  {% set isNameChange = false %}
+  {% set isEmailChange = false %}
+  {% set isLeadProviderChange = false %}
+  {% set isAppropriateBodyChange = false %}
+  {% set isWorkingPatternChange = false %}
+  {% set isTrainingProgrammeChange = true %}
+  {% set isMentorChange = false %}
+  {% set changedValue = data['changedTrainingProgramme'] %}
+  {% set changeType = 'training programme' %}
+{% elif data['changedMentorName'] %}
+  {% set isNameChange = false %}
+  {% set isEmailChange = false %}
+  {% set isLeadProviderChange = false %}
+  {% set isAppropriateBodyChange = false %}
+  {% set isWorkingPatternChange = false %}
+  {% set isTrainingProgrammeChange = false %}
+  {% set isMentorChange = true %}
+  {% set changedValue = data['changedMentorName'] %}
+  {% set changeType = 'mentor' %}
+{% else %}
+  {% set isNameChange = false %}
+  {% set isEmailChange = false %}
+  {% set isLeadProviderChange = true %}
+  {% set isAppropriateBodyChange = false %}
+  {% set isWorkingPatternChange = false %}
+  {% set isTrainingProgrammeChange = false %}
+  {% set isMentorChange = false %}
+  {% set changedValue = data['leadProvider'] or 'Ambition Institute' %}
+  {% set changeType = 'lead provider' %}
+{% endif %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-panel govuk-panel--confirmation">
+
+            <h1 class="govuk-panel__title">
+                <form method="post" novalidate>
+                You've changed your school's induction tutor to {{  data['newTutorName']  }}
+            </h1>
+        </div>
+        
+        <h2 class="govuk-heading-m">What happens next</h2>
+
+        <p>We'll send an email to {{  data['newTutorName']  }} at {{  data['newTutorEmail']  }} to let them know.</p>
+
+        <p>We'll also let your school's appropriate body and lead providers know about the change. {{  data['newTutorName']  }} will be their main contact for early career training and induction at your school.</p>
+        
+        <button class="govuk-button">Continue</button>
+                 </form>
+    </div>
+</div>
+
+{% endblock %} 

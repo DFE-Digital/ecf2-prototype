@@ -1,0 +1,59 @@
+{% extends "layouts/induction-tutor.html" %}
+
+{% set pageName="Change school induction tutor" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+      
+ 
+        <h2 class="govuk-heading-m">Enter your new school induction tutor details</h2>
+
+
+       {{ govukInput({
+                classes: "govuk-input--width-20",
+                label: {
+                    text: "Full name"
+                },
+                id: "newTutorName",
+                name: "newTutorName"                
+            }) }}
+
+
+            {{ govukInput({
+                classes: "govuk-input--width-20",
+                label: {
+                    text: "Email"
+                },
+                hint: {
+                        text: "Do not use a generic email like headteacher@school.com"
+                      },
+                        id: "newTutorEmail",
+                        name: "newTutorEmail"
+            }) }}
+
+            <button class="govuk-button">Continue</button>
+
+                    <p class="govuk-body">
+                    <p><a href="javascript:window.history.back()">Cancel and go back to induction tutor details</a></p>
+
+        </p>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

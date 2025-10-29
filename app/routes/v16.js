@@ -77,7 +77,7 @@ module.exports = router => {
 
     // change induction tutor journey
     
-    router.post(v + school + 'home/induction-tutor', (req, res) => {
+    router.post(v + school + 'home/school', (req, res) => {
         res.redirect(v + school + 'home/change/sit/change-school-induction-tutor')
     })
 
