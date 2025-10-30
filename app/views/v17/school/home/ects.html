@@ -77,12 +77,35 @@
             </div>
             <div class="govuk-summary-card__content">
                 <div class="govuk-grid-row">
+                    {% if ect.status == 'No longer training' %}
+                    <div class="govuk-grid-column-full">
+                            <div class="govuk-warning-text govuk-!-margin-top-2" role="alert">
+                            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                            <strong class="govuk-warning-text__text">
+                                <span class="govuk-visually-hidden">Warning</span>
+                                Tell us if {{ect.name}} is <a href="view-ect?ect={{ ect.id }}#training">continuing their training or if they have left your school</a>.
+                            </strong>
+                            </div>    
+                    </div>
+                    {% endif %}
                     <div class="govuk-grid-column-one-half">
                         <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">Status</dt>
                                 <dd class="govuk-summary-list__value">
-                                    <strong style="max-width: max-content;" class="govuk-tag {{ ect.statusClass | default('govuk-tag--green') }}">{{ ect.status }}</strong>
+                                    <strong style="max-width: max-content;" class="govuk-tag {{ ect.statusClass | default('govuk-tag--green') }}">
+                                        {% if ect.status == 'Mentor required' or ect.status == 'No longer training' %}
+                                        Action required
+                                        {% else %}
+                                        {{ ect.status }}
+                                        {% endif %}
+                                    </strong>
+                                    {% if ect.status == 'No longer training' %}
+                                    <span class="govuk-caption-m govuk-!-margin-top-2">{{ ect.leadProvider }} have told us that {{ ect.name }} is no longer training with them.</span>
+                                    {% endif %}
+                                    {% if ect.status == 'Mentor required' %}
+                                    <span class="govuk-caption-m govuk-!-margin-top-2">A mentor needs to be assigned to {{ ect.name }}.</span>
+                                    {% endif %}
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row">
@@ -124,6 +147,7 @@
                                 <dd class="govuk-summary-list__value">{{ect.appropriateBody}}</dd>
                             </div>
                             {% if ect.trainingProgramme != 'School-led' %}
+                            {% if ect.status != 'No longer training' %}
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">Lead provider</dt>
                                 <dd class="govuk-summary-list__value">
@@ -155,7 +179,18 @@
                                 </dd>
                             </div>
                             {% endif %}
+                            {% endif %}
                         </dl>
+                             {% if ect.status === 'No longer training' %}
+                            <!-- <div class="govuk-warning-text govuk-!-margin-top-6" role="alert">
+                            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                            <strong class="govuk-warning-text__text">
+                                <span class="govuk-visually-hidden">Warning</span>
+                                Tell us if {{ect.name}} is <a href="view-ect?ect={{ ect.id }}#training">continuing their training or if they have left your school</a>.
+                            </strong>
+                            </div>                              -->
+                             <!-- <div class="govuk-inset-text">Tell us if {{ect.name}} is <a href="">continuing their training or if they have left your school</a>.</div> -->
+                             {% endif %}
                     </div>
                 </div>
                 <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">

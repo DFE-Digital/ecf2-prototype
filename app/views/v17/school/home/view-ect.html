@@ -81,9 +81,18 @@ href: "ects"
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Status</dt>
         <dd class="govuk-summary-list__value">
-          <strong style="max-width: max-content;" class="govuk-tag {{ activeEct.statusClass }}">{{ activeEct.status }}</strong>
+          <strong style="max-width: max-content;" class="govuk-tag {{ activeEct.statusClass }}">
+            {% if activeEct.status == 'Mentor required' or activeEct.status == 'No longer training'%}
+            Action required
+            {% else %}
+            {{ activeEct.status }}
+            {% endif %}
+          </strong>
           {% if activeEct.status == 'No longer training' %}
-          <span class="govuk-caption-m govuk-!-margin-top-2">{{ activeEct.leadProvider }} have withdrawn {{ activeEct.name }} from training.</span>
+          <span class="govuk-caption-m govuk-!-margin-top-2">{{ activeEct.leadProvider }} have told us that {{ activeEct.name }} is no longer training with them.</span>
+          {% endif %}
+          {% if activeEct.status == 'Mentor required' %}
+          <span class="govuk-caption-m govuk-!-margin-top-2">A mentor needs to be assigned to {{ activeEct.name }}.</span>
           {% endif %}
         </dd>
       </div>
@@ -136,7 +145,7 @@ href: "ects"
       </div>
         </dl>
 
-    <h2 class="govuk-heading-m">Training details</h2>
+    <h2 class="govuk-heading-m" id="training">Training details</h2>
     {% if activeEct.status !== 'No longer training' %}
        <dl class="govuk-summary-list">
           <div class="govuk-summary-list__row">
@@ -196,14 +205,12 @@ href: "ects"
     {% if activeEct.status === 'No longer training' %}
     <p>
       
-      {{activeEct.leadProvider}} has withdrawn {{activeEct.name}} from training.
+      {{activeEct.leadProvider}} have told us that {{activeEct.name}} is no longer training with them.
 
-      <p><a href="#">Change programme type to school-led</a></p>
+      <p>You can <a href="#">select a lead provider</a> for {{activeEct.name}} if they are continuing programme-led training.</p>      
 
-      <p><a href="#">Select a different lead provider</a></p>      
-
-
-    </p>
+      <p>You can tell us if they are <a href="#">changing their programme type to school-led</a>.</p>
+    
     {% endif %}
 
 
