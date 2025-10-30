@@ -77,7 +77,7 @@ module.exports = router => {
 
     // change induction tutor journey
     
-    router.post(v + school + 'home/school', (req, res) => {
+    router.post(v + school + 'home/induction-tutor', (req, res) => {
         res.redirect(v + school + 'home/change/sit/change-school-induction-tutor')
     })
 
@@ -90,7 +90,7 @@ module.exports = router => {
     })
 
     router.post(v + school + 'home/change/sit/change-confirmation', (req, res) => {
-        res.redirect(v + school + 'home/school')
+        res.redirect(v + school + 'home/induction-tutor')
     })
 
     // Send support form confirmation
