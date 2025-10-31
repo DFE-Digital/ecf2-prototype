@@ -1207,7 +1207,15 @@ module.exports = router => {
         })
 
         router.post(v + admin + 'organisations/add-new-partnership/select-delivery-partner', (req, res) => {
+            if (!req.session.data) {
+                req.session.data = {};
+            }
             req.session.data.newPartnershipDeliveryPartner = req.body.deliveryPartner;
+            res.redirect(v + admin + 'organisations/add-new-partnership/confirm-add-partnership');
+        })
+        
+
+        router.post(v + admin + 'organisations/add-new-partnership/confirm-add-partnership', (req, res) => {
             req.session.data.partnershipAdded = true;
             res.redirect(v + admin + 'organisations/school-details?section=partnerships&partnershipAdded=1');
         })

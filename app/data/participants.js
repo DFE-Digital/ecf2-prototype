@@ -38,6 +38,7 @@ const ects = [
         email: 'gustav.brown@email.com',
         mentorId: 'john-doe',
         status: 'Registered',
+        deferred: true,
         statusClass: 'govuk-tag--green',
         schoolStartDate: '11 September 2023',
         inductionStartDate: '11 September 2023',
