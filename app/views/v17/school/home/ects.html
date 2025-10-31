@@ -106,6 +106,9 @@
                                     {% if ect.status == 'Mentor required' %}
                                     <span class="govuk-caption-m govuk-!-margin-top-2">A mentor needs to be assigned to {{ ect.name }}.</span>
                                     {% endif %}
+                                    {% if ect.deferred == true %}
+                                    <span class="govuk-caption-m govuk-!-margin-top-2">{{ect.leadProvider}} have told us that {{ect.name }}'s training is currently paused.</span>
+                                    {% endif %}
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row">
