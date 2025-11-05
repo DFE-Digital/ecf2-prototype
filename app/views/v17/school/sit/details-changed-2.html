@@ -9,9 +9,9 @@
 {% set name = "Peter Davies" %}
 {% endif %}
 {% endif %}
-<!--{% set pageName= "You've confirmed " + name + " will continue as your school induction tutor" %} -->
-{% set pageName= "You've confirmed " + name + " will continue as your school's induction tutor" %}
 
+<!-- {% set pageName= name + " has been confirmed as your school induction tutor" %} -->
+{% set pageName= name + " has been confirmed as your school's induction tutor" %} 
 
 
 {% block beforeContent %}
@@ -28,20 +28,13 @@ href: "javascript:window.history.back()"
     <div class="govuk-grid-column-two-thirds">
         <form method="post">
 
-        <div class="govuk-panel govuk-panel--confirmation">
-            <h1 class="govuk-panel__title">
-                {{ pageName }}
-            </h1>            
-        </div>
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
-          
+        <p>We'll let {{name}} know that they're your school's induction tutor.</p>
 
-        <h2 class="govuk-heading-m">What happens next</h2>
-
-                 <p>There's nothing else you need to do.</p>
-
-                 <button class="govuk-button">Continue</button>
+        <!-- <p>We'll let {{name}} know that they're your school induction tutor.</p> -->
         
+        <button class="govuk-button">Continue</button>
         </form>
 
     </div>
