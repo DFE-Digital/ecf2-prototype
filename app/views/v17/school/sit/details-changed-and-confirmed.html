@@ -1,6 +1,8 @@
 {% extends "layouts/home.html" %}
 
-{% set pageName="Tom Jones has been confirmed as your school induction tutor" %}
+<!-- {% set pageName="You've changed your school induction tutor to Tom Jones" %} -->
+{% set pageName="You've changed your school's induction tutor to Tom Jones" %}
+
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -16,7 +18,15 @@ href: "javascript:window.history.back()"
     <div class="govuk-grid-column-two-thirds">
         <form method="post">
 
-        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+          <div class="govuk-panel govuk-panel--confirmation">
+            <h1 class="govuk-panel__title">
+                {{ pageName }}
+            </h1>            
+        </div>
+
+          
+
+        <h2 class="govuk-heading-m">What happens next</h2>
 
                  <p>We'll email Tom Jones at TJ@school.org.uk to let them know.</p>
 
