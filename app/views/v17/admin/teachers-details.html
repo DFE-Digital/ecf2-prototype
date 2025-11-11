@@ -2,6 +2,13 @@
 
 {% block head %}
 {{ super() }}
+<style>
+  code {
+    background-color: #f3f2f1;
+    font-family: monospace;
+    padding: 2px 5px;
+  }
+</style>
 {% endblock %}
 
 {% set pageName="John Smith" %}
@@ -116,6 +123,10 @@
                         {
                             key: { text: "Induction status" },
                             value: { html: '<strong class="govuk-tag govuk-tag--blue">In progress</strong>' }
+                        },
+                        {
+                            key: { text: "API participant ID"},
+                            value: { html: "<code>37938590-694f-4883-8902-77713802a082</code>"}
                         }
                     ]
                 })}}
@@ -350,7 +361,102 @@
                     {
                       key: { text: "End date" },
                       value: { text: "1 April 2024" }
-                    }
+                    },
+                    {
+                            key: { text: "Lead provider API output" },
+                            value: { html: '
+                            <details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">See this participant as they appear over the API for Ambition Institute</span>
+  </summary>
+  <div class="govuk-details__text">
+<pre><code style="text-wrap-mode: wrap;""><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10b5c42d-9811-47a4-8aa5-39f559732607"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"participant"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"full_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Smith"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"teacher_reference_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2959198"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-01-03T09:45:56Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"ecf_enrolments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"training_record_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6c78a8fa-631c-48d0-9aba-52b0efcb1dd4"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"	john.smith@example.com"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"mentor_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"school_urn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1103052"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"participant_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ect"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"cohort"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"training_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"participant_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"teacher_reference_number_validated"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"eligible_for_funding"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"pupil_premium_uplift"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"sparsity_uplift"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"schedule_identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ecf-standard-september"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"delivery_partner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4c21f137-f0c2-41f2-9102-1ca368613759"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"withdrawal"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"deferral"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-01-03T09:45:55Z"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"induction_end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"mentor_funding_end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"cohort_changed_after_payments_frozen"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"mentor_ineligible_for_funding_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"training_record_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8d9c7f01-afed-4c11-b1c0-77b19b3a2e76"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.smith@example.com"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"mentor_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"school_urn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1195201"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"participant_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ect"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"cohort"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"training_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"participant_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"teacher_reference_number_validated"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"eligible_for_funding"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"pupil_premium_uplift"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"sparsity_uplift"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"schedule_identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ecf-standard-january"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"delivery_partner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4c21f137-f0c2-41f2-9102-1ca368613759"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"withdrawal"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"deferral"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-01-03T09:45:55Z"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"induction_end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"mentor_funding_end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"cohort_changed_after_payments_frozen"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"mentor_ineligible_for_funding_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"training_record_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8f6bec4c-c385-4d27-97d0-d57d42bee1de"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.smith@example.com"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"mentor_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"school_urn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"370813"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"participant_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ect"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"cohort"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"training_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"participant_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"teacher_reference_number_validated"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"eligible_for_funding"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"pupil_premium_uplift"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"sparsity_uplift"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"schedule_identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ecf-standard-september"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"delivery_partner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4c21f137-f0c2-41f2-9102-1ca368613759"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"withdrawal"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"deferral"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-01-03T09:45:55Z"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"induction_end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"mentor_funding_end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"cohort_changed_after_payments_frozen"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"mentor_ineligible_for_funding_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"participant_id_changes"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre>
+  </div>
+</details>
+                            ' }
+                        }
                   ]
                 })}}
 
