@@ -1,6 +1,6 @@
 {% extends "layouts/induction-tutor.html" %}
 
-{% set pageName="Tell us your school induction tutor" %}
+{% set pageName="Tell us your induction tutor" %}
 
 {% block beforeContent %}
 {% endblock %}
@@ -19,7 +19,7 @@
 
         <p>Read our guidance on <a href="https://www.gov.uk/government/publications/early-career-teacher-entitlement-roles-and-responsibilities/induction-tutors-responsibilities-for-early-career-teacher-entitlement" target="_blank">school induction tutor responsibilities (opens in a new tab)</a>.</p>
 
-               <h2 class="govuk-heading-m">Enter your school induction tutor details</h2>
+               <h2 class="govuk-heading-m">Enter your school's induction tutor details</h2>
 
 
        {{ govukInput({
@@ -37,7 +37,10 @@
                 name: "newTutorEmail",
                 label: {
                     text: "Email"
-                }
+                },
+                hint: {
+    text: "Do not use a generic email like headteacher@school.com"
+  }
             }) }}
 
             <button class="govuk-button">Continue</button>

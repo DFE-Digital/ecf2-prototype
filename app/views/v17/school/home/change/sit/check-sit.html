@@ -1,6 +1,6 @@
 {% extends "layouts/induction-tutor.html" %}
 
-{% set pageName="Tell us your school induction tutor" %}
+{% set pageName="Tell us your induction tutor" %}
 
 {% block beforeContent %}
 {% endblock %}
@@ -15,7 +15,7 @@
 
         <p>This person will be your main point of contact for early career training and induction. We share these details with your appropriate body and lead providers (if your school uses provider-led training programmes).</p>
 
-        <p>Our records show that the following person is currently your school induction tutor:</p>
+        <p>Our records show that the following person is currently your school's induction tutor:</p>
 
         {{ govukSummaryList({
             rows: [
@@ -32,7 +32,7 @@
 
 
 {% set newsitdetails %}
-        <p>Enter new school induction tutor details.</p>
+        <p>Enter new induction tutor details.</p>
             {{ govukInput({
                 id: "tutor-name",
                 classes: "govuk-input--width-20",
@@ -63,7 +63,7 @@
             name: "confirm-school-induction-tutor",
             fieldset: {
                 legend: {
-                    text: "Will Peter Davies continue as your school induction tutor?",
+                    text: "Will Peter Davies continue as your school's induction tutor?",
                     isPageHeading: false,
                     classes: "govuk-fieldset__legend--m"
                 }
