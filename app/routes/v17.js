@@ -96,6 +96,8 @@ module.exports = router => {
     })
 
     router.post(v + school + 'home/change/sit/tell-us-sit', (req, res) => {
+        req.session.data['checkSit'] = 'no'
+        req.session.data['noSit'] = 'yes'        
         res.redirect(v + school + 'home/change/sit/confirm-change')
     })    
 
@@ -116,6 +118,9 @@ module.exports = router => {
     })
 
     router.post(v + school + 'home/change/sit/check-sit', (req, res) => {
+        req.session.data['noSit'] = 'no'            
+        req.session.data['checkSit'] = 'yes'
+        
         if (req.session.data['confirm-school-induction-tutor'] === 'no') {   
             res.redirect(v + school + 'home/change/sit/confirm-change')
         }
