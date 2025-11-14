@@ -1,4 +1,8 @@
-{% extends "layouts/induction-tutor.html" %}
+{% if data['checkSit'] == 'yes' or data['noSit'] == 'yes' %}
+    {% extends "layouts/signed-in.html" %}    
+{% else %}
+    {% extends "layouts/induction-tutor.html" %}
+{% endif %}
 
 {% if data.noSit == 'yes' %}
     {% set pageName = "Check and confirm" %}
