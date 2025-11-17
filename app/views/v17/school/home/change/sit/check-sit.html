@@ -4,7 +4,7 @@
     {% extends "layouts/induction-tutor.html" %}
 {% endif %}
 
-{% set pageName="Tell us your induction tutor" %}
+{% set pageName="Confirm induction tutor details" %}
 
 {% block beforeContent %}
 {% endblock %}
@@ -36,7 +36,7 @@
 
 
 {% set newsitdetails %}
-        <p>Enter new induction tutor details.</p>
+        <p>Change induction tutor details.</p>
             {{ govukInput({
                 id: "tutor-name",
                 classes: "govuk-input--width-20",
@@ -67,7 +67,7 @@
             name: "confirm-school-induction-tutor",
             fieldset: {
                 legend: {
-                    text: "Will Peter Davies continue as your school's induction tutor?",
+                    text: "Are these details correct?",
                     isPageHeading: false,
                     classes: "govuk-fieldset__legend--m"
                 }
@@ -83,7 +83,7 @@
                    id: "new-sit-email",
                     name: "NewSitEmail",
                     value: "no",
-                    text: "No, someone else will be the school induction tutor",
+                    text: "No",
                     conditional: {
         html: newsitdetails
       }
