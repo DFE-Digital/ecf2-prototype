@@ -1,0 +1,40 @@
+{% extends "layouts/admin.html" %}
+
+{% set pageName="Select the contract period" %}
+{% set activeNav="organisations" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+            {{ govukRadios({
+                idPrefix: "contract-period",
+                name: "contractPeriod",
+                fieldset: {
+                    legend: {
+                        text: pageName,
+                        isPageHeading: true,
+                        classes: "govuk-fieldset__legend--l"
+                    }
+                },
+                items: [
+                    { value: "2021", text: "2021" },
+                    { value: "2022", text: "2022" },
+                    { value: "2023", text: "2023" },
+                    { value: "2024", text: "2024" },
+                    { value: "2025", text: "2025" }
+                ]
+            }) }}
+
+            <button class="govuk-button" data-module="govuk-button">Continue</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
