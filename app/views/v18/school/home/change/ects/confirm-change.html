@@ -240,18 +240,6 @@ href: "javascript:window.history.back()"
             }
           ]) %}
         {% else %}
-          {% if isWithdrawnLeadProviderFlow %}
-            {% set summaryRows = summaryRows.concat([
-              {
-                key: {
-                  text: "New lead provider"
-                },
-                value: {
-                  text: newValue
-                }
-              }
-            ]) %}
-          {% else %}
             {% set summaryRows = summaryRows.concat([
               {
                 key: {
@@ -270,7 +258,6 @@ href: "javascript:window.history.back()"
                 }
               }
             ]) %}
-          {% endif %}
         {% endif %}
 
         {{ govukSummaryList({
