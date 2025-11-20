@@ -122,7 +122,8 @@ const mentors = [
         trn: '5924029',
         email: 'john.doe@email.com',
         schoolStartDate: '10 September 2024',
-        status: null,
+        status: 'Registered',
+        statusClass: 'govuk-tag--green',
         trainingProgramme: 'Provider-led',
         leadProvider: 'Ambition Institute',
         deliveryPartner: 'Alpha Teaching School Hub',
@@ -133,10 +134,13 @@ const mentors = [
         trn: '1144020',
         email: 'tom.jones@email.com',
         schoolStartDate: '10 September 2024',
-        status: null,
+        status: 'Leaving school',
+        statusClass: 'govuk-tag--yellow',
         trainingProgramme: 'Provider-led',
-        leadProvider: 'Teach First',
-        deliveryPartner: null,
+        leadProvider: 'Ambition Institute',
+        deliveryPartner: 'Alpha Teaching School Hub',
+        deferred: true,
+        leavingDate: '1 December 2026'
     },
     {
         id: 'steven-davies',
@@ -144,8 +148,22 @@ const mentors = [
         trn: '1956013',
         email: 'steven.davies@email.com',
         schoolStartDate: '10 September 2024',
-        status: null,
+        status: 'Registered',
+        statusClass: 'govuk-tag--green',
         trainingProgramme: 'School-led',
+    },
+    {
+        id: 'peter-wright',
+        name: 'Peter Wright',
+        trn: '1930959',
+        email: 'peter.wright@email.com',
+        schoolStartDate: '10 January 2025',
+        status: 'Registered',
+        statusClass: 'govuk-tag--green',
+        trainingProgramme: 'Provider-led',
+        leadProvider: 'Ambition Institute',
+        deliveryPartner: 'Alpha Teaching School Hub',
+        withdrawn: true
     }
 ];
 

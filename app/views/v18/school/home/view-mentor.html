@@ -49,6 +49,13 @@ href: "mentors"
           <a class="govuk-link" href="change/mentors/change-email?id={{ activeMentor.id }}">Change<span class="govuk-visually-hidden"> email address</span></a>
         </dd>
     </div>
+    <!-- <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Status</dt>
+        <dd class="govuk-summary-list__value">
+          <strong style="max-width: max-content;" class="govuk-tag {{ activeMentor.statusClass }}">
+          </strong>      
+        </dd>
+    </div>     -->
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
         Assigned ECTs
@@ -71,7 +78,11 @@ href: "mentors"
   </dl>
 
   {% if activeMentor.trainingProgramme == 'Provider-led' %}
-  <h2 class="govuk-heading-m">ECT mentor training details</h2>
+  <h2 class="govuk-heading-m" id="training">ECTE mentor training details</h2>
+  {% if activeMentor.deferred == true %}
+    <p>{{activeMentor.leadProvider}} have told us that {{activeMentor.name}}'s ECTE mentor training is paused. Contact them if you think this is an error.</p>
+  {% else %}
+  {% if activeMentor.withdrawn !== true %}  
   <dl class="govuk-summary-list">
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
@@ -103,7 +114,7 @@ href: "mentors"
             <dt class="govuk-summary-list__key">
               Delivery partner
             </dt>
-                        <dd class="govuk-summary-list__value">
+              <dd class="govuk-summary-list__value">
               {% if activeMentor.deliveryPartner %}
               {{ activeMentor.deliveryPartner }}
               <span class="govuk-caption-m">To change the delivery partner, you must contact the lead provider</span>
@@ -114,6 +125,16 @@ href: "mentors"
           </div>
         </dl>
         {% endif %}
+        {% if activeMentor.withdrawn == true %} 
+        <p>{{activeMentor.leadProvider}} have told us that {{activeMentor.name}} is not doing ECTE mentor training with them. Contact them if you think this is an error.</p>
+        <p>You can <a href="change/mentors/change-lead-provider?mentorId={{activeMentor.id}}">select a lead provider</a> for {{activeMentor.name}} if they are training with another lead provider.</p>
+        {% endif %}        
+        {% endif %}
+        {% endif %}
+        {% if activeMentor.trainingProgramme != 'Provider-led' %}
+          <h2 class="govuk-heading-m" id="training">ECTE mentor training details</h2>
+          <p>{{activeMentor.name}} is not doing ECTE mentor training.</p>                        
+        {% endif %}  
 
         <hr class="govuk-section-break govuk-section-break--m">
 

@@ -67,9 +67,24 @@
                     <a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold govuk-!-font-size-24" href="view-mentor?id={{ mentor.id }}">{{ mentor.name }}</a></h3>
             </div>
             <div class="govuk-summary-card__content">
-                <div class="govuk-grid-row">
+                <div class="govuk-grid-row">                  
                     <div class="govuk-grid-column-one-half">
                         <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                            <!-- <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Status</dt>
+                                <dd class="govuk-summary-list__value">
+                                    <strong style="max-width: max-content;" class="govuk-tag {{ mentor.statusClass | default('govuk-tag--green') }}">
+                                        {% if mentor.status == 'Registered' %}
+                                        Mentoring
+                                        {% else %}
+                                        {{ mentor.status }}
+                                        {% endif %}
+                                    </strong>
+                                    {% if mentor.status == 'No longer training' %}
+                                    <span class="govuk-caption-m govuk-!-margin-top-2">{{ mentor.leadProvider }} have told us that {{ mentor.name }} is no longer training with them. Contact them if you think this is an error.</span>
+                                    {% endif %}
+                                </dd>
+                            </div> -->
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">TRN</dt>
                                 <dd class="govuk-summary-list__value">
@@ -96,7 +111,12 @@
                         </dl>
                     </div>
                     <div class="govuk-grid-column-one-half">
+                        {% if mentor.deferred == true %}
+                        <p>{{mentor.leadProvider}} have told us that {{mentor.name}}'s ECTE mentor training is paused. Contact them if you think this is an error.</p>
+                        {% else %}
                         {% if mentor.trainingProgramme == 'Provider-led' %}
+                        {% if mentor.withdrawn != true %}
+                        <p>{{mentor.name}} is doing ECTE mentor training with:</p>
                         <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">Lead provider</dt>
@@ -129,6 +149,15 @@
                                 </dd>
                             </div>
                         </dl>
+                        {% endif %}
+                        {% if mentor.withdrawn == true %}
+                        <p>{{mentor.leadProvider}} have told us that {{mentor.name}} is not doing ECTE mentor training with them. Contact them if you think this is an error.</p>
+                        <p>Tell us if {{mentor.name}} is <a href="view-mentor?id={{ mentor.id }}#training">training with another lead provider</a>.</p>
+                        {% endif %}
+                        {% endif %}
+                        {% endif %}
+                        {% if mentor.trainingProgramme != 'Provider-led' %}
+                        <p>{{mentor.name}} is not doing ECTE mentor training.</p>                        
                         {% endif %}
                     </div>
                 </div>
