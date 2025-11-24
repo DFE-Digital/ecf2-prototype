@@ -116,7 +116,7 @@
                         {% else %}
                         {% if mentor.trainingProgramme == 'Provider-led' %}
                         {% if mentor.withdrawn != true %}
-                        <p>{{mentor.name}} is doing ECTE mentor training with:</p>
+                        <p>{{mentor.name}} is registered for ECTE mentor training with:</p>
                         <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">Lead provider</dt>
@@ -151,13 +151,13 @@
                         </dl>
                         {% endif %}
                         {% if mentor.withdrawn == true %}
-                        <p>{{mentor.leadProvider}} have told us that {{mentor.name}} is not doing ECTE mentor training with them. Contact them if you think this is an error.</p>
+                        <p>{{mentor.leadProvider}} have told us that {{mentor.name}} is not registered for ECTE mentor training with them. Contact them if you think this is an error.</p>
                         <p>Tell us if {{mentor.name}} is <a href="view-mentor?id={{ mentor.id }}#training">training with another lead provider</a>.</p>
                         {% endif %}
                         {% endif %}
                         {% endif %}
                         {% if mentor.trainingProgramme != 'Provider-led' %}
-                        <p>{{mentor.name}} is not doing ECTE mentor training.</p>                        
+                        <p>{{mentor.name}} is not currently registered for ECTE mentor training with a lead provider.</p>                        
                         {% endif %}
                     </div>
                 </div>
