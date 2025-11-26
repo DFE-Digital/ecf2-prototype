@@ -184,7 +184,7 @@ module.exports = router => {
     router.get(v + school + 'setup-scenario-2', (req, res) => {
         req.session.data['transferJourney'] = ''
         req.session.data['defaultsAlreadyAdded'] = 'yes'
-        res.redirect(v + school + 'start?rollover=yes')
+        res.redirect(v + school + 'home/ects')
     })
 
     router.get(v + school + 'setup-scenario-3', (req, res) => {
