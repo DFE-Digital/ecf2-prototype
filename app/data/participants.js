@@ -134,13 +134,12 @@ const mentors = [
         trn: '1144020',
         email: 'tom.jones@email.com',
         schoolStartDate: '10 September 2024',
-        status: 'Leaving school',
-        statusClass: 'govuk-tag--yellow',
+        status: 'Registered',
+        statusClass: 'govuk-tag--green',
         trainingProgramme: 'Provider-led',
         leadProvider: 'Ambition Institute',
         deliveryPartner: 'Alpha Teaching School Hub',
-        deferred: true,
-        leavingDate: '1 December 2026'
+        deferred: true
     },
     {
         id: 'steven-davies',
