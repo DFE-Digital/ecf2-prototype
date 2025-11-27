@@ -48,7 +48,19 @@
             </form>
         </div>
 
+        {# Surface "No longer training" ECTs first #}
+        {% set priorityEcts = [] %}
+        {% set otherEcts = [] %}
         {% for ect in data.ects %}
+          {% if ect.status == 'No longer training' %}
+            {% set priorityEcts = priorityEcts.concat([ect]) %}
+          {% else %}
+            {% set otherEcts = otherEcts.concat([ect]) %}
+          {% endif %}
+        {% endfor %}
+        {% set ectList = priorityEcts.concat(otherEcts) %}
+
+        {% for ect in ectList %}
         {% if ect.leavingDate %}
         {% set leavingParts = ect.leavingDate.split(' ') %}
         {% set leavingDay = leavingParts[0] %}
