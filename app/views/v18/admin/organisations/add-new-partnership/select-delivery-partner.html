@@ -1,6 +1,6 @@
 {% extends "layouts/admin.html" %}
 
-{% set pageName="Select the delivery partner" %}
+{% set pageName="Select the delivery partner for " + data['leadProvider'] + " in " + data['contractPeriod'] %}
 {% set activeNav="organisations" %}
 
 {% block beforeContent %}
