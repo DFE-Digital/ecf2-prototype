@@ -1,0 +1,42 @@
+{% extends "layouts/plain.html" %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% set pageName="Back link" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "../index"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+        <p>This example shows how to use the back link component to help users navigate back to the previous page. We'd use this when users need a simple way to return to where they came from in a linear journey.</p>
+
+        <p>Back links are most useful in step-by-step processes, forms, or when users are viewing detailed information and need to return to a list or overview page. They should be placed consistently at the top of the page, before the main heading.</p>
+
+        <p>If the user needs to return to a previous page and see the information they were looking at in the same state, we'd use a back link instead of breadcrumbs.</p>
+
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+        <div class="example-box">
+            {{ govukBackLink({
+                text: "Back",
+                href: "#"
+            }) }}
+            
+            <h3 class="govuk-heading-l govuk-!-margin-top-6">Page heading</h3>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %} 

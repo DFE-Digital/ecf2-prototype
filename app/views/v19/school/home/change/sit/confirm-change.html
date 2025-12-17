@@ -1,0 +1,73 @@
+{% if data['checkSit'] == 'yes' or data['noSit'] == 'yes' %}
+    {% extends "layouts/signed-in.html" %}    
+{% else %}
+    {% extends "layouts/induction-tutor.html" %}
+{% endif %}
+
+{% if data.noSit == 'yes' %}
+    {% set pageName = "Check and confirm" %}
+{% else %}
+    {% set pageName = "Check and confirm change" %}
+{% endif %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+            <form method="post" novalidate>
+
+            
+            {% set summaryRows = [
+              {
+                key: {
+                  text: "Induction tutor"
+                },
+                value: {
+                  text: data [ 'newTutorName' ] or "Jane Doe"
+                }            
+              },
+              {
+                  key: {
+                  text: "Induction tutor email"
+                  },
+                  value: {
+                    text: data [ 'newTutorEmail' ] or "jane.doe@school.com"
+                  }
+                }
+            ] %}
+      
+
+            {{ govukSummaryList({
+              classes: "govuk-!-margin-bottom-8",
+              rows: summaryRows
+            }) }}
+          
+            {% set buttonText = "Confirm change" %}
+            {% if data.noSit == 'yes' %}
+                {% set buttonText = "Confirm induction tutor" %}
+            {% endif %}
+   
+            {{ govukButton({
+              text: buttonText
+            }) }}
+
+            <p class="govuk-body">
+
+            <a href="javascript:window.history.back()">Cancel and go back</a>
+
+            </p>
+    
+        </form>     
+
+    </div>
+</div>
+
+{% endblock %} 

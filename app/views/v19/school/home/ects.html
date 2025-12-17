@@ -1,0 +1,221 @@
+{% extends "layouts/ects.html" %}
+
+{% block head %}
+{{ super() }} <!-- This includes the content from the base head block -->
+{% include "./filters.njk" %}
+{% endblock %}
+
+{% set pageName="Early career teachers" %}
+
+{% block content %}
+
+{% if data['leadProvider'] %}
+{% set lp = data['leadProvider'] %}
+{% else %}
+{% set lp = 'Ambition Institute' %}
+{% endif %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-caption-l">{{schoolName}}</h1>
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+        <a href="../what-youll-need" class="govuk-button">Register an ECT starting at your school</a>
+        <hr class="govuk-section-break--m">
+    </div>
+
+    <div class="govuk-grid-column-full">
+
+
+        <div class="search-box">
+        <!-- /* background-color: #f3f2f1;
+        padding: 20px 15px;
+        margin-bottom: 15px;
+        border: 1px solid #b1b4b6"> */ -->
+            <form class="search-box__form" accept-charset="UTF-8" style="
+        display: flex;
+        gap: 15px;
+        align-items: flex-end;
+        flex-wrap: wrap">
+                <div class="search-box__input" style="flex-grow: 1;">
+                    <div class="govuk-form-group">
+                        <label for="query-field" class="govuk-label govuk-label--s">
+                            Search by name or teacher reference number (TRN)
+                        </label>
+                        <input id="query-field" class="govuk-input" type="text" name="query"></div>
+                </div>
+
+                <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Search</button>
+            </form>
+        </div>
+
+        {# Surface "No longer training" ECTs first #}
+        {% set priorityEcts = [] %}
+        {% set otherEcts = [] %}
+        {% for ect in data.ects %}
+          {% if ect.status == 'No longer training' %}
+            {% set priorityEcts = priorityEcts.concat([ect]) %}
+          {% else %}
+            {% set otherEcts = otherEcts.concat([ect]) %}
+          {% endif %}
+        {% endfor %}
+        {% set ectList = priorityEcts.concat(otherEcts) %}
+
+        {% for ect in ectList %}
+        {% if ect.leavingDate %}
+        {% set leavingParts = ect.leavingDate.split(' ') %}
+        {% set leavingDay = leavingParts[0] %}
+        {% set leavingMonthName = leavingParts[1] %}
+        {% set leavingYear = leavingParts[2] %}
+        
+        {# Convert month name to number #}
+        {% set months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] %}
+        {% set leavingMonth = 0 %}
+        {% for i in range(12) %}
+          {% if months[i] == leavingMonthName %}
+            {% set leavingMonth = i + 1 %}
+          {% endif %}
+        {% endfor %}
+        
+        {# Compare dates #}
+        {% set isPast = (leavingYear < data.currentYear) or (leavingYear == data.currentYear and leavingMonth < data.currentMonth) or (leavingYear == data.currentYear and leavingMonth == data.currentMonth and leavingDay < data.currentDay) %}
+        {% endif %}
+        
+        {% if not ect.leavingDate or not isPast %}
+        <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+                <h3 class="govuk-summary-card__title govuk-!-font-size-24">
+                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="view-ect?ect={{ ect.id }}">{{ ect.name }}</a></strong>
+                </h3>
+            </div>
+            <div class="govuk-summary-card__content">
+                <div class="govuk-grid-row">
+                    {% if ect.status == 'No longer training' %}
+                    <div class="govuk-grid-column-full">
+                            <div class="govuk-warning-text govuk-!-margin-top-2" role="alert">
+                            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                            <strong class="govuk-warning-text__text">
+                                <span class="govuk-visually-hidden">Warning</span>
+                                Tell us if {{ect.name}} is <a href="view-ect?ect={{ ect.id }}#training">continuing their training or if they have left your school</a>.
+                            </strong>
+                            </div>    
+                    </div>
+                    {% endif %}
+                    <div class="govuk-grid-column-one-half">
+                        <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Status</dt>
+                                <dd class="govuk-summary-list__value">
+                                    <strong style="max-width: max-content;" class="govuk-tag {{ ect.statusClass | default('govuk-tag--green') }}">
+                                        {% if ect.status == 'Mentor required' or ect.status == 'No longer training' %}
+                                        Action required
+                                        {% else %}
+                                        {{ ect.status }}
+                                        {% endif %}
+                                    </strong>
+                                    {% if ect.status == 'No longer training' %}
+                                    <span class="govuk-caption-m govuk-!-margin-top-2">{{ ect.leadProvider }} have told us that {{ ect.name }} is no longer training with them. Contact them if you think this is an error.</span>
+                                    {% endif %}
+                                    {% if ect.status == 'Mentor required' %}
+                                    <span class="govuk-caption-m govuk-!-margin-top-2">A mentor needs to be assigned to {{ ect.name }}.</span>
+                                    {% endif %}
+                                    {% if ect.deferred == true %}
+                                    <span class="govuk-caption-m govuk-!-margin-top-2">{{ect.leadProvider}} have told us that {{ect.name }}'s training is paused. Contact them if you think this is an error.</span>
+                                    {% endif %}
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">TRN</dt>
+                                <dd class="govuk-summary-list__value">{{ ect.trn }}</dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">School start date</dt>
+                                <dd class="govuk-summary-list__value">{{ ect.schoolStartDate }}</dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Mentor</dt>
+                                <dd class="govuk-summary-list__value">
+                                    {% set mentorName = "Not assigned" %}
+                                    {% for mentorInList in data.mentors %}
+                                        {% if mentorInList.id == ect.mentorId %}
+                                            {% set mentorName = mentorInList.name %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    
+                                    {% if mentorName != "Not assigned" %}
+                                        {{ mentorName }}
+                                    {% else %}
+                                   <!-- <p><a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">Assign a mentor</a> to this ECT</p> -->
+                                                  {{ govukWarningText({
+            html: '<a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">Assign a mentor to this ECT</a>',
+            iconFallbackText: "Warning"
+        }) }} 
+
+                                    {% endif %}
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                    <div class="govuk-grid-column-one-half">
+                        <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Appropriate body</dt>
+                                <dd class="govuk-summary-list__value">{{ect.appropriateBody}}</dd>
+                            </div>
+                            {% if ect.trainingProgramme != 'School-led' %}
+                            {% if ect.status != 'No longer training' %}
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Lead provider</dt>
+                                <dd class="govuk-summary-list__value">
+                                    {{ ect.leadProvider }}
+                                    <!-- DEBUG: researchMode={{ data.researchMode }}, session.leadProvider={{ data.leadProvider }}, ect.leadProvider={{ ect.leadProvider }} -->
+                                    {% if data.researchMode %}
+                                      {% if ect.leadProvider == data._researchDefaults.leadProvider %}
+                                      <span class="govuk-caption-m">Confirmed by {{ ect.leadProvider }}</span>
+                                      {% else %}
+                                      <span class="govuk-caption-m">Awaiting confirmation by {{ ect.leadProvider }}</span>
+                                      {% endif %}
+                                    {% else %}
+                                      {% if ect.leadProvider == 'Ambition Institute' %}
+                                      <span class="govuk-caption-m">Confirmed by {{ ect.leadProvider }}</span>
+                                      {% else %}
+                                      <span class="govuk-caption-m">Awaiting confirmation by {{ ect.leadProvider }}</span>
+                                      {% endif %}
+                                    {% endif %}
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Delivery partner</dt>
+                                <dd class="govuk-summary-list__value">
+                                    {% if ect.deliveryPartner %}
+                                    {{ect.deliveryPartner}}
+                                    {% else %}
+                                    Yet to be reported by the lead provider
+                                    {% endif %}
+                                </dd>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+                        </dl>
+                             {% if ect.status === 'No longer training' %}
+                            <!-- <div class="govuk-warning-text govuk-!-margin-top-6" role="alert">
+                            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                            <strong class="govuk-warning-text__text">
+                                <span class="govuk-visually-hidden">Warning</span>
+                                Tell us if {{ect.name}} is <a href="view-ect?ect={{ ect.id }}#training">continuing their training or if they have left your school</a>.
+                            </strong>
+                            </div>                              -->
+                             <!-- <div class="govuk-inset-text">Tell us if {{ect.name}} is <a href="">continuing their training or if they have left your school</a>.</div> -->
+                             {% endif %}
+                    </div>
+                </div>
+                <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                    
+                </dl>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}
