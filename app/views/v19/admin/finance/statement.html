@@ -1,4 +1,5 @@
 {% extends "layouts/print.html" %}
+{% set activeNav = 'finance' %}
 
 {# Macro to format currency to 2 decimal places #}
 {% macro currency(amount) -%}
@@ -17,11 +18,11 @@
 {%- endmacro %}
 
 {% block head %}
-<style>
+<!-- <style>
     .govuk-width-container {
         max-width: 1250px;
     }
-</style>
+</style> -->
 <style>
     .filter-form-container {
       display: flex;
@@ -54,7 +55,7 @@
 {% block beforeContent %}
 {{ govukBackLink({
 text: "Back to financial statements",
-href: "../finance-home",
+href: "statements",
 classes: "govuk-!-display-none-print"
 }) }}
 {% endblock %}

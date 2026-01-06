@@ -560,12 +560,154 @@
 
             {% if currentSection == "declarations" %}
                 <h3 class="govuk-heading-m">Declarations</h3>
-                <!-- Declarations content to be added -->
+                <!-- {{govukSummaryList({
+                  card: {
+                    title: {
+                      text: "95f007c0-52ad-4cf1-88d1-90c0a8ed630a"
+                    }
+                  },
+                  rows: [
+                    {
+                      key: { text: "Declaration type" },
+                      value: { text: "Started" }
+                    },
+                    {
+                      key: { text: "Declaration date and time" },
+                      value: { text: "Placeholder value" }
+                    },
+                    {
+                      key: { text: "Course identifier" },
+                      value: { text: "ecf-induction" }
+                    },
+                    { key: { text: "Evidence held" },
+                      value: { text: "training-event-attended" }
+                    },
+                    {
+                      key: { text: "Type" },
+                      value: { text: "ECT" } 
+                    },
+                    {
+                      key: { text: "Lead provider" },
+                      value: { text: "Ambition Institute" }
+                    },
+                    {
+                      key: { text: "Delivery partner" },
+                      value: { text: "Alpha Teaching School Hub" }
+                    },
+                    {
+                      key: { text: "State" },
+                      value: { text: "payable" }
+                    }
+                  ]
+                })}} -->
+
+                <div class="govuk-summary-card">
+                  <div class="govuk-summary-card__title-wrapper">
+                    <h2 class="govuk-summary-card__title">
+                      95f007c0-52ad-4cf1-88d1-90c0a8ed630a
+                    </h2>
+                  </div>
+
+                  <div class="govuk-summary-card__content">
+                    <dl class="govuk-summary-list">   
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                          Declaration type
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                          Started
+                        </dd>              
+                      </div>
+       
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                          Declaration date and time
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                          Placeholder value
+                        </dd>             
+                      </div>
+         
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                          Course identifier
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                          ecf-induction
+                        </dd>
+                      </div>
+                      
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                          Evidence held
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                          training-event-attended
+                        </dd>
+                      </div>
+                      
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                          Type
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                          ECT
+                        </dd>
+                      </div>
+                      
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                          Lead provider
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                          Ambition Institute
+                        </dd>
+                      </div>
+
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                          Delivery partner
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                          Alpha Teaching School Hub
+                        </dd>
+                      </div>
+                      
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                          State
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                          payable
+                        </dd>
+                      </div>
+                    </dl>
+                    <hr class="govuk-section-break govuk-section-break--m">
+                    <table class="govuk-table">
+                      <caption class="govuk-table__caption govuk-table__caption--s">State history</caption>
+                      <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                          <th scope="col" class="govuk-table__header">State</th>
+                          <th scope="col" class="govuk-table__header">Changed at</th>
+                        </tr>
+                      </thead>
+                      <tbody class="govuk-table__body">
+                        <tr class="govuk-table__row">
+                          <th scope="row" class="govuk-table__header">Submitted</th>
+                          <td class="govuk-table__cell">1 December 2025, 12:00AM</td>
+                        </tr>
+                        <tr class="govuk-table__row">
+                          <th scope="row" class="govuk-table__header">Eligible</th>
+                          <td class="govuk-table__cell">1 December 2025, 12:00AM</td>
+                        </tr>
+                      </tbody>
+                  </table>
+                  </div>
+                </div>
             {% endif %}
 
             {% if currentSection == "timeline" %}
                 <h3 class="govuk-heading-m">Timeline</h3>
-                <!-- Timeline content to be added -->
             {% endif %}
         </div>
         

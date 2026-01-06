@@ -1,10 +1,11 @@
-{% extends "layouts/print.html" %}
+{% extends "layouts/admin.html" %}
+{% set activeNav = 'finance' %}
 
 {% block head %}
 <style>
-    .govuk-width-container {
+    /* .govuk-width-container {
         max-width: 1250px;
-    }
+    } */
 </style>
 {{ super() }} <!-- This includes the content from the base head block -->
 {% endblock %}

@@ -14,7 +14,7 @@
     {% block header %}
     <style>
         .govuk-width-container {
-            max-width: 1250px;
+            max-width: 1200px;
         }
     </style>
     <header data-module="govuk-header" class="govuk-header govuk-header--full-width-border app-header--purple govuk-!-display-none-print" data-govuk-header-init="">
@@ -40,31 +40,45 @@
         </div>
     </header>
     
-    <section aria-label="Service information" class="govuk-service-navigation govuk-!-display-none-print" data-module="govuk-service-navigation">
-        <div class="govuk-width-container">
-            <div class="govuk-service-navigation__container">
-          <span class="govuk-service-navigation__service-name">
-            <a href="#" id="home" class="govuk-service-navigation__link"> Register early career teachers </a>
-          </span>
-                <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
-                    <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden=""> Menu </button>
-                    <ul class="govuk-service-navigation__list" id="navigation">
-                        <li class="govuk-service-navigation__item">
-                            <a class="govuk-service-navigation__link" href="#" id="teachers">Teachers</a>
-                        </li>
-                        <li class="govuk-service-navigation__item">
-                            <a class="govuk-service-navigation__link" href="#" id="organisations">Organisations</a>
-                        </li>
-                        <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
-                            <a class="govuk-service-navigation__link" href="#" aria-current="true" id="finance">
-                                <strong class="active govuk-service-navigation__active-fallback">Finance</strong>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+<section aria-label="Service information" class="govuk-service-navigation govuk-!-display-none-print" data-module="govuk-service-navigation">
+    <div class="govuk-width-container">
+        <div class="govuk-service-navigation__container">
+      <span class="govuk-service-navigation__service-name">
+        <a href="#" id="home" class="govuk-service-navigation__link"> Register early career teachers </a>
+      </span>
+            <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
+                <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden=""> Menu </button>
+                <ul class="govuk-service-navigation__list" id="navigation">
+                    <li class="govuk-service-navigation__item{% if activeNav == 'teachers' or not activeNav %} govuk-service-navigation__item--active{% endif %}">
+                        <a class="govuk-service-navigation__link" href="#"{% if activeNav == 'teachers' or not activeNav %} aria-current="true"{% endif %} id="teachers">
+                            {% if activeNav == 'teachers' or not activeNav %}<strong class="govuk-service-navigation__active-fallback">Teachers</strong>{% else %}Teachers{% endif %}
+                        </a>
+                    </li>
+                    <li class="govuk-service-navigation__item{% if activeNav == 'schools' %} govuk-service-navigation__item--active{% endif %}">
+                        <a class="govuk-service-navigation__link" href="#"{% if activeNav == 'schools' %} aria-current="true"{% endif %} id="schools">
+                            {% if activeNav == 'schools' %}<strong class="govuk-service-navigation__active-fallback">Schools</strong>{% else %}Schools{% endif %}
+                        </a>
+                    </li>                    
+                    <li class="govuk-service-navigation__item{% if activeNav == 'organisations' %} govuk-service-navigation__item--active{% endif %}">
+                        <a class="govuk-service-navigation__link" href="#"{% if activeNav == 'organisations' %} aria-current="true"{% endif %} id="organisations">
+                            {% if activeNav == 'organisations' %}<strong class="govuk-service-navigation__active-fallback">Organisations</strong>{% else %}Organisations{% endif %}
+                        </a>
+                    </li>
+                    <li class="govuk-service-navigation__item{% if activeNav == 'finance' %} govuk-service-navigation__item--active{% endif %}">
+                        <a class="govuk-service-navigation__link" href="#"{% if activeNav == 'finance' %} aria-current="true"{% endif %} id="finance">
+                            {% if activeNav == 'finance' %}<strong class="govuk-service-navigation__active-fallback">Finance</strong>{% else %}Finance{% endif %}
+                        </a>
+                    </li>
+                    <li class="govuk-service-navigation__item{% if activeNav == 'users' %} govuk-service-navigation__item--active{% endif %}">
+                        <a class="govuk-service-navigation__link" href="#"{% if activeNav == 'users' %} aria-current="true"{% endif %} id="users">
+                            {% if activeNav == 'users' %}<strong class="govuk-service-navigation__active-fallback">Users</strong>{% else %}Users{% endif %}
+                        </a>
+                    </li>                    
+                </ul>
+            </nav>
         </div>
-    </section>
+    </div>
+</section>
     {% endblock %}
 
     {% block footer %}
@@ -90,7 +104,7 @@
             document.getElementById("home").href = "/" + currentV + "/admin/teachers"
             document.getElementById("teachers").href = "/" + currentV + "/admin/teachers"
             document.getElementById("organisations").href = "/" + currentV + "/admin/organisations"
-            document.getElementById("finance").href = "/" + currentV + "/admin/finance-home"
+        document.getElementById("finance").href = "/" + currentV + "/admin/finance/index"
         });
     </script>
     {% endblock %}

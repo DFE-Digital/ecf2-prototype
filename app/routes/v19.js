@@ -1283,7 +1283,7 @@ module.exports = router => {
         })
 
         // finance home page - direct access
-        router.get(v + admin + 'finance-home', (req, res) => {
+        router.get(v + admin + 'finance/statements', (req, res) => {
             const financeData = req.session.data.financeData || [];
             
             // Get query parameters for filtering
@@ -1390,7 +1390,7 @@ module.exports = router => {
             
             const getPageUrl = (pageNum) => {
                 const separator = baseQueryString ? '&' : '';
-                return `${v}${admin}finance-home?${baseQueryString}${separator}page=${pageNum}`;
+                return `${v}${admin}finance/statements?${baseQueryString}${separator}page=${pageNum}`;
             };
             
             // Add page numbers
@@ -1425,7 +1425,7 @@ module.exports = router => {
             const nextPage = page < totalPages ? page + 1 : null;
             
             // Render with pagination data
-            res.render(vGet + '/admin/finance-home', {
+            res.render(vGet + '/admin/finance/statements', {
                 financeStatements: currentPageData,
                 pagination: {
                     items: paginationItems,
@@ -1490,7 +1490,7 @@ module.exports = router => {
                     .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
                     .join('&');
                 
-                return res.redirect(`${v}${admin}finance-home?${queryString}`);
+                return res.redirect(`${v}${admin}finance/statements?${queryString}`);
             }
             
             // Check if the requested statement exists
@@ -1507,7 +1507,7 @@ module.exports = router => {
                 return res.redirect(`${v}${admin}finance/statement?provider=${encodeURIComponent(provider)}&contractYear=${contractYear}&statement=${encodeURIComponent(statement)}`);
             } else {
                 // Statement doesn't exist, redirect to finance-home with filters
-                return res.redirect(`${v}${admin}finance-home?provider=${encodeURIComponent(provider)}&year=${contractYear}&date=${encodeURIComponent(statement)}`);
+                return res.redirect(`${v}${admin}finance/statements?provider=${encodeURIComponent(provider)}&year=${contractYear}&date=${encodeURIComponent(statement)}`);
             }
         })
 
