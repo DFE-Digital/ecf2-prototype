@@ -1,0 +1,169 @@
+{% extends "layouts/mentors.html" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "mentors"
+}) }}
+{% endblock %}
+
+{# Find the active mentor from the mentors array based on the 'id' query parameter #}
+{% set mentorId = data.id or 'john-doe' %}
+{% set activeMentor = {} %}
+{% for person in data.mentors %}
+  {% if person.id == mentorId %}
+    {% set activeMentor = person %}
+  {% endif %}
+{% endfor %}
+
+{% set pageName = activeMentor.name %}
+
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-l">TRN: {{ activeMentor.trn }}</span>
+      <h1 class="govuk-heading-l">{{ activeMentor.name }}</h1>
+      <h1 class="govuk-heading-m">Mentor details</h1>
+
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Name
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ activeMentor.name }}
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="change/mentors/change-name?id={{ activeMentor.id }}">Change<span class="govuk-visually-hidden"> name</span></a>
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Email address
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ activeMentor.email }}
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="change/mentors/change-email?id={{ activeMentor.id }}">Change<span class="govuk-visually-hidden"> email address</span></a>
+          </dd>
+        </div>
+        <!-- <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Status</dt>
+          <dd class="govuk-summary-list__value">
+            <strong style="max-width: max-content;" class="govuk-tag {{ activeMentor.statusClass }}">
+            </strong>      
+          </dd>
+        </div>     -->
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Assigned ECTs
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <ul class="govuk-list">
+              {% set assignedEcts = false %}
+              {% for ect in data.ects %}
+                {% if ect.mentorId == activeMentor.id %}
+                  {% set assignedEcts = true %}
+                  <li><a class="govuk-link" href="view-ect?ect={{ ect.id }}">{{ ect.name }}</a></li>
+                {% endif %}
+              {% endfor %}
+              {% if not assignedEcts %}
+                <li>Not assigned to any ECTs</li>
+              {% endif %}
+            </ul>
+          </dd>
+        </div>
+      </dl>
+
+      {% if activeMentor.trainingProgramme == 'Provider-led' %}
+        <h2 class="govuk-heading-m" id="training">ECTE mentor training details</h2>
+        {% if activeMentor.deferred == true %}
+          <p>{{activeMentor.leadProvider}} have told us that {{activeMentor.name}}'s ECTE mentor training is paused. Contact them if you think this is an error.</p>
+        {% endif %}
+          {% if activeMentor.withdrawn !== true %}
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Lead provider
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ activeMentor.leadProvider }}
+                  <!-- DEBUG: researchMode={{ data.researchMode }}, session.leadProvider={{ data.leadProvider }}, activeMentor.leadProvider={{ activeMentor.leadProvider }} -->
+                  {% if data.researchMode %}
+                    {% if activeMentor.leadProvider == data._researchDefaults.leadProvider %}
+                      <span class="govuk-caption-m">Confirmed by {{ activeMentor.leadProvider }}</span>
+                    {% else %}
+                      <span class="govuk-caption-m">Awaiting confirmation by {{ activeMentor.leadProvider }}</span>
+                    {% endif %}
+                  {% else %}
+                    {% if activeMentor.leadProvider == 'Ambition Institute' %}
+                      <span class="govuk-caption-m">Confirmed by {{ activeMentor.leadProvider }}</span>
+                    {% else %}
+                      <span class="govuk-caption-m">Awaiting confirmation by {{ activeMentor.leadProvider }}</span>
+                    {% endif %}
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="change/mentors/change-lead-provider?id={{ activeMentor.id }}">Change<span class="govuk-visually-hidden"> lead provider</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Delivery partner
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if activeMentor.deliveryPartner %}
+                    {{ activeMentor.deliveryPartner }}
+                    <span class="govuk-caption-m">To change the delivery partner, you must contact the lead provider</span>
+                  {% else %}
+                    Yet to be reported by the lead provider
+                  {% endif %}
+                </dd>
+              </div>
+            </dl>
+          {% endif %}
+          {% if activeMentor.withdrawn == true %}
+            <p>{{activeMentor.leadProvider}} have told us that {{activeMentor.name}} is not registered for ECTE mentor training with them. Contact them if you think this is an error.</p>
+            <p>You can <a href="change/mentors/change-lead-provider?mentorId={{activeMentor.id}}">select a lead provider</a> for {{activeMentor.name}} if they are training with another lead provider.</p>
+          {% endif %}        
+      {% endif %}
+
+      {% if activeMentor.trainingProgramme != 'Provider-led' %}
+        <h2 class="govuk-heading-m" id="training">ECTE mentor training details</h2>
+        <p>{{activeMentor.name}} is not currently registered for ECTE mentor training with a lead provider.</p>                        
+      {% endif %}  
+
+      <hr class="govuk-section-break govuk-section-break--m">
+
+      {% if activeMentor.leavingDate %}
+        <h1 class="govuk-heading-m">{{ activeMentor.name }} is leaving your school</h1>
+        <p>You've told us {{ activeMentor.name }} is leaving your school on {{ activeMentor.leavingDate }}. You will not be able to view or edit {{ activeMentor.name }}'s details after {{ activeMentor.leavingDate }}.</p>
+      {% else %}
+        <h2 class="govuk-heading-m">Tell us if {{ activeMentor.name }} has left or is leaving your school permanently</h2>
+        <p>We need to know if {{ activeMentor.name }} is leaving your school and not expected to return. </p>
+        <p>You do not need to tell us if {{ activeMentor.name }} is leaving but expected to return, for example, if they're taking parental leave. You should, however, tell their training provider (if they're on a mentor training programme).</p>
+        <p><a class="govuk-link govuk-link--no-visited-state" href="mentor-leaving?id={{ activeMentor.id }}">Tell us if {{ activeMentor.name }} is leaving permanently</a>.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  {{ super() }}
+  <script src="/node_modules/dfe-frontend/dist/dfefrontend.min.js"></script>
+
+  <script>
+    // Ensure DOM is fully loaded before manipulating
+    document.addEventListener("DOMContentLoaded", function() {
+      // Get the current URL
+      const url = window.location.href;
+
+      // Use the match() method to find the value in the URL
+      const currentV = url.match(/v\d+/);
+
+      // Set the value as the href attribute of the link
+      document.getElementById("ects").href = "/" + currentV + "/school/home/ects"
+      document.getElementById("mentors").href = "/" + currentV + "/school/home/mentors"
+    });
+  </script>
+{% endblock %}

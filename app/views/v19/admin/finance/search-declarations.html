@@ -1,0 +1,252 @@
+{% extends "layouts/admin.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    /* Custom styles for search and filter */
+    .search-filter-form {
+        display: flex;
+        gap: 15px;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+    }
+    
+    .search-input-group {
+        flex-grow: 1;
+        min-width: 250px;
+    }
+</style>
+{% endblock %}
+
+{% set pageName="Search declarations" %}
+{% set activeNav="finance" %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+        <form class="search-filter-form" accept-charset="UTF-8">
+            <div class="search-input-group">
+                <div class="govuk-form-group">
+                    <label for="q-field" class="govuk-label govuk-label--s">
+                        Search for a declaration
+                    </label>
+                    <div class="govuk-hint" id="q-hint">Enter a declaration ID</div>
+                    <input id="q-field" class="govuk-input" aria-describedby="q-hint" type="text" name="q" value="{{data.q}}">
+                </div>
+            </div>
+
+            <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Search</button>
+        </form>
+
+        {% set allDeclarations = [
+            "f4351e50-d2df-49ef-a9f1-8640ac7dc143",
+            "8db4aaa8-4579-4bcd-9b2c-5d30f27bac10",
+            "c70b3802-c9f8-4fea-b524-23fc8c8753b4",
+            "c8283dfc-10ad-4c52-aa6c-5f0d7f25aa52",
+            "8c4c4b01-c401-4ce5-8674-a1c94e7cc895",
+            "3a358fe9-d1e5-4183-9bbb-78738c0288dc",
+            "780c6d75-36a0-446b-99d4-8483242a8600",
+            "4e8db50e-53d3-483b-8a2c-a685263b15d4",
+            "476049b6-b44f-4565-bed5-c3658e58156e",
+            "5a7d60f1-04d6-4194-a3ac-d489d8dd6f81",
+            "d6d1948f-6f29-4b1e-af72-949bb3232482",
+            "a322ee6d-4ecf-4999-9f5e-8ec630db0053",
+            "13a7a928-de14-401a-8b6a-5c837d37a9b8",
+            "65d2fcbd-2174-495f-85ad-243d657c171b",
+            "80b84198-b0df-46df-8273-3b86b13c8e3b",
+            "45d253bd-1fb5-4d39-a7be-5e7516506ecc",
+            "1e32bb59-60b0-4c58-8327-e36a077b85a1",
+            "07bc9354-132b-495b-9bdf-b86dcff35759",
+            "993ff03a-489c-4105-b3ae-9d0f5e0ba2b8",
+            "4d1331e6-7f56-4d91-804d-b04574295583",
+            "15c39371-3638-4829-8054-37e15da39b78",
+            "0a529aa1-9ee1-4a70-b2db-cb7d93a5fb46",
+            "75bf9a03-0478-410d-9c53-67cb631151d3",
+            "d6aaa8ba-1759-4ec1-8d32-8f337e3ccff5",
+            "a9ae308d-044f-476a-847b-31e4e6b98d92",
+            "5a2a41b0-4ac7-4ffd-8bfe-d51cb398c172",
+            "644ee98e-8f79-43e1-9d63-76105e6e2ebb",
+            "09dc4a86-079b-46bb-ac49-1a1ed8539540",
+            "85343e3d-f303-4354-a62e-f9e64bcc008f",
+            "072454b9-2c2e-4d3d-b33e-c758b2bdcc13",
+            "42c67778-0145-4fd5-a1a0-cb564860f5d2",
+            "1faba01a-40b5-431a-b0a1-35e94101cb6a",
+            "75c76fe4-2b7a-4e04-b053-2c7cd3654b63",
+            "5cebd280-5630-4da9-9a5b-52b2c5fd858c",
+            "08239bdb-27e6-4e10-b958-0635623285bb",
+            "a65e3d64-af93-4063-aa63-f171a4a6f985",
+            "f452277a-b422-4117-b0c6-55d6ce0de8d5",
+            "813eed0b-a86a-490a-b34f-79edf30f21a8",
+            "af0c6ffd-d416-4916-9516-ede398f818af",
+            "5470fb5e-212a-4d9a-87dc-e31676ec1208",
+            "6023ee93-ecf0-4dea-8ec7-aa3b7fe43ae4",
+            "1e207493-692c-41e1-b6f7-5ffaf8ccd009",
+            "0d41cd69-8ffe-4ddc-8367-b8d5e79cbde4",
+            "e9ca4ea9-0191-4801-a69e-0d0e83142eb8",
+            "7aa90fd5-4ff3-4867-b568-ef7de86ef72f",
+            "cb6d3fa1-bcb8-481b-bf59-dc81766aa2c6",
+            "68d1bc04-30ba-4055-8f13-87fcd9e9ac33",
+            "ff72d0b8-9ee7-4e16-a33c-c31b79fa9b4b",
+            "9a88803f-8518-4149-be26-165664bae103",
+            "118ea484-1d0e-4434-80a9-e64075aab98a",
+            "7fb955f1-bc82-4eec-93b7-1f0f657a0f84",
+            "30dc3e87-2f34-4fd9-be38-ab5ea24b74ac",
+            "61f842d0-7c17-42f7-a145-6facd6e4da3f",
+            "6f215faf-4541-4deb-8d65-0579dec40127",
+            "a5eb32db-f968-4037-a1ba-a0c7bd6d38ee",
+            "e48c6cc1-c642-4dfe-b02f-2cf46e55703c",
+            "f394757c-3177-40dd-90d8-f387eddb14ec",
+            "c84ec7f0-f878-4dae-9cf3-3510a89c522f",
+            "f1fcfc73-1deb-47f4-9a4d-824e7a100396",
+            "5ee35884-2c77-4277-9d93-c98f273f301f",
+            "2a26a722-027b-4064-8760-40ae1565e098",
+            "e9d784c6-1260-4a18-8ae1-1069860bc680",
+            "7087196f-f46d-4331-ba67-dbcb66baa5a2",
+            "55b7ee15-e0ef-4c76-9b40-9b545dffedd1",
+            "d5362e12-7649-4dcc-a0e9-a88d0944177c",
+            "4e0fa7ff-d0ca-48f4-a986-6181e8b6b759",
+            "300a4a85-690c-4c5d-8000-d920f9529ba4",
+            "637c045d-63db-43ff-8dfd-c7a0a4bbf8b4",
+            "860a1cdb-291a-4031-bb9f-add10f8344da",
+            "7a404ac1-f0a7-42e5-a1c6-e1f0a556aa00",
+            "fbf8ac26-6d0b-453f-a3bc-df9fcff81ee2",
+            "68c0d7fe-cbcc-4580-b80e-c7f8ee204de6",
+            "8c4753be-b4f4-454a-9155-2bc58897d2af",
+            "021ac104-6373-45b3-8c0c-bbb2908088f2",
+            "9cf06857-131c-4371-84f4-374f212a419c",
+            "69e4762c-4677-4bfc-9173-ecf5a5f69dd4",
+            "cc9dd60d-a614-4ea6-9345-d9349aa26a18",
+            "8ffad0c7-df15-4c2d-b22c-55afe30e2de4",
+            "93f3c9d2-1c25-4a27-bc34-267a50a887cc",
+            "7ceba27d-0b3b-44a9-831d-d59f5306939f",
+            "19a61968-451e-487f-a241-871ab3a26ab6",
+            "370b16fe-c95d-4913-9676-7fc0cbd759c4",
+            "4d952177-b8dd-4eeb-8b16-d4123919d166",
+            "cb5bd803-d98b-48eb-abd9-59c25aeafc39",
+            "b7255308-7c3d-4e54-b384-0dc817e954cc",
+            "c3cdb154-f89c-44c4-9775-8e4e44a8f84d",
+            "28bb6e53-9f48-43fe-bb73-0f8da6894aa4",
+            "148ff7f3-ac65-4376-9c7f-5e62c6518b1f",
+            "3572ea43-7122-4bc2-97b0-317b17b1abc8",
+            "0989bf47-438a-4da0-819c-f51e88edec41",
+            "ad86d116-7766-440e-8744-eeb5147c9b08",
+            "5864c0dc-fb79-4cfe-8b78-01544e32d908",
+            "bf98fce2-a218-4b46-8bf1-93190a10d459",
+            "fc62f803-3688-4afa-8189-d0df47abd235",
+            "672d27f8-0f91-4ea8-9cc8-80933acea3bb",
+            "f18258b3-e57f-4a65-90fa-79b84698ef46",
+            "fb819dba-7a6c-4a70-ab8a-5a690caf5c59",
+            "8883addb-8b1b-462f-8cba-8d473719f11b",
+            "cc28beac-c811-47c5-9734-7cbe17562f8b",
+            "271ec799-27e6-4967-b8fd-c9a4e21833cd"
+        ] %}
+
+        {% set searchTerm = (data.q | lower) if data.q else "" %}
+        {% set filteredDeclarations = [] %}
+
+        {% if data.q %}
+            {% for declarationId in allDeclarations %}
+                {% if searchTerm in (declarationId | lower) %}
+                    {% set filteredDeclarations = filteredDeclarations.concat([declarationId]) %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        {% if not data.q %}
+            <p class="govuk-body">Enter a declaration ID to search.</p>
+        {% else %}
+            {% if filteredDeclarations.length > 0 %}
+                <p class="govuk-body">
+                    <span class="govuk-!-font-weight-bold">{{ filteredDeclarations.length }}</span> result{% if filteredDeclarations.length != 1 %}s{% endif %} found for "{{data.q}}"
+                </p>
+            {% endif %}
+
+            {% set currentPage = data.page | int if data.page else 1 %}
+            {% set itemsPerPage = 50 %}
+            {% set totalFilteredItems = filteredDeclarations.length %}
+            {% set totalPages = ((totalFilteredItems - 1) // itemsPerPage) + 1 if totalFilteredItems > 0 else 1 %}
+            {% set startItem = ((currentPage - 1) * itemsPerPage) + 1 %}
+            {% set endItem = currentPage * itemsPerPage %}
+            {% if endItem > totalFilteredItems %}{% set endItem = totalFilteredItems %}{% endif %}
+
+            {% if filteredDeclarations.length > 0 %}
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">Declaration ID</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        {% for i in range(startItem, endItem + 1) %}
+                            {% if i <= filteredDeclarations.length %}
+                                {% set declarationId = filteredDeclarations[i - 1] %}
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">
+                                        <a class="govuk-link govuk-link--no-visited-state" href="../teachers-details?section=declarations">{{ declarationId }}</a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="govuk-body">No results found</p>
+            {% endif %}
+
+            {% if totalFilteredItems > itemsPerPage %}
+            <nav class="govuk-pagination" aria-label="Pagination">
+                {% if currentPage > 1 %}
+                <div class="govuk-pagination__prev">
+                    <a class="govuk-link govuk-pagination__link" href="?{% if data.q %}q={{data.q}}&{% endif %}page={{currentPage - 1}}" rel="prev">
+                        <svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+                            <path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path>
+                        </svg>
+                        <span class="govuk-pagination__link-title">
+                            Previous<span class="govuk-visually-hidden"> page</span>
+                        </span>
+                    </a>
+                </div>
+                {% endif %}
+                <ul class="govuk-pagination__list">
+                    {% for pageNum in range(1, totalPages + 1) %}
+                    <li class="govuk-pagination__item{% if pageNum == currentPage %} govuk-pagination__item--current{% endif %}">
+                        <a class="govuk-link govuk-pagination__link" href="?{% if data.q %}q={{data.q}}&{% endif %}page={{pageNum}}" aria-label="Page {{pageNum}}"{% if pageNum == currentPage %} aria-current="page"{% endif %}>{{pageNum}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% if currentPage < totalPages %}
+                <div class="govuk-pagination__next">
+                    <a class="govuk-link govuk-pagination__link" href="?{% if data.q %}q={{data.q}}&{% endif %}page={{currentPage + 1}}" rel="next">
+                        <span class="govuk-pagination__link-title">
+                            Next<span class="govuk-visually-hidden"> page</span>
+                        </span>
+                        <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+                            <path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path>
+                        </svg>
+                    </a>
+                </div>
+                {% endif %}
+            </nav>
+
+            <div class="govuk-body govuk-!-margin-bottom-1">
+                Showing 
+                <span class="govuk-!-font-weight-bold">{{startItem}}</span> 
+                to 
+                <span class="govuk-!-font-weight-bold">{{endItem}}</span> 
+                of 
+                <span class="govuk-!-font-weight-bold">{{totalFilteredItems}}</span> 
+                results
+            </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
