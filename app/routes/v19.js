@@ -1468,6 +1468,17 @@ module.exports = router => {
                 showAdjustmentChangedBanner: showChangedBanner
             });
         })
+
+        router.get(v + admin + 'finance/void-declaration', (req, res) => {
+            res.render(vGet + '/admin/finance/void-declaration', {
+                query: req.query
+            });
+        })
+
+        router.post(v + admin + 'finance/void-declaration', (req, res) => {
+            const declarationVoided = req.body['confirm-void-declaration'] === 'yes' ? 'yes' : 'no';
+            res.redirect(v + admin + 'teachers-details?section=declarations&declarationVoided=' + declarationVoided);
+        })
     
         // add adjustment page
         router.get(v + admin + 'finance/add-adjustment', (req, res) => {
