@@ -1,0 +1,202 @@
+{% extends "layouts/plain.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    /* Custom styles for search and filter example */
+    .search-filter-form {
+        display: flex;
+        gap: 15px;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+    }
+    
+    .search-input-group {
+        flex-grow: 1;
+        min-width: 250px;
+    }
+    
+    .filter-group {
+        flex: 0 0 200px;
+    }
+    
+    .filter-button {
+        align-self: flex-end;
+    }
+    
+    .full-width-select {
+        width: 100%;
+    }
+</style>
+{% endblock %}
+
+{% block header %}
+{{ super() }}
+{% endblock %}
+
+{% set pageName="Search and filter results" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "../index"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-8">{{pageName}}</h1>
+        <p>This example shows how to combine search and filter functionality. Users can search with a text input, and filter by an option, seeing the results displayed in a table format.</p>
+        
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+        <!-- Combined search and filter form -->
+        <form class="search-filter-form" accept-charset="UTF-8">
+            <div class="search-input-group">
+                <div class="govuk-form-group">
+                    <label for="q-field" class="govuk-label govuk-label--s">
+                        Search for school
+                    </label>
+                    <div class="govuk-hint" id="q-hint">Name, URN or postcode</div>
+                    <input id="q-field" class="govuk-input" aria-describedby="q-hint" type="text" name="q" value="{{data.q}}">
+                </div>
+            </div>
+
+            <div class="govuk-form-group filter-group">
+                <label for="schoolType" class="govuk-label govuk-label--s">School type</label>
+                <select class="govuk-select full-width-select" id="schoolType" name="schoolType">
+                    <option value="All" {% if data.schoolType == 'All' or not data.schoolType %}selected{% endif %}>All</option>
+                    <option value="State-school" {% if data.schoolType == 'State-school' %}selected{% endif %}>State-school</option>
+                    <option value="Independent" {% if data.schoolType == 'Independent' %}selected{% endif %}>Independent</option>
+                </select>
+            </div>
+
+            <button type="submit" class="govuk-button govuk-button--secondary filter-button" data-module="govuk-button">Search</button>
+        </form>
+
+        <!-- Define school data with types -->
+        {% set schoolData = [
+            {
+                name: "St Mary's School",
+                urn: "130579",
+                postcode: "AB12 3CD",
+                type: "Independent"
+            },
+            {
+                name: "Oakwood School",
+                urn: "163802",
+                postcode: "EF45 6GH",
+                type: "State-school"
+            },
+            {
+                name: "Riverside School",
+                urn: "195147",
+                postcode: "IJ78 9KL",
+                type: "State-school"
+            },
+            {
+                name: "Victoria School",
+                urn: "128460",
+                postcode: "MN01 2OP",
+                type: "Independent"
+            },
+            {
+                name: "Greenfield School",
+                urn: "157391",
+                postcode: "QR34 5ST",
+                type: "State-school"
+            },
+            {
+                name: "Hillside School",
+                urn: "182654",
+                postcode: "UV67 8WX",
+                type: "State-school"
+            },
+            {
+                name: "St John's School",
+                urn: "114829",
+                postcode: "YZ90 1AB",
+                type: "Independent"
+            },
+            {
+                name: "Meadowbrook School",
+                urn: "143675",
+                postcode: "CD23 4EF",
+                type: "State-school"
+            },
+            {
+                name: "Eastgate School",
+                urn: "176208",
+                postcode: "GH56 7IJ",
+                type: "Independent"
+            },
+            {
+                name: "Westfield School",
+                urn: "101543",
+                postcode: "KL89 0MN",
+                type: "State-school"
+            }
+        ] %}
+
+        <!-- Filter the results -->
+        {% set searchTerm = (data.q | lower) if data.q else "" %}
+        {% set filteredSchools = [] %}
+        
+        {% for school in schoolData %}
+            {% set matchesSearch = (not data.q or 
+                (school.name | lower) in searchTerm or 
+                searchTerm in (school.name | lower) or
+                school.urn in searchTerm or 
+                searchTerm in school.urn or
+                (school.postcode | lower) in searchTerm or 
+                searchTerm in (school.postcode | lower)) %}
+            {% set matchesType = (not data.schoolType or data.schoolType == 'All' or school.type == data.schoolType) %}
+            
+            {% if matchesSearch and matchesType %}
+                {% set filteredSchools = filteredSchools.concat([school]) %}
+            {% endif %}
+        {% endfor %}
+
+        <!-- Show results count -->
+        {% if (data.q or (data.schoolType and data.schoolType != 'All')) and filteredSchools.length > 0 %}
+            <p class="govuk-body">
+                <span class="govuk-!-font-weight-bold">{{ filteredSchools.length }}</span> result{% if filteredSchools.length != 1 %}s{% endif %} found
+                {% if data.q %}for "{{data.q}}"{% endif %}
+            </p>
+        {% endif %}
+
+        <!-- Results table -->
+        {% if filteredSchools.length > 0 %}
+            <table class="govuk-table">
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Name</th>
+                        <th scope="col" class="govuk-table__header">URN</th>
+                        <th scope="col" class="govuk-table__header">Postcode</th>
+                        <th scope="col" class="govuk-table__header">Type</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    {% for school in filteredSchools %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">{{ school.name }}</a>
+                            </td>
+                            <td class="govuk-table__cell">{{ school.urn }}</td>
+                            <td class="govuk-table__cell">{{ school.postcode }}</td>
+                            <td class="govuk-table__cell">{{ school.type }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="govuk-body">No results found</p>
+        {% endif %}
+        
+    </div>
+</div>
+
+{% endblock %} 

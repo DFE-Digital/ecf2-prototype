@@ -1,0 +1,148 @@
+{% extends "layouts/admin.html" %}
+
+{% set activeNav="teachers" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back",
+  href: "../teachers-details?section=declarations"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Void declaration for John Smith</h1>
+
+    <div class="govuk-summary-card govuk-!-margin-bottom-6">
+      <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">
+          ecf-induction - Started
+        </h2>
+      </div>
+
+      <div class="govuk-summary-card__content">
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Declaration ID
+            </dt>
+            <dd class="govuk-summary-list__value">
+              95f007c0-52ad-4cf1-88d1-90c0a8ed630a
+            </dd>
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Course identifier
+            </dt>
+            <dd class="govuk-summary-list__value">
+              ecf-induction
+            </dd>
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Declaration type
+            </dt>
+            <dd class="govuk-summary-list__value">
+              Started
+            </dd>
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              State
+            </dt>
+            <dd class="govuk-summary-list__value">
+              Payable
+            </dd>
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Declaration date and time
+            </dt>
+            <dd class="govuk-summary-list__value">
+              1 October 2025, 10:30AM
+            </dd>
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Lead provider
+            </dt>
+            <dd class="govuk-summary-list__value">
+              Ambition Institute
+            </dd>
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Delivery partner
+            </dt>
+            <dd class="govuk-summary-list__value">
+              Alpha Teaching School Hub
+            </dd>
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Evidence held
+            </dt>
+            <dd class="govuk-summary-list__value">
+              training-event-attended
+            </dd>
+          </div>
+        </dl>
+        <hr class="govuk-section-break govuk-section-break--m">
+        <table class="govuk-table">
+          <caption class="govuk-table__caption govuk-table__caption--s">State history</caption>
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">State</th>
+              <th scope="col" class="govuk-table__header">Changed at</th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">Submitted</th>
+              <td class="govuk-table__cell">1 December 2025, 12:00AM</td>
+            </tr>
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">Eligible</th>
+              <td class="govuk-table__cell">1 December 2025, 12:00AM</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <form method="post" action="void-declaration">
+      {{ govukRadios({
+        name: "confirm-void-declaration",
+        fieldset: {
+          legend: {
+            text: "Do you want to void this declaration?",
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes"
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      }) }}
+
+      <button class="govuk-button" data-module="govuk-button">Confirm</button>
+    </form>
+
+    <p><a class="govuk-link" href="../teachers-details?section=declarations">Cancel and return to John Smith's declarations</a></p>
+  </div>
+</div>
+{% endblock %}

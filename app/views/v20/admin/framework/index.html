@@ -1,0 +1,86 @@
+{% extends "layouts/plain.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    .framework-item {
+        border-bottom: 1px solid #b1b4b6;
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}
+
+{% set pageName="Admin design framework - documentation and examples" %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-8">{{pageName}}</h1>
+
+            <div class="framework-item">
+                <h2 class="govuk-heading-m"><a href="examples/page-width">Page width</a></h3>
+                <p>Details about the page width for examples within the design framework.</p>
+            </div>
+
+            <div class="framework-item">
+                <h2 class="govuk-heading-m"><a href="examples/cards-format?view=default">List of things in cards format</a></h3>
+                <p>An example of how to use the summary card component to display items in a list. We'd use this when either there's a small number of items to display, or when there's a long list of items and there's a dense amount of information that needs to be structured and displayed within the card.</p>
+            </div>
+
+            <div class="framework-item">
+                <h2 class="govuk-heading-m"><a href="examples/table-format">List of things in a table format</a></h3>
+                <p>An example of how to use the table component to display items in a list. We'd use this when there's a large number of items to display, and there's information that needs to be displayed in a table format.</p>
+            </div>
+
+            <div class="framework-item">
+                <h2 class="govuk-heading-m"><a href="examples/summary-list">Summary list</a></h3>
+                <p>An example of how to use the summary list component to display details about a person or organisation. We'd use this when we need to show key information in a structured format with the ability to change individual fields.</p>
+            </div>
+
+            <div class="framework-item">
+                <h2 class="govuk-heading-m"><a href="examples/confirmation-banner">Confirmation banner</a></h3>
+                <p>An example of how to use the notification banner component to provide feedback to users after they have completed an action. We'd use this to confirm that something has been successfully updated.</p>
+            </div>
+
+            <div class="framework-item">
+                <h2 class="govuk-heading-m"><a href="examples/confirm-action">Confirm action before completing</a></h3>
+                <p>An example of how to ask a user to confirm an action before completing it. We'd use this pattern to help users understand what they're about to do and give them a chance to review their decision before proceeding. This is important for actions which are deemed high-impact.</p>
+            </div>
+
+            <div class="framework-item">
+                <h2 class="govuk-heading-m"><a href="examples/search">Search</a></h3>
+                <p>An example of how to use the search component to display a search bar and results found in a table format.</p>
+            </div>
+
+            <div class="framework-item">
+                <h2 class="govuk-heading-m"><a href="examples/filters">Filter results</a></h3>
+                <p>An example of how to use filters with table results. Users can filter data and see the results displayed in a table format.</p>
+            </div>
+
+            <div class="framework-item">
+                <h2 class="govuk-heading-m"><a href="examples/search-and-filter">Search and filter results</a></h3>
+                <p>An example of how to combine search and filter functionality. Users can search with a text input, and filter by an option, seeing the results displayed in a table format.</p>
+            </div>
+
+            <div class="framework-item">
+                <h2 class="govuk-heading-m"><a href="examples/secondary-navigation">Secondary navigation</a></h3>
+                <p>An example of how to use secondary navigation to help users navigate between different sections or views within the same service or area.</p>
+            </div>
+
+            <div class="framework-item">
+                <h2 class="govuk-heading-m"><a href="examples/back-link">Back link</a></h3>
+                <p>An example of how to use the back link component to help users navigate back to the previous page. We'd use this when users need a simple way to return to where they came from in a linear journey.</p>
+            </div>
+
+            <div class="framework-item">
+                <h2 class="govuk-heading-m"><a href="examples/breadcrumbs">Breadcrumbs</a></h3>
+                <p>An example of how to use the breadcrumbs component to help users understand where they are within a website's structure and navigate to parent pages. We'd use this when users need to understand their location in a hierarchical structure.</p>
+            </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "layouts/ects.html" %}
+
+{% set ectId = data.ectId %}
+{% set ectName = data.ectName %}
+
+{% set pageName = "No changes have been made to " + ectName + "'s details" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    
+    <h1 class="govuk-heading-l">{{pageName}}</h1>
+    <p class="govuk-body">If {{ectName}} is leaving but is expected to return, such as for parental leave or long-term sickness, you should inform their training providers.</p>
+    
+    <p class="govuk-body">
+      <a class="govuk-link" href="ects">Back to ECTs</a>
+    </p>
+    
+  </div>
+</div>
+{% endblock %} 
