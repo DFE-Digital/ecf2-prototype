@@ -1,5 +1,16 @@
 {% extends "layouts/admin.html" %}
 
+{% block head %}
+{{ super() }}
+<style>
+  code {
+    background-color: #f3f2f1;
+    font-family: monospace;
+    padding: 2px 5px;
+  }
+</style>
+{% endblock %}
+
 {% set activeNav="finance" %}
 
 {% block beforeContent %}
