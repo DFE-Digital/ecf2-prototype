@@ -13,104 +13,45 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-l">Void declaration for John Smith</h1>
-
-    <dl class="govuk-summary-list">
-
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Declaration type
-        </dt>
-        <dd class="govuk-summary-list__value">
-          started
-        </dd>
-      </div>
-
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Declaration ID
-        </dt>
-        <dd class="govuk-summary-list__value">
-          95f007c0-52ad-4cf1-88d1-90c0a8ed630a
-        </dd>
-      </div>
-
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Course identifier
-        </dt>
-        <dd class="govuk-summary-list__value">
-          ecf-induction
-        </dd>
-      </div>
-
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          State
-        </dt>
-        <dd class="govuk-summary-list__value">
-          Paid
-        </dd>
-      </div>
-
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Declaration date and time
-        </dt>
-        <dd class="govuk-summary-list__value">
-          1 October 2025, 10:30AM
-        </dd>
-      </div>
-
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Lead provider
-        </dt>
-        <dd class="govuk-summary-list__value">
-          Ambition Institute
-        </dd>
-      </div>
-
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Delivery partner
-        </dt>
-        <dd class="govuk-summary-list__value">
-          Alpha Teaching School Hub
-        </dd>
-      </div>
-
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Evidence held
-        </dt>
-        <dd class="govuk-summary-list__value">
-          training-event-attended
-        </dd>
-      </div>
-    </dl>
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Declaration ID</dt>
+            <dd class="govuk-summary-list__value"><pre class="govuk-!-margin-0"><code>95f007c0-52ad-4cf1-88d1-90c0a8ed630a</code></pre></dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Course identifier</dt>
+            <dd class="govuk-summary-list__value"><pre class="govuk-!-margin-0"><code>ecf-induction</code></pre></dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Declaration type</dt>
+            <dd class="govuk-summary-list__value"><pre class="govuk-!-margin-0"><code>started</code></pre></dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">State</dt>
+            <dd class="govuk-summary-list__value"><span class="govuk-tag govuk-tag--green">Paid</dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Declaration date and time</dt>
+            <dd class="govuk-summary-list__value">1 October 2025, 10:30AM</dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Lead provider</dt>
+            <dd class="govuk-summary-list__value">Ambition Institute</dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Delivery partner</dt>
+            <dd class="govuk-summary-list__value">Alpha Teaching School Hub</dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Evidence held</dt>
+            <dd class="govuk-summary-list__value"><pre class="govuk-!-margin-0"><code>training-event-attended</code></pre></dd>
+          </div>
+        </dl>
+    
 
     <form method="post" action="void-declaration">
-      {{ govukRadios({
-        name: "confirm-void-declaration",
-        fieldset: {
-          legend: {
-            text: "Are you sure you want to void this declaration?",
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-          {
-            value: "yes",
-            text: "Yes"
-          },
-          {
-            value: "no",
-            text: "No"
-          }
-        ]
-      }) }}
 
-      <button class="govuk-button" data-module="govuk-button">Confirm</button>
+      <button class="govuk-button govuk-button--warning" data-module="govuk-button">Confirm void declaration</button>
     </form>
 
     <p><a class="govuk-link" href="../teachers-details?section=declarations">Cancel and return to John Smith's declarations</a></p>
