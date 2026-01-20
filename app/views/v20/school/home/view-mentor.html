@@ -126,7 +126,7 @@ href: "mentors"
           {% endif %}
           {% if activeMentor.withdrawn == true %}
             <p>{{activeMentor.leadProvider}} have told us that {{activeMentor.name}} is not registered for ECTE mentor training with them. Contact them if you think this is an error.</p>
-            <p>You can <a href="change/mentors/change-lead-provider?mentorId={{activeMentor.id}}">select a lead provider</a> for {{activeMentor.name}} if they are training with another lead provider.</p>
+            <p>You can <a href="change/mentors/change-lead-provider?mentorId={{activeMentor.id}}">select a lead provider</a> for {{activeMentor.name}} if they will be training with another lead provider.</p>
           {% endif %}        
       {% endif %}
 
