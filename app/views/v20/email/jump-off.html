@@ -1,0 +1,23 @@
+{% extends "layouts/email.html" %}
+
+{% block content %}
+{{ super() }}
+
+    <h1 class="govuk-heading-l">School comms emails</h1>
+
+    <h2 class="govuk-heading-m">Outside service</h2>
+
+
+    <p><a href="advance-notice-to-sit-no-launch-date.html" class="govuk-link govuk-link--no-visited-state">Advance notice of new service (not yet launched)</a></p>
+    <p><a href="notice-to-sit-launched-reg-not-open.html" class="govuk-link govuk-link--no-visited-state">Notice of new service (launched, registration not open)</a></p>
+    <p><a href="reg-open-to-sit.html" class="govuk-link govuk-link--no-visited-state">Registration open</a></p>
+    <p><a href="notice-to-sit-launched-reg-open.html" class="govuk-link govuk-link--no-visited-state">Notice of new service launched and registration open</a></p>
+
+
+    <h2 class="govuk-heading-m">In service</h2>
+
+    <p><a href="new-sit.html" class="govuk-link govuk-link--no-visited-state">New school induction tutor</a></p>
+
+
+
+    {% endblock %}
