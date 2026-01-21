@@ -62,12 +62,14 @@ classes: "govuk-!-display-none-print"
 
 {% block content %}
 
-{% if showAdjustmentRemovedBanner or showAdjustmentAddedBanner or showAdjustmentChangedBanner %}
+{% if showAdjustmentRemovedBanner or showAdjustmentAddedBanner or showAdjustmentChangedBanner or showStatementAuthorisedBanner %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% set html %}
   <h3 class="govuk-notification-banner__heading">
-    {% if showAdjustmentRemovedBanner %}
+    {% if showStatementAuthorisedBanner %}
+      Statement authorised for payment
+    {% elif showAdjustmentRemovedBanner %}
       Adjustment removed
     {% elif showAdjustmentAddedBanner %}
       Adjustment added
@@ -426,8 +428,12 @@ classes: "govuk-!-display-none-print"
                             
                             {% if currentStatement %}
                                 {% if currentStatement.status == "Payable" %}
-                                    
-                                <button class="govuk-button govuk-button--primary govuk-!-display-none-print" type="submit">Authorise for payment</button>
+                                <form method="post" class="govuk-!-display-none-print">
+                                    <input type="hidden" name="provider" value="{{ query.provider }}">
+                                    <input type="hidden" name="contractYear" value="{{ query.contractYear }}">
+                                    <input type="hidden" name="statement" value="{{ query.statement }}">
+                                    <button class="govuk-button govuk-button--primary" type="submit">Authorise for payment</button>
+                                </form>
                                     
                                 {% elif currentStatement.status == "Authorised for payment" %}
                                     <p class="govuk-body govuk-!-display-none-print">This statement has already been authorised for payment</p>
@@ -1109,6 +1115,12 @@ classes: "govuk-!-display-none-print"
     
     // Run after DOM is loaded
     document.addEventListener('DOMContentLoaded', function() {
+        const statementSelector = document.querySelector('.statement-selector');
+        const currentV = window.location.pathname.match(/v\d+/);
+        if (statementSelector && currentV) {
+            statementSelector.setAttribute('action', '/' + currentV[0] + '/admin/finance/find-statement');
+        }
+
         setTimeout(formatCurrency, 10);
     });
 </script>

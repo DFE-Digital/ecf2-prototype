@@ -1449,6 +1449,7 @@ module.exports = router => {
             const showRemovedBanner = req.session.data.showAdjustmentRemovedBanner;
             const showAddedBanner = req.session.data.showAdjustmentAddedBanner;
             const showChangedBanner = req.session.data.showAdjustmentChangedBanner;
+            const showAuthorisedBanner = req.session.data.showStatementAuthorisedBanner;
             
             if (showRemovedBanner) {
                 req.session.data.showAdjustmentRemovedBanner = false;
@@ -1459,14 +1460,84 @@ module.exports = router => {
             if (showChangedBanner) {
                 req.session.data.showAdjustmentChangedBanner = false;
             }
+            if (showAuthorisedBanner) {
+                req.session.data.showStatementAuthorisedBanner = false;
+            }
 
             // Pass the query parameters to the template
             res.render(vGet + '/admin/finance/statement', {
                 query: req.query,
                 showAdjustmentRemovedBanner: showRemovedBanner,
                 showAdjustmentAddedBanner: showAddedBanner,
-                showAdjustmentChangedBanner: showChangedBanner
+                showAdjustmentChangedBanner: showChangedBanner,
+                showStatementAuthorisedBanner: showAuthorisedBanner
             });
+        })
+
+        router.post(v + admin + 'finance/statement', (req, res) => {
+            const provider = req.body.provider || req.query.provider || '';
+            const contractYear = req.body.contractYear || req.query.contractYear || '';
+            const statement = req.body.statement || req.query.statement || '';
+
+            const queryParams = new URLSearchParams({
+                provider: provider,
+                contractYear: contractYear,
+                statement: statement
+            }).toString();
+
+            res.redirect(v + admin + 'finance/authorise-for-payment?' + queryParams);
+        })
+
+        router.get(v + admin + 'finance/authorise-for-payment', (req, res) => {
+            res.render(vGet + '/admin/finance/authorise-for-payment', {
+                query: req.query
+            });
+        })
+
+        router.post(v + admin + 'finance/authorise-for-payment', (req, res) => {
+            const provider = req.body.provider || req.query.provider || '';
+            const contractYear = req.body.contractYear || req.query.contractYear || '';
+            const statement = req.body.statement || req.query.statement || '';
+            const assuranceChecks = req.body['assurance-checks'];
+            const hasAssuranceCheck = Array.isArray(assuranceChecks)
+                ? assuranceChecks.includes('yes')
+                : assuranceChecks === 'yes';
+
+            if (!hasAssuranceCheck) {
+                return res.render(vGet + '/admin/finance/authorise-for-payment', {
+                    query: {
+                        provider: provider,
+                        contractYear: contractYear,
+                        statement: statement
+                    },
+                    assuranceChecks: hasAssuranceCheck ? 'yes' : '',
+                    errors: {
+                        assuranceChecks: 'You must have completed all assurance checks'
+                    }
+                });
+            }
+
+            const financeData = req.session.data.financeData || [];
+            const matchingStatement = financeData.find(item =>
+                item.provider === provider &&
+                item.contractYear.toString() === contractYear.toString() &&
+                item.statement === statement
+            );
+
+            if (matchingStatement) {
+                matchingStatement.status = 'Authorised for payment';
+                matchingStatement.statusClass = 'govuk-tag--green';
+            }
+
+            req.session.data.showStatementAuthorisedBanner = true;
+
+            const queryParams = new URLSearchParams({
+                provider: provider,
+                contractYear: contractYear,
+                statement: statement
+            }).toString();
+
+            res.redirect(v + admin + 'finance/statement?' + queryParams);
         })
 
         router.get(v + admin + 'finance/void-declaration', (req, res) => {
