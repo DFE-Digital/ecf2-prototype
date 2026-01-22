@@ -1547,6 +1547,21 @@ module.exports = router => {
         })
 
         router.post(v + admin + 'finance/void-declaration', (req, res) => {
+            const confirmVoidDeclaration = req.body['confirm-void-declaration'];
+            const hasConfirmation = Array.isArray(confirmVoidDeclaration)
+                ? confirmVoidDeclaration.includes('yes')
+                : confirmVoidDeclaration === 'yes';
+
+            if (!hasConfirmation) {
+                return res.render(vGet + '/admin/finance/void-declaration', {
+                    query: req.query,
+                    confirmVoidDeclaration: '',
+                    errors: {
+                        confirmVoidDeclaration: 'Confirm you want to void this declaration'
+                    }
+                });
+            }
+
             res.redirect(v + admin + 'teachers-details?section=declarations&declarationVoided=1');
         })
     
