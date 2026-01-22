@@ -1,0 +1,45 @@
+{% extends "layouts/email.html" %}
+
+{% block content %}
+{{ super() }}
+
+    <h1 class="govuk-heading-m">New mentor registered</h1>
+
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+    <h2 class="govuk-heading-s">Context and timing</h2>
+    <p>Sent to newly registered mentors. Automatically triggered when first registered and assigned to an ECT.</p>
+     
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+
+    <div class="govuk-inset-text">
+  Subject: You’ve been registered as a mentor for early career teachers at ((school))
+</div>
+
+<p>Hello ((mentor_name)),</p>
+
+<p>You’ve been registered as a mentor for early career teachers (ECTs) at ((school)).</p>
+
+<h2 class="govuk-heading-m">What this means</h2>
+
+<p>You’ll support ECTs at your school as part of their early career teacher entitlement (ECTE). Your school induction tutor will assign ECTs to you.</p>
+
+<p>You can find out more about being an ECT mentor with our <a href="https://www.gov.uk/government/publications/early-career-teacher-entitlement-roles-and-responsibilities/mentors-responsibilities-for-early-career-teacher-entitlement">Mentors</a> guidance.</p>
+
+<h2 class="govuk-heading-m">Mentor training</h2>
+<p>If your school is using a ‘provider-led’ training programme, you might get up to 20 hours of mentor training. Speak to your school’s induction tutor about mentor training.</p>
+
+<h2 class="govuk-heading-m">Where to find help and information</h2>
+<p>Speak to your school’s induction tutor if you have questions about how the ECTE works at your school.</p>
+
+<h2 class="govuk-heading-m">Your information and privacy</h2>
+<p>Our <a href="https://www.gov.uk/government/publications/privacy-information-education-providers-workforce-including-teachers">privacy notice</a> explains how we store and use your information.</p>
+
+<p>Regards,</p>
+
+<p>Teacher Continuing Professional Development</p>
+<p>Department for Education</p>
+
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+    <p><a href="#" class="govuk-link govuk-link--no-visited-state">Unsubscribe from these emails</a></p>
+{% endblock %}
