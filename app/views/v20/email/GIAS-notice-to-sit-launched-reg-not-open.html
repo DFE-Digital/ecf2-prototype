@@ -3,39 +3,50 @@
 {% block content %}
 {{ super() }}
 
-    <h1 class="govuk-heading-m">Notice of new service launched and registration open</h1>
+    <h1 class="govuk-heading-m">Notice of new service (launched, registration not open)</h1>
 
     <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
     <h2 class="govuk-heading-s">Context and timing</h2>
-    <p>Email to school induction tutors to highlight:</p>
+        <p>Sent to GIAS contact if initial email to SIT bounced.</p>
+
+    <p>Email to highlight:</p>
     
  <ul class="govuk-list govuk-list--bullet">
             <li>a service to register ECTs and mentors for training that replaces the current service</li>  
  <li>a different way to sign in and the need for a DfE sign-in account</li>  
-        <li>the main differences from the current service</li>        
+        <li>the main differences from the current service</li>  
+                <li>what the GIAS contact needs to do</li>      
+      
         </ul>
-
-        <p>This email is intended for when the service is launced and regstration is open.</p>
 
             <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
 
 
     <div class="govuk-inset-text">
-  Subject: Registration for early career teachers and mentors open for academic year 2026-2027.
+  Subject: Registering early career teachers and mentors with the Department for Education (DfE).
 </div>
 
-<p>Hello ((sit_name)),</p>
+<p>Hello ((GIAS_contact_name)),</p>
 
-<p>We're sending you this email as our records show that you're the induction tutor for ((school_name)).</p>
+<p>Our records show that ((sit_name)) (((sit_email-address))) is your school’s induction tutor. We’ve tried to contact them to tell them about changes we’re making to the way schools need to register ECTs and mentors, but we’ve been unsuccessful.</p>
 
-<p>You can now register early career teachers (ECTs) and mentors for the 2026-2027 academic year.</p>
 
-<p>We've made some changes to the way you register with our <a href="https://staging.register-early-career-teachers.education.gov.uk/">register early career teachers</a> service. We’ve closed the manage training for early career teachers service.</p> 
+<h2 class="govuk-heading-m">What you need to do</h2>
+
+<p>Forward this email to your school’s induction tutor. It explains the changes we’re making to how schools register ECTS and mentors for training.</p>
+
+<p>If your school does not have an induction tutor, choose one and forward this email to them.</p>
+
+<p>You can read about choosing an induction tutor in our <a href="https://www.gov.uk/guidance/set-up-and-manage-the-early-career-teacher-entitlement">Set up and manage the early career teacher entitlement</a> guidance.</p>
+
 
 
 <h2 class="govuk-heading-m">What these changes mean for your school</h2>
 
-<h3 class="govuk-heading-s">Access and sign in is different from the old service</h3>
+<p>Schools need to use our <a href="https://staging.register-early-career-teachers.education.gov.uk/">register early career teachers</a> service. We’ve closed the manage training for early career teachers service.</p> 
+
+
+<h3 class="govuk-heading-s">Access and sign in is different from the current service</h3>
 <p>Users of the new service will need to have an account with <a href="https://services.signin.education.gov.uk/">DfE Sign-in</a>.</p>
 <p>DfE Sign-in is a single sign-on service that provides access to DfE services. Your school might already use it for other DfE services.</p>
 <h3 class="govuk-heading-s">How DfE Sign-in works</h3>
@@ -61,6 +72,12 @@
 
 <h3 class="govuk-heading-s">Notification of induction tutor</h3>
 <p>You can tell us about, and change, your main induction tutor.  </p>
+
+<h2 class="govuk-heading-m">What happens next</h2>
+
+<p>You can use the new service to manage your existing ECTs and mentors.</p> 
+
+<p>We'll email you when registration for the 2026-2027 academic year opens.</p>
 
 <h2 class="govuk-heading-m">Sign in</h2>
 
