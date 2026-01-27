@@ -1,10 +1,11 @@
 {% extends "layouts/main.html" %}
 
 {% block content %}
+
         <div class="govuk-grid-row">
           <div class="govuk-grid-column-full">
             
-            <h1 class="govuk-heading-l">Umber Teaching School Hub</h1>
+            <h1 class="govuk-heading-l">Golden Leaf Teaching School Hub</h1>
           </div>
         </div>
 
@@ -20,9 +21,6 @@
     <p>
       <a class="govuk-link govuk-link--no-visited-state" href="/appropriate-body/bulk/claims/new">Upload a CSV to claim multiple new ECTs</a>
     </p>
-    <p>
-      <a class="govuk-link govuk-link--no-visited-state" href="/appropriate-body/bulk/claims/new">View school reported data</a>
-    </p>    
     <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
   </div>
 </div>
@@ -34,7 +32,7 @@
       2 open inductions
     </h2>
     <div class="govuk-!-padding-bottom-4">
-        <span class="govuk-body">No closed inductions</span>
+        <a class="govuk-link" href="/appropriate-body/teachers/closed">View closed inductions (2)</a>
     </div>
   </div>
 </div>
@@ -67,12 +65,13 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-      <table class="govuk-table"><thead class="govuk-table__head"><tr class="govuk-table__row"><th class="govuk-table__header" scope="col">Name</th><th class="govuk-table__header" scope="col">TRN</th><th class="govuk-table__header" scope="col">Induction start date</th><th class="govuk-table__header" scope="col">Status</th></tr></thead><tbody class="govuk-table__body"><tr class="govuk-table__row"><td class="govuk-table__cell">                <a class="govuk-link" href="/appropriate-body/teachers/3859">Gemma Jones</a>
-</td><td class="govuk-table__cell">9578426</td><td class="govuk-table__cell">1 September 2023</td><td class="govuk-table__cell">                <strong class="govuk-tag govuk-tag--blue">In progress</strong>
-</td></tr><tr class="govuk-table__row"><td class="govuk-table__cell">                <a class="govuk-link" href="/appropriate-body/teachers/3850">Kate Winslet</a>
-</td><td class="govuk-table__cell">1023457</td><td class="govuk-table__cell">1 September 2021</td><td class="govuk-table__cell">                <strong class="govuk-tag govuk-tag--green">Passed</strong>
+      <table class="govuk-table"><thead class="govuk-table__head"><tr class="govuk-table__row"><th class="govuk-table__header" scope="col">Name</th><th class="govuk-table__header" scope="col">TRN</th><th class="govuk-table__header" scope="col">Induction start date</th><th class="govuk-table__header" scope="col">Status</th></tr></thead><tbody class="govuk-table__body"><tr class="govuk-table__row"><td class="govuk-table__cell">                <a class="govuk-link" href="/appropriate-body/teachers/10738">Alan Rickman</a>
+</td><td class="govuk-table__cell">0000006</td><td class="govuk-table__cell">1 November 2022</td><td class="govuk-table__cell">                <strong class="govuk-tag govuk-tag--yellow">Required to complete</strong>
+</td></tr><tr class="govuk-table__row"><td class="govuk-table__cell">                <a class="govuk-link" href="/appropriate-body/teachers/10774">Robson Scottie</a>
+</td><td class="govuk-table__cell">3002582</td><td class="govuk-table__cell">1 January 2026</td><td class="govuk-table__cell">                <strong class="govuk-tag govuk-tag--blue">In progress</strong>
 </td></tr></tbody></table>
       
   </div>
 </div>
+
 {% endblock %}
