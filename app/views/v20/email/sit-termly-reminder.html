@@ -1,0 +1,87 @@
+{% extends "layouts/email.html" %}
+
+{% block content %}
+{{ super() }}
+
+    <h1 class="govuk-heading-m">Termly reminder to induction tutor</h1>
+
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+<div class="govuk-inset-text">
+         <h2 class="govuk-heading-s">When</h2>
+         <p>At the beginning of each school term.</p>
+         <h2 class="govuk-heading-s">Why</h2>
+         <p>A reminder to school induction tutors to tell DfE about new participants and changes. </p>
+          </div> 
+
+   
+    
+             <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+
+    <div class="govuk-inset-text">
+  Subject: Reminder to tell the DfE about early career teacher and mentor changes
+</div>
+
+<p>Hello ((sit_name)),</p>
+
+
+<p>We’re sending you this email as our records show that you’re the induction tutor for ((school_name)).</p>
+
+<p>This is a reminder to tell us about ECT and mentor changes this term.</p>
+
+<p>You need to tell us about changes so that:</p>
+
+<ul class="govuk-list govuk-list--bullet">
+        <li>your school gets the correct funding</li>    
+        <li>early career teachers (ECTs) and mentors can get access to training and materials</li>
+ </ul>
+
+ <p>Tell us about changes with <a href="https://staging.register-early-career-teachers.education.gov.uk/">register early career teachers</a>.</p>
+
+
+<h2 class="govuk-heading-m">What you need to tell us</h2>
+
+<h3 class="govuk-heading-s">New ECTs and mentors</h3>
+
+<p>You need to register:</p>
+
+<ul class="govuk-list govuk-list--bullet">
+        <li>ECTs starting their early career teacher entitlement (ECTE)</li>    
+        <li>mentors assigned to ECTs and who are starting their ECT mentor training programme</li>
+        <li>ECTs and mentors who’ve moved to your school from another</li>
+ </ul>
+
+ <h3 class="govuk-heading-s">Changes with training and induction programmes</h3>
+
+ <p>Tell us if:</p>
+
+ <ul class="govuk-list govuk-list--bullet">
+        <li>ECTs or mentors change training programme or training provider</li>    
+        <li>ECTs change their appropriate body</li>
+        <li>ECTs change mentor</li>
+ </ul>
+
+
+<h3 class="govuk-heading-s">ECTs or mentors leaving</h3>
+
+ <p>Tell us if ECTs or mentors are leaving your school and not expected to return.</p>
+
+ <h3 class="govuk-heading-s">Changes in personal details</h3>
+
+ <p>Tell us if ECTs or mentors change their:</p>
+
+ <ul class="govuk-list govuk-list--bullet">
+        <li>name</li>    
+        <li>email</li>
+        <li>working pattern</li>
+ </ul>
+
+<p>Regards,</p>
+
+<p>Teacher Continuing Professional Development</p>
+<p>Department for Education</p>
+
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+    <!-- <p><a href="#" class="govuk-link govuk-link--no-visited-state">Unsubscribe from these emails</a></p> -->
+{% endblock %}
