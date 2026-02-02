@@ -159,7 +159,14 @@
                         <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">Appropriate body</dt>
-                                <dd class="govuk-summary-list__value">{{ect.appropriateBody}}</dd>
+                                <dd class="govuk-summary-list__value">{{ect.appropriateBody}}
+                                {% if ect.inductionStartDate === null %}
+                                <span class="govuk-caption-m">No appropriate body has recorded the ECT's induction yet. This might be because induction has not started.</span>
+                                {% endif %}
+                                {% if ect.inductionStartDate !== null %}
+                                <!-- <span class="govuk-caption-m">This appropriate body has recorded the ECT's induction.</span> -->
+                                {% endif %}       
+                                </dd>                           
                             </div>
                             {% if ect.trainingProgramme != 'School-led' %}
                             {% if ect.status != 'No longer training' %}
@@ -170,13 +177,13 @@
                                     <!-- DEBUG: researchMode={{ data.researchMode }}, session.leadProvider={{ data.leadProvider }}, ect.leadProvider={{ ect.leadProvider }} -->
                                     {% if data.researchMode %}
                                       {% if ect.leadProvider == data._researchDefaults.leadProvider %}
-                                      <span class="govuk-caption-m">Confirmed by {{ ect.leadProvider }}</span>
+                                      <!-- <span class="govuk-caption-m">Confirmed by {{ ect.leadProvider }}</span> -->
                                       {% else %}
                                       <span class="govuk-caption-m">Awaiting confirmation by {{ ect.leadProvider }}</span>
                                       {% endif %}
                                     {% else %}
                                       {% if ect.leadProvider == 'Ambition Institute' %}
-                                      <span class="govuk-caption-m">Confirmed by {{ ect.leadProvider }}</span>
+                                      <!-- <span class="govuk-caption-m">Confirmed by {{ ect.leadProvider }}</span> -->
                                       {% else %}
                                       <span class="govuk-caption-m">Awaiting confirmation by {{ ect.leadProvider }}</span>
                                       {% endif %}

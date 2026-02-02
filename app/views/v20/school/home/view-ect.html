@@ -137,16 +137,18 @@ href: "ects"
             <dd class="govuk-summary-list__value">
               {{ activeEct.appropriateBody }}
             {% if activeEct.inductionStartDate === null %}
-              <span class="govuk-caption-m">Awaiting confirmation by {{activeEct.appropriateBody}} </span>
+              <span class="govuk-caption-m">No appropriate body has recorded the ECT's induction yet. This might be because induction has not started.</span>
             {% endif %}
             {% if activeEct.inductionStartDate !== null %}
-              <span class="govuk-caption-m">Confirmed by {{ activeEct.appropriateBody }}</span>
+              <span class="govuk-caption-m">This appropriate body has recorded the ECT's induction.</span>
             {% endif %}  
             </dd>
             <dd class="govuk-summary-list__actions">
+            {% if activeEct.inductionStartDate === null %}
               {% if activeEct.status !== 'Completed induction' %} 
-              <!-- <a class="govuk-link" href="change/ects/change-appropriate-body?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> appropriate body</span></a> -->
+              <a class="govuk-link" href="change/ects/change-appropriate-body?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> appropriate body</span></a>
               {% endif %}
+            {% endif %}  
             </dd>
           </div>
               <div class="govuk-summary-list__row">
@@ -158,7 +160,7 @@ href: "ects"
           Yet to be reported by an appropriate body
           {% else %}
           {{ activeEct.inductionStartDate }}
-          <span class="govuk-caption-m">Reported by {{ activeEct.appropriateBody }}</span>
+          <span class="govuk-caption-m">Reported by appropriate body</span>
           {% endif %}
         </dd>
       </div>
