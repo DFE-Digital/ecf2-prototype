@@ -1,9 +1,17 @@
 {% extends "layouts/email.html" %}
 
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
 {% block content %}
 {{ super() }}
 
-    <h1 class="govuk-heading-m">Notice of new service (launched, registration not open)</h1>
+    <h1 class="govuk-heading-m">Notice of new service (service launched, registration 2026-2027 not yet open)</h1>
+
 
     <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
     <div class="govuk-inset-text">
