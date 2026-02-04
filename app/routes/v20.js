@@ -1283,6 +1283,29 @@ module.exports = router => {
         })
 
         // finance home page - direct access
+        router.get(v + admin + 'finance/search-declarations', (req, res) => {
+            req.session.data.q = '';
+            req.session.data.searchDeclarationsNoResults = false;
+
+            res.render(vGet + '/admin/finance/search-declarations', {
+                query: req.query
+            });
+        })
+
+        router.post(v + admin + 'finance/search-declarations', (req, res) => {
+            const searchValue = (req.body.q || '').trim();
+            req.session.data.q = searchValue;
+
+            if (searchValue && searchValue !== '999') {
+                return res.redirect(v + admin + 'teachers-details?section=declarations#dec-1');
+            }
+
+            req.session.data.searchDeclarationsNoResults = true;
+            return res.render(vGet + '/admin/finance/search-declarations', {
+                query: req.query
+            });
+        })
+
         router.get(v + admin + 'finance/statements', (req, res) => {
             const financeData = req.session.data.financeData || [];
             
