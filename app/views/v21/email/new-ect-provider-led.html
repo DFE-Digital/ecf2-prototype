@@ -1,0 +1,72 @@
+{% extends "layouts/email.html" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+{{ super() }}
+
+    <h1 class="govuk-heading-m">New ECT registered (provider-led)</h1>
+
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+    <div class="govuk-inset-text">
+         <h2 class="govuk-heading-s">When</h2>
+         <p>Automatically triggered on completed provider-led ECT registration in the service.</p>
+         <h2 class="govuk-heading-s">Why</h2>
+         <p>Email to ECTs to:</p>
+          <ul class="govuk-list govuk-list--bullet">
+        <li>let them know they've been registered for training</li>  
+        <li>let them know what they'll get</li>  
+        <li>provide support and privacy statement links</li>  
+
+        </ul>
+        </div>
+
+
+    
+     
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+
+    <div class="govuk-inset-text">
+  Subject: You’ve been registered for early career teacher training and support
+</div>
+
+<p>Hello ((early_career_teacher_name)),</p>
+
+<p>((school)) has registered you for a training programme for early career teachers (ECTs).</p>
+
+<p>The training is part of your 2-year early career teacher entitlement (ECTE). It aims to support you during your first years as a qualified teacher.</p>
+
+<p>You’ll get:</p>
+<ul class="govuk-list govuk-list--bullet">
+    <li>early career training</li> 
+    <li>support from a mentor at your school</li> 
+    <li>time off from your timetable to take part in training activities</li>  
+ </ul>
+
+<h2 class="govuk-heading-m">Your training programme</h2>
+
+<p>Your school is using a training provider for this programme. The provider will contact you directly with more information and access to training materials.</p>
+
+<h2 class="govuk-heading-m">Where to find help and information</h2>
+<p>You can read more about ECT training and support in our <a href="https://www.gov.uk/government/publications/early-career-teachers-your-training-and-support-entitlement">ECT guidance</a>.</p>
+
+<p>Speak to you school’s induction tutor if you have questions about your training programme and ECTE at your school.</p>
+
+<h2 class="govuk-heading-m">Your information and privacy</h2>
+<p>Our <a href="https://www.gov.uk/government/publications/privacy-information-education-providers-workforce-including-teachers">privacy notice</a> explains how we store and use your information.</p>
+
+<p>Regards,</p>
+
+<p>Teacher Continuing Professional Development</p>
+<p>Department for Education</p>
+
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+    <!-- <p><a href="#" class="govuk-link govuk-link--no-visited-state">Unsubscribe from these emails</a></p> -->
+{% endblock %}
