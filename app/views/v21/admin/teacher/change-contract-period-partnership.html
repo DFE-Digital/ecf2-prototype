@@ -1,0 +1,77 @@
+{% extends "layouts/admin.html" %}
+
+{% set contractPeriod = data['contract-period'] or "2022" %}
+{% set activeNav="teachers" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if contractPeriod == "2025" %}
+    <h1 class="govuk-heading-l">There are no other partnerships set up</h1>
+
+    <p>You need to add another partnership for Abacus Primary School before you can change John Smith's contract period to {{ contractPeriod }}.</p>
+
+    <p><a href="../organisations/school-details?section=partnerships">Add another partnership for Abacus Primary School</a></p>
+    {% else %}
+
+    {% if data['partnershipAdded'] == true %}
+    {{govukRadios({
+      name: "new-partnership",
+      fieldset: {
+        legend: {
+          text: "Select partnership for " + contractPeriod + " for John Smith",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: "alpha",
+          text: "Ambition Institute & Alpha Teaching School Hub",
+          checked: true
+        },
+        {
+          value: "saffron",
+          text: "Ambition Institute & Saffron Teaching School Hub"
+        }
+      ]
+    })}}
+    {% else %}
+    {{govukRadios({
+      name: "new-partnership",
+      fieldset: {
+        legend: {
+          text: "Select partnership for " + contractPeriod + " for John Smith",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: "alpha",
+          text: "Ambition Institute & Alpha Teaching School Hub",
+          checked: true
+        }
+      ]
+    })}}
+    {% endif %}
+
+    <div class="govuk-inset-text">
+      If you need to add a new partnership, go to <a href="../organisations/school-details?section=partnerships">school partnerships</a>.
+    </div>
+
+    <form method="post">
+      <button class="govuk-button" data-module="govuk-button">Continue</button>
+    </form>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends "layouts/email.html" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+{{ super() }}
+
+    <h1 class="govuk-heading-m">New school induction tutor</h1>
+
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+    <div class="govuk-inset-text">
+         <h2 class="govuk-heading-s">When</h2>
+         <p>Automatically triggered by change of induction tutor.</p>
+         <h2 class="govuk-heading-s">Why</h2>
+         <p>Email to induction tutor to:</p>
+          <ul class="govuk-list govuk-list--bullet">
+        <li>let them know they are the induction tutor</li>  
+        <li>let them know what it means for them</li>  
+        <li>provide links to induction tutor guidance and privacy statement</li>
+        <li>provide service link</li>  
+
+        </ul>
+        </div>
+   
+    
+             <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+
+    <div class="govuk-inset-text">
+  Subject: You are the induction tutor for ((school_name))
+</div>
+
+<p>Hello ((sit_name)),</p>
+
+    <h2 class="govuk-heading-m">You are the induction tutor for ((school_name))</h2>
+
+    <p>((school_name)) has told us that you’re the induction tutor for the early career teacher entitlement (ECTE) at the school.</p>
+
+<h2 class="govuk-heading-m">The early career teacher entitlement (ECTE)</h2>
+
+<p>The ECTE is designed to help early career teachers (ECTs) during their first few years. Induction tutors play an important role in the ECTE.</p>
+
+<h2 class="govuk-heading-m">What this means for you</h2>
+
+<p>You’ll be the school’s point of contact for the ECTE. We share your name and email with your school’s appropriate bodies and lead providers (if your school is using provider-led training).</p>
+
+<p>You’ll be responsible for:</p>
+<ul class="govuk-list govuk-list--bullet">
+        <li>registering ECTs and mentors for training as part of their ECTE</li>    
+        <li>managing ECT and mentor changes during ECTE</li>
+ </ul>
+
+ <p>We need this information to arrange the correct funding and access to training.</p>
+
+<h2 class="govuk-heading-m">If your school has never registered ECTs or mentors for ECTE</h2>
+
+<p>Find out what you need to do with our <a href="https://www.gov.uk/guidance/set-up-and-manage-the-early-career-teacher-entitlement">setting up and managing early career teacher entitlement</a> guidance.</p>
+
+
+<h2 class="govuk-heading-m">Register and manage ECTs and mentors</h2>
+
+<p>You’ll need to use our <a href="https://staging.register-early-career-teachers.education.gov.uk/">register early career teachers</a> service to register and manage changes.</p>
+
+<p>To use the service, you’ll need a <a href="https://services.signin.education.gov.uk/">DfE Sign-in</a> account with approved access to:</p>
+
+<ul class="govuk-list govuk-list--bullet">
+        <li>your school (organisation)</li>    
+        <li>the register early career teachers service</li>
+ </ul>
+
+ <p>You can get help with <a href="https://edd-help.signin.education.gov.uk/contact">DfE Sign-in</a>.</p>
+
+<h2 class="govuk-heading-m">Help and information</h2>
+
+<p>You can find out more about the ECTE and your role as an induction tutor with our <a href="https://www.gov.uk/government/collections/induction-training-and-support-for-early-career-teachers-ects">early career teacher guidance</a>.</p> 
+
+<h2 class="govuk-heading-m">Your information and privacy</h2>
+
+<p>Our <a href="https://www.gov.uk/government/publications/privacy-information-education-providers-workforce-including-teachers">privacy notice</a> explains how we store and use your information.</p> 
+
+<h2 class="govuk-heading-m">Sign in</h2>
+
+<p>Sign in to <a href="https://staging.register-early-career-teachers.education.gov.uk/">register early career teachers</a>.</p> 
+
+
+
+<p>Regards,</p>
+
+<p>Teacher Continuing Professional Development</p>
+<p>Department for Education</p>
+
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+  <!--  <p><a href="#" class="govuk-link govuk-link--no-visited-state">Unsubscribe from these emails</a></p> -->
+{% endblock %}
