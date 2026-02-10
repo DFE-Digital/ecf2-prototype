@@ -77,7 +77,17 @@ module.exports = router => {
 
     // admin teacher change contract period
     router.post(v + admin + 'teacher/change-contract-period', (req, res) => {
-        if (req.session.data['contract-period'] === '2022') {
+        const contractPeriod = req.session.data['contract-period']
+
+        if (!contractPeriod) {
+            return res.render(vGet + admin + 'teacher/change-contract-period', {
+                errors: {
+                    contractPeriod: 'Select a new contract period'
+                }
+            })
+        }
+
+        if (contractPeriod === '2022') {
             return res.render(vGet + admin + 'teacher/change-contract-period', {
                 errors: {
                     contractPeriod: 'Select a different contract period'
@@ -89,6 +99,57 @@ module.exports = router => {
 
     router.post(v + admin + 'teacher/change-contract-period-partnership', (req, res) => {
         res.redirect(v + admin + 'teacher/confirm-contract-period-change')
+    })
+
+    // admin teacher change schedule
+    router.post(v + admin + 'teacher/change-schedule', (req, res) => {
+        const scheduleType = req.body['schedule-type']
+        const scheduleStart = req.body['schedule-start']
+        const errors = {}
+        const errorList = []
+
+        if (!scheduleType && !scheduleStart) {
+            const noScheduleMessage = 'Select a new schedule'
+            errors.scheduleType = noScheduleMessage
+            errors.scheduleStart = noScheduleMessage
+            errorList.push({
+                text: noScheduleMessage,
+                href: '#schedule-type'
+            })
+        } else {
+            if (!scheduleType) {
+                errors.scheduleType = 'Select a schedule type'
+                errorList.push({
+                    text: errors.scheduleType,
+                    href: '#schedule-type'
+                })
+            }
+
+            if (!scheduleStart) {
+                errors.scheduleStart = 'Select a schedule start'
+                errorList.push({
+                    text: errors.scheduleStart,
+                    href: '#schedule-start'
+                })
+            }
+        }
+
+        if (scheduleType === 'standard' && scheduleStart === 'september') {
+            const sameScheduleMessage = 'John Smith is already on this schedule. Select a different one'
+            errors.scheduleType = sameScheduleMessage
+            errors.scheduleStart = sameScheduleMessage
+            errorList.length = 0
+            errorList.push({
+                text: errors.scheduleType,
+                href: '#schedule-type'
+            })
+        }
+
+        if (Object.keys(errors).length > 0) {
+            return res.render(vGet + admin + 'teacher/change-schedule', { errors, errorList })
+        }
+
+        res.redirect(v + admin + 'teacher/confirm-schedule-change')
     })
 
     // change induction tutor journey
