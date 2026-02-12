@@ -19,11 +19,11 @@
       rows: [
         {
           key: { text: "Existing schedule" },
-          value: { text: "Standard, September" }
+          value: { text: "ecf-standard-september" }
         },
         {
           key: { text: "New schedule" },
-          value: { text: (data['schedule-type'] or "standard") | capitalize + ", " + (data['schedule-start'] or "september") | capitalize }
+          value: { text: "ecf-" + ((data['schedule-type'] or "standard") | lower) + "-" + ((data['schedule-start'] or "september") | lower) }
         }
       ]
     }) }}
