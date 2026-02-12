@@ -3,7 +3,7 @@
 {% if data['partnershipAdded'] == true %}
 {% set pageName="Select a partnership for John Smith" %}
 {% else %} 
-{% set pageName="There are no partnerships set up for 2025" %}
+{% set pageName="There are no other partnerships set up" %}
 {% endif %}
 
 {% set activeNav="teachers" %}
@@ -55,7 +55,7 @@
     {% else %}
     <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
-    <p>You need to add a 2025 partnership for Abacus Primary School before you can change John Smith's contract period to 2025.</p>
+    <p>You need to add another partnership for Abacus Primary School before you can move John Smith.</p>
 
 
     <p><a href="../organisations/school-details?section=partnerships">Add another partnership for Abacus Primary School</a></p>
