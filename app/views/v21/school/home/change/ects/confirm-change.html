@@ -150,15 +150,19 @@ href: "javascript:window.history.back()"
             }
           ]) %}
         {% elif isAppropriateBodyChange %}
-          {% set summaryRows = summaryRows.concat([
-            {
-              key: {
-                text: "Current appropriate body"
-              },
-              value: {
-                text: currentValue
+          {% if data['previousAppropriateBody'] !== null %}
+            {% set summaryRows = summaryRows.concat([
+              {
+                key: {
+                  text: "Current appropriate body"
+                },
+                value: {
+                  text: currentValue
+                }
               }
-            },
+            ]) %}
+          {% endif %}
+          {% set summaryRows = summaryRows.concat([
             {
               key: {
                 text: "New appropriate body"

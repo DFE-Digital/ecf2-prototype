@@ -105,14 +105,28 @@ const ects = [
         mentorId: 'steven-davies',
         status: 'Registered',
         statusClass: 'govuk-tag--green',
-        schoolStartDate: '10 September 2024',
+        schoolStartDate: '10 February 2026',
         inductionStartDate: null,
         workingPattern: 'Full time',
         leadProvider: 'Education Development Trust',
         appropriateBody: 'Alpha Teaching School Hub',
         trainingProgramme: 'Provider-led',
         deliveryPartner: null,
-    }
+    },
+    {
+        id: 'robbie-fowler',
+        name: 'Robbie Fowler',
+        trn: '2930100',
+        email: 'robbie-fowler@email.com',
+        mentorId: 'steven-davies',
+        status: 'Registered',
+        statusClass: 'govuk-tag--green',
+        inductionStartDate: null,
+        leadProvider: 'Ambition Institute',
+        appropriateBody: null,
+        trainingProgramme: 'Provider-led',
+        deliveryPartner: 'Alpha Teaching School Hub',
+    }    
 ];
 
 const mentors = [

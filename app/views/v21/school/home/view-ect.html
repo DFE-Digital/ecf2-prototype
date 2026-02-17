@@ -105,6 +105,7 @@ href: "ects"
           {% endif %}          
         </dd>
       </div>
+      {% if activeEct.schoolStartDate != null %}
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           School start date
@@ -113,6 +114,8 @@ href: "ects"
           {{ activeEct.schoolStartDate }}
         </dd>
       </div>
+      {% endif %}
+      {% if activeEct.workingPattern != null %}
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           Working pattern
@@ -126,6 +129,7 @@ href: "ects"
           {% endif %}
         </dd>
       </div>
+      {% endif %}
     </dl>
 
     <h2 class="govuk-heading-m">Induction details</h2>
@@ -135,16 +139,22 @@ href: "ects"
               Appropriate body
             </dt>
             <dd class="govuk-summary-list__value">
+              {% if activeEct.appropriateBody == null %}
+              Not reported
+              {% else %}
               {{ activeEct.appropriateBody }}
+              {% endif %}
+              {% if activeEct.appropriateBody != null %}
             {% if activeEct.inductionStartDate === null %}
               <span class="govuk-caption-m">No appropriate body has recorded the ECT's induction yet. This might be because induction has not started.</span>
             {% endif %}
             {% if activeEct.inductionStartDate !== null %}
               <span class="govuk-caption-m">This appropriate body has recorded the ECT's induction.</span>
             {% endif %}  
+            {% endif %}
             </dd>
             <dd class="govuk-summary-list__actions">
-            {% if activeEct.inductionStartDate === null %}
+            {% if activeEct.inductionStartDate === null or activeEct.appropriateBody === null %}
               {% if activeEct.status !== 'Completed induction' %} 
               <a class="govuk-link" href="change/ects/change-appropriate-body?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> appropriate body</span></a>
               {% endif %}
