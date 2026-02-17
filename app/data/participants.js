@@ -105,7 +105,7 @@ const ects = [
         mentorId: 'steven-davies',
         status: 'Registered',
         statusClass: 'govuk-tag--green',
-        schoolStartDate: '10 February 2026',
+        schoolStartDate: '1 September 2026',
         inductionStartDate: null,
         workingPattern: 'Full time',
         leadProvider: 'Education Development Trust',

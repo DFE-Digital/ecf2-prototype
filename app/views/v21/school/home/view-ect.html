@@ -156,7 +156,13 @@ href: "ects"
             <dd class="govuk-summary-list__actions">
             {% if activeEct.inductionStartDate === null or activeEct.appropriateBody === null %}
               {% if activeEct.status !== 'Completed induction' %} 
-              <a class="govuk-link" href="change/ects/change-appropriate-body?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> appropriate body</span></a>
+              <a class="govuk-link" href="change/ects/change-appropriate-body?ectId={{ activeEct.id }}">
+                {% if activeEct.appropriateBody == null %}
+                Add
+                {% else %}
+                Change
+                {% endif %}
+                <span class="govuk-visually-hidden"> appropriate body</span></a>
               {% endif %}
             {% endif %}  
             </dd>
