@@ -127,10 +127,12 @@
                                 <dt class="govuk-summary-list__key">TRN</dt>
                                 <dd class="govuk-summary-list__value">{{ ect.trn }}</dd>
                             </div>
+                            {% if ect.schoolStartDate != null %}
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">School start date</dt>
                                 <dd class="govuk-summary-list__value">{{ ect.schoolStartDate }}</dd>
                             </div>
+                            {% endif %}
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">Mentor</dt>
                                 <dd class="govuk-summary-list__value">
@@ -157,6 +159,7 @@
                     </div>
                     <div class="govuk-grid-column-one-half">
                         <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                            {% if ect.appropriateBody != null %}
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">Appropriate body</dt>
                                 <dd class="govuk-summary-list__value">{{ect.appropriateBody}}
@@ -168,6 +171,7 @@
                                 {% endif %}       
                                 </dd>                           
                             </div>
+                            {% endif %}
                             {% if ect.trainingProgramme != 'School-led' %}
                             {% if ect.status != 'No longer training' %}
                             <div class="govuk-summary-list__row">
