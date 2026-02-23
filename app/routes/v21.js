@@ -1320,6 +1320,12 @@ module.exports = router => {
             });
         })
 
+        router.get(v + admin + 'users/users', (req, res) => {
+            res.render(vGet + '/admin/users/users', {
+                query: req.query
+            });
+        })
+
         router.get(v + admin + 'organisations/delete-partnership', (req, res) => {
             res.render(vGet + '/admin/organisations/delete-partnership');
         })
@@ -1663,6 +1669,25 @@ module.exports = router => {
             }
 
             res.redirect(v + admin + 'teachers-details?section=declarations&declarationVoided=1');
+        })
+
+        router.post(v + admin + 'users/remove-access-daphne-blake', (req, res) => {
+            const confirmRemoveAccess = req.body['confirm-remove-access'];
+            const hasConfirmation = Array.isArray(confirmRemoveAccess)
+                ? confirmRemoveAccess.includes('yes')
+                : confirmRemoveAccess === 'yes';
+
+            if (!hasConfirmation) {
+                return res.render(vGet + '/admin/users/remove-access-daphne-blake', {
+                    query: req.query,
+                    confirmRemoveAccess: '',
+                    errors: {
+                        confirmRemoveAccess: 'Confirm you want to remove Daphne Blake as a user'
+                    }
+                });
+            }
+
+            res.redirect(v + admin + 'users/users?accessRemoved=1');
         })
     
         // add adjustment page

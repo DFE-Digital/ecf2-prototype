@@ -1,0 +1,52 @@
+{% extends "layouts/admin.html" %}
+
+{% set activeNav="users" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back",
+  href: "daphne-blake"
+}) }}
+{% endblock %}
+
+{% block content %}
+{% if errors and errors.confirmRemoveAccess %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{{ govukErrorSummary({
+  titleText: "There is a problem",
+  errorList: [
+    {
+      text: errors.confirmRemoveAccess,
+      href: "#confirm-remove-access"
+    }
+  ]
+}) }}
+{% endif %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Remove Daphne Blake as a user</h1>
+    
+    <p class="govuk-body">
+      If you remove this user, they will lose access to the admin console immediately.
+    </p>
+
+    <form method="post" action="remove-access-daphne-blake">
+      {{ govukCheckboxes({
+        idPrefix: "confirm-remove-access",
+        name: "confirm-remove-access",
+        errorMessage: { text: errors.confirmRemoveAccess } if errors and errors.confirmRemoveAccess else false,
+        items: [
+          {
+            value: "yes",
+            text: "I confirm I want to remove Daphne Blake as a user",
+            checked: confirmRemoveAccess == "yes"
+          }
+        ]
+      }) }}
+
+      <button class="govuk-button govuk-button--warning" data-module="govuk-button">Confirm</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
