@@ -159,19 +159,23 @@
                     </div>
                     <div class="govuk-grid-column-one-half">
                         <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
-                            {% if ect.appropriateBody != null %}
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">Appropriate body</dt>
+                                {% if ect.appropriateBody == null %}
+                                <dd class="govuk-summary-list__value">Not reported</dd>
+                                {% else %}
                                 <dd class="govuk-summary-list__value">{{ect.appropriateBody}}
+                                {% endif %}    
                                 {% if ect.inductionStartDate === null %}
+                                {% if ect.appropriateBody != null %}
                                 <span class="govuk-caption-m">No appropriate body has recorded the ECT's induction yet. This might be because induction has not started.</span>
+                                {% endif %}
                                 {% endif %}
                                 {% if ect.inductionStartDate !== null %}
                                 <!-- <span class="govuk-caption-m">This appropriate body has recorded the ECT's induction.</span> -->
                                 {% endif %}       
                                 </dd>                           
                             </div>
-                            {% endif %}
                             {% if ect.trainingProgramme != 'School-led' %}
                             {% if ect.status != 'No longer training' %}
                             <div class="govuk-summary-list__row">
