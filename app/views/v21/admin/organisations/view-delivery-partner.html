@@ -14,6 +14,11 @@
     .search-box__input {
         flex-grow: 1;
     }
+    code {
+        background-color: #f3f2f1;
+        font-family: monospace;
+        padding: 2px 5px;
+    }
 </style>
 {% endblock %}
 
@@ -49,8 +54,9 @@
         })}} -->
 
         <h1 class="govuk-heading-l">{{pageName}}</h1>
-
+        
         <p><a href="dp-change-name">Change delivery partner name</a></p>
+        <p class="govuk-body">API ID: <code>37938590-694f-4883-8902-77713802a082</code></p>
 
         <!-- {{govukSummaryList({
             rows: [
