@@ -403,7 +403,7 @@ classes: "govuk-!-display-none-print"
                     </tr>
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">Clawbacks</td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric">£{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(clawbackAmount) }}{% else %}0.00{% endif %}</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£ 900.00</td>
                     </tr>
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">Additional adjustments</td>
@@ -837,6 +837,13 @@ classes: "govuk-!-display-none-print"
                 </tr>
                 </tbody>
             </table>
+            <div class="govuk-!-text-align-right govuk-heading-s govuk-!-margin-bottom-0">
+                Total
+            </div>
+
+            <div class="govuk-!-text-align-right govuk-heading-s">
+                £{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(upliftTotal) }}{% else %}0.00{% endif %}
+            </div>            
         </div>
         {% endif %}
         
@@ -896,13 +903,20 @@ classes: "govuk-!-display-none-print"
                     <th class="govuk-table__header govuk-table__header--numeric" scope="col">Payments</th>
                 </tr>
                 </thead>
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Started (Band C)</td>
+                        <td class="govuk-table__cell">5</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£180.00</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">£900.00</td>
+                </tbody>
             </table>
             <div class="govuk-!-text-align-right govuk-heading-s govuk-!-margin-bottom-0">
                 Total
             </div>
 
             <div class="govuk-!-text-align-right govuk-heading-s">
-                £0.00
+                £900.00
             </div>
         </div>
         {% endif %}
@@ -988,6 +1002,7 @@ classes: "govuk-!-display-none-print"
                             4590
                         </dd>
                     </div>
+                    {% if query.contractYear|int < 2025 %}
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
                             Uplift target
@@ -1004,6 +1019,7 @@ classes: "govuk-!-display-none-print"
                             £100.00
                         </dd>
                     </div>
+                    {% endif %}
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
                             Set-up Fee
