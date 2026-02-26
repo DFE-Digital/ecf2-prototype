@@ -599,7 +599,15 @@
                     },
                     {
                       key: { text: "Schedule" },
-                      value: { text: "ecf-standard-september" }
+                      value: { text: "ecf-standard-september" },
+                      actions: {
+                        items: [{
+                          classes: "govuk-link--no-visited-state",
+                          href: "teacher/change-schedule?mentor=1",
+                          text: "Change",
+                          visuallyHiddenText: "schedule"
+                        }]
+                      }
                     },
                     {
                       key: { text: "Start date" },
