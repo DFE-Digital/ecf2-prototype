@@ -655,8 +655,13 @@ classes: "govuk-!-display-none-print"
             <div class="govuk-!-text-align-right govuk-heading-s">
                 £{% if currentStatement and currentStatement.status != "Not applicable" %}{{ currency(ectOutputTotal) }}{% else %}347.28{% endif %}
             </div>
-
-            <br>
+        </div>
+    </div>
+</div>        
+        
+<div class="govuk-grid-row govuk-!-margin-top-5 print-page-break">
+    <div class="govuk-grid-column-full">        
+        <div class="finance-panel finance-panel__output-payments">            
             <table class="govuk-table output-payments">
                 <caption class="govuk-table__caption govuk-table__caption--m">Mentor output payments</caption>
                 <thead class="govuk-table__head">
