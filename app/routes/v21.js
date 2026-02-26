@@ -102,6 +102,12 @@ module.exports = router => {
     })
 
     // admin teacher change schedule
+    router.get(v + admin + 'teacher/change-schedule', (req, res) => {
+        res.render(vGet + admin + 'teacher/change-schedule', {
+            query: req.query
+        })
+    })
+
     router.post(v + admin + 'teacher/change-schedule', (req, res) => {
         const scheduleType = req.body['schedule-type']
         const scheduleStart = req.body['schedule-start']
@@ -146,7 +152,11 @@ module.exports = router => {
         }
 
         if (Object.keys(errors).length > 0) {
-            return res.render(vGet + admin + 'teacher/change-schedule', { errors, errorList })
+            return res.render(vGet + admin + 'teacher/change-schedule', {
+                query: req.query,
+                errors,
+                errorList
+            })
         }
 
         res.redirect(v + admin + 'teacher/confirm-schedule-change')

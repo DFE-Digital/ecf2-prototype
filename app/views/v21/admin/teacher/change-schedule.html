@@ -2,6 +2,7 @@
 
 {% set pageName="Select new schedule for John Smith" %}
 {% set activeNav="teachers" %}
+{% set isMentorScheduleChange = query.mentor == "1" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -25,10 +26,19 @@
       <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
       <h2 class="govuk-heading-m">Select schedule type</h2>
-      {{govukRadios({
-        name: "schedule-type",
-        errorMessage: { text: errors.scheduleType } if errors and errors.scheduleType else false,
-        items: [
+      {% if isMentorScheduleChange %}
+        {% set scheduleTypeItems = [
+          {
+            value: "standard",
+            text: "Standard"
+          },
+          {
+            value: "extended",
+            text: "Extended"
+          }
+        ] %}
+      {% else %}
+        {% set scheduleTypeItems = [
           {
             value: "standard",
             text: "Standard"
@@ -41,7 +51,12 @@
             value: "reduced",
             text: "Reduced"
           }
-        ]
+        ] %}
+      {% endif %}
+      {{govukRadios({
+        name: "schedule-type",
+        errorMessage: { text: errors.scheduleType } if errors and errors.scheduleType else false,
+        items: scheduleTypeItems
       })}}
 
       <h2 class="govuk-heading-m">Select schedule start</h2>
