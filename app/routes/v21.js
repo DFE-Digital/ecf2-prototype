@@ -1788,6 +1788,35 @@ module.exports = router => {
         res.redirect(v + 'admin/finance/statement?' + queryParams);
     });
 
+    // Confirm remove adjustment page
+    router.get(v + admin + 'finance/confirm-remove-adjustment', (req, res) => {
+        const { provider, contractYear, statement, index } = req.query;
+
+        // Ensure req.session.data.adjustmentArray exists
+        if (!Array.isArray(req.session.data.adjustmentArray)) {
+            req.session.data.adjustmentArray = [];
+        }
+
+        const adjustmentIndex = parseInt(index);
+        const adjustment = req.session.data.adjustmentArray[adjustmentIndex];
+
+        // If the index is invalid, return to statement unchanged
+        if (!adjustment) {
+            const queryParams = new URLSearchParams({
+                provider: provider || '',
+                contractYear: contractYear || '',
+                statement: statement || ''
+            }).toString();
+
+            return res.redirect(v + 'admin/finance/statement?' + queryParams);
+        }
+
+        res.render(vGet + '/admin/finance/confirm-remove-adjustment', {
+            query: req.query,
+            adjustmentName: adjustment.adjustmentName
+        });
+    });
+
     // Remove adjustment route
     router.get(v + admin + 'finance/remove-adjustment', (req, res) => {
         const { provider, contractYear, statement, index } = req.query;

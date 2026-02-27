@@ -944,7 +944,7 @@ classes: "govuk-!-display-none-print"
                     <td class="govuk-table__cell govuk-table__cell--numeric">                
                         <a class="govuk-link" href="add-adjustment?provider={{ query.provider | urlencode }}&contractYear={{ query.contractYear }}&statement={{ query.statement | urlencode }}&edit={{ loop.index0 }}&adjustmentName={{ item.adjustmentName | urlencode }}&amount={{ item.amount }}">Change</a>
                         &nbsp;&nbsp;|&nbsp;&nbsp;
-                        <a class="govuk-link" href="remove-adjustment?provider={{ query.provider | urlencode }}&contractYear={{ query.contractYear }}&statement={{ query.statement | urlencode }}&index={{ loop.index0 }}">Remove</a>
+                        <a class="govuk-link" href="confirm-remove-adjustment?provider={{ query.provider | urlencode }}&contractYear={{ query.contractYear }}&statement={{ query.statement | urlencode }}&index={{ loop.index0 }}">Remove</a>
                     </td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">£{{ currency(item.amount|float) }}</td>
                 </tr>
@@ -962,11 +962,13 @@ classes: "govuk-!-display-none-print"
                     {% endif %}
                     &nbsp;
                 </div>
-
-                <div class="govuk-grid-column-one-half govuk-!-text-align-right govuk-heading-s">
+            <div class="govuk-grid-column-one-half">
+                    <div class="govuk-!-text-align-right govuk-heading-s govuk-!-margin-bottom-0">
                     Total
-                    <br>
+                    </div>
+                <div class="govuk-!-text-align-right govuk-heading-s">
                     £{% if currentStatement and adjustmentsTotal %}{{ currency(adjustmentsTotal) }}{% else %}0.00{% endif %}
+                </div>
                 </div>
             </div>
 
