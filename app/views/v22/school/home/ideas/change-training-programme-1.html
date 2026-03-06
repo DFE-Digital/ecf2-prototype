@@ -1,0 +1,101 @@
+{% extends "layouts/ects.html" %}
+
+{# Find the active ECT from the ects array based on the 'ectId' query parameter #}
+{% set ectId = data.ectId %}
+{% set activeEct = {} %}
+{% for person in data.ects %}
+  {% if person.id == ectId %}
+    {% set activeEct = person %}
+  {% endif %}
+{% endfor %}
+
+{% set name = activeEct.name %}
+{% set currentTrainingProgramme = activeEct.trainingProgramme %}
+
+{# Determine the new training programme (the opposite of current) #}
+{% if currentTrainingProgramme == 'School-led' %}
+  {% set newTrainingProgramme = 'Provider-led' %}
+{% else %}
+  {% set newTrainingProgramme = 'School-led' %}
+{% endif %}
+
+{% set pageName="Change " + name + "'s training programme to " + newTrainingProgramme | lower %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+            <p>If your school wants to change its training programme, you should, for continuity, make changes at the end of the school year.</p>
+
+        {% if newTrainingProgramme == 'Provider-led' %}
+    <p class="govuk-body">If you change {{name}}'s training from school-led to provider-led, it means:</p>  
+    <ul class="govuk-list govuk-list--bullet">
+                  <li>your school will work with providers who'll deliver training funded by the Department for Education</li>
+                <li>your school will need to choose a lead provider who'll arrange the training</li>
+                <li>the lead provider will confirm which delivery partner they'll work with to deliver training events</li>
+            </ul>
+                    <p class="govuk-body">Read our guidance on <a href="https://www.gov.uk/guidance/set-up-and-manage-the-early-career-teacher-entitlement#choose-your-schools-training-option">choosing and setting up a training programme</a>.</p>
+
+        {% else %}
+<p class="govuk-body">If you change {{name}}'s training from provider-led to school-led, it means immediately:</p>          
+              <ul class="govuk-list govuk-list--bullet">
+                      <li>the old lead provider will no longer have access to {{name}}'s training record</li>
+  <li>{{name}}'s training with the lead provider will end</li>
+  </ul>
+
+  <p class="govuk-body">Your school is responsible for designing and delivery a school-led training programme. You should tell your appropriate body if your programme is school-led as they'll need to check and approve it.</p>
+
+
+                    <p class="govuk-body">Read our guidance on <a href="https://www.gov.uk/guidance/set-up-and-manage-the-early-career-teacher-entitlement#choose-your-schools-training-option">choosing and setting up a training programme</a>.</p>
+            <p class="govuk-body">You should not change to a school-led programme in this service until it's been approved by your appropriate body.</p>
+
+        {% endif %}
+
+
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      <h2 class="govuk-heading-m">
+Are you sure you want to change John Smith's training programme to school-led?      </h2>
+    </legend>
+  <!--  <div id="changedName-hint" class="govuk-hint">
+      This includes changing your last name or spelling your name differently
+    </div>
+  -->
+    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="changedName" name="changedName" type="radio" value="yes">
+        <label class="govuk-label govuk-radios__label" for="changedName">
+          Yes
+        </label>
+      </div> 
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="changedName-2" name="changedName" type="radio" value="no">
+        <label class="govuk-label govuk-radios__label" for="changedName-2">
+          No
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+        <form method="post">
+            <input type="hidden" name="id" value="{{ ectId }}">
+            <input type="hidden" name="newTrainingProgramme" value="{{ newTrainingProgramme }}">
+
+            <button class="govuk-button">Continue</button>
+            <p><a href="javascript:window.history.back()">Cancel and go back to {{ name }}'s details</a></p>
+        </form>
+    </div>
+</div>
+ 
+{% endblock %} 

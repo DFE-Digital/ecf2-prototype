@@ -1,0 +1,86 @@
+{% extends "layouts/admin.html" %}
+
+{% set pageName="Select new schedule for John Smith" %}
+{% set activeNav="teachers" %}
+{% set isMentorScheduleChange = query.mentor == "1" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+{% if errorList and errorList.length %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{{ govukErrorSummary({
+  titleText: "There is a problem",
+  errorList: errorList
+}) }}
+{% endif %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="post">
+      <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+      <h2 class="govuk-heading-m">Select schedule type</h2>
+      {% if isMentorScheduleChange %}
+        {% set scheduleTypeItems = [
+          {
+            value: "standard",
+            text: "Standard"
+          },
+          {
+            value: "extended",
+            text: "Extended"
+          }
+        ] %}
+      {% else %}
+        {% set scheduleTypeItems = [
+          {
+            value: "standard",
+            text: "Standard"
+          },
+          {
+            value: "extended",
+            text: "Extended"
+          },
+          {
+            value: "reduced",
+            text: "Reduced"
+          }
+        ] %}
+      {% endif %}
+      {{govukRadios({
+        name: "schedule-type",
+        errorMessage: { text: errors.scheduleType } if errors and errors.scheduleType else false,
+        items: scheduleTypeItems
+      })}}
+
+      <h2 class="govuk-heading-m">Select schedule start</h2>
+      {{govukRadios({
+        name: "schedule-start",
+        errorMessage: { text: errors.scheduleStart } if errors and errors.scheduleStart else false,
+        items: [
+          {
+            value: "september",
+            text: "September"
+          },
+          {
+            value: "january",
+            text: "January"
+          },
+          {
+            value: "april",
+            text: "April"
+          }
+        ]
+      })}}
+
+      <button class="govuk-button" data-module="govuk-button">Continue</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

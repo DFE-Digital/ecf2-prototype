@@ -1,0 +1,87 @@
+{% extends "layouts/ects.html" %}
+
+{% set pageName="John Smith has been registered before" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+        <form method="post">
+
+            {{ govukSummaryList({
+            card: {
+            title: {
+            text: "Previously registered details"
+            }
+            },
+            rows: [
+            {
+            key: {
+            text: "School name"
+            },
+            value: {
+            html: "Test Primary School"
+            }
+            },
+            {
+            key: {
+            text: "Induction start date"
+            },
+            value: {
+            html: "10 January 2023"
+            }
+            },
+            {
+            key: {
+            text: "Appropriate body"
+            },
+            value: {
+            html: "Teach West London"
+            }
+            },
+            {
+            key: {
+            text: "Training programme"
+            },
+            value: {
+            html: "Provider-led"
+            }
+            },
+            {
+            key: {
+            text: "Lead provider"
+            },
+            value: {
+            html: "Ambition Institute"
+            }
+            },
+            {
+            key: {
+            text: "Delivery partner"
+            },
+            value: {
+            html: "Teach West London"
+            }
+            }
+            ]
+            }) }}
+
+            <p>You'll be able to tell us what kind of training they'll continue with later.</p>
+
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

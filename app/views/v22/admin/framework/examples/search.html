@@ -1,0 +1,195 @@
+{% extends "layouts/plain.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    /* Custom styles for search example */
+    .search-box__form {
+        display: flex;
+        gap: 15px;
+        align-items: flex-end;
+        flex-wrap: wrap;
+    }
+    
+    .search-box__input {
+        flex-grow: 1;
+    }
+</style>
+{% endblock %}
+
+{% block header %}
+{{ super() }}
+{% endblock %}
+
+{% set pageName="Search for items" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "../index"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-8">{{pageName}}</h1>
+        <p>This example shows how to use a search function with table results. Users can search for items and see the results displayed in a table format.</p>
+          
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+        <!-- Search form -->
+        <form class="search-box__form" accept-charset="UTF-8">
+                <div class="search-box__input">
+                    <div class="govuk-form-group">
+                        <label for="q-field" class="govuk-label govuk-label--s">
+                            Search for school
+                        </label>
+                        <div class="govuk-hint" id="q-hint">Name, URN or postcode</div>
+                        <input id="q-field" class="govuk-input" aria-describedby="q-hint" type="text" name="q" value="{{data.q}}">
+                    </div>
+                </div>
+
+                <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Search</button>
+        </form>
+
+        <!-- Calculate results for count display -->
+        {% set searchTerm = (data.q | lower) if data.q else "" %}
+        {% set resultCount = 0 %}
+        
+        <!-- Count results first -->
+        {% if not data.q %}
+            {% set resultCount = 10 %}
+        {% else %}
+            {% if searchTerm in "st mary's school" or searchTerm in "130579" or searchTerm in "ab12 3cd" %}{% set resultCount = resultCount + 1 %}{% endif %}
+            {% if searchTerm in "oakwood school" or searchTerm in "163802" or searchTerm in "ef45 6gh" %}{% set resultCount = resultCount + 1 %}{% endif %}
+            {% if searchTerm in "riverside school" or searchTerm in "195147" or searchTerm in "ij78 9kl" %}{% set resultCount = resultCount + 1 %}{% endif %}
+            {% if searchTerm in "victoria school" or searchTerm in "128460" or searchTerm in "mn01 2op" %}{% set resultCount = resultCount + 1 %}{% endif %}
+            {% if searchTerm in "greenfield school" or searchTerm in "157391" or searchTerm in "qr34 5st" %}{% set resultCount = resultCount + 1 %}{% endif %}
+            {% if searchTerm in "hillside school" or searchTerm in "182654" or searchTerm in "uv67 8wx" %}{% set resultCount = resultCount + 1 %}{% endif %}
+            {% if searchTerm in "st john's school" or searchTerm in "114829" or searchTerm in "yz90 1ab" %}{% set resultCount = resultCount + 1 %}{% endif %}
+            {% if searchTerm in "meadowbrook school" or searchTerm in "143675" or searchTerm in "cd23 4ef" %}{% set resultCount = resultCount + 1 %}{% endif %}
+            {% if searchTerm in "eastgate school" or searchTerm in "176208" or searchTerm in "gh56 7ij" %}{% set resultCount = resultCount + 1 %}{% endif %}
+            {% if searchTerm in "westfield school" or searchTerm in "101543" or searchTerm in "kl89 0mn" %}{% set resultCount = resultCount + 1 %}{% endif %}
+        {% endif %}
+
+        {% if data.q and resultCount > 0 %}
+        <p class="govuk-body">
+            <span class="govuk-!-font-weight-bold">{{ resultCount }}</span> result{% if resultCount != 1 %}s{% endif %} found for "{{data.q}}"
+        </p>
+        {% endif %}
+
+        <!-- Results table -->
+        {% if data.q or not data.q %}
+            {% if resultCount > 0 %}
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">Name</th>
+                            <th scope="col" class="govuk-table__header">URN</th>
+                            <th scope="col" class="govuk-table__header">Postcode</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        {% if not data.q or searchTerm in "st mary's school" or searchTerm in "130579" or searchTerm in "ab12 3cd" %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">St Mary's School</a>
+                            </td>
+                            <td class="govuk-table__cell">130579</td>
+                            <td class="govuk-table__cell">AB12 3CD</td>
+                        </tr>
+                        {% endif %}
+                        {% if not data.q or searchTerm in "oakwood school" or searchTerm in "163802" or searchTerm in "ef45 6gh" %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Oakwood School</a>
+                            </td>
+                            <td class="govuk-table__cell">163802</td>
+                            <td class="govuk-table__cell">EF45 6GH</td>
+                        </tr>
+                        {% endif %}
+                        {% if not data.q or searchTerm in "riverside school" or searchTerm in "195147" or searchTerm in "ij78 9kl" %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Riverside School</a>
+                            </td>
+                            <td class="govuk-table__cell">195147</td>
+                            <td class="govuk-table__cell">IJ78 9KL</td>
+                        </tr>
+                        {% endif %}
+                        {% if not data.q or searchTerm in "victoria school" or searchTerm in "128460" or searchTerm in "mn01 2op" %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Victoria School</a>
+                            </td>
+                            <td class="govuk-table__cell">128460</td>
+                            <td class="govuk-table__cell">MN01 2OP</td>
+                        </tr>
+                        {% endif %}
+                        {% if not data.q or searchTerm in "greenfield school" or searchTerm in "157391" or searchTerm in "qr34 5st" %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Greenfield School</a>
+                            </td>
+                            <td class="govuk-table__cell">157391</td>
+                            <td class="govuk-table__cell">QR34 5ST</td>
+                        </tr>
+                        {% endif %}
+                        {% if not data.q or searchTerm in "hillside school" or searchTerm in "182654" or searchTerm in "uv67 8wx" %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Hillside School</a>
+                            </td>
+                            <td class="govuk-table__cell">182654</td>
+                            <td class="govuk-table__cell">UV67 8WX</td>
+                        </tr>
+                        {% endif %}
+                        {% if not data.q or searchTerm in "st john's school" or searchTerm in "114829" or searchTerm in "yz90 1ab" %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">St John's School</a>
+                            </td>
+                            <td class="govuk-table__cell">114829</td>
+                            <td class="govuk-table__cell">YZ90 1AB</td>
+                        </tr>
+                        {% endif %}
+                        {% if not data.q or searchTerm in "meadowbrook school" or searchTerm in "143675" or searchTerm in "cd23 4ef" %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Meadowbrook School</a>
+                            </td>
+                            <td class="govuk-table__cell">143675</td>
+                            <td class="govuk-table__cell">CD23 4EF</td>
+                        </tr>
+                        {% endif %}
+                        {% if not data.q or searchTerm in "eastgate school" or searchTerm in "176208" or searchTerm in "gh56 7ij" %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Eastgate School</a>
+                            </td>
+                            <td class="govuk-table__cell">176208</td>
+                            <td class="govuk-table__cell">GH56 7IJ</td>
+                        </tr>
+                        {% endif %}
+                        {% if not data.q or searchTerm in "westfield school" or searchTerm in "101543" or searchTerm in "kl89 0mn" %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Westfield School</a>
+                            </td>
+                            <td class="govuk-table__cell">101543</td>
+                            <td class="govuk-table__cell">KL89 0MN</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="govuk-body">No results found</p>
+            {% endif %}
+        {% endif %}
+        
+    </div>
+</div>
+
+{% endblock %} 
