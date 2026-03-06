@@ -1,0 +1,100 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Prototype setup" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+        <form method="post">
+
+        {{ govukRadios({
+        name: "defaultsAlreadyAdded",
+        fieldset: {
+        legend: {
+        text: "Default programme details already added"
+        }
+        },
+        items: [
+        {
+        value: "yes",
+        text: "Yes - added previously"
+        },
+        {
+        value: "no",
+        text: "No - user asked to add default programme details"
+        }
+        ]
+        }) }}
+
+<!--
+
+        {{ govukRadios({
+        name: "namePulledBack",
+        fieldset: {
+        legend: {
+        text: "Name pulled back to confirm from DQT"
+        }
+        },
+        items: [
+        {
+        value: "yes",
+        text: "Yes - user asked to confirm name"
+        },
+        {
+        value: "no",
+        text: "No - user asked to input name"
+        }
+        ]
+        }) }}
+
+        {{ govukRadios({
+        name: "askForNino",
+        fieldset: {
+        legend: {
+        text: "Ask for National Insurance number for ECT"
+        }
+        },
+        items: [
+        {
+        value: "yes",
+        text: "Yes"
+        },
+        {
+        value: "no",
+        text: "No"
+        }
+        ]
+        }) }}
+
+-->
+
+        {{ govukRadios({
+        name: "mentorsAddedPreviously",
+        fieldset: {
+        legend: {
+        text: "Mentors already previously added for school"
+        }
+        },
+        items: [
+        {
+        value: "yes",
+        text: "Yes"
+        },
+        {
+        value: "no",
+        text: "No"
+        }
+        ]
+        }) }}
+
+
+            {{ govukButton({
+            text: "Start prototype journey"
+            }) }}
+        </form>
+    </div>
+</div>
+
+{% endblock %}

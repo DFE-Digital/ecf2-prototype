@@ -1,0 +1,67 @@
+{% extends "layouts/mentors.html" %}
+
+{% set pageName="Who is John Doe mentoring?" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+            {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+            {{ govukCheckboxes({
+            name: "mentoring",
+            fieldset: {
+            legend: {
+            text: pageName,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+            }
+            },
+            hint: {
+            text: "Select all that apply"
+            },
+            items: [
+            {
+            value: "John Smith",
+            text: "John Smith",
+            checked: true
+            },
+            {
+            value: "Steven Taylor",
+            text: "Steven Taylor",
+            checked: true
+            },
+            {
+            value: "Emily Brown",
+            text: "Emily Brown",
+            hint: {
+            text: "Currently mentored by Tom Jones"
+            }
+            },
+            {
+            divider: "or"
+            },
+            {
+            value: "John Doe will not mentor anyone",
+            text: "John Doe will not mentor anyone",
+            behaviour: "exclusive"
+            }
+            ]
+            }) }}
+
+            {{ govukButton({
+            text: "Confirm changes"
+            }) }}
+        </form>
+    </div>
+</div>
+
+{% endblock %}

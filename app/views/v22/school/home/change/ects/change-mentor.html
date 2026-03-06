@@ -1,0 +1,97 @@
+{% extends "layouts/ects.html" %}
+
+{# Find the active ECT from the ects array based on the 'ectId' query parameter #}
+{% set ectId = data.ectId or 'john-smith' %}
+{% set activeEct = {} %}
+{% for person in data.ects %}
+  {% if person.id == ectId %}
+    {% set activeEct = person %}
+  {% endif %}
+{% endfor %}
+
+{# Find the current mentor name #}
+{% set currentMentorName = 'Not assigned' %}
+{% if activeEct.mentorId %}
+    {% for person in data.mentors %}
+        {% if person.id == activeEct.mentorId %}
+            {% set currentMentorName = person.name %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% set pageName="Who will mentor " + activeEct.name + "?" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+        {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+        {# Build the mentor options, excluding the current mentor #}
+        {% set mentorOptions = [] %}
+        {% for mentor in data.mentors %}
+            {% if mentor.id != activeEct.mentorId %}
+                {% set mentorOptions = mentorOptions.concat([{
+                    value: mentor.id,
+                    text: mentor.name
+                }]) %}
+            {% endif %}
+        {% endfor %}
+
+        {# Add divider and disabled register option #}
+        {% set mentorOptions = mentorOptions.concat([
+            {
+                divider: "or"
+            },
+            {
+                value: "Register a new mentor",
+                text: "Register a new mentor"
+            }
+        ]) %}
+
+        {{ govukRadios({
+        name: "newMentorId",
+        fieldset: {
+        legend: {
+        text: pageName,
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+        }
+        },
+        items: mentorOptions
+        }) }}
+
+            <!-- Pass the ECT ID through the form -->
+            <input type="hidden" name="ectId" value="{{ activeEct.id }}">
+
+            <button class="govuk-button">Continue</button>
+            <p><a href="javascript:window.history.back()">Cancel and go back to {{ activeEct.name }}'s details</a></p>
+
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add click handler to prevent selecting the disabled option
+    const disabledOption = document.querySelector('input[value="Register a new mentor"]');
+    if (disabledOption) {
+        disabledOption.addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('This journey is not added to the prototype yet - select something else.');
+            return false;
+        });
+    }
+});
+</script>
+
+{% endblock %} 

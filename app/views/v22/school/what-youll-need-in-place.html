@@ -1,0 +1,73 @@
+{% extends "layouts/ects.html" %}
+
+{% set pageName="What you'll need to register a new ECT" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+       
+
+            <h1 class="govuk-heading-l">What your school needs in place to register ECTs and mentors for ECTE</h1>
+<p>Before you use this service, your school needs to have certain things in place to support ECTE.</p>
+
+<p>Your school needs to have:</p>
+<ul class="govuk-list govuk-list--bullet">
+    <li>appointed an appropriate body</li>
+            <li>decided on the training programme it wants to use (provider or school-led)</li>
+            <li>partnered with a lead provider (if using a provider-led training programme)</li>
+        </ul>
+
+        <p>Your school will also need to do the following, but you do not need to do this before you can use the service:</p>
+<ul class="govuk-list govuk-list--bullet">
+         <li>choose an appropriate person to act as an induction tutor</li>
+         <li>choose mentors to support ECTs</li>
+        </ul>
+
+        <p>Read our guidance on <a href="https://www.gov.uk/guidance/set-up-and-manage-the-early-career-teacher-entitlement" target="_blank" >setting up and managing ECTE in your school (opens in a new tab)</a>.</p>
+
+                <h2 class="govuk-heading-m">What you need to register ECTs and mentors</h2>
+<p>For ECTs and mentors you'll need to provide their:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>name</li>
+            <li>teacher reference number (TRN)</li>
+            <li>date of birth</li>
+            <li>email address</li>
+            <li>lead provider</li>
+        </ul>
+        <p>For ECTs only, you'll also need to provide their:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>start date at your school as an ECT</li>
+            <li>working pattern (full or part-time)</li>
+            <li>appropriate body</li>
+            <li>training option (provider or school-led)</li>
+        </ul>
+
+        <h2 class="govuk-heading-m">The role of appropriate bodies, lead providers, and delivery partners</h2>
+
+       
+                <p>An appropriate body is responsible for assuring the quality of the statutory induction of ECTs.</p>
+                <p>For provider-led training, the lead provider provides the online learning platform used for training ECTs and mentors. The delivery partner delivers training events.
+                </p>
+                <p>These roles are sometimes done by the same organisation. For example, an appropriate body might be the same organisation as the delivery partner.
+                </p>
+                <p>For school-led training your school will still work with an appropriate body to quality assure the induction process.</p>
+              
+
+             <form method="post">
+                {{ govukButton({
+            text: "Continue to DfE Sign-in",
+            isStartButton: true
+            }) }}
+        </form>
+    </div>
+</div>
+
+{% endblock %}

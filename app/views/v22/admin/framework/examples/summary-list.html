@@ -1,0 +1,93 @@
+{% extends "layouts/plain.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    /* Custom styles for summary list example */
+</style>
+{% endblock %}
+
+{% set pageName="Summary list" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "../index"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+        <p>This example shows how to use the summary list component to display details about a person or organisation. We'd use this when we need to show key information in a structured format with the ability to change individual fields.</p>
+
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+        <h2 class="govuk-heading-m">Teacher details</h2>
+
+        <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Name</dt>
+                <dd class="govuk-summary-list__value">Sarah Johnson</dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">Change <span class="govuk-visually-hidden">name</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Email address</dt>
+                <dd class="govuk-summary-list__value">sarah.johnson@school.edu</dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">Change <span class="govuk-visually-hidden">email address</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">School start date</dt>
+                <dd class="govuk-summary-list__value">1 September 2023</dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">Change <span class="govuk-visually-hidden">school start date</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Working pattern</dt>
+                <dd class="govuk-summary-list__value">Full time</dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">Change <span class="govuk-visually-hidden">working pattern</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Programme type</dt>
+                <dd class="govuk-summary-list__value">Provider-led</dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">Change <span class="govuk-visually-hidden">programme type</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Lead provider</dt>
+                <dd class="govuk-summary-list__value">Ambition Institute</dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">Change <span class="govuk-visually-hidden">lead provider</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Delivery partner</dt>
+                <dd class="govuk-summary-list__value">Local Teaching School Hub</dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">Change <span class="govuk-visually-hidden">delivery partner</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Appropriate body</dt>
+                <dd class="govuk-summary-list__value">Local Teaching School Hub</dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">Change <span class="govuk-visually-hidden">appropriate body</span></a>
+                </dd>
+            </div>
+        </dl>
+
+    </div>
+</div>
+
+{% endblock %} 
