@@ -107,7 +107,8 @@
                 "trn": trn | string,
                 "role": role,
                 "urn": urn | string,
-                "contractPeriod": contractPeriod
+                "contractPeriod": contractPeriod,
+                "contractSortValue": (0 if contractPeriod == "Not applicable" else (contractPeriod | int))
             } %}
             {% set allTeachers = allTeachers.concat([teacher]) %}
         {% endfor %}
@@ -131,6 +132,8 @@
                 {% set filteredTeachers = filteredTeachers.concat([teacher]) %}
             {% endif %}
         {% endfor %}
+
+        {% set filteredTeachers = filteredTeachers | sort(false, false, "name") | sort(true, false, "contractSortValue") %}
 
         <!-- Show results count -->
         {% if (data.q or (data.roleFilter and data.roleFilter != 'All') or (data.contractPeriodFilter and data.contractPeriodFilter != 'All')) and filteredTeachers.length > 0 %}

@@ -1,5 +1,5 @@
 // Change versions here
-var v = '/v2/'
+var v = '/v22/'
 var vGet = 'v22/'
 var vSingle = 'v22/'
 
@@ -1399,14 +1399,74 @@ module.exports = router => {
             });
         })
 
-        router.get(v + admin + 'finance/statements', (req, res) => {
+        router.get([
+            v + admin + 'finance/statements',
+            v + admin + 'finance/statements-old',
+            v + admin + 'finance/statements-month-input'
+        ], (req, res) => {
             const financeData = req.session.data.financeData || [];
+            const statementsRouteSuffix = req.path.endsWith('/finance/statements-old')
+                ? 'statements-old'
+                : req.path.endsWith('/finance/statements-month-input')
+                    ? 'statements-month-input'
+                    : 'statements';
             
             // Get query parameters for filtering
             const provider = req.query.provider || 'All';
             const year = req.query.year || 'All';
-            const date = req.query.date || 'All';
             const statementType = req.query.statementType || 'Output statements';
+            const validStatements = new Set(financeData.map(item => item.statement));
+
+            const normaliseString = value => (typeof value === 'string' ? value.trim() : '');
+            const rawDate = normaliseString(req.query.date);
+            const rawDateMonth = normaliseString(req.query.dateMonth);
+            const rawDateYear = normaliseString(req.query.dateYear);
+            const rawDateIso = normaliseString(req.query.dateIso);
+
+            let date = 'All';
+
+            if (rawDate && rawDate !== 'All') {
+                date = validStatements.has(rawDate) ? rawDate : 'All';
+            } else if (rawDateMonth && rawDateYear && rawDateMonth !== 'All' && rawDateYear !== 'All') {
+                const parsedYear = parseInt(rawDateYear, 10);
+                const composedDate = `${rawDateMonth} ${rawDateYear}`;
+
+                if (
+                    months.includes(rawDateMonth) &&
+                    Number.isInteger(parsedYear) &&
+                    String(parsedYear) === rawDateYear &&
+                    validStatements.has(composedDate)
+                ) {
+                    date = composedDate;
+                }
+            } else if (rawDateIso) {
+                const isoMatch = rawDateIso.match(/^(\d{4})-(\d{2})$/);
+                if (isoMatch) {
+                    const isoYear = isoMatch[1];
+                    const isoMonthIndex = parseInt(isoMatch[2], 10) - 1;
+                    if (isoMonthIndex >= 0 && isoMonthIndex < months.length) {
+                        const composedDateFromIso = `${months[isoMonthIndex]} ${isoYear}`;
+                        if (validStatements.has(composedDateFromIso)) {
+                            date = composedDateFromIso;
+                        }
+                    }
+                }
+            }
+
+            const queryForView = { ...req.query, date };
+            if (date !== 'All') {
+                const [selectedMonth, selectedYear] = date.split(' ');
+                const monthIndex = months.indexOf(selectedMonth);
+                queryForView.dateMonth = selectedMonth;
+                queryForView.dateYear = selectedYear;
+                queryForView.dateIso = monthIndex !== -1
+                    ? `${selectedYear}-${String(monthIndex + 1).padStart(2, '0')}`
+                    : '';
+            } else {
+                queryForView.dateMonth = 'All';
+                queryForView.dateYear = 'All';
+                queryForView.dateIso = '';
+            }
             
             // Apply filters to the data
             let filteredData = [...financeData];
@@ -1499,14 +1559,19 @@ module.exports = router => {
             const showEllipsisEnd = page < totalPages - 2;
             
             // Build the base query string for pagination links
-            const baseQueryString = Object.entries(req.query)
-                .filter(([key]) => key !== 'page')
+            const paginationQuery = { ...queryForView };
+            delete paginationQuery.page;
+            delete paginationQuery.dateMonth;
+            delete paginationQuery.dateYear;
+
+            const baseQueryString = Object.entries(paginationQuery)
+                .filter(([, value]) => value !== '' && value !== null && value !== undefined)
                 .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
                 .join('&');
             
             const getPageUrl = (pageNum) => {
                 const separator = baseQueryString ? '&' : '';
-                return `${v}${admin}finance/statements?${baseQueryString}${separator}page=${pageNum}`;
+                return `${v}${admin}finance/${statementsRouteSuffix}?${baseQueryString}${separator}page=${pageNum}`;
             };
             
             // Add page numbers
@@ -1541,7 +1606,7 @@ module.exports = router => {
             const nextPage = page < totalPages ? page + 1 : null;
             
             // Render with pagination data
-            res.render(vGet + '/admin/finance/statements', {
+            res.render(vGet + '/admin/finance/' + statementsRouteSuffix, {
                 financeStatements: currentPageData,
                 pagination: {
                     items: paginationItems,
@@ -1555,7 +1620,7 @@ module.exports = router => {
                 currentPage: page,
                 totalPages: totalPages,
                 totalItems: totalItems,
-                query: req.query
+                query: queryForView
             });
         })
     
