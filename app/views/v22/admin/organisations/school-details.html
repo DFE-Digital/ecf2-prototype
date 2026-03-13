@@ -89,16 +89,8 @@
         {% set rawSection = query.section or data.section or "overview" %}
         {% set currentSection = rawSection.split("?")[0] %}
         {% set tableQueryValue = query.table or data.table or "" %}
-        {% if not tableQueryValue and rawSection.indexOf("table=sortable") > -1 %}
-            {% set tableQueryValue = "sortable" %}
-        {% endif %}
-        {% set isSearchableMode = false %}
-        {% if query.searchable is defined or data.searchable is defined %}
-            {% set isSearchableMode = true %}
-        {% endif %}
-        {% if not isSearchableMode and rawSection.indexOf("searchable") > -1 %}
-            {% set isSearchableMode = true %}
-        {% endif %}
+
+        {% set isSearchableMode = true %}}
 
         {{ xGovukSecondaryNavigation({
           visuallyHiddenTitle: "Secondary menu",
@@ -279,6 +271,10 @@
 
                     <button type="submit" class="govuk-button govuk-button--secondary filter-button" data-module="govuk-button">Search</button>
                 </form>
+                {% endif %}
+
+                {% if not isSortableTable %}
+                    {% set teachersToRender = teachersToRender | sort(false, false, "name") | sort(true, false, "contractSortValue") %}
                 {% endif %}
 
                 {% if teachersToRender.length == 0 %}
