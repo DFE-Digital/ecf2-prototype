@@ -148,6 +148,7 @@
                 {% set firstNames = ["James", "Mary", "John", "Patricia", "Robert", "Jennifer", "Michael", "Linda", "William", "Elizabeth", "David", "Barbara", "Richard", "Susan", "Joseph", "Jessica", "Thomas", "Sarah", "Christopher", "Karen", "Charles", "Nancy", "Daniel", "Lisa", "Matthew", "Betty", "Anthony", "Helen", "Mark", "Sandra"] %}
                 {% set lastNames = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin", "Lee", "Perez", "Thompson", "White", "Harris", "Sanchez", "Clark", "Ramirez", "Lewis", "Robinson"] %}
                 {% set roles = ["Early career teacher", "Mentor"] %}
+                {% set contractPeriodOptions = [2023, 2024, "Not applicable", 2025] %}
                 {% set isSortableTable = tableQueryValue == "sortable" %}
                 {% set teachers = [] %}
                 {% for i in range(20) %}
@@ -156,45 +157,62 @@
                     {% set fullName = firstName + " " + lastName %}
                     {% set trn = (1000000 + ((i * 123456 + 789012) % 9000000)) %}
                     {% set isDualRoleTeacher = i == 4 or i == 13 %}
-                    {% set isNotApplicableContractTeacher = i == 2 or i == 11 %}
                     {% set role = roles[i % (roles | length)] %}
-                    {% set contractYear = 2022 + (i % 4) %}
                     {% if isDualRoleTeacher %}
-                        {% set ectYear = 2022 + (i % 2) %}
-                        {% set mentorYear = 2025 %}
+                        {% set ectContractOption = contractPeriodOptions[((i * 3) + 1) % (contractPeriodOptions | length)] %}
+                        {% if ectContractOption == "Not applicable" %}
+                            {% set ectDisplay = "Not applicable" %}
+                            {% set ectSortValue = 0 %}
+                            {% set ectYearsForFilter = [] %}
+                        {% else %}
+                            {% set ectDisplay = ectContractOption | string %}
+                            {% set ectSortValue = ectContractOption %}
+                            {% set ectYearsForFilter = [ectContractOption] %}
+                        {% endif %}
+                        {% set mentorContractOption = contractPeriodOptions[((i * 5) + 2) % (contractPeriodOptions | length)] %}
+                        {% if mentorContractOption == "Not applicable" %}
+                            {% set mentorDisplay = "Not applicable" %}
+                            {% set mentorSortValue = 0 %}
+                            {% set mentorYearsForFilter = [] %}
+                        {% else %}
+                            {% set mentorDisplay = mentorContractOption | string %}
+                            {% set mentorSortValue = mentorContractOption %}
+                            {% set mentorYearsForFilter = [mentorContractOption] %}
+                        {% endif %}
                         {% set ectTeacher = {
                             "name": fullName,
                             "trn": trn,
                             "roleDisplay": "Early career teacher",
                             "roleSortValue": "Early career teacher",
-                            "contractDisplay": ectYear | string,
-                            "contractSortValue": ectYear,
+                            "contractDisplay": ectDisplay,
+                            "contractSortValue": ectSortValue,
                             "rolesForFilter": ["Early career teacher"],
-                            "contractYearsForFilter": [ectYear]
+                            "contractYearsForFilter": ectYearsForFilter
                         } %}
                         {% set mentorTeacher = {
                             "name": fullName,
                             "trn": trn,
                             "roleDisplay": "Mentor",
                             "roleSortValue": "Mentor",
-                            "contractDisplay": mentorYear | string,
-                            "contractSortValue": mentorYear,
+                            "contractDisplay": mentorDisplay,
+                            "contractSortValue": mentorSortValue,
                             "rolesForFilter": ["Mentor"],
-                            "contractYearsForFilter": [mentorYear]
+                            "contractYearsForFilter": mentorYearsForFilter
                         } %}
                         {% set teachers = teachers.concat([ectTeacher, mentorTeacher]) %}
                     {% else %}
                         {% set roleDisplay = role %}
                         {% set roleSortValue = role %}
                         {% set rolesForFilter = [role] %}
-                        {% if isNotApplicableContractTeacher %}
+                        {% set contractOption = contractPeriodOptions[((i * 7) + 3) % (contractPeriodOptions | length)] %}
+                        {% if contractOption == "Not applicable" %}
                             {% set contractDisplay = "Not applicable" %}
                             {% set contractSortValue = 0 %}
                             {% set contractYearsForFilter = [] %}
                         {% else %}
-                            {% set contractDisplay = contractYear | string %}
-                            {% set contractSortValue = contractYear %}
-                            {% set contractYearsForFilter = [contractYear] %}
+                            {% set contractDisplay = contractOption | string %}
+                            {% set contractSortValue = contractOption %}
+                            {% set contractYearsForFilter = [contractOption] %}
                         {% endif %}
                         {% set teacher = {
                             "name": fullName,
@@ -209,6 +227,14 @@
                         {% set teachers = teachers.concat([teacher]) %}
                     {% endif %}
                 {% endfor %}
+
+                {% set non2022Teachers = [] %}
+                {% for teacher in teachers %}
+                    {% if teacher.contractSortValue != 2022 %}
+                        {% set non2022Teachers = non2022Teachers.concat([teacher]) %}
+                    {% endif %}
+                {% endfor %}
+                {% set teachers = (non2022Teachers | sort(false, false, "name")).slice(0, 7) %}
 
                 {% set teachersToRender = teachers %}
                 {% set searchTerm = (query.q or data.q or "") | trim %}
@@ -273,9 +299,7 @@
                 </form>
                 {% endif %}
 
-                {% if not isSortableTable %}
-                    {% set teachersToRender = teachersToRender | sort(false, false, "name") | sort(true, false, "contractSortValue") %}
-                {% endif %}
+                {% set teachersToRender = teachersToRender | sort(false, false, "name") %}
 
                 {% if teachersToRender.length == 0 %}
                 <p class="govuk-body">No results found</p>
