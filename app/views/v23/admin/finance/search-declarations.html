@@ -1,0 +1,54 @@
+{% extends "layouts/admin.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    /* Custom styles for search and filter */
+    .search-filter-form {
+        display: flex;
+        gap: 15px;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+    }
+    
+    .search-input-group {
+        flex-grow: 1;
+        min-width: 250px;
+    }
+</style>
+{% endblock %}
+
+{% set pageName="Search declarations" %}
+{% set activeNav="finance" %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+        <form class="search-filter-form" accept-charset="UTF-8" method="post" action="search-declarations">
+            <div class="search-input-group">
+                <div class="govuk-form-group">
+                    <label for="q-field" class="govuk-label govuk-label--s">
+                        Search for a declaration
+                    </label>
+                    <div class="govuk-hint" id="q-hint">Enter a declaration ID</div>
+                    <input id="q-field" class="govuk-input" aria-describedby="q-hint" type="text" name="q" value="{{data.q}}">
+                </div>
+            </div>
+
+            <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Search</button>
+        </form>
+
+        {% if data.searchDeclarationsNoResults %}
+            <p class="govuk-body">No matching ID found</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
