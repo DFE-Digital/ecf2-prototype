@@ -1,0 +1,25 @@
+{% set serviceName="Change service name here" %}
+
+{% extends "layouts/main.html" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{serviceName}}</h1>
+
+        <p>Body text</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>list item 1</li>
+            <li>list item 2</li>
+        </ul>
+
+        <form method="post">
+            {{ govukButton({
+            text: "Start button",
+            isStartButton: true
+            }) }}
+        </form></div>
+</div>
+
+{% endblock %}

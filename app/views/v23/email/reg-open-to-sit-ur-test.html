@@ -1,0 +1,56 @@
+{% extends "layouts/email.html" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+{{ super() }}
+
+
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+
+    <div class="govuk-inset-text">
+  Subject: Registration for early career teachers and mentors open for academic year 2026-2027
+</div>
+
+<p>Hello ((sit_name)),</p>
+
+<p>We're sending you this email as our records show that you're the induction tutor for ((school_name)).</p>
+
+<p>You can now register early career teachers (ECTs) and mentors for the 2026-2027 academic year with <a href="https://staging.register-early-career-teachers.education.gov.uk/">register early career teachers</a>.</p> 
+
+<p>To use the service you’ll need:</p>
+<ul class="govuk-list govuk-list--bullet">
+        <li>a DfE Sign-in account</li>    
+        <li>approved access to the service</li>
+ </ul>
+
+<h2 class="govuk-heading-m">DfE Sign-in account and service access</h2>
+
+<p>If you do not have a DfE Sign-in account, <a href="https://services.signin.education.gov.uk/">you can create one</a>.</p>
+
+<p>If you do not have access to the service, you can request it from your school or organisation’s approver using your DfE Sign-in account.</p>
+
+
+<h2 class="govuk-heading-m">Confirm your school’s induction tutor for the 2026-2027 academic year</h2>
+
+<p>When you first register ECTs and mentors for this academic year, we’ll ask you to confirm if you’ll be the induction tutor, or if it will be someone else.</p>
+
+
+<h2 class="govuk-heading-m">Sign in</h2>
+
+<p>Sign in to <a href="https://staging.register-early-career-teachers.education.gov.uk/">register early career teachers</a>.</p> 
+
+<p>Regards,</p>
+
+<p>Teacher Continuing Professional Development</p>
+<p>Department for Education</p>
+
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+   <!--  <p><a href="#" class="govuk-link govuk-link--no-visited-state">Unsubscribe from these emails</a></p> -->
+{% endblock %}
