@@ -248,7 +248,7 @@
       }
 
       function updateTriggerText(dateValue) {
-        triggerValue.textContent = dateValue === 'All' ? 'All statement dates' : dateValue;
+        triggerValue.textContent = dateValue === 'All' ? 'All' : dateValue;
       }
 
       function renderDialog() {
@@ -323,6 +323,7 @@
       clearLink.addEventListener('click', function (event) {
         event.preventDefault();
         setDateValue('All');
+        closeDialog();
       });
 
       closeButton.addEventListener('click', function () {
@@ -524,7 +525,7 @@
                                         aria-expanded="false"
                                         aria-labelledby="statement-date-label statement-date-trigger-value"
                                         aria-describedby="statement-date-hint">
-                                        <span id="statement-date-trigger-value" data-month-year-trigger-value>{% if selectedDate != 'All' %}{{ selectedDate }}{% else %}All statement dates{% endif %}</span>
+                                        <span id="statement-date-trigger-value" data-month-year-trigger-value>{% if selectedDate != 'All' %}{{ selectedDate }}{% else %}All{% endif %}</span>
                                     </button>
                                 </div>
 
