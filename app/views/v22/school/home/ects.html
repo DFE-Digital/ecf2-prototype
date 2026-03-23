@@ -168,7 +168,11 @@
                                 {% endif %}    
                                 {% if ect.inductionStartDate === null %}
                                 {% if ect.appropriateBody != null %}
-                                <span class="govuk-caption-m">No appropriate body has recorded the ECT's induction yet. This might be because induction has not started.</span>
+                                <!-- <span class="govuk-caption-m">No appropriate body has recorded the ECT's induction yet. This might be because induction has not started.</span> -->
+              <span class="govuk-caption-m">Awaiting confirmation by the appropriate body</span>
+                                <!-- <span class="govuk-caption-m">The appropriate body will confirm when they record the ECT's induction</span> -->
+
+
                                 {% endif %}
                                 {% endif %}
                                 {% if ect.inductionStartDate !== null %}

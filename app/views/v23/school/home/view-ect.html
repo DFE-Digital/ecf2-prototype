@@ -146,10 +146,11 @@ href: "ects"
               {% endif %}
               {% if activeEct.appropriateBody != null %}
             {% if activeEct.inductionStartDate === null %}
-              <span class="govuk-caption-m">No appropriate body has recorded the ECT's induction yet. This might be because induction has not started.</span>
+              <span class="govuk-caption-m">Awaiting confirmation by the appropriate body</span>
             {% endif %}
             {% if activeEct.inductionStartDate !== null %}
               <span class="govuk-caption-m">This appropriate body has recorded the ECT's induction.</span>
+              <span class="govuk-caption-m">Contact them if this is wrong or if you want to change the appropriate body.</span>
             {% endif %}  
             {% endif %}
             </dd>
