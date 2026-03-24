@@ -109,8 +109,11 @@
                 {% endif %}
             </h1>
         </div>
-        
-        <h2 class="govuk-heading-m">What happens next</h2>
+
+        {% if not isWorkingPatternChange %}
+        <h2 class="govuk-heading-m">What happens next</h2> 
+        {% endif %}
+
         
         {% if isNameChange %}
             <p>The ECT can update their name in their teacher record using the Access your teaching qualifications service.</p>
@@ -120,7 +123,7 @@
             <p class="govuk-body">We'll let {{changedValue}} know they're now the appropriate body for {{name}}'s induction.</p>
                 <p>They'll contact us to confirm the change.</p>
         {% elif isWorkingPatternChange %}
-               <p class="govuk-body">We'll pass this information on so adjustments can be made to {{name}}'s training if needed.</p>
+               <!-- <p class="govuk-body">We'll pass this information on so adjustments can be made to {{name}}'s training if needed.</p> -->
         {% elif isTrainingProgrammeChange %}
             {% if changedValue == 'Provider-led' %}
                    <p class="govuk-body">  {% if data['changedLeadProvider'] %}We'll let {{data['changedLeadProvider']}} know your school wants to work with them so they can arrange training.{% else %}We will let the lead provider know your school wants to work with them so they can arrange training.{% endif %}</p>
