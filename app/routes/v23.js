@@ -1401,12 +1401,15 @@ module.exports = router => {
 
         router.get([
             v + admin + 'finance/statements',
+            v + admin + 'finance/statements-3',
             v + admin + 'finance/statements-old',
             v + admin + 'finance/statements-month-input'
         ], (req, res) => {
             const financeData = req.session.data.financeData || [];
             const statementsRouteSuffix = req.path.endsWith('/finance/statements-old')
                 ? 'statements-old'
+                : req.path.endsWith('/finance/statements-3')
+                    ? 'statements-3'
                 : req.path.endsWith('/finance/statements-month-input')
                     ? 'statements-month-input'
                     : 'statements';
@@ -1497,129 +1500,221 @@ module.exports = router => {
                 }
             }
             
-            // Sort data by contract year and then by statement date
-            filteredData.sort((a, b) => {
-                // First sort by contract year (ascending)
-                if (a.contractYear !== b.contractYear) {
-                    return a.contractYear - b.contractYear;
-                }
-                
-                // If same contract year, sort by statement date
-                const aDateParts = a.statement.split(' ');
-                const bDateParts = b.statement.split(' ');
-                
-                const aMonth = aDateParts[0];
-                const aYear = parseInt(aDateParts[1]);
-                
-                const bMonth = bDateParts[0];
-                const bYear = parseInt(bDateParts[1]);
-                
-                // Sort by year first
-                if (aYear !== bYear) {
-                    return aYear - bYear;
-                }
-                
-                // If same year, sort by month
-                const monthOrder = {
-                    "January": 1, 
-                    "February": 2, 
-                    "March": 3, 
-                    "April": 4, 
-                    "May": 5, 
-                    "June": 6, 
-                    "July": 7, 
-                    "August": 8, 
-                    "September": 9, 
-                    "October": 10, 
-                    "November": 11, 
-                    "December": 12
-                };
-                
-                return monthOrder[aMonth] - monthOrder[bMonth];
-            });
-            
-            // Pagination logic
-            const page = parseInt(req.query.page) || 1;
-            const itemsPerPage = 20;
-            const totalItems = filteredData ? filteredData.length : 0;
-            const totalPages = Math.ceil(totalItems / itemsPerPage);
-            
-            // Calculate the start and end indices for the current page
-            const startIndex = (page - 1) * itemsPerPage;
-            const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-            
-            // Get the subset of data for the current page
-            const currentPageData = filteredData ? filteredData.slice(startIndex, endIndex) : [];
-            
-            // Generate pagination items
-            const paginationItems = [];
-            
-            // Add ellipsis logic for many pages
-            const showEllipsisStart = page > 3;
-            const showEllipsisEnd = page < totalPages - 2;
-            
-            // Build the base query string for pagination links
-            const paginationQuery = { ...queryForView };
-            delete paginationQuery.page;
-            delete paginationQuery.dateMonth;
-            delete paginationQuery.dateYear;
+            const getStatementMonthIndex = statementLabel => {
+                const statementParts = statementLabel.split(' ');
+                const statementMonth = statementParts[0];
+                const statementYear = parseInt(statementParts[1], 10);
+                const monthIndex = months.indexOf(statementMonth);
 
-            const baseQueryString = Object.entries(paginationQuery)
-                .filter(([, value]) => value !== '' && value !== null && value !== undefined)
-                .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
-                .join('&');
-            
-            const getPageUrl = (pageNum) => {
-                const separator = baseQueryString ? '&' : '';
-                return `${v}${admin}finance/${statementsRouteSuffix}?${baseQueryString}${separator}page=${pageNum}`;
-            };
-            
-            // Add page numbers
-            for (let i = 1; i <= totalPages; i++) {
-                // Show first and last pages, and pages around the current page
-                if (
-                    i === 1 || 
-                    i === totalPages || 
-                    (i >= page - 1 && i <= page + 1) ||
-                    (i === 2 && page <= 3) ||
-                    (i === totalPages - 1 && page >= totalPages - 2)
-                ) {
-                    paginationItems.push({
-                        number: i,
-                        current: i === page,
-                        href: getPageUrl(i)
-                    });
-                } 
-                // Add ellipsis (as a non-link item)
-                else if (
-                    (i === 2 && showEllipsisStart) || 
-                    (i === totalPages - 1 && showEllipsisEnd)
-                ) {
-                    paginationItems.push({
-                        ellipsis: true
-                    });
+                if (monthIndex === -1 || Number.isNaN(statementYear)) {
+                    return Number.NEGATIVE_INFINITY;
                 }
+
+                return (statementYear * 12) + monthIndex;
+            };
+
+            if (statementsRouteSuffix === 'statements-3') {
+                filteredData.sort((a, b) => {
+                    const monthDifference = getStatementMonthIndex(a.statement) - getStatementMonthIndex(b.statement);
+
+                    if (monthDifference !== 0) {
+                        return monthDifference;
+                    }
+
+                    const providerDifference = a.provider.localeCompare(b.provider);
+                    if (providerDifference !== 0) {
+                        return providerDifference;
+                    }
+
+                    return a.contractYear - b.contractYear;
+                });
+            } else {
+                // Sort data by contract year and then by statement date
+                filteredData.sort((a, b) => {
+                    // First sort by contract year (ascending)
+                    if (a.contractYear !== b.contractYear) {
+                        return a.contractYear - b.contractYear;
+                    }
+                    
+                    // If same contract year, sort by statement date
+                    const aDateParts = a.statement.split(' ');
+                    const bDateParts = b.statement.split(' ');
+                    
+                    const aMonth = aDateParts[0];
+                    const aYear = parseInt(aDateParts[1]);
+                    
+                    const bMonth = bDateParts[0];
+                    const bYear = parseInt(bDateParts[1]);
+                    
+                    // Sort by year first
+                    if (aYear !== bYear) {
+                        return aYear - bYear;
+                    }
+                    
+                    // If same year, sort by month
+                    const monthOrder = {
+                        "January": 1, 
+                        "February": 2, 
+                        "March": 3, 
+                        "April": 4, 
+                        "May": 5, 
+                        "June": 6, 
+                        "July": 7, 
+                        "August": 8, 
+                        "September": 9, 
+                        "October": 10, 
+                        "November": 11, 
+                        "December": 12
+                    };
+                    
+                    return monthOrder[aMonth] - monthOrder[bMonth];
+                });
             }
             
-            // Determine previous and next links
-            const prevPage = page > 1 ? page - 1 : null;
-            const nextPage = page < totalPages ? page + 1 : null;
-            
+            const buildPaginationData = (dataSet, pageParamName, itemsPerPage = 20) => {
+                const rawPage = parseInt(req.query[pageParamName], 10);
+                const requestedPage = Number.isNaN(rawPage) ? 1 : rawPage;
+                const totalItems = dataSet.length;
+                const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
+                const currentPage = Math.min(Math.max(requestedPage, 1), totalPages);
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+                const pageData = dataSet.slice(startIndex, endIndex);
+                const paginationItems = [];
+                const showEllipsisStart = currentPage > 3;
+                const showEllipsisEnd = currentPage < totalPages - 2;
+
+                const paginationQuery = { ...queryForView };
+                delete paginationQuery.page;
+                delete paginationQuery.pageCurrent;
+                delete paginationQuery.pageLater;
+                delete paginationQuery.pageEarlier;
+                delete paginationQuery.dateMonth;
+                delete paginationQuery.dateYear;
+
+                const baseQueryString = Object.entries(paginationQuery)
+                    .filter(([, value]) => value !== '' && value !== null && value !== undefined)
+                    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+                    .join('&');
+
+                const getPageUrl = pageNum => {
+                    const separator = baseQueryString ? '&' : '';
+                    return `${v}${admin}finance/${statementsRouteSuffix}?${baseQueryString}${separator}${pageParamName}=${pageNum}`;
+                };
+
+                for (let i = 1; i <= totalPages; i++) {
+                    if (
+                        i === 1 ||
+                        i === totalPages ||
+                        (i >= currentPage - 1 && i <= currentPage + 1) ||
+                        (i === 2 && currentPage <= 3) ||
+                        (i === totalPages - 1 && currentPage >= totalPages - 2)
+                    ) {
+                        paginationItems.push({
+                            number: i,
+                            current: i === currentPage,
+                            href: getPageUrl(i)
+                        });
+                    } else if (
+                        (i === 2 && showEllipsisStart) ||
+                        (i === totalPages - 1 && showEllipsisEnd)
+                    ) {
+                        paginationItems.push({
+                            ellipsis: true
+                        });
+                    }
+                }
+
+                return {
+                    data: pageData,
+                    currentPage,
+                    totalPages,
+                    totalItems,
+                    pagination: {
+                        items: paginationItems,
+                        previous: currentPage > 1 ? { href: getPageUrl(currentPage - 1) } : null,
+                        next: currentPage < totalPages ? { href: getPageUrl(currentPage + 1) } : null
+                    },
+                    startNumber: totalItems > 0 ? startIndex + 1 : 0,
+                    endNumber: endIndex
+                };
+            };
+
+            if (statementsRouteSuffix === 'statements-3') {
+                if (date !== 'All') {
+                    const filteredPagination = buildPaginationData(filteredData, 'page', 20);
+
+                    return res.render(vGet + '/admin/finance/' + statementsRouteSuffix, {
+                        financeStatements: filteredPagination.data,
+                        pagination: filteredPagination.pagination,
+                        currentPage: filteredPagination.currentPage,
+                        totalPages: filteredPagination.totalPages,
+                        totalItems: filteredPagination.totalItems,
+                        showFilteredSingleTable: true,
+                        query: queryForView
+                    });
+                }
+
+                const today = new Date();
+                const currentMonthIndex = (today.getFullYear() * 12) + today.getMonth();
+                const upcomingEndMonthIndex = currentMonthIndex + 6;
+
+                const earlierStatements = [];
+                const currentStatements = [];
+                const laterStatements = [];
+
+                filteredData.forEach(statement => {
+                    const statementMonthIndex = getStatementMonthIndex(statement.statement);
+
+                    if (statementMonthIndex < currentMonthIndex) {
+                        earlierStatements.push(statement);
+                    } else if (statementMonthIndex <= upcomingEndMonthIndex) {
+                        currentStatements.push(statement);
+                    } else {
+                        laterStatements.push(statement);
+                    }
+                });
+
+                const currentPagination = buildPaginationData(currentStatements, 'pageCurrent', 20);
+                const laterPagination = buildPaginationData(laterStatements, 'pageLater', 10);
+                const earlierPagination = buildPaginationData(earlierStatements, 'pageEarlier', 10);
+
+                return res.render(vGet + '/admin/finance/' + statementsRouteSuffix, {
+                    currentStatements: currentPagination.data,
+                    laterStatements: laterPagination.data,
+                    earlierStatements: earlierPagination.data,
+                    currentPagination: currentPagination.pagination,
+                    laterPagination: laterPagination.pagination,
+                    earlierPagination: earlierPagination.pagination,
+                    currentPageCurrent: currentPagination.currentPage,
+                    currentPageLater: laterPagination.currentPage,
+                    currentPageEarlier: earlierPagination.currentPage,
+                    totalPagesCurrent: currentPagination.totalPages,
+                    totalPagesLater: laterPagination.totalPages,
+                    totalPagesEarlier: earlierPagination.totalPages,
+                    totalItemsCurrent: currentPagination.totalItems,
+                    totalItemsLater: laterPagination.totalItems,
+                    totalItemsEarlier: earlierPagination.totalItems,
+                    showingCurrentFrom: currentPagination.startNumber,
+                    showingCurrentTo: currentPagination.endNumber,
+                    showingLaterFrom: laterPagination.startNumber,
+                    showingLaterTo: laterPagination.endNumber,
+                    showingEarlierFrom: earlierPagination.startNumber,
+                    showingEarlierTo: earlierPagination.endNumber,
+                    showFilteredSingleTable: false,
+                    query: queryForView
+                });
+            }
+
+            const defaultPagination = buildPaginationData(filteredData, 'page');
+
             // Render with pagination data
             res.render(vGet + '/admin/finance/' + statementsRouteSuffix, {
-                financeStatements: currentPageData,
-                pagination: {
-                    items: paginationItems,
-                    previous: prevPage ? {
-                        href: getPageUrl(prevPage)
-                    } : null,
-                    next: nextPage ? {
-                        href: getPageUrl(nextPage)
-                    } : null
-                },
-                currentPage: page,
-                totalPages: totalPages,
-                totalItems: totalItems,
+                financeStatements: defaultPagination.data,
+                pagination: defaultPagination.pagination,
+                currentPage: defaultPagination.currentPage,
+                totalPages: defaultPagination.totalPages,
+                totalItems: defaultPagination.totalItems,
                 query: queryForView
             });
         })
