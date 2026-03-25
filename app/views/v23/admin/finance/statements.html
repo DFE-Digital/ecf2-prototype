@@ -390,25 +390,11 @@
 
 {% block content %}
 
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full govuk-!-margin-bottom-4">
             <h1 class="govuk-heading-l">{{pageName}}</h1>
-        {#
-        {{ xGovukSecondaryNavigation({
-        visuallyHiddenTitle: "Secondary menu",
-        items: [{
-        text: "Financial statements",
-        href: "#",
-        current: true
-        }, {
-        text: "Payment schedules",
-        href: "#"
-        }, {
-        text: "Duplicate records",
-        href: "#"
-        }]
-        }) }}
-        #}
     </div>
     <div class="govuk-grid-column-full">
         {% set monthNames = [
@@ -586,51 +572,191 @@
             </form>
         </div>
 
-        <!-- Main finance statements table -->
-        <table class="govuk-table">
-            <thead class="govuk-table__head">
-                <tr class="govuk-table__row">
-                    <th scope="col" class="govuk-table__header">Lead provider</th>
-                    <th scope="col" class="govuk-table__header">Contract year</th>
-                    <th scope="col" class="govuk-table__header">Statement</th>
-                    <th scope="col" class="govuk-table__header">Status</th>
-                    <th scope="col" class="govuk-table__header"></th>
-                </tr>
-            </thead>
-            <tbody class="govuk-table__body">
-                {% set statementsToUse = financeStatements %}
-                {% for statement in statementsToUse %}
+        {% if showFilteredSingleTable %}
+            <table class="govuk-table">
+                <thead class="govuk-table__head">
                     <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">{{ statement.provider }}</td>
-                        <td class="govuk-table__cell">{{ statement.contractYear }}</td>
-                        <td class="govuk-table__cell">{{ statement.statement }}</td>
-                        <td class="govuk-table__cell">
-                            <strong class="govuk-tag {{ statement.statusClass }} status-tag">{{ statement.status }}</strong>
-                        </td>
-                        <td class="govuk-table__cell">
-                            <a href="statement?provider={{ statement.provider | urlencode }}&contractYear={{ statement.contractYear }}&statement={{ statement.statement | urlencode }}">View</a>
-                        </td>
+                        <th scope="col" class="govuk-table__header">Lead provider</th>
+                        <th scope="col" class="govuk-table__header">Contract year</th>
+                        <th scope="col" class="govuk-table__header">Statement</th>
+                        <th scope="col" class="govuk-table__header">Status</th>
+                        <th scope="col" class="govuk-table__header"></th>
                     </tr>
-                {% endfor %}
-                
-                {% if statementsToUse.length === 0 %}
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell" colspan="5">No financial statements found</td>
-                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    {% for statement in financeStatements %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">{{ statement.provider }}</td>
+                            <td class="govuk-table__cell">{{ statement.contractYear }}</td>
+                            <td class="govuk-table__cell">{{ statement.statement }}</td>
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag {{ statement.statusClass }} status-tag">{{ statement.status }}</strong>
+                            </td>
+                            <td class="govuk-table__cell">
+                                <a href="statement?provider={{ statement.provider | urlencode }}&contractYear={{ statement.contractYear }}&statement={{ statement.statement | urlencode }}">View</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    {% if financeStatements.length === 0 %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell" colspan="5">No financial statements found</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+
+            <div class="govuk-body">
+                {% if totalItems > 0 %}
+                    Showing {{ (currentPage - 1) * 20 + 1 }} to {{ (currentPage - 1) * 20 + financeStatements.length }} of {{ totalItems }} statements
                 {% endif %}
-            </tbody>
-        </table>
+            </div>
 
-        <!-- Pagination summary -->
-        <div class="govuk-body">
-            {% if totalItems > 0 %}
-                Showing {{ (currentPage - 1) * 20 + 1 }} to {{ (currentPage - 1) * 20 + financeStatements.length }} of {{ totalItems }} statements
+            {% if totalPages > 1 %}
+                {{ govukPagination(pagination) }}
             {% endif %}
-        </div>
+        {% else %}
+            <h2 class="govuk-heading-m">Current and upcoming statements</h2>
+            <table class="govuk-table">
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Lead provider</th>
+                        <th scope="col" class="govuk-table__header">Contract year</th>
+                        <th scope="col" class="govuk-table__header">Statement</th>
+                        <th scope="col" class="govuk-table__header">Status</th>
+                        <th scope="col" class="govuk-table__header"></th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    {% for statement in currentStatements %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">{{ statement.provider }}</td>
+                            <td class="govuk-table__cell">{{ statement.contractYear }}</td>
+                            <td class="govuk-table__cell">{{ statement.statement }}</td>
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag {{ statement.statusClass }} status-tag">{{ statement.status }}</strong>
+                            </td>
+                            <td class="govuk-table__cell">
+                                <a href="statement?provider={{ statement.provider | urlencode }}&contractYear={{ statement.contractYear }}&statement={{ statement.statement | urlencode }}">View</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
 
-        {% from "govuk/components/pagination/macro.njk" import govukPagination %}
+                    {% if currentStatements.length === 0 %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell" colspan="5">No financial statements found</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
 
-        {{ govukPagination(pagination) }}
+            <div class="govuk-body">
+                {% if totalItemsCurrent > 0 %}
+                    Showing {{ showingCurrentFrom }} to {{ showingCurrentTo }} of {{ totalItemsCurrent }} statements
+                {% endif %}
+            </div>
+
+            {% if totalPagesCurrent > 1 %}
+                {{ govukPagination(currentPagination) }}
+            {% endif %}
+
+            {#
+            <details class="govuk-details govuk-!-margin-top-7" data-module="govuk-details">
+                <summary class="govuk-details__summary">
+                    <span class="govuk-details__summary-text">View earlier and later statements</span>
+                </summary>
+                <div class="govuk-details__text">
+                    <h2 class="govuk-heading-m">Earlier statements</h2>
+                    <table class="govuk-table">
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header">Lead provider</th>
+                                <th scope="col" class="govuk-table__header">Contract year</th>
+                                <th scope="col" class="govuk-table__header">Statement</th>
+                                <th scope="col" class="govuk-table__header">Status</th>
+                                <th scope="col" class="govuk-table__header"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                            {% for statement in earlierStatements %}
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">{{ statement.provider }}</td>
+                                    <td class="govuk-table__cell">{{ statement.contractYear }}</td>
+                                    <td class="govuk-table__cell">{{ statement.statement }}</td>
+                                    <td class="govuk-table__cell">
+                                        <strong class="govuk-tag {{ statement.statusClass }} status-tag">{{ statement.status }}</strong>
+                                    </td>
+                                    <td class="govuk-table__cell">
+                                        <a href="statement?provider={{ statement.provider | urlencode }}&contractYear={{ statement.contractYear }}&statement={{ statement.statement | urlencode }}">View</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            {% if earlierStatements.length === 0 %}
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell" colspan="5">No earlier financial statements found</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+
+                    <div class="govuk-body">
+                        {% if totalItemsEarlier > 0 %}
+                            Showing {{ showingEarlierFrom }} to {{ showingEarlierTo }} of {{ totalItemsEarlier }} statements
+                        {% endif %}
+                    </div>
+
+                    {% if totalPagesEarlier > 1 %}
+                        {{ govukPagination(earlierPagination) }}
+                    {% endif %}
+
+                    <h2 class="govuk-heading-m govuk-!-margin-top-7">Later statements</h2>
+                    <table class="govuk-table">
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header">Lead provider</th>
+                                <th scope="col" class="govuk-table__header">Contract year</th>
+                                <th scope="col" class="govuk-table__header">Statement</th>
+                                <th scope="col" class="govuk-table__header">Status</th>
+                                <th scope="col" class="govuk-table__header"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                            {% for statement in laterStatements %}
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">{{ statement.provider }}</td>
+                                    <td class="govuk-table__cell">{{ statement.contractYear }}</td>
+                                    <td class="govuk-table__cell">{{ statement.statement }}</td>
+                                    <td class="govuk-table__cell">
+                                        <strong class="govuk-tag {{ statement.statusClass }} status-tag">{{ statement.status }}</strong>
+                                    </td>
+                                    <td class="govuk-table__cell">
+                                        <a href="statement?provider={{ statement.provider | urlencode }}&contractYear={{ statement.contractYear }}&statement={{ statement.statement | urlencode }}">View</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            {% if laterStatements.length === 0 %}
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell" colspan="5">No later financial statements found</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+
+                    <div class="govuk-body">
+                        {% if totalItemsLater > 0 %}
+                            Showing {{ showingLaterFrom }} to {{ showingLaterTo }} of {{ totalItemsLater }} statements
+                        {% endif %}
+                    </div>
+
+                    {% if totalPagesLater > 1 %}
+                        {{ govukPagination(laterPagination) }}
+                    {% endif %}
+                </div>
+            </details>
+            #}
+        {% endif %}
     </div>
 </div>
 
