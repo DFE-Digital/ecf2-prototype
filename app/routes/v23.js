@@ -1401,15 +1401,12 @@ module.exports = router => {
 
         router.get([
             v + admin + 'finance/statements',
-            v + admin + 'finance/statements-3',
             v + admin + 'finance/statements-old',
             v + admin + 'finance/statements-month-input'
         ], (req, res) => {
             const financeData = req.session.data.financeData || [];
             const statementsRouteSuffix = req.path.endsWith('/finance/statements-old')
                 ? 'statements-old'
-                : req.path.endsWith('/finance/statements-3')
-                    ? 'statements-3'
                 : req.path.endsWith('/finance/statements-month-input')
                     ? 'statements-month-input'
                     : 'statements';
@@ -1513,7 +1510,7 @@ module.exports = router => {
                 return (statementYear * 12) + monthIndex;
             };
 
-            if (statementsRouteSuffix === 'statements-3') {
+            if (statementsRouteSuffix === 'statements') {
                 filteredData.sort((a, b) => {
                     const monthDifference = getStatementMonthIndex(a.statement) - getStatementMonthIndex(b.statement);
 
@@ -1640,7 +1637,7 @@ module.exports = router => {
                 };
             };
 
-            if (statementsRouteSuffix === 'statements-3') {
+            if (statementsRouteSuffix === 'statements') {
                 if (date !== 'All') {
                     const filteredPagination = buildPaginationData(filteredData, 'page', 20);
 
