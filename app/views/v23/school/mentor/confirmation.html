@@ -31,12 +31,21 @@
         </div>
         <p class="govuk-body">This completes John Smith’s registration for ECT training at your school.</p>
 
+              <p class="govuk-body">You do not need to give us any more information. </p>
+
+      
         <h2 class="govuk-heading-m">What happens next</h2>
-        <p class="govuk-body">We’ll email {{name}} to confirm that you’ve registered them as a mentor.</p>
+
 
         {% if data['mentorOnly'] !== 'no' and data['leadProvider'] !== "I don't know" %}
-        <p>We’ll pass on their details to {{lp}} who will contact them to arrange mentor training.</p>
+        <p class="govuk-body">We’ll email {{name}} to confirm that you’ve registered them as a mentor. We’ll pass on their details to {{lp}} who will contact them to arrange mentor training</p> 
+        {% else %}
+        <!-- <p class="govuk-body">We’ll email {{name}} to confirm that you’ve registered them as a mentor.</p> -->
         {% endif %}
+
+        <!-- <p class="govuk-body">We’ll email {{name}} to confirm that you’ve registered them as a mentor.</p> -->
+
+
         <p><a href="../home/ects">Back to ECTs</a></p>
     </div>
 </div>
