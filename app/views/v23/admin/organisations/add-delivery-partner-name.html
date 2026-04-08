@@ -1,0 +1,32 @@
+{% extends "layouts/admin.html" %}
+
+{% set pageName="What is the name of the delivery partner?" %}
+{% set activeNav="organisations" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+            {{ govukInput({
+                label: {
+                    text: pageName,
+                    isPageHeading: true,
+                    classes: "govuk-label--l"
+                },
+                id: "new-delivery-partner-name",
+                name: "new-delivery-partner-name",
+                value: data['newDeliveryPartnerName']
+            }) }}
+
+            <button class="govuk-button" data-module="govuk-button">Confirm</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

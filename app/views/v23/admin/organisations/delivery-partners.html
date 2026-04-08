@@ -38,6 +38,21 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
+        {% if showDeliveryPartnerAddedBanner %}
+        {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+        {% set html %}
+          <h3 class="govuk-notification-banner__heading">
+            Delivery partner added
+          </h3>
+        {% endset %}
+
+        {{ govukNotificationBanner({
+          html: html,
+          type: "success"
+        }) }}
+        {% endif %}
+
         <h1 class="govuk-heading-l">{{pageName}}</h1>
           
         <!-- Search form -->
@@ -156,7 +171,7 @@
         </p>
         {% endif %}
 
-        <button class="govuk-button">Add a new delivery partner</a></button>
+        <a href="add-delivery-partner-name" class="govuk-button" data-module="govuk-button">Add a new delivery partner</a>
 
         <!-- Results table -->
         {% if data.q or not data.q %}
