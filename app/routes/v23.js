@@ -1345,6 +1345,146 @@ module.exports = router => {
             res.redirect(v + admin + 'organisations/school-details?section=partnerships&partnershipDeleted=1');
         })
 
+        router.get(v + admin + 'organisations/delivery-partners', (req, res) => {
+            const showDeliveryPartnerAddedBanner = req.session.data.showDeliveryPartnerAddedBanner;
+
+            if (showDeliveryPartnerAddedBanner) {
+                req.session.data.showDeliveryPartnerAddedBanner = false;
+            }
+
+            if (typeof req.query.q !== 'undefined') {
+                req.session.data.q = req.query.q;
+            } else {
+                req.session.data.q = '';
+            }
+
+            if (typeof req.query.page !== 'undefined') {
+                req.session.data.page = req.query.page;
+            } else {
+                req.session.data.page = '';
+            }
+
+            res.render(vGet + '/admin/organisations/delivery-partners', {
+                showDeliveryPartnerAddedBanner: showDeliveryPartnerAddedBanner
+            });
+        })
+
+        router.get(v + admin + 'organisations/view-delivery-partner', (req, res) => {
+            const isNewDeliveryPartner = req.query.new === '1';
+            const showNewDeliveryPartnerAddedBanner = req.session.data.showNewDeliveryPartnerAddedBanner;
+            const showNewDeliveryPartnerUpdatedBanner = req.session.data.showNewDeliveryPartnerUpdatedBanner;
+            const selectedLeadProvidersByYear = req.session.data.newDeliveryPartnerLeadProvidersByYear || {};
+            const leadProviderLabels = {
+                'ambition-institute': 'Ambition Institute',
+                'education-development-trust': 'Education Development Trust',
+                'national-institute-of-teaching': 'National Institute of Teaching',
+                'teach-first': 'Teach First',
+                'ucl-institute-of-education': 'UCL Institute of Education'
+            };
+            const selectedLeadProviderLabelsByYear = {};
+
+            Object.keys(selectedLeadProvidersByYear).forEach(year => {
+                const leadProviders = Array.isArray(selectedLeadProvidersByYear[year])
+                    ? selectedLeadProvidersByYear[year]
+                    : [];
+
+                selectedLeadProviderLabelsByYear[year] = leadProviders.map(leadProvider => leadProviderLabels[leadProvider] || leadProvider);
+            });
+
+            if (showNewDeliveryPartnerAddedBanner) {
+                req.session.data.showNewDeliveryPartnerAddedBanner = false;
+            }
+
+            if (showNewDeliveryPartnerUpdatedBanner) {
+                req.session.data.showNewDeliveryPartnerUpdatedBanner = false;
+            }
+
+            res.render(vGet + '/admin/organisations/view-delivery-partner', {
+                query: req.query,
+                isNewDeliveryPartner: isNewDeliveryPartner,
+                newDeliveryPartnerName: req.session.data.newDeliveryPartnerName,
+                showNewDeliveryPartnerAddedBanner: isNewDeliveryPartner && showNewDeliveryPartnerAddedBanner,
+                showNewDeliveryPartnerUpdatedBanner: isNewDeliveryPartner && showNewDeliveryPartnerUpdatedBanner,
+                selectedLeadProvidersByYear: selectedLeadProviderLabelsByYear
+            });
+        })
+
+        router.get(v + admin + 'organisations/dp-change-lp', (req, res) => {
+            const isNewDeliveryPartner = req.query.new === '1';
+            const selectedLeadProvidersByYear = req.session.data.newDeliveryPartnerLeadProvidersByYear || {};
+            const hasSelectedLeadProviders = Object.prototype.hasOwnProperty.call(selectedLeadProvidersByYear, req.query.year);
+            const selectedLeadProviders = Array.isArray(selectedLeadProvidersByYear[req.query.year])
+                ? selectedLeadProvidersByYear[req.query.year]
+                : [];
+
+            res.render(vGet + '/admin/organisations/dp-change-lp', {
+                query: req.query,
+                isNewDeliveryPartner: isNewDeliveryPartner,
+                newDeliveryPartnerName: req.session.data.newDeliveryPartnerName,
+                selectedLeadProviders: selectedLeadProviders,
+                hasSelectedLeadProviders: hasSelectedLeadProviders
+            });
+        })
+
+        router.post(v + admin + 'organisations/add-delivery-partner-name', (req, res) => {
+            if (!req.session.data) {
+                req.session.data = {};
+            }
+
+            req.session.data.newDeliveryPartnerName = req.body['new-delivery-partner-name'];
+            req.session.data.newDeliveryPartnerLeadProvidersByYear = {};
+            req.session.data.showNewDeliveryPartnerAddedBanner = true;
+            req.session.data.showNewDeliveryPartnerUpdatedBanner = false;
+
+            res.redirect(v + admin + 'organisations/view-delivery-partner?new=1');
+        })
+
+        router.post(v + admin + 'organisations/add-delivery-partner-contract-periods', (req, res) => {
+            if (!req.session.data) {
+                req.session.data = {};
+            }
+
+            req.session.data.newDeliveryPartnerContractPeriods = req.body['contract-period'];
+            req.session.data.newDeliveryPartnerLeadProviders2021 = req.body['lead-providers-2021'];
+            req.session.data.newDeliveryPartnerLeadProviders2022 = req.body['lead-providers-2022'];
+            req.session.data.newDeliveryPartnerLeadProviders2023 = req.body['lead-providers-2023'];
+            req.session.data.newDeliveryPartnerLeadProviders2024 = req.body['lead-providers-2024'];
+            req.session.data.newDeliveryPartnerLeadProviders2025 = req.body['lead-providers-2025'];
+            req.session.data.newDeliveryPartnerLeadProviders2026 = req.body['lead-providers-2026'];
+            req.session.data.showDeliveryPartnerAddedBanner = true;
+
+            res.redirect(v + admin + 'organisations/delivery-partners');
+        })
+
+        router.post(v + admin + 'organisations/dp-change-lp', (req, res) => {
+            if (req.query.new === '1') {
+                if (!req.session.data) {
+                    req.session.data = {};
+                }
+
+                if (!req.session.data.newDeliveryPartnerLeadProvidersByYear) {
+                    req.session.data.newDeliveryPartnerLeadProvidersByYear = {};
+                }
+
+                const year = req.query.year;
+                let leadProviders = req.body['lead-provider'] || [];
+
+                if (!Array.isArray(leadProviders)) {
+                    leadProviders = [leadProviders];
+                }
+
+                leadProviders = leadProviders.filter(leadProvider => leadProvider && leadProvider !== '_unchecked');
+
+                req.session.data.newDeliveryPartnerLeadProvidersByYear[year] = leadProviders.includes('none') ? [] : leadProviders;
+                req.session.data.showNewDeliveryPartnerUpdatedBanner = true;
+                req.session.data.showNewDeliveryPartnerAddedBanner = false;
+
+                return res.redirect(v + admin + 'organisations/view-delivery-partner?new=1');
+            }
+
+            res.redirect(v + admin + 'organisations/view-delivery-partner');
+        })
+
         router.post(v + admin + 'organisations/add-new-partnership/select-contract-period', (req, res) => {
             if (!req.session.data) {
                 req.session.data = {};

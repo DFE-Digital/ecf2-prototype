@@ -22,7 +22,12 @@
 </style>
 {% endblock %}
 
-{% set pageName="Aquila Trust" %}
+{% set isNewPartnerVariant = isNewDeliveryPartner or false %}
+{% if isNewPartnerVariant and newDeliveryPartnerName %}
+    {% set pageName = newDeliveryPartnerName %}
+{% else %}
+    {% set pageName = "Aquila Trust" %}
+{% endif %}
 {% set activeNav="organisations" %}
 
 {% block beforeContent %}
@@ -47,18 +52,37 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
+        {% if isNewPartnerVariant and (showNewDeliveryPartnerAddedBanner or showNewDeliveryPartnerUpdatedBanner) %}
+        {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
-        <!-- {{govukNotificationBanner({
+        {% set html %}
+          <h3 class="govuk-notification-banner__heading">
+            {% if showNewDeliveryPartnerAddedBanner %}
+              Delivery partner added
+            {% else %}
+              Delivery partner updated
+            {% endif %}
+          </h3>
+        {% endset %}
+
+        {{ govukNotificationBanner({
+          html: html,
+          type: "success"
+        }) }}
+        {% endif %}
+
+        {# {{govukNotificationBanner({
             type: "success",
             html: "Lead provider partners updated"
-        })}} -->
+        })}} #}
 
         <h1 class="govuk-heading-l">{{pageName}}</h1>
-        
+        {% if not isNewPartnerVariant %}
         <p><a href="dp-change-name">Change delivery partner name</a></p>
         <p class="govuk-body">API ID: <code>37938590-694f-4883-8902-77713802a082</code></p>
+        {% endif %}
 
-        <!-- {{govukSummaryList({
+        {# {{govukSummaryList({
             rows: [
                 {
                     key: {
@@ -78,9 +102,58 @@
                     }
                 }
             ]
-        })}} -->
+        })}} #}
         
         <h2 class="govuk-heading-m">Lead provider partners</h2>
+        {% if isNewPartnerVariant %}
+        {% set years = ["2026", "2025", "2024", "2023", "2022", "2021"] %}
+        {% set rows = [] %}
+        {% for year in years %}
+            {% set leadProviders = selectedLeadProvidersByYear[year] if selectedLeadProvidersByYear and selectedLeadProvidersByYear[year] else [] %}
+            {% if leadProviders and (leadProviders | length) > 0 %}
+                {% set actionText = "Change" %}
+                {% if (leadProviders | length) > 1 %}
+                    {% set leadProviderValue %}
+                    <ul class="govuk-list">
+                        {% for leadProvider in leadProviders %}
+                        <li>{{ leadProvider }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endset %}
+                {% else %}
+                    {% set leadProviderValue = leadProviders[0] %}
+                {% endif %}
+            {% else %}
+                {% set actionText = "Add" %}
+                {% set leadProviderValue = "Not reported" %}
+            {% endif %}
+            {% set rows = rows.concat([[
+                {
+                    text: year
+                },
+                {
+                    html: leadProviderValue
+                },
+                {
+                    html: "<a href='dp-change-lp?new=1&year=" + year + "' class='govuk-link'>" + actionText + "<span class='govuk-visually-hidden'> " + year + "</span></a>"
+                }
+            ]]) %}
+        {% endfor %}
+        {{ govukTable({
+            head: [
+                {
+                    text: "Year"
+                },
+                {
+                    text: "Lead provider"
+                },
+                {
+                    text: ""
+                }
+            ],
+            rows: rows
+        }) }}
+        {% else %}
         {{ govukTable({
             head: [
                 {
@@ -151,6 +224,7 @@
                 ]
             ]
         }) }}
+        {% endif %}
         
         
     </div>
