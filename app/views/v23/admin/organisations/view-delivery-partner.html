@@ -63,6 +63,9 @@
               Delivery partner updated
             {% endif %}
           </h3>
+        {% if showNewDeliveryPartnerAddedBanner %}
+          <p>You can now add lead providers working with them.</p>
+        {% endif %}  
         {% endset %}
 
         {{ govukNotificationBanner({
