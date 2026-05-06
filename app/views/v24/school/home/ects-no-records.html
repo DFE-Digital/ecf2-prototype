@@ -1,0 +1,31 @@
+{% extends "layouts/ects.html" %}
+
+{% block head %}
+{{ super() }} <!-- This includes the content from the base head block -->
+{% include "./filters.njk" %}
+{% endblock %}
+
+{% set pageName="Early career teachers" %}
+
+{% block content %}
+
+{% if data['schoolName'] %}
+{% set schoolName = data['schoolName'] %}
+{% else %}
+{% set schoolName = 'Test Primary School' %}
+{% endif %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-caption-l">{{schoolName}}</h1>
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+        <a href="../what-youll-need" class="govuk-button">Register an ECT starting at your school</a>
+        <hr class="govuk-section-break--m">
+    </div>
+
+    <div class="govuk-grid-column-two-thirds">
+        <p>Your school currently has no registered early career teachers.</p>
+    </div>
+</div>
+
+{% endblock %}

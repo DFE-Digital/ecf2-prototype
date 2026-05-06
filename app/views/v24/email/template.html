@@ -1,0 +1,12 @@
+{% extends "layouts/email.html" %}
+
+{% block content %}
+{{ super() }}
+    <p>Hello John Smith</p>
+
+    <h1 class="govuk-heading-l">Email template</h1>
+    <p class="govuk-body">Email body content goes here</p>
+
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+    <p><a href="#" class="govuk-link govuk-link--no-visited-state">Unsubscribe from these emails</a></p>
+{% endblock %}

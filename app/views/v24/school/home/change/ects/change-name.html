@@ -1,0 +1,56 @@
+{% extends "layouts/ects.html" %}
+
+{# Find the active ECT from the ects array based on the 'ectId' query parameter #}
+{% set ectId = data.ectId %}
+{% set activeEct = {} %}
+{% for person in data.ects %}
+  {% if person.id == ectId %}
+    {% set activeEct = person %}
+  {% endif %}
+{% endfor %}
+
+{% set name = activeEct.name %}
+{% set pageName = "Change name for " + name %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+        <form method="post">
+        <input type="hidden" name="ectId" value="{{ ectId }}">
+        <input type="hidden" name="personType" value="ECT">
+
+                <p>The name will be used in this service and communications with the ECT.</p>
+        <p>The ECT can update their name in their teacher record later using the Access your teaching qualifications service.</p>
+
+
+        {% from "govuk/components/input/macro.njk" import govukInput %}
+
+        {{ govukInput({
+          label: {
+            text: "What's the correct full name for " + name + "?",
+            classes: "govuk-label--m"
+          },
+          id: "newName",
+          name: "newName",
+          value: name,
+          classes: "govuk-!-width-two-thirds"
+        }) }}
+
+        <button class="govuk-button">Continue</button>
+        <p><a href="javascript:window.history.back()">Cancel and go back to {{ name }}'s details</a></p>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %} 

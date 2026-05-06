@@ -1,0 +1,67 @@
+{% extends "layouts/main.html" %}
+
+{% block head %}
+{{ super() }} <!-- This includes the content from the base head block -->
+{% include "../filters.njk" %}
+{% endblock %}
+
+{% set pageName="Register early career teachers" %}
+
+{% block content %}
+
+{% if data['schoolName'] %}
+{% set schoolName = data['schoolName'] %}
+{% else %}
+{% set schoolName = 'Test Primary School' %}
+{% endif %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-caption-l">{{schoolName}}</h1>
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+        <hr class="govuk-section-break--xl">
+
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-6">Early career teachers and mentors</h2>
+        {% from 'node_modules/dfe-frontend/packages/components/card/macro.njk' import card %}
+        {{ card({
+        cards: [
+        {
+        "imageCard": false,
+        "headingLevel": "3",
+        "linkCard": true,
+        "link": "#",
+        "openInNewTab": false,
+        "heading": "Register an ECT starting at your school",
+        "description": "Description placeholder."
+        },
+        {
+        "imageCard": false,
+        "headingLevel": "3",
+        "linkCard": true,
+        "link": "#",
+        "openInNewTab": false,
+        "heading": "View ECTs registered at your school",
+        "description": "Description placeholder."
+        },
+        {
+        "imageCard": false,
+        "headingLevel": "3",
+        "linkCard": true,
+        "link": "#",
+        "openInNewTab": false,
+        "heading": "View mentors registered at your school",
+        "description": "Description placeholder."
+        }
+        ]
+        }) }}
+
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-6">Guidance and support</h2>
+
+        <p>An example of what else could go on this page</p>
+
+    </div>
+
+</div>
+
+{% endblock %}

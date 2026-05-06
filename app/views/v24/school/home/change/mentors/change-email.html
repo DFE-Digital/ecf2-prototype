@@ -1,0 +1,60 @@
+{% extends "layouts/mentors.html" %}
+
+{# Find the active mentor from the mentors array based on the 'id' query parameter #}
+{% set mentorId = data.id %}
+{% set activeMentor = {} %}
+{% for person in data.mentors %}
+  {% if person.id == mentorId %}
+    {% set activeMentor = person %}
+  {% endif %}
+{% endfor %}
+
+{% set name = activeMentor.name %}
+{% set currentEmail = activeMentor.email %}
+{% set pageName = "Change email address for " + name %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+        <form method="post">
+        <input type="hidden" name="id" value="{{ mentorId }}">
+        <input type="hidden" name="personType" value="mentor">
+
+                <p>Make sure you use an email the mentor can access.</p>
+        <p>Try to use their school email and do not use a generic email like headteacher@school.com.</p>
+
+
+        {% from "govuk/components/input/macro.njk" import govukInput %}
+
+        {{ govukInput({
+          label: {
+            text: "What's the correct email address for " + name + "?",
+            classes: "govuk-label--m"
+          },
+          
+          id: "newEmail",
+          name: "newEmail",
+          type: "email",
+          value: currentEmail,
+          classes: "govuk-!-width-two-thirds",
+          autocomplete: "email"
+        }) }}
+
+        <button class="govuk-button">Continue</button>
+        <p><a href="javascript:window.history.back()">Cancel and go back to {{ name }}'s details</a></p>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %} 

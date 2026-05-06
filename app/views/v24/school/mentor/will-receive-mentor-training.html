@@ -1,0 +1,91 @@
+{% extends "layouts/ects.html" %}
+
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'Samuel Taylor' %}
+{% endif %}
+
+{% set pageName= name + " can receive mentor training" %}
+
+{% if data['ab'] %}
+{% set ab = data['ab'] %}
+{% else %}
+{% set ab = 'Teach West London' %}
+{% endif %}
+
+{% if data['deliveryPartner'] %}
+{% set dp = data['deliveryPartner'] %}
+{% else %}
+{% set dp = 'London District East TSH' %}
+{% endif %}
+
+{% if data['leadProvider'] %}
+{% set lp = data['leadProvider'] %}
+{% else %}
+{% set lp = 'Ambition Institute' %}
+{% endif %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+            <h1 class="govuk-heading-l">{{ pageName }}</h1>
+            <p class="govuk-body">
+                Our records show that {{name}} can get up to 20 hours of ECTE mentor training as your school is working with a DfE-funded training provider.
+            </p>
+
+            {# {% if data['showDp'] === true %}
+            <p>The lead provider and delivery partner for the ECT they are mentoring will arrange for them to do mentor training.</p>
+            {{ govukSummaryList({
+            card: {
+            title: {
+            text: "Training details for ECT being mentored"
+            }
+            },
+            rows: [
+            {
+            key: {
+            text: "Lead provider"
+            },
+            value: {
+            html: lp
+            }
+            },
+            {
+            key: {
+            text: "Delivery partner"
+            },
+            value: {
+            html: dp
+            }
+            }
+            ]
+            }) }}
+
+            {% else %}
+
+<!--            <p>Ambition Institute will arrange for them to do mentor training as they are the lead provider for the ECT being mentored.</p>-->
+
+            {% endif %} #}
+
+            <p>We'll pass on their details to {{lp}} who will contact them to arrange the training.</p>
+            
+            <button class="govuk-button">Continue</button>
+
+            <p><a href="select-lead-provider">{{lp}} will not be providing mentor training to {{name}}</a></p>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

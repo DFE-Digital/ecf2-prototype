@@ -1,0 +1,306 @@
+{% extends "layouts/admin.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    /* Custom styles for search example */
+    .search-box__form {
+        display: flex;
+        gap: 15px;
+        align-items: flex-end;
+        flex-wrap: wrap;
+    }
+    
+    .search-box__input {
+        flex-grow: 1;
+    }
+</style>
+{% endblock %}
+
+{% set pageName="Schools" %}
+{% set activeNav="schools" %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+          
+        <!-- Search form -->
+        <form class="search-box__form" accept-charset="UTF-8">
+                <div class="search-box__input">
+                    <div class="govuk-form-group">
+                        <label for="q-field" class="govuk-label govuk-label--s">
+                            Search for school
+                        </label>
+                        <div class="govuk-hint" id="q-hint">Search by name or URN</div>
+                        <input id="q-field" class="govuk-input" aria-describedby="q-hint" type="text" name="q" value="{{data.q}}">
+                    </div>
+                </div>
+
+                <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Search</button>
+        </form>
+
+        <!-- Schools data -->
+        {% set schools = [
+            {"name": "School 1", "urn": "100001"},
+            {"name": "School 2", "urn": "100002"},
+            {"name": "School 3", "urn": "100003"},
+            {"name": "School 4", "urn": "100004"},
+            {"name": "School 5", "urn": "100005"},
+            {"name": "School 6", "urn": "100006"},
+            {"name": "School 7", "urn": "100007"},
+            {"name": "School 8", "urn": "100008"},
+            {"name": "School 9", "urn": "100009"},
+            {"name": "School 10", "urn": "100010"},
+            {"name": "School 11", "urn": "100011"},
+            {"name": "School 12", "urn": "100012"},
+            {"name": "School 13", "urn": "100013"},
+            {"name": "School 14", "urn": "100014"},
+            {"name": "School 15", "urn": "100015"},
+            {"name": "School 16", "urn": "100016"},
+            {"name": "School 17", "urn": "100017"},
+            {"name": "School 18", "urn": "100018"},
+            {"name": "School 19", "urn": "100019"},
+            {"name": "School 20", "urn": "100020"},
+            {"name": "School 21", "urn": "100021"},
+            {"name": "School 22", "urn": "100022"},
+            {"name": "School 23", "urn": "100023"},
+            {"name": "School 24", "urn": "100024"},
+            {"name": "School 25", "urn": "100025"},
+            {"name": "School 26", "urn": "100026"},
+            {"name": "School 27", "urn": "100027"},
+            {"name": "School 28", "urn": "100028"},
+            {"name": "School 29", "urn": "100029"},
+            {"name": "School 30", "urn": "100030"},
+            {"name": "School 31", "urn": "100031"},
+            {"name": "School 32", "urn": "100032"},
+            {"name": "School 33", "urn": "100033"},
+            {"name": "School 34", "urn": "100034"},
+            {"name": "School 35", "urn": "100035"},
+            {"name": "School 36", "urn": "100036"},
+            {"name": "School 37", "urn": "100037"},
+            {"name": "School 38", "urn": "100038"},
+            {"name": "School 39", "urn": "100039"},
+            {"name": "School 40", "urn": "100040"},
+            {"name": "School 41", "urn": "100041"},
+            {"name": "School 42", "urn": "100042"},
+            {"name": "School 43", "urn": "100043"},
+            {"name": "School 44", "urn": "100044"},
+            {"name": "School 45", "urn": "100045"},
+            {"name": "School 46", "urn": "100046"},
+            {"name": "School 47", "urn": "100047"},
+            {"name": "School 48", "urn": "100048"},
+            {"name": "School 49", "urn": "100049"},
+            {"name": "School 50", "urn": "100050"},
+            {"name": "School 51", "urn": "100051"},
+            {"name": "School 52", "urn": "100052"},
+            {"name": "School 53", "urn": "100053"},
+            {"name": "School 54", "urn": "100054"},
+            {"name": "School 55", "urn": "100055"},
+            {"name": "School 56", "urn": "100056"},
+            {"name": "School 57", "urn": "100057"},
+            {"name": "School 58", "urn": "100058"},
+            {"name": "School 59", "urn": "100059"},
+            {"name": "School 60", "urn": "100060"},
+            {"name": "School 61", "urn": "100061"},
+            {"name": "School 62", "urn": "100062"},
+            {"name": "School 63", "urn": "100063"},
+            {"name": "School 64", "urn": "100064"},
+            {"name": "School 65", "urn": "100065"},
+            {"name": "School 66", "urn": "100066"},
+            {"name": "School 67", "urn": "100067"},
+            {"name": "School 68", "urn": "100068"},
+            {"name": "School 69", "urn": "100069"},
+            {"name": "School 70", "urn": "100070"},
+            {"name": "School 71", "urn": "100071"},
+            {"name": "School 72", "urn": "100072"},
+            {"name": "School 73", "urn": "100073"},
+            {"name": "School 74", "urn": "100074"},
+            {"name": "School 75", "urn": "100075"},
+            {"name": "School 76", "urn": "100076"},
+            {"name": "School 77", "urn": "100077"},
+            {"name": "School 78", "urn": "100078"},
+            {"name": "School 79", "urn": "100079"},
+            {"name": "School 80", "urn": "100080"},
+            {"name": "School 81", "urn": "100081"},
+            {"name": "School 82", "urn": "100082"},
+            {"name": "School 83", "urn": "100083"},
+            {"name": "School 84", "urn": "100084"},
+            {"name": "School 85", "urn": "100085"},
+            {"name": "School 86", "urn": "100086"},
+            {"name": "School 87", "urn": "100087"},
+            {"name": "School 88", "urn": "100088"},
+            {"name": "School 89", "urn": "100089"},
+            {"name": "School 90", "urn": "100090"},
+            {"name": "School 91", "urn": "100091"},
+            {"name": "School 92", "urn": "100092"},
+            {"name": "School 93", "urn": "100093"},
+            {"name": "School 94", "urn": "100094"},
+            {"name": "School 95", "urn": "100095"},
+            {"name": "School 96", "urn": "100096"},
+            {"name": "School 97", "urn": "100097"},
+            {"name": "School 98", "urn": "100098"},
+            {"name": "School 99", "urn": "100099"},
+            {"name": "School 100", "urn": "100100"}
+        ] %}
+
+        <!-- Pagination setup -->
+        {% set currentPage = data.page | int if data.page else 1 %}
+        {% set itemsPerPage = 20 %}
+        {% set totalItems = 100 %}
+        {% set totalPages = 5 %}
+        {% set startItem = ((currentPage - 1) * itemsPerPage) + 1 %}
+        {% set endItem = currentPage * itemsPerPage %}
+        {% if endItem > totalItems %}{% set endItem = totalItems %}{% endif %}
+
+        <!-- Calculate results for count display -->
+        {% set searchTerm = (data.q | lower) if data.q else "" %}
+        {% set resultCount = 0 %}
+        {% set currentPageResultCount = 0 %}
+        {% set searchResults = [] %}
+        
+        <!-- Count results first -->
+        {% if not data.q %}
+            {% set resultCount = totalItems %}
+            {% set currentPageResultCount = endItem - startItem + 1 %}
+        {% else %}
+            <!-- Count search results -->
+            {% set resultCount = 0 %}
+            {% for school in schools %}
+                {% if searchTerm in school.name | lower or searchTerm in school.urn | lower %}
+                    {% set resultCount = resultCount + 1 %}
+                {% endif %}
+            {% endfor %}
+            
+            <!-- Calculate pagination for search results -->
+            {% set searchTotalPages = ((resultCount - 1) // itemsPerPage) + 1 if resultCount > 0 else 0 %}
+            {% set searchStartItem = ((currentPage - 1) * itemsPerPage) + 1 %}
+            {% set searchEndItem = currentPage * itemsPerPage %}
+            {% if searchEndItem > resultCount %}{% set searchEndItem = resultCount %}{% endif %}
+            {% set currentPageResultCount = searchEndItem - searchStartItem + 1 if resultCount > 0 else 0 %}
+        {% endif %}
+
+        <!-- Search count display -->
+        {% if data.q and resultCount > 0 %}
+        <p class="govuk-body">
+            <span class="govuk-!-font-weight-bold">{{ resultCount }}</span> result{% if resultCount != 1 %}s{% endif %} found for "{{data.q}}"
+        </p>
+        {% endif %}
+
+        <!-- Results table -->
+        {% if data.q or not data.q %}
+            {% if resultCount > 0 %}
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">School name</th>
+                            <th scope="col" class="govuk-table__header">URN</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        {% if data.q %}
+                            <!-- Show paginated search results -->
+                            {% set matchCount = 0 %}
+                            {% for school in schools %}
+                                {% if searchTerm in school.name | lower or searchTerm in school.urn | lower %}
+                                    {% set matchCount = matchCount + 1 %}
+                                    {% if matchCount >= searchStartItem and matchCount <= searchEndItem %}
+                                    <tr class="govuk-table__row">
+                                        <td class="govuk-table__cell">
+                                            <a class="govuk-link govuk-link--no-visited-state" href="school-details?section=overview">{{ school.name }}</a>
+                                        </td>
+                                        <td class="govuk-table__cell">{{ school.urn }}</td>
+                                    </tr>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <!-- Show paginated results -->
+                            {% for i in range(startItem, endItem + 1) %}
+                                {% if i <= schools | length %}
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">
+                                        <a class="govuk-link govuk-link--no-visited-state" href="school-details?section=overview">{{ schools[i - 1].name }}</a>
+                                    </td>
+                                    <td class="govuk-table__cell">{{ schools[i - 1].urn }}</td>
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="govuk-body">No results found</p>
+            {% endif %}
+        {% endif %}
+
+        <!-- Pagination controls -->
+        {% if resultCount > itemsPerPage %}
+        {% set paginationTotalPages = searchTotalPages if data.q else totalPages %}
+        <nav class="govuk-pagination" aria-label="Pagination">
+            {% if currentPage > 1 %}
+            <div class="govuk-pagination__prev">
+                <a class="govuk-link govuk-pagination__link" href="?{% if data.q %}q={{data.q}}&{% endif %}page={{currentPage - 1}}" rel="prev">
+                    <svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+                        <path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path>
+                    </svg>
+                    <span class="govuk-pagination__link-title">
+                        Previous<span class="govuk-visually-hidden"> page</span>
+                    </span>
+                </a>
+            </div>
+            {% endif %}
+            <ul class="govuk-pagination__list">
+                {% for pageNum in range(1, paginationTotalPages + 1) %}
+                <li class="govuk-pagination__item{% if pageNum == currentPage %} govuk-pagination__item--current{% endif %}">
+                    <a class="govuk-link govuk-pagination__link" href="?{% if data.q %}q={{data.q}}&{% endif %}page={{pageNum}}" aria-label="Page {{pageNum}}"{% if pageNum == currentPage %} aria-current="page"{% endif %}>{{pageNum}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% if currentPage < paginationTotalPages %}
+            <div class="govuk-pagination__next">
+                <a class="govuk-link govuk-pagination__link" href="?{% if data.q %}q={{data.q}}&{% endif %}page={{currentPage + 1}}" rel="next">
+                    <span class="govuk-pagination__link-title">
+                        Next<span class="govuk-visually-hidden"> page</span>
+                    </span>
+                    <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+                        <path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path>
+                    </svg>
+                </a>
+            </div>
+            {% endif %}
+        </nav>
+        {% endif %}
+
+        <!-- Results summary -->
+        {% if resultCount > 0 and resultCount > itemsPerPage %}
+        <div class="govuk-body govuk-!-margin-bottom-1">
+            {% if data.q %}
+                Showing 
+                <span class="govuk-!-font-weight-bold">{{searchStartItem}}</span> 
+                to 
+                <span class="govuk-!-font-weight-bold">{{searchEndItem}}</span> 
+                of 
+                <span class="govuk-!-font-weight-bold">{{resultCount}}</span> 
+                results
+            {% else %}
+                Showing 
+                <span class="govuk-!-font-weight-bold">{{startItem}}</span> 
+                to 
+                <span class="govuk-!-font-weight-bold">{{endItem}}</span> 
+                of 
+                <span class="govuk-!-font-weight-bold">{{totalItems}}</span> 
+                results
+            {% endif %}
+        </div>
+        {% endif %}
+        
+    </div>
+</div>
+
+{% endblock %} 

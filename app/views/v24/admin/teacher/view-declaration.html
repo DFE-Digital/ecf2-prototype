@@ -1,0 +1,128 @@
+{% extends "layouts/admin.html" %}
+
+{% set pageName="View declaration for John Smith" %}
+{% set activeNav="teachers" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back",
+  href: "javascript:history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+    <dl class="govuk-summary-list">
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Declaration type
+        </dt>
+        <dd class="govuk-summary-list__value">
+          started
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Declaration ID
+        </dt>
+        <dd class="govuk-summary-list__value">
+          95f007c0-52ad-4cf1-88d1-90c0a8ed630a
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Course identifier
+        </dt>
+        <dd class="govuk-summary-list__value">
+          ecf-induction
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          State
+        </dt>
+        <dd class="govuk-summary-list__value">
+          Paid
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Declaration date and time
+        </dt>
+        <dd class="govuk-summary-list__value">
+          1 October 2025, 10:30AM
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Lead provider
+        </dt>
+        <dd class="govuk-summary-list__value">
+          Ambition Institute
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Delivery partner
+        </dt>
+        <dd class="govuk-summary-list__value">
+          Alpha Teaching School Hub
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Evidence held
+        </dt>
+        <dd class="govuk-summary-list__value">
+          training-event-attended
+        </dd>
+      </div>
+    </dl>
+
+   <hr class="govuk-section-break govuk-section-break--m">
+   <table class="govuk-table">
+     <caption class="govuk-table__caption govuk-table__caption--s">State history</caption>
+     <thead class="govuk-table__head">
+       <tr class="govuk-table__row">
+         <th scope="col" class="govuk-table__header">State</th>
+         <th scope="col" class="govuk-table__header">Changed at</th>
+       </tr>
+     </thead>
+     <tbody class="govuk-table__body">
+       <tr class="govuk-table__row">
+         <th scope="row" class="govuk-table__header">Submitted</th>
+         <td class="govuk-table__cell">1 December 2025, 12:00AM</td>
+       </tr>
+       <tr class="govuk-table__row">
+         <th scope="row" class="govuk-table__header">Eligible</th>
+         <td class="govuk-table__cell">1 December 2025, 12:00AM</td>
+       </tr>
+       <tr class="govuk-table__row">
+         <th scope="row" class="govuk-table__header">Payable</th>
+         <td class="govuk-table__cell">2 December 2025, 12:00AM</td>
+       </tr>
+       <tr class="govuk-table__row">
+         <th scope="row" class="govuk-table__header">Paid</th>
+         <td class="govuk-table__cell">4 December 2025, 12:00AM</td>
+       </tr>              
+     </tbody>
+ </table>    
+
+    <form method="get" action="../finance/void-declaration">
+     <button class="govuk-button govuk-button--warning"">Void declaration</button>
+    </form>
+
+  </div>
+</div>
+{% endblock %}

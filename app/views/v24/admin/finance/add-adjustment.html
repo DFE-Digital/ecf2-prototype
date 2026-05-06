@@ -1,0 +1,210 @@
+{% extends "layouts/admin.html" %}
+{% set activeNav = 'finance' %}
+
+{% block head %}
+<style>
+    /* .govuk-width-container {
+        max-width: 1250px;
+    } */
+</style>
+{{ super() }} <!-- This includes the content from the base head block -->
+{% endblock %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">{% if query.edit is defined %}Change adjustment{% else %}Make adjustment{% endif %}</h1>
+
+        <form method="post">
+            {{ govukInput({
+            label: {
+            text: "Adjustment name",
+            classes: "govuk-label--m",
+            isPageHeading: false
+            },
+            hint: {
+            text: "Describe what the adjustment is for"
+            },
+            id: "adjustment-name",
+            classes: "govuk-input--width-30",
+            name: "adjustmentName",
+            value: query.adjustmentName if query.edit is defined else ""
+            }) }}
+
+            {{ govukInput({
+            id: "amount",
+            name: "amount",
+            label: {
+            text: "Adjustment amount",
+            classes: "govuk-label--m",
+            isPageHeading: false
+            },
+            hint: {
+            text: "Add a minus symbol before the amount if you need to make a negative adjustment. For example, -45"
+            },
+            prefix: {
+            text: "£"
+            },
+            classes: "govuk-input--width-5",
+            spellcheck: false,
+            value: query.amount if query.edit is defined else ""
+            }) }}
+
+            <input type="hidden" name="provider" value="{{ query.provider }}">
+            <input type="hidden" name="contractYear" value="{{ query.contractYear }}">
+            <input type="hidden" name="statement" value="{{ query.statement }}">
+            {% if query.edit is defined %}
+            <input type="hidden" name="editIndex" value="{{ query.edit }}">
+            {% endif %}
+            <button class="govuk-button" data-module="govuk-button">{% if query.edit is defined %}Save changes{% else %}Add adjustment{% endif %}</button>
+        </form>
+        <p><a href="statement?provider={{ query.provider | urlencode }}&contractYear={{ query.contractYear }}&statement={{ query.statement | urlencode }}">Cancel and return to statement</a></p>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script>
+    (function() {
+        // Utility: clear any existing error summary from the page
+        function clearErrorSummary() {
+            var existing = document.querySelector('.govuk-error-summary');
+            if (existing) existing.parentNode.removeChild(existing);
+        }
+
+        // Utility: build and insert an error summary given an array of errors
+        // Each error should be an object: { fieldId: "...", message: "..." }
+        function insertErrorSummary(errorArray) {
+            if (!errorArray || !errorArray.length) return;
+
+            var container = document.createElement('div');
+            container.className = 'govuk-error-summary';
+            container.setAttribute('aria-labelledby', 'error-summary-title');
+            container.setAttribute('role', 'alert');
+            container.setAttribute('tabindex', '-1');
+            container.setAttribute('data-module', 'govuk-error-summary');
+
+            var title = document.createElement('h2');
+            title.className = 'govuk-error-summary__title';
+            title.id = 'error-summary-title';
+            title.textContent = 'There is a problem';
+            container.appendChild(title);
+
+            var body = document.createElement('div');
+            body.className = 'govuk-error-summary__body';
+            container.appendChild(body);
+
+            var list = document.createElement('ul');
+            list.className = 'govuk-list govuk-error-summary__list';
+            body.appendChild(list);
+
+            errorArray.forEach(function(err) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = '#' + err.fieldId;
+                a.textContent = err.message;
+                li.appendChild(a);
+                list.appendChild(li);
+            });
+
+            var firstHeading = document.querySelector('h1');
+            if (firstHeading && firstHeading.parentNode) {
+                firstHeading.parentNode.insertBefore(container, firstHeading);
+                container.focus();
+            }
+        }
+
+        // UPDATED showError(): places <p> _before_ the .govuk-input__wrapper if it exists,
+        // otherwise drops it before the <input> itself
+        function showError(inputEl, message) {
+            var fg = inputEl.closest('.govuk-form-group');
+            if (!fg) return;
+            fg.classList.add('govuk-form-group--error');
+
+            // Only create one <p class="govuk-error-message"> per field
+            var existing = fg.querySelector('.govuk-error-message');
+            if (existing) return;
+
+            var p = document.createElement('p');
+            p.className = 'govuk-error-message';
+            p.id = inputEl.id + '-error';
+            p.innerHTML = '<span class="govuk-visually-hidden">Error:</span> ' + message;
+
+            // If this <input> lives inside a .govuk-input__wrapper, insert the <p> before that wrapper.
+            var wrapper = inputEl.closest('.govuk-input__wrapper');
+            if (wrapper) {
+                // Insert before wrapper (so it appears above it)
+                wrapper.parentNode.insertBefore(p, wrapper);
+            } else {
+                // Otherwise, just insert before the <input> as normal
+                inputEl.parentNode.insertBefore(p, inputEl);
+            }
+
+            // Ensure the input’s aria-describedby includes the error ID
+            var desc = inputEl.getAttribute('aria-describedby') || '';
+            if (desc.indexOf(inputEl.id + '-error') === -1) {
+                var tokens = desc.split(' ').filter(function(s) { return s.trim(); });
+                tokens.push(inputEl.id + '-error');
+                inputEl.setAttribute('aria-describedby', tokens.join(' '));
+            }
+        }
+
+        // Utility: clear all existing field-level errors in this form
+        function clearAllFieldErrors(formEl) {
+            formEl.querySelectorAll('.govuk-form-group--error').forEach(function(fg) {
+                fg.classList.remove('govuk-form-group--error');
+            });
+            formEl.querySelectorAll('.govuk-error-message').forEach(function(p) {
+                p.parentNode.removeChild(p);
+            });
+            formEl.querySelectorAll('[aria-describedby]').forEach(function(field) {
+                var descTokens = field.getAttribute('aria-describedby').split(' ');
+                var filtered = descTokens.filter(function(id) {
+                    return !id.endsWith('-error');
+                });
+                if (filtered.length) {
+                    field.setAttribute('aria-describedby', filtered.join(' '));
+                } else {
+                    field.removeAttribute('aria-describedby');
+                }
+            });
+        }
+
+        // Grab references
+        var form = document.querySelector('form');
+        var nameInput   = document.getElementById('adjustment-name');
+        var amountInput = document.getElementById('amount');
+        if (!form || !nameInput || !amountInput) return;
+
+        form.addEventListener('submit', function(e) {
+            clearErrorSummary();
+            clearAllFieldErrors(form);
+
+            var errors = [];
+
+            // Validate “Adjustment name”
+            if (nameInput.value.trim() === '') {
+                showError(nameInput, 'Enter an adjustment name');
+                errors.push({ fieldId: 'adjustment-name', message: 'Enter an adjustment name' });
+            }
+
+            // Validate “Adjustment amount”
+            if (amountInput.value.trim() === '') {
+                showError(amountInput, 'Enter an amount');
+                errors.push({ fieldId: 'amount', message: 'Enter an amount' });
+            }
+
+            if (errors.length) {
+                e.preventDefault();
+                insertErrorSummary(errors);
+            }
+        });
+    })();
+</script>
+{% endblock %}
+
