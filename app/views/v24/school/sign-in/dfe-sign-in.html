@@ -1,0 +1,270 @@
+{% set serviceName = "DfE Sign-In" %}
+{% extends "layouts/main.html" %}
+
+{% set pageName="Department for Education Sign-in" %}
+
+{% block beforeContent %}
+<div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+        <strong class="govuk-tag govuk-phase-banner__content__tag">
+            BETA
+        </strong>
+        <span class="govuk-phase-banner__text">
+            This is a new service – your <a class="govuk-link" href="#" target="_blank">feedback</a> will help us to improve it.
+        </span>
+    </p>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">{{pageName}}</h1>
+        <p>Sign-in to access DfE online services.</p>
+
+        <fieldset class="govuk-fieldset">
+            <legend class="govuk-visually-hidden">Sign-in</legend>
+
+            <div class="govuk-form-group ">
+
+                <label class="govuk-label govuk-label--s" for="username">Email address</label>
+
+
+                <input class="govuk-input govuk-!-width-three-quarters" id="username" name="username" type="text" value="">
+            </div>
+
+            <div class="govuk-form-group ">
+                <label class="govuk-label govuk-label--s" for="password">Password</label>
+
+                <input class="password-input govuk-input govuk-!-width-three-quarters govuk-!-margin-right-1" id="password" name="password" type="password"><button type="button" class="show-password govuk-button govuk-button--secondary govuk-!-margin-bottom-1" aria-label="Show password">Show</button>
+
+                <p class="govuk-body">
+                    <a class="govuk-link govuk-!-font-weight-bold" href="#">
+                        Forgotten your password?
+                    </a>
+                </p>
+            </div>
+
+            <div class="govuk-inset-text">
+                <p class="govuk-body">By signing in you accept <a class="govuk-link govuk-!-font-weight-bold" href="#">DfE Sign-in terms and conditions</a>.</p>
+            </div>
+
+        </fieldset>
+
+        <form method="post">
+            <div class="govuk-button-group">
+                <button type="submit" class="govuk-button">
+                    Sign in
+                </button>
+
+                <a class="govuk-button govuk-button--secondary" href="#">Create account</a>
+
+            </div>
+        </form>
+
+        <details class="govuk-details" data-module="govuk-details" role="group">
+            <summary class="govuk-details__summary" role="button" aria-controls="details-content-0" aria-expanded="false">
+                    <span class="govuk-details__summary-text">
+                        Services accessed using DfE Sign-in
+                    </span>
+            </summary>
+            <div class="govuk-details__text" id="details-content-0" aria-hidden="true">
+                <p class="govuk-body">
+                    These DfE services are now accessed using your DfE Sign-in account.
+                </p>
+                <ol class="govuk-list govuk-list--bullet">
+
+                    <li>Academy Budget Forecast Return</li>
+
+
+                    <li>Accounts Return</li>
+
+
+                    <li>Analyse school performance</li>
+
+
+                    <li>Apply To Become An Academy</li>
+
+
+                    <li>Apply for funding to study abroad (Turing Scheme)</li>
+
+
+                    <li>Apprenticeship service admin</li>
+
+
+                    <li>Apprenticeship service bulk stop utility</li>
+
+
+                    <li>Apprenticeship service employer support tool</li>
+
+
+                    <li>Apprenticeship service for training providers</li>
+
+
+                    <li>Apprenticeship service identify data locks</li>
+
+
+                    <li>Apprenticeship service vacancy QA</li>
+
+
+                    <li>Assessment Service</li>
+
+
+                    <li>Assessment service: develop an assessment</li>
+
+
+                    <li>Assessment service: manage your school’s assessments</li>
+
+
+                    <li>Assessment service: start an assessment</li>
+
+
+
+                    <li>Check a teacher's record</li>
+
+
+                    <li>Check the Children’s barred list</li>
+
+
+                    <li>Child Safeguarding Incident Notification System</li>
+
+
+                    <li>Claim additional payments for teaching</li>
+
+
+                    <li>Claim funding for mentor training</li>
+
+
+                    <li>Collect</li>
+
+
+                    <li>College Financial Data (CFD) service</li>
+
+
+                    <li>Customer help portal</li>
+
+
+                    <li>DfE Connect</li>
+
+
+
+
+
+
+                    <li>Document exchange</li>
+
+
+                    <li>ESFA Digital Forms Service</li>
+
+
+                    <li>Financial Benchmarking &amp; Insights Tool</li>
+
+
+                    <li>Get Information About Schools</li>
+
+
+                    <li>Get help buying for schools</li>
+
+
+                    <li>Get information about pupils</li>
+
+
+                    <li>Get my Ofsted Inspection Data Summary Report</li>
+
+
+                    <li>Hiring Supply Teachers and Agency Workers</li>
+
+
+                    <li>Issue Education Record</li>
+
+
+
+
+                    <li>Land and Building Collections Tool (LBCT) service</li>
+
+
+
+                    <li>Manage your education and skills funding (MYESF)</li>
+
+
+                    <li>Multiplication tables check</li>
+
+
+                    <li>National non-domestic rates (NNDR) claims</li>
+
+
+                    <li>Online Collections Service - including Risk Protection Arrangements</li>
+
+
+                    <li>Plan Technology For Your School</li>
+
+
+
+                    <li>Publish to the course directory</li>
+
+
+                    <li>Register Trainee Teachers</li>
+
+
+                    <li>Related Party Transactions (RPT) service</li>
+
+
+                    <li>School Experience</li>
+
+
+                    <li>School Improvement and System Leadership (SISL) CRM</li>
+
+
+                    <li>School Placements</li>
+
+
+                    <li>School to School</li>
+
+
+                    <li>Submit DBV SEND Progress Report (LAs)</li>
+
+
+                    <li>Submit Learner Data</li>
+
+
+                    <li>Submit Learner Data Operations</li>
+
+
+                    <li>T Level Results and Certification</li>
+
+
+                    <li>T Levels - Connect with Employers</li>
+
+
+
+
+                    <li>Teacher Services - Appropriate Body</li>
+
+
+                    <li>Teacher Services - Employer Access - Agent</li>
+
+
+                    <li>Teacher Services - Employer Access - Schools</li>
+
+
+                    <li>Teaching Vacancies</li>
+
+
+                    <li>View Education Record</li>
+
+
+                    <li>View Your Education Data (VYED)</li>
+
+
+
+
+                </ol>
+            </div>
+        </details>
+
+        <p class="govuk-body" id="inactivity-message">If you are inactive for 20 minutes, your session will timeout.</p>
+    </div>
+</div>
+
+{% endblock %}

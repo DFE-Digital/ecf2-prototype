@@ -1,0 +1,47 @@
+{% extends "layouts/admin.html" %}
+
+{% set pageName="Confirm contract period change for John Smith" %}
+{% set activeNav="teachers" %}
+
+{% set partnershipName = "Ambition Institute & Alpha Teaching School Hub" %}
+{% if data['new-partnership'] == "saffron" %}
+{% set partnershipName = "Ambition Institute & Saffron Teaching School Hub" %}
+{% endif %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+    {{ govukSummaryList({
+      rows: [
+        {
+          key: { text: "Existing contract period" },
+          value: { text: "2022" }
+        },
+        {
+          key: { text: "New contract period" },
+          value: { text: data['contract-period'] or "2022" }
+        },
+        {
+          key: { text: "Partnership" },
+          value: { text: partnershipName }
+        }
+      ]
+    }) }}
+
+    <form method="post" action="../teachers-details?section=training&contractPeriodChanged=1">
+      <button class="govuk-button" data-module="govuk-button">Confirm</button>
+    </form>
+
+    <p><a href="../teachers-details?section=overview">Cancel and go back to John Smith</a></p>
+  </div>
+</div>
+{% endblock %}

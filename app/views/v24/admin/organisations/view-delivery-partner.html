@@ -1,0 +1,234 @@
+{% extends "layouts/admin.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    /* Custom styles for search example */
+    .search-box__form {
+        display: flex;
+        gap: 15px;
+        align-items: flex-end;
+        flex-wrap: wrap;
+    }
+    
+    .search-box__input {
+        flex-grow: 1;
+    }
+    code {
+        background-color: #f3f2f1;
+        font-family: monospace;
+        padding: 2px 5px;
+    }
+</style>
+{% endblock %}
+
+{% set isNewPartnerVariant = isNewDeliveryPartner or false %}
+{% if isNewPartnerVariant and newDeliveryPartnerName %}
+    {% set pageName = newDeliveryPartnerName %}
+{% else %}
+    {% set pageName = "Aquila Trust" %}
+{% endif %}
+{% set activeNav="organisations" %}
+
+{% block beforeContent %}
+{{govukBreadcrumbs({
+    items: [
+        {
+            text: "Organisations",
+            href: "index"
+        },
+        {
+            text: "Delivery partners",
+            href: "delivery-partners"
+        },
+        {
+            text: pageName
+        }
+    ]
+})}}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        {% if isNewPartnerVariant and (showNewDeliveryPartnerAddedBanner or showNewDeliveryPartnerUpdatedBanner) %}
+        {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+        {% set html %}
+          <h3 class="govuk-notification-banner__heading">
+            {% if showNewDeliveryPartnerAddedBanner %}
+              Delivery partner added
+            {% else %}
+              Delivery partner updated
+            {% endif %}
+          </h3>
+        {% if showNewDeliveryPartnerAddedBanner %}
+          <p>You can now add lead providers working with them.</p>
+        {% endif %}  
+        {% endset %}
+
+        {{ govukNotificationBanner({
+          html: html,
+          type: "success"
+        }) }}
+        {% endif %}
+
+        {# {{govukNotificationBanner({
+            type: "success",
+            html: "Lead provider partners updated"
+        })}} #}
+
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+        <p><a href="dp-change-name">Change delivery partner name</a></p>
+        <p class="govuk-body">API ID: <code>37938590-694f-4883-8902-77713802a082</code></p>
+
+        {# {{govukSummaryList({
+            rows: [
+                {
+                    key: {
+                        text: "Name"
+                    },
+                    value: {
+                        html: "Aquila Trust"
+                    },
+                    actions: {
+                        items: [
+                        {
+                            href: "#",
+                            text: "Change",
+                            visuallyHiddenText: "Delivery partner name"
+                        }
+                        ]
+                    }
+                }
+            ]
+        })}} #}
+        
+        <h2 class="govuk-heading-m">Lead provider partners</h2>
+        {% if isNewPartnerVariant %}
+        {% set years = ["2026", "2025", "2024", "2023", "2022", "2021"] %}
+        {% set rows = [] %}
+        {% for year in years %}
+            {% set leadProviders = selectedLeadProvidersByYear[year] if selectedLeadProvidersByYear and selectedLeadProvidersByYear[year] else [] %}
+            {% if leadProviders and (leadProviders | length) > 0 %}
+                {% set actionText = "Change" %}
+                {% if (leadProviders | length) > 1 %}
+                    {% set leadProviderValue %}
+                    <ul class="govuk-list">
+                        {% for leadProvider in leadProviders %}
+                        <li>{{ leadProvider }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endset %}
+                {% else %}
+                    {% set leadProviderValue = leadProviders[0] %}
+                {% endif %}
+            {% else %}
+                {% set actionText = "Add" %}
+                {% set leadProviderValue = "Not reported" %}
+            {% endif %}
+            {% set rows = rows.concat([[
+                {
+                    text: year
+                },
+                {
+                    html: leadProviderValue
+                },
+                {
+                    html: "<a href='dp-change-lp?new=1&year=" + year + "' class='govuk-link'>" + actionText + "<span class='govuk-visually-hidden'> " + year + "</span></a>"
+                }
+            ]]) %}
+        {% endfor %}
+        {{ govukTable({
+            head: [
+                {
+                    text: "Year"
+                },
+                {
+                    text: "Lead provider"
+                },
+                {
+                    text: ""
+                }
+            ],
+            rows: rows
+        }) }}
+        {% else %}
+        {{ govukTable({
+            head: [
+                {
+                    text: "Year"
+                },
+                {
+                    text: "Lead provider"
+                },
+                {
+                    text: ""
+                }
+            ],
+            rows: [
+                [
+                    {
+                        text: "2025"
+                    },
+                    {
+                        html: "<ul class='govuk-list'><li>Teach First</li><li>UCL Institute of Education</li></ul>"
+                    },
+                    {
+                        html: "<a href='dp-change-lp' class='govuk-link'>Change<span class='govuk-visually-hidden'> 2025</span></a>"
+                    }
+                ],
+                [
+                    {
+                        text: "2024"
+                    },
+                    {
+                        text: "Teach First"
+                    },
+                    {
+                        html: "<a href='#' class='govuk-link'>Change<span class='govuk-visually-hidden'> 2024</span></a>"
+                    }
+                ],
+                [
+                    {
+                        text: "2023"
+                    },
+                    {
+                        text: "Teach First"
+                    },
+                    {
+                        html: "<a href='#' class='govuk-link'>Change<span class='govuk-visually-hidden'> 2023</span></a>"
+                    }
+                ],
+                [
+                    {
+                        text: "2022"
+                    },
+                    {
+                        text: "Teach First"
+                    },
+                    {
+                        html: "<a href='#' class='govuk-link'>Change<span class='govuk-visually-hidden'> 2022</span></a>"
+                    }
+                ],
+                [
+                    {
+                        text: "2021"
+                    },
+                    {
+                        text: "Ambition Institute"
+                    },
+                    {
+                        html: "<a href='#' class='govuk-link'>Change<span class='govuk-visually-hidden'> 2021</span></a>"
+                    }
+                ]
+            ]
+        }) }}
+        {% endif %}
+        
+        
+    </div>
+</div>
+
+{% endblock %} 

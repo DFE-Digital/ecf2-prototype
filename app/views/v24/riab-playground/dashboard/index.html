@@ -1,0 +1,64 @@
+{% extends "layouts/main.html" %}
+
+{% block head %}
+{{ super() }}
+
+<style>
+    .dfe-card {
+        background-color: #f3f2f1;
+    }
+</style>
+{% endblock %}
+
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back",
+  href: "javascript:history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<h1 class="govuk-heading-l">Live data from schools and Golden Leaf Training Hub for 2025/2026</h1>
+
+<h2 class="govuk-heading-m">ECTs with no induction recorded and ready to be claimed</h2>
+
+<p>There are 7 ECT records registered by schools which need induction registration.</p>
+
+<div class="dfe-grid-container">
+      <div class="dfe-card">
+          <div class="dfe-card-container">
+            <h3 class="govuk-heading-m">
+                <a href="#" class="govuk-link govuk-link--no-visited-state dfe-card-link--header">7 ECTs</a>
+            </h3>
+            <p>that can be claimed now</p>
+          </div>
+      </div>
+</div>
+
+<h2 class="govuk-heading-m">ECTs to review</h2>
+
+<p>There are 14 ECT records registered by schools that cannot be claimed yet, but need reviewing.</p>
+
+<div class="dfe-grid-container">
+      <div class="dfe-card">
+          <div class="dfe-card-container">
+            <h3 class="govuk-heading-m">
+                <a href="#" class="govuk-link govuk-link--no-visited-state dfe-card-link--header">7 ECTs</a>
+            </h3>
+            <p>that have not got QTS awarded</p>
+          </div>
+      </div>
+
+        <div class="dfe-card">
+          <div class="dfe-card-container">
+            <h3 class="govuk-heading-m">
+                <a href="#" class="govuk-link govuk-link--no-visited-state dfe-card-link--header">7 ECTs</a>
+            </h3>
+            <p>that are currently claimed by a different AB</p>
+          </div>
+      </div>
+</div>
+
+{% endblock %}

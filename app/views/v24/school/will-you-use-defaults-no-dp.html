@@ -1,0 +1,139 @@
+{% extends "layouts/ects.html" %}
+
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'John Smith' %}
+{% endif %}
+
+{% set pageName="Programme choices used by your school previously" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+        <p>You used these programme choices the last time you registered an ECT.</p>
+
+        {% if data['ab'] %}
+        {% set ab = data['ab'] %}
+        {% else %}
+        {% set ab = 'Teach West London' %}
+        {% endif %}
+
+        {% if data['deliveryPartner'] %}
+        {% set dp = data['deliveryPartner'] %}
+        {% else %}
+        {% set dp = 'London District East TSH' %}
+        {% endif %}
+
+        {% if data['leadProvider'] %}
+        {% set lp = data['leadProvider'] %}
+        {% else %}
+        {% set lp = 'Ambition Institute' %}
+        {% endif %}
+
+        {% if data.programmeType == 'School-led' %}
+
+        {{ govukSummaryList({
+        rows: [
+        {
+        key: {
+        text: "Appropriate body"
+        },
+        value: {
+        text: ab
+        }
+        },
+        {
+        key: {
+        text: "Training programme"
+        },
+        value: {
+        text: "School-led"
+        }
+        }
+        ]
+        }) }}
+
+        {% else %}
+
+        {{ govukSummaryList({
+        rows: [
+        {
+        key: {
+        text: "Appropriate body"
+        },
+        value: {
+        text: ab
+        }
+        },
+        {
+        key: {
+        text: "Training programme"
+        },
+        value: {
+        text: "Provider-led"
+        }
+        },
+        {
+        key: {
+        text: "Lead provider"
+        },
+        value: {
+        text: lp
+        }
+        }
+        ]
+        }) }}
+
+        <p>{{lp}} will confirm if they'll be working with your school and which delivery partner will deliver training events.</p>
+
+        {% endif %}
+
+        <form method="post">
+
+<!--            {% if data['transferJourney'] === 'yes' %}-->
+
+<!--            <div class="govuk-inset-text">-->
+<!--                <p>Content here about overwriting previous programme details as transfer</p>-->
+<!--            </div>-->
+
+<!--            {% endif %}-->
+
+        {{ govukRadios({
+        classes: "govuk-radios--inline",
+        name: "useDefaults",
+        fieldset: {
+        legend: {
+        text: "Do you want to use the same programme choices for " + name + "?",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--m"
+        }
+        },
+        items: [
+        {
+        value: "yes",
+        text: "Yes"
+        },
+        {
+        value: "no",
+        text: "No"
+        }
+        ]
+        }) }}
+
+            <button class="govuk-button">Continue</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
