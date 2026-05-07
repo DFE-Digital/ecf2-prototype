@@ -1,0 +1,31 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+{{ super() }}
+
+    
+<h1 class="govuk-heading-l">We're blocking access to some activities in the service from 1 June to 15 June 2026</h1>
+
+<!-- <p>From 1 June to 15 June 2026, we're blocking access to some service activities.</p> -->
+
+<p>This is because...</p>
+
+<p>During this time you will not be able to:</p>
+
+<ul class="govuk-list govuk-list--bullet">
+        <li>register new early career teachers (ECTs) and mentors</li>
+        <li>assign existing or new mentors to ECTs</li>
+        <li>change ECT training programmes</li>
+        <li>change ECT and mentor lead providers</li> </ul>
+
+    <p>If you have any questions, <a class="govuk-link" href="mailto:continuing-professional-development@digital.education.gov.uk">email support</a> at continuing-professional-development@digital.education.gov.uk.</p>
+
+<form method="post">
+            {{ govukButton({
+            text: "Continue",
+            isStartButton: true
+            }) }}
+        </form>
+
+
+{% endblock %}
