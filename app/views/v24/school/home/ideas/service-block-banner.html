@@ -1,0 +1,28 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+{{ super() }}
+
+    
+<div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Important
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <p class="govuk-notification-banner__heading">
+      Registration for 2026 to 2027 academic year not yet open
+    </p>
+    <p>You cannot register new ECTs or mentors in the service until we open registration on 15 June.</p>
+  </div>
+</div>
+<form method="post">
+            {{ govukButton({
+            text: "Continue",
+            isStartButton: true
+            }) }}
+        </form>
+
+
+{% endblock %}
