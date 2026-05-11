@@ -57,7 +57,7 @@ href: "ects"
           {{ activeEct.email }}
         </dd>
         <dd class="govuk-summary-list__actions">
-          {% if activeEct.status !== 'Completed induction' %}          
+          {% if activeEct.status !== 'Completed induction' %}
           <a class="govuk-link" href="change/ects/change-email?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> email address</span></a>
           {% endif %}
         </dd>
@@ -71,14 +71,14 @@ href: "ects"
             {{ govukWarningText({
             html: '<a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">Assign a mentor to this ECT</a>',
             iconFallbackText: "Warning"
-            }) }} 
+            }) }}
           {% else %}
-            <a class="govuk-link" href="view-mentor?id={{ activeEct.mentorId }}">{{ mentorName }}</a>
+            {{ mentorName }}
           {% endif %}
         </dd>
         {% if mentorName != 'Not assigned' %}
         <dd class="govuk-summary-list__actions">
-          {% if activeEct.status !== 'Completed induction' %} 
+          {% if activeEct.status !== 'Completed induction' %}
           <a class="govuk-link" href="change/ects/change-mentor?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> mentor</span></a>
           {% endif %}
         </dd>
@@ -102,7 +102,7 @@ href: "ects"
           {% endif %}
           {% if activeEct.deferred == true %}
           <span class="govuk-caption-m govuk-!-margin-top-2">{{activeEct.leadProvider}} have told us that {{activeEct.name }}'s training is paused. Contact them if you think this is an error.</span>
-          {% endif %}          
+          {% endif %}
         </dd>
       </div>
       {% if activeEct.schoolStartDate != null %}
@@ -124,7 +124,7 @@ href: "ects"
           {{ activeEct.workingPattern }}
         </dd>
         <dd class="govuk-summary-list__actions">
-          {% if activeEct.status !== 'Completed induction' %} 
+          {% if activeEct.status !== 'Completed induction' %}
           <a class="govuk-link" href="change/ects/change-working-pattern?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> working pattern</span></a>
           {% endif %}
         </dd>
@@ -151,12 +151,12 @@ href: "ects"
             {% if activeEct.inductionStartDate !== null %}
               <span class="govuk-caption-m">This appropriate body has recorded the ECT's induction.</span>
               <span class="govuk-caption-m">Contact them if this is wrong or if you want to change the appropriate body.</span>
-            {% endif %}  
+            {% endif %}
             {% endif %}
             </dd>
             <dd class="govuk-summary-list__actions">
             {% if activeEct.inductionStartDate === null or activeEct.appropriateBody === null %}
-              {% if activeEct.status !== 'Completed induction' %} 
+              {% if activeEct.status !== 'Completed induction' %}
               <a class="govuk-link" href="change/ects/change-appropriate-body?ectId={{ activeEct.id }}">
                 {% if activeEct.appropriateBody == null %}
                 Add
@@ -165,7 +165,7 @@ href: "ects"
                 {% endif %}
                 <span class="govuk-visually-hidden"> appropriate body</span></a>
               {% endif %}
-            {% endif %}  
+            {% endif %}
             </dd>
           </div>
               <div class="govuk-summary-list__row">
@@ -194,7 +194,7 @@ href: "ects"
               {{ activeEct.trainingProgramme }}
             </dd>
             <dd class="govuk-summary-list__actions">
-              {% if activeEct.status !== 'Completed induction' %} 
+              {% if activeEct.status !== 'Completed induction' %}
               <a class="govuk-link" href="change/ects/change-training-programme?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> training programme</span></a>
               {% endif %}
             </dd>
@@ -222,7 +222,7 @@ href: "ects"
               {% endif %}
             </dd>
             <dd class="govuk-summary-list__actions">
-              {% if activeEct.status !== 'Completed induction' %} 
+              {% if activeEct.status !== 'Completed induction' %}
                 <a class="govuk-link" href="change/ects/change-lead-provider?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> lead provider</span></a>
               {% endif %}
               </dd>
@@ -246,18 +246,18 @@ href: "ects"
 
     {% if activeEct.status === 'No longer training' %}
     <p>
-      
+
       {{activeEct.leadProvider}} have told us that {{activeEct.name}} is no longer training with them. Contact them with you think this is an error.
 
-      <p>You can <a href="change/ects/change-lead-provider?ectId={{ activeEct.id }}&withdrawn=true">select a lead provider</a> for {{activeEct.name}} if they will be continuing provider-led training.</p>      
+      <p>You can <a href="change/ects/change-lead-provider?ectId={{ activeEct.id }}&withdrawn=true">select a lead provider</a> for {{activeEct.name}} if they will be continuing provider-led training.</p>
 
       <p>You can tell us if they are <a href="change/ects/change-training-programme?ectId={{ activeEct.id }}&withdrawnTraining=true">changing their programme type to school-led</a>.</p>
-    
+
     {% endif %}
 
 
         <hr class="govuk-section-break govuk-section-break--m">
-      {% if activeEct.status !== 'Completed induction' %} 
+      {% if activeEct.status !== 'Completed induction' %}
         {% if activeEct.leavingDate %}
         <h1 class="govuk-heading-m">{{ activeEct.name }} is leaving your school</h1>
 
@@ -267,7 +267,7 @@ href: "ects"
 
         <p>We need to know if {{ activeEct.name }} is leaving your school and not expected to return. </p>
 
-        <p>You do not need to tell us if {{ activeEct.name }} is leaving but expected to return, for example, if they're taking parental leave. 
+        <p>You do not need to tell us if {{ activeEct.name }} is leaving but expected to return, for example, if they're taking parental leave.
           You should, however, tell their appropriate body and training provider (if they're on a provider-led programme).
         </p>
 
