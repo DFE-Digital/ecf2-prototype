@@ -97,10 +97,10 @@
           </div>
         </div>
         {% endif %}
-        
+
         <span class="govuk-caption-l">TRN: 2959198</span>
         <h1 class="govuk-heading-l">{{pageName}}</h1>
-        
+
         {% set currentSection = data.section or "overview" %}
 
         {{ xGovukSecondaryNavigation({
@@ -135,7 +135,7 @@
         <div class="govuk-!-margin-top-6">
             {% if currentSection == "overview" %}
                 <h3 class="govuk-heading-m">Overview</h3>
-                
+
                 {{govukSummaryList({
                     rows: [
                         {
@@ -176,7 +176,7 @@
                         {
                             key: { text: "API participant ID"},
                             value: { html: "<code>37938590-694f-4883-8902-77713802a082</code>"}
-                        }                     
+                        }
                     ]
                 })}}
             {% endif %}
@@ -303,8 +303,8 @@
       <td class="govuk-table__cell"><a class="govuk-link govuk-link--no-visited-state" href="#">Steven Davies</a></td>
       <td class="govuk-table__cell">1 July 2025</td>
       <td class="govuk-table__cell">Present</td>
-      </tr>      
-                            </table>                           
+      </tr>
+                            </table>
                         ' }
                       }
                     ]
@@ -336,7 +336,7 @@
                         {
                             key: { text: "Working pattern" },
                             value: { text: "Full time" }
-                        },                        
+                        },
                         {
                             key: { text: "Mentor" },
                             value: { html: '
@@ -354,9 +354,9 @@
       <td class="govuk-table__cell"><a class="govuk-link govuk-link--no-visited-state" href="#">Laura Morris</a></td>
       <td class="govuk-table__cell">25 September 2023</td>
       <td class="govuk-table__cell">25 September 2024</td>
-      </tr>   
-                            </table> 
-                          '                            
+      </tr>
+                            </table>
+                          '
                         }
                       }
                     ]
@@ -407,8 +407,8 @@
       <td class="govuk-table__cell"><a class="govuk-link govuk-link--no-visited-state" href="#">John Brown</a></td>
       <td class="govuk-table__cell">25 September 2024</td>
       <td class="govuk-table__cell">Present</td>
-      </tr>      
-                            </table>                        
+      </tr>
+                            </table>
                         ' }
                       }
                     ]
@@ -420,10 +420,10 @@
 
             {% if dpChanged %}
               {% set partnershipName="Ambition Institute & Saffron Teaching School Hub" %}
-              {% else %} 
+              {% else %}
               {% set partnershipName="Ambition Institute & Alpha Teaching School Hub" %}
               {% endif %}
-            
+
                 <h3 class="govuk-heading-m">Training</h3>
 
                 <h4 class="govuk-heading-s">ECT history</h4>
@@ -567,59 +567,54 @@
 
                 <h4 class="govuk-heading-s">Mentor history</h4>
 
-                {{govukSummaryList({
-                  card: {
-                    title: {
-                      html: partnershipName
-                    },
-                    actions: {
-                      items: [{
-                        classes: "govuk-link--no-visited-state",
-                        href: "teacher/move-partnership",
-                        text: "Move to a different partnership"
-                      }]
-                    }                    
-                  },
-                  rows: [
-                    {
-                      key: { text: "Lead provider" },
-                      value: { text: "Ambition Institute" }
-                    },
-                    {
-                      key: { text: "Delivery partner" },
-                      value: { text: "Alpha Teaching School Hub" }
-                    },
-                    {
-                      key: { text: "School" },
-                      value: { text: "Abacus Primary School" }
-                    },
-                    {
-                      key: { text: "Contract period" },
-                      value: { text: "2025" }
-                    },
-                    {
-                      key: { text: "Schedule" },
-                      value: { text: "ecf-standard-september" },
-                      actions: {
-                        items: [{
-                          classes: "govuk-link--no-visited-state",
-                          href: "teacher/change-schedule?mentor=1",
-                          text: "Change",
-                          visuallyHiddenText: "schedule"
-                        }]
-                      }
-                    },
-                    {
-                      key: { text: "Start date" },
-                      value: { text: "1 September 2025" }
-                    },
-                    {
-                      key: { text: "End date" },
-                      value: { text: "No end date recorded" }
-                    },
-                    {
-                      key: { text: "API response" },
-                      value: { html: '
+                <div class="govuk-summary-card">
+                  <div class="govuk-summary-card__title-wrapper">
+                    <h2 class="govuk-summary-card__title">
+                      {{ partnershipName | safe }}
+                    </h2>
+                    <div class="govuk-summary-card__actions">
+                      <a class="govuk-link govuk-link--no-visited-state" href="teacher/move-partnership">Move to a different partnership<span class="govuk-visually-hidden"> ({{ partnershipName | safe }})</span></a>
+                    </div>
+                  </div>
+                  <div class="govuk-summary-card__content">
+                    <div class="govuk-inset-text govuk-!-margin-top-2">
+                    <p class="govuk-body">John Smith has been withdrawn from this training period by the lead provider.</p>
+                    </div>
+                    <dl class="govuk-summary-list">
+                      <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                        <dt class="govuk-summary-list__key">Lead provider</dt>
+                        <dd class="govuk-summary-list__value">Ambition Institute</dd>
+                      </div>
+                      <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                        <dt class="govuk-summary-list__key">Delivery partner</dt>
+                        <dd class="govuk-summary-list__value">Alpha Teaching School Hub</dd>
+                      </div>
+                      <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                        <dt class="govuk-summary-list__key">School</dt>
+                        <dd class="govuk-summary-list__value">Abacus Primary School</dd>
+                      </div>
+                      <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                        <dt class="govuk-summary-list__key">Contract period</dt>
+                        <dd class="govuk-summary-list__value">2025</dd>
+                      </div>
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Schedule</dt>
+                        <dd class="govuk-summary-list__value">ecf-standard-september</dd>
+                        <dd class="govuk-summary-list__actions">
+                          <a class="govuk-link govuk-link--no-visited-state" href="teacher/change-schedule?mentor=1">Change<span class="govuk-visually-hidden"> schedule ({{ partnershipName | safe }})</span></a>
+                        </dd>
+                      </div>
+                      <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                        <dt class="govuk-summary-list__key">Start date</dt>
+                        <dd class="govuk-summary-list__value">1 September 2025</dd>
+                      </div>
+                      <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                        <dt class="govuk-summary-list__key">End date</dt>
+                        <dd class="govuk-summary-list__value">1 May 2026</dd>
+                      </div>
+                      <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                        <dt class="govuk-summary-list__key">API response</dt>
+                        <dd class="govuk-summary-list__value">
                         <details class="govuk-details">
                           <summary class="govuk-details__summary">
                             <span class="govuk-details__summary-text">See this participant as they appear over the API for Ambition Institute</span>
@@ -687,10 +682,12 @@
 }</code></pre>
                           </div>
                         </details>
-                      ' }
-                        }
-                  ]
-                })}}
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+                </div>
+
 
             {% endif %}
 
@@ -933,11 +930,11 @@
                 <h3 class="govuk-heading-m">Timeline</h3>
             {% endif %}
         </div>
-        
+
     </div>
 </div>
 
-{% endblock %} 
+{% endblock %}
 
 {% block scripts %}
 {{ super() }}
