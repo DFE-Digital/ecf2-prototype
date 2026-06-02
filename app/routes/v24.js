@@ -102,6 +102,10 @@ module.exports = router => {
     })
 
     // admin teacher change schedule
+    router.get(v + admin + 'teacher/timeline', (req, res) => {
+        res.render(vGet + admin + 'teacher/timeline')
+    })
+
     router.get(v + admin + 'teacher/change-schedule', (req, res) => {
         res.render(vGet + admin + 'teacher/change-schedule', {
             query: req.query
