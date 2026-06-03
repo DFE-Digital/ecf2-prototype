@@ -1,0 +1,22 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Service not added" %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+            <h1 class="govuk-heading-l">{{ pageName }}</h1>
+            <p>Body text here.</p>
+            <p><a href="#" class="govuk-link govuk-link--no-visited-state">This will link to DfE sign in to add the service</a></p>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
