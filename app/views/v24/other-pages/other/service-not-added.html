@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Service not added" %}
+{% set pageName="You do not have approved access to this service from your school or organisation" %}
 
 {% block beforeContent %}
 {% endblock %}
@@ -12,8 +12,23 @@
         <form method="post">
 
             <h1 class="govuk-heading-l">{{ pageName }}</h1>
-            <p>Body text here.</p>
-            <p><a href="#" class="govuk-link govuk-link--no-visited-state">This will link to DfE sign in to add the service</a></p>
+            <p>You've tried to access the 'Register early career teachers' service with <i>schoolname</i> as your school or organisation.</p>
+            <p>You do not have approved access to the service from <i>schoolname</i>.</p>
+
+            <h2 class="govuk-heading-m">What you need to do</h2>
+
+            <h3 class="govuk-heading-s">If you selected the wrong school or organisation when you signed in</h3>
+
+                <ol class="govuk-list govuk-list--number">
+                <li>Sign out of DfE Sign-in.</li>
+                <li>Sign in again and select the school or organisation for where you want to use the service.</li>
+        </ol>
+
+            <h3 class="govuk-heading-s">If you've signed in with the correct school or organisation</h3>
+
+            <p>You'll need to request access to the 'Register early career teachers' service.</p>
+
+            <p><a href="#" class="govuk-link govuk-link--no-visited-state">Request access to the service in your DfE Sign-in account (opens in a new tab)</a>.</p>
         </form>
 
     </div>

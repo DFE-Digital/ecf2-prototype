@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Organisation not added" %}
+{% set pageName="You need to connect to a school or organisation to access this service" %}
 
 {% block beforeContent %}
 {% endblock %}
@@ -12,8 +12,19 @@
         <form method="post">
 
             <h1 class="govuk-heading-l">{{ pageName }}</h1>
-            <p>Body text here.</p>
-            <p><a href="#" class="govuk-link govuk-link--no-visited-state">This will link to DfE sign in to add the organisation</a></p>
+            <p>Your DfE Sign-in account is not connected to a school or organisation.</p>
+            <p>You cannot access services until you connect to a school and organisation.</p>
+
+            <h2 class="govuk-heading-m">What you need to do</h2>
+            <ol class="govuk-list govuk-list--number">
+        <li>In your DfE Sign-in account, request to connect to the school or organisation.</li>
+        <li>Request access to the 'Register early career teachers service'.</li>
+        </ol>
+
+      <!--  <p>You'll need to wait for the school or organisation to approve your requests before you can use the service.</p> -->
+
+
+            <p><a href="#" class="govuk-link govuk-link--no-visited-state">Connect to a school or organisation in your DfE Sign-in account (opens in a new tab)</a>.</p>
         </form>
 
     </div>
