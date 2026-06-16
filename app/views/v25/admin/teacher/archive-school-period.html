@@ -1,0 +1,60 @@
+{% extends "layouts/admin.html" %}
+
+{% set pageName="Archive a school period for John Smith" %}
+{% set activeNav="teachers" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "../teachers-details?section=overview"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+    <p class="govuk-body">
+      Archiving a school period allows undoing a registration that was made in error.</p>
+
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive govuk-visually-hidden">Warning</span>
+        Only continue if the registration was made in error.
+      </strong>
+    </div>
+
+    <h2 class="govuk-heading-m">What will happen</h2>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>the selected school period will be archived</li>
+      <li>if John Smith has only one school period and there are no declarations, the teacher record will also be archived</li>
+      <li>other school periods and registrations will not be affected unless you choose to archive them separately</li>
+    </ul>
+
+    <h2 class="govuk-heading-m">If the teacher is registered as an ECT and a mentor</h2>
+
+    <p class="govuk-body">
+      A teacher can be registered as both an ECT and a mentor. Only one of those registrations may have been made in error.
+    </p>
+
+    <p class="govuk-body">
+      Check which registration is incorrect before you continue. You can archive the school period for the registration that was made in error without affecting the other.
+    </p>
+
+    <h2 class="govuk-heading-m">If the ECT is on a provider-led programme</h2>
+
+    <p class="govuk-body">
+      Before you continue, contact the lead provider offline to tell them you are archiving this registration.
+    </p>
+
+    <form method="post">
+      <button class="govuk-button" data-module="govuk-button">Continue</button>
+    </form>
+
+    <p><a href="../teachers-details?section=overview" class="govuk-link govuk-link--no-visited-state">Cancel and go back to John Smith</a></p>
+  </div>
+</div>
+{% endblock %}

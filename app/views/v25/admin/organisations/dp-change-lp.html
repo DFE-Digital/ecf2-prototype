@@ -1,0 +1,129 @@
+{% extends "layouts/admin.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    /* Custom styles for search example */
+    .search-box__form {
+        display: flex;
+        gap: 15px;
+        align-items: flex-end;
+        flex-wrap: wrap;
+    }
+    
+    .search-box__input {
+        flex-grow: 1;
+    }
+</style>
+{% endblock %}
+
+{% set isNewPartnerVariant = isNewDeliveryPartner or false %}
+{% if isNewPartnerVariant and newDeliveryPartnerName %}
+    {% set partnerName = newDeliveryPartnerName %}
+{% else %}
+    {% set partnerName = "Aquila Trust" %}
+{% endif %}
+{% if isNewPartnerVariant and query.year %}
+    {% set contractYear = query.year %}
+{% else %}
+    {% set contractYear = "2025" %}
+{% endif %}
+{% set pageName="Select lead providers working with " + partnerName + " in " + contractYear %}
+{% set currentLeadProviders = selectedLeadProviders or [] %}
+{% set ambitionChecked = false %}
+{% set educationDevelopmentTrustChecked = false %}
+{% set nationalInstituteOfTeachingChecked = false %}
+{% set teachFirstChecked = false %}
+{% set uclChecked = false %}
+{% set noneChecked = false %}
+{% if 'ambition-institute' in currentLeadProviders %}
+    {% set ambitionChecked = true %}
+{% endif %}
+{% if 'education-development-trust' in currentLeadProviders %}
+    {% set educationDevelopmentTrustChecked = true %}
+{% endif %}
+{% if 'national-institute-of-teaching' in currentLeadProviders %}
+    {% set nationalInstituteOfTeachingChecked = true %}
+{% endif %}
+{% if isNewPartnerVariant %}
+    {% if 'teach-first' in currentLeadProviders %}
+        {% set teachFirstChecked = true %}
+    {% endif %}
+    {% if 'ucl-institute-of-education' in currentLeadProviders %}
+        {% set uclChecked = true %}
+    {% endif %}
+{% else %}
+    {% set teachFirstChecked = true %}
+    {% set uclChecked = true %}
+{% endif %}
+{% if isNewPartnerVariant and hasSelectedLeadProviders and (currentLeadProviders | length) == 0 %}
+    {% set noneChecked = true %}
+{% endif %}
+{% set activeNav="organisations" %}
+
+{% block beforeContent %}
+{{govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+})}}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <form method="post">
+        {{govukCheckboxes({
+            idPrefix: "lead-provider",
+            name: "lead-provider",
+            fieldset: {
+                legend: {
+                    text: pageName,
+                    isPageHeading: true,
+                    classes: "govuk-fieldset__legend--l"
+                }
+            },
+            items: [
+                {
+                    value: "ambition-institute",
+                    text: "Ambition Institute",
+                    checked: ambitionChecked
+                },
+                {
+                    value: "education-development-trust",
+                    text: "Education Development Trust",
+                    checked: educationDevelopmentTrustChecked
+                },
+                {
+                    value: "national-institute-of-teaching",
+                    text: "National Institute of Teaching",
+                    checked: nationalInstituteOfTeachingChecked
+                },
+                {
+                    value: "teach-first",
+                    text: "Teach First",
+                    checked: teachFirstChecked
+                },
+                {
+                    value: "ucl-institute-of-education",
+                    text: "UCL Institute of Education",
+                    checked: uclChecked
+                },
+                {
+                  divider: "or"
+                },
+                {
+                  value: "none",
+                  text: partnerName + " is not delivering training in " + contractYear,
+                  behaviour: "exclusive",
+                  checked: noneChecked
+                }
+            ]
+        })}}        
+
+        <button class="govuk-button">Confirm</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %} 

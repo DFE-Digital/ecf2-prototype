@@ -1,0 +1,58 @@
+{% extends "layouts/mentors.html" %}
+
+{# Find the active mentor from the mentors array based on the 'id' query parameter #}
+{% set mentorId = data.id %}
+{% set activeMentor = {} %}
+{% for person in data.mentors %}
+  {% if person.id == mentorId %}
+    {% set activeMentor = person %}
+  {% endif %}
+{% endfor %}
+
+{% set name = activeMentor.name %}
+{% set pageName = "Before you change " + name + "'s name on this service" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back",
+  href: "../../view-mentor?id=" + mentorId
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+    <p class="govuk-body-l">You should only continue if you need to correct how {{ name }}'s name is shown in this service, for example if there is a spelling mistake or they have changed their preferred name.</p>
+
+    <p>If you want a different person to mentor an ECT, go to that ECT's record, then select Change next to Mentor.</p>
+
+    {% set hasAssignedEcts = false %}
+    {% for ect in data.ects %}
+      {% if ect.mentorId == mentorId %}
+        {% set hasAssignedEcts = true %}
+      {% endif %}
+    {% endfor %}
+
+    {% if hasAssignedEcts %}
+      <p class="govuk-body">This mentor is assigned to the following ECTs. To assign someone else, select the ECT and use Change next to Mentor:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        {% for ect in data.ects %}
+          {% if ect.mentorId == mentorId %}
+            <li><a class="govuk-link" href="../../view-ect?ect={{ ect.id }}">{{ ect.name }}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <p class="govuk-body govuk-!-margin-bottom-6">
+      <a class="govuk-button" href="change-name?id={{ mentorId }}">Continue to change name</a>
+    </p>
+
+    <p class="govuk-body"><a class="govuk-link" href="../../view-mentor?id={{ mentorId }}">Cancel and return to {{ name }}'s details</a></p>
+  </div>
+</div>
+
+{% endblock %}

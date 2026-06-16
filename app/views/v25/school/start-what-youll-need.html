@@ -1,0 +1,63 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="What you'll need to register ECTs and mentors" %}
+
+{% block beforeContent %}
+
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+        <p>For ECTs and mentors you'll need to provide these details:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>name</li>
+            <li>teacher reference number (TRN)</li>
+            <li>date of birth</li>
+            <li>email address</li>
+            <li>lead provider</li>
+        </ul>
+        <p>For ECTs only, you'll also need to provide these details:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>start date at your school as an ECT</li>
+            <li>full or part time working pattern</li>
+            <li>date of birth</li>
+            <li>appropriate body</li>
+            <li>provider-led or school-led training</li>
+        </ul>
+
+        <details class="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                  What are the roles of an appropriate body, lead provider and delivery partner?
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                <p>An appropriate body is responsible for assuring the quality of the statutory induction of ECTs.</p>
+                <p>For provider-led training, the lead provider provides the online learning platform used for training ECTs and mentors, while the delivery partner delivers training events.</p>
+                <p>These roles are sometimes undertaken by the same organisation, for example an appropriate body might be the same organisation as the delivery partner.</p>
+                <p>For school-led training your school will still work with an appropriate body to quality assure the induction process. You might choose to design your own training programme or use materials created by different lead providers.</p>
+            </div>
+        </details>
+
+         <form method="post">
+            {{ govukButton({
+            text: "Continue to DfE Sign-in",
+            isStartButton: true
+            }) }}
+        </form>
+
+        
+        <p><a class="govuk-link" href="javascript:window.history.back()">Back to start page</a></p>
+
+    </div>
+</div>
+
+{% endblock %}

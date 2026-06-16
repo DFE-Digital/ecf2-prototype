@@ -1,0 +1,62 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Register early career teachers" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+        <p>Use this service to register early career teachers (ECTs) and mentors for training as part of their early career teacher entitlement (ECTE).  </p>
+        <p>You need to register ECTs and mentors so that:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>they can access ECTE training</li>
+            <li>your school receives funding to support their time off timetable for training and mentoring </li>
+        </ul>
+
+<h2 class="govuk-heading-m">What your school needs to have in place
+</h2>
+<p>Before you can register ECTs and mentors with this this service, your school needs to have certain things in place to support ECTE.</p>
+
+<p>Your school needs to have:</p>
+<ul class="govuk-list govuk-list--bullet">
+    <li>appointed an appropriate body</li>
+    <li>decided on the training programme it wants to use (provider or school-led)</li>
+    <li>partnered with a lead provider (if using a provider-led training programme)</li>
+            <!-- <li>chosen an appropriate person to act as an induction tutor</li> -->
+        </ul>
+
+        <p>Your school will also need to do the following, but you do not need to do this before you can use the service:</p>
+<ul class="govuk-list govuk-list--bullet">
+         <li>choose an appropriate person to act as an induction tutor</li>
+         <li>choose mentors to support ECTs</li>
+        </ul>
+    
+       <!-- <p>Your school will also need to choose mentors to support your ECTs. You don't need to do this before you register ECTs, but ECTs will not be able to start their training until they have a mentor.</p> -->
+
+        <p>Read our guidance on <a href="https://www.gov.uk/guidance/set-up-and-manage-the-early-career-teacher-entitlement">setting up and managing ECTE in your school</a>.</p>
+
+        <h2 class="govuk-heading-m">Sign in</h2>
+        <p>Use DfE Sign-in to access the service. You can create an account if you don't have one.</p>
+
+
+
+        <form method="post">
+            {{ govukButton({
+            text: "Continue to DfE Sign-in",
+            isStartButton: true
+            }) }}
+        </form>
+       <p>For appropriate bodies that need to check training details, <a href="#">sign in</a>.</p> 
+    </div>
+  
+  <!--  <div class="govuk-grid-column-one-third">
+        <h2 class="govuk-heading-m">Guidance and support</h2>
+        <p><a href="#">Find an appropriate body (opens in a new tab)</a></p>
+        <p><a href="#">How to set up a DfE sign-in account (opens in a new tab)</a></p>
+        <p><a href="#">How to set up and make changes to ECTE training (opens in a new tab)</a></p>
+    </div>
+-->
+</div>
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "layouts/home.html" %}
+
+{% set pageName="Tell us your new school induction tutor details" %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+        {% set tutorDetails %}
+        <p>Enter the details for your school's induction tutor.</p>
+            {{ govukInput({
+                id: "tutor-name",
+                classes: "govuk-input--width-20",
+                name: "tutor-name",
+                label: {
+                    text: "Name"
+                }
+            }) }}
+
+            {{ govukInput({
+                id: "tutor-email",
+                classes: "govuk-input--width-20",
+                name: "tutor-email",
+                label: {
+                    text: "Email"
+                }
+            }) }}
+        {% endset %}
+
+        {{govukRadios({
+            idPrefix: "confirm-school-induction-tutor",
+            name: "confirm-school-induction-tutor",
+            fieldset: {
+                legend: {
+                    text: "Will you be your school's induction tutor?",
+                    isPageHeading: false,
+                    classes: "govuk-fieldset__legend--m"
+                }
+            },
+            items: [
+                {
+                    value: "yes",   
+                    text: "Yes"
+                },
+                {
+                    value: "no",
+                    text: "No, someone else will be the induction tutor",
+                    conditional: {
+                        html: tutorDetails
+                    }
+                }
+            ]
+        })}}
+        
+        <button class="govuk-button">Continue</button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

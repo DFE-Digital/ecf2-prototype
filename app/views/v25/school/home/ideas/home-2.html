@@ -1,0 +1,39 @@
+{% extends "layouts/main.html" %}
+
+{% block head %}
+{{ super() }} <!-- This includes the content from the base head block -->
+{% include "../filters.njk" %}
+{% endblock %}
+
+{% set pageName="Register early career teachers" %}
+
+{% block content %}
+
+{% if data['schoolName'] %}
+{% set schoolName = data['schoolName'] %}
+{% else %}
+{% set schoolName = 'Test Primary School' %}
+{% endif %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-caption-l">{{schoolName}}</h1>
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-6">Actions to do</h2>
+
+        <div class="govuk-inset-text">
+            <p><a href="#">Call to action for a task that needs completing</a></p>
+        </div>
+
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-6">Early career teachers and mentors</h2>
+
+        <p><a href="#">Register an early career teacher at your school</a></p>
+        <p><a href="#">View early career teachers registered at your school</a></p>
+        <p><a href="#">View mentors registered at your school</a></p>
+
+    </div>
+
+</div>
+
+{% endblock %}

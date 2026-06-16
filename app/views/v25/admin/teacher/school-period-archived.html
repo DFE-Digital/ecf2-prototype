@@ -1,0 +1,29 @@
+{% extends "layouts/admin.html" %}
+
+{% set pageName="School period archived" %}
+{% set activeNav="teachers" %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">{{ pageName }}</h1>
+    </div>
+
+    <p class="govuk-body">
+      The school period has been archived and the registration at that school has been removed from our records.
+    </p>
+
+    <p class="govuk-body">
+      If there were no other school periods and no declarations, the teacher record has also been archived. Other school periods and registrations are not affected.
+    </p>
+
+    <p class="govuk-body">
+      <a href="../teachers" class="govuk-link govuk-link--no-visited-state">Back to teachers</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

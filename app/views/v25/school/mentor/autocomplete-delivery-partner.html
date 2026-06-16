@@ -1,0 +1,222 @@
+{% extends "layouts/ects.html" %}
+
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'Samuel Taylor' %}
+{% endif %}
+
+{% set pageName="Who will be the delivery partner for " + name + "?" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+        <p>Delivery partners are responsible for delivering training events for ECTs and mentors.</p>
+        <p>The lead provider will let the delivery partner know your school wants to work with them so they can arrange training.</p>
+        <form method="post">
+        {{ xGovukAutocomplete({
+        id: "deliveryPartner",
+        name: "deliveryPartner",
+        allowEmpty: false,
+            label: {
+            classes: "govuk-visually-hidden",
+            text: pageName
+            },
+        items: [
+        { text: "Academy Transformation Trust" },
+        { text: "Advantage Schools" },
+        { text: "Ark Schools" },
+        { text: "Astrea Academy Trust" },
+        { text: "BDAT (In partnership with Beckfoot and Dixon)" },
+        { text: "Calderdale & Kirklees TSH" },
+        { text: "Central London TSH" },
+        { text: "Diocese of Hallam" },
+        { text: "East Midlands Teacher Training Partnership EMTTP" },
+        { text: "Eden Academy Trust" },
+        { text: "Exceed AT / Bradford TSH" },
+        { text: "Five Counties TSHs Alliance" },
+        { text: "Forward as One" },
+        { text: "GLF West Sussex TSH" },
+        { text: "Greenwood Academies Trust" },
+        { text: "Hampshire CC" },
+        { text: "Haybridge TSH" },
+        { text: "Inspiration Teaching School Hub" },
+        { text: "Julian TSH" },
+        { text: "Learning in Harmony Mult Academy Trust" },
+        { text: "London District East TSH" },
+        { text: "Manor MAT" },
+        { text: "North West London TSH" },
+        { text: "Ormiston Academy Trust" },
+        { text: "Pathfinder" },
+        { text: "Shaw Education Trust" },
+        { text: "Spencer Academies Trust" },
+        { text: "St Thomas Aquinas MAT / Leicestershire and Rutland TSH" },
+        { text: "STEP Academy Trust" },
+        { text: "Swindon & Wiltshire TSH" },
+        { text: "The Active Learning Trust" },
+        { text: "The Prince Henry's High School Academy Trust" },
+        { text: "The Tenax Schools Trust (Kent Teaching School Hub)" },
+        { text: "The Three Rivers Teaching School Hub" },
+        { text: "United Learning Trust" },
+        { text: "Unity TSH - PLN" },
+        { text: "Westcountry Schools Trust" },
+        { text: "Alban TSH" },
+        { text: "Alpha Trust" },
+        { text: "Aspire Academy Trust" },
+        { text: "Astra TSH" },
+        { text: "Benfleet TSA" },
+        { text: "Best Practice Network" },
+        { text: "Bishop Challoner Training School Alliance" },
+        { text: "Blueprint Alliance" },
+        { text: "Bracknell Forest Partnership" },
+        { text: "Cheshire TSH" },
+        { text: "Chiltern TSH" },
+        { text: "Churchdown School Academy" },
+        { text: "Collaboration of Glossop Schools" },
+        { text: "Community Academies Trust Teaching School (CATTS)" },
+        { text: "ConnectEd Partnership" },
+        { text: "Danes Educational Trust" },
+        { text: "Derby Diocesan Academy Trust" },
+        { text: "Futures Teaching Alliance" },
+        { text: "Hatton Academies Trust" },
+        { text: "Lindens TSA" },
+        { text: "Loreto Grammar" },
+        { text: "Nova Education Trust" },
+        { text: "Primitas Learning Partnership" },
+        { text: "Rainbow TSH" },
+        { text: "Services for Education" },
+        { text: "Shropshire and Telford Education Partnership (STEP)" },
+        { text: "South East London Catholic Academy Trust (SELCAT)" },
+        { text: "The Dean Trust Teaching School" },
+        { text: "The Education People" },
+        { text: "The Elliot Foundation Academies Trust" },
+        { text: "The Golden Thread TSH" },
+        { text: "The Green School Trust" },
+        { text: "The Learning Partnership" },
+        { text: "The Mercian Trust" },
+        { text: "The Pegasus Partnership Trust" },
+        { text: "Victoria Academies Trust" },
+        { text: "Watergrove Trust" },
+        { text: "Wessex MAT" },
+        { text: "Arthur Terry Teaching School Hub" },
+        { text: "Camden Learning" },
+        { text: "Five Counties Teaching School Hub" },
+        { text: "Flying High Teaching School Hub" },
+        { text: "Forest Learning Alliance" },
+        { text: "HISP Teaching School Hub" },
+        { text: "John Taylor Teaching School Hub" },
+        { text: "L4NE/BWCET" },
+        { text: "LEAD Teaching School Hub" },
+        { text: "Northern Lights Teaching School Hub: South Tyne & Wear" },
+        { text: "Potentia Teaching School Hub" },
+        { text: "REAch2 Multi Academy Trust" },
+        { text: "Redhill Teaching Hub" },
+        { text: "South Yorkshire Teaching School Hub" },
+        { text: "Swindon and Wiltshire Teaching School Hub" },
+        { text: "Thames Gateway Teaching School Hub" },
+        { text: "The University of Winchester" },
+        { text: "Tudor Grange Academy" },
+        { text: "Laurus Institute" },
+        { text: "Learn - AT" },
+        { text: "NELT Teaching School Hub" },
+        { text: "NIoT @ Oasis" },
+        { text: "NIoT @ Outwood Grange Academies Trust" },
+        { text: "NIoT @ Star Academies" },
+        { text: "NIoT @The Harris Federation" },
+        { text: "OneCornwall West" },
+        { text: "Rivers Teaching Alliance" },
+        { text: "Sea View" },
+        { text: "SWIFT" },
+        { text: "The David Ross Education Trust" },
+        { text: "Unity Schools Partnership" },
+        { text: "White Horse" },
+        { text: "Windsor Academy Trust" },
+        { text: "Aldridge Education (MAT)" },
+        { text: "Aletheia Academies Trust" },
+        { text: "Ascend Learning Trust" },
+        { text: "Aspirations Academies Trust" },
+        { text: "Bright Futures teaching School Hub" },
+        { text: "Cambridgeshire and Peterborough Teaching School Hub" },
+        { text: "Colyton Teaching School Hub (Devon)" },
+        { text: "Dudley Academies Trust" },
+        { text: "Embrace Teaching School Hub (SW Lancashire)" },
+        { text: "Fylde Coast Academy Trust" },
+        { text: "Generate Teaching School Hub" },
+        { text: "Kingsbridge Teaching School Hub (Devon)" },
+        { text: "Leeds Trinity University" },
+        { text: "Leicester and Leicestershire Teaching School Hub" },
+        { text: "NELT Teaching School Hub" },
+        { text: "Northamptonshire Teaching School Hub" },
+        { text: "One Cornwall Teaching School Hub (East Cornwall)" },
+        { text: "One Cornwall Teaching School Hub (West)" },
+        { text: "One Cumbria Teaching School Hub" },
+        { text: "Saffron Teaching School Hub" },
+        { text: "SFET Teaching School Hub" },
+        { text: "St Joseph Catholic Multi Academy Trust" },
+        { text: "Teach First Direct Delivery" },
+        { text: "The Vantage Teaching School Hub North Humber" },
+        { text: "Xavier Teaching School Hub" },
+        { text: "Balcarras Teaching School Hub" },
+        { text: "Berkshire Teaching School Hub" },
+        { text: "Birmingham City University" },
+        { text: "Coventry and Central Warwickshire" },
+        { text: "East London Teaching School Hub" },
+        { text: "East Manchester Teaching School Hub" },
+        { text: "Exchange Teaching Hub (Barnsley and Doncaster)" },
+        { text: "Exchange Teaching Hub (Selby and Wakefield)" },
+        { text: "Haringey Education Partnership" },
+        { text: "Inspire Teaching School Hub" },
+        { text: "Leeds Teaching School Hub" },
+        { text: "London South Teaching School Hub" },
+        { text: "Milton Keynes Education Partnership" },
+        { text: "NETSP with Tees Valley Teaching School Hub" },
+        { text: "Odyssey Teaching School Hub" },
+        { text: "Oxfordshire Teaching School Hub" },
+        { text: "Red Kite Teaching School Hub" },
+        { text: "Redbridge Education Partnership" },
+        { text: "South Central Teaching School Hub" },
+        { text: "Sussex Coast Schools Alliance" },
+        { text: "Teach West London Teaching School Hub" },
+        { text: "Thames South Teaching School Hub" },
+        { text: "Wandle Teaching School Hub" }
+        ]
+        }) }}
+
+            {{ govukDetails({
+            summaryText: "What is a delivery partner?",
+            text: "
+            <p class='govuk-body'>They are usually teaching school hubs, universities or trusts that:</p>
+            <ul class='govuk-list govuk-list--bullet'>
+                <li>organise and run the day-to-day training for ECTs</li>
+                <li>provide guidance for schools on how to implement the early career framework (ECF)</li>
+                <li>act as a link between lead providers and schools, ensuring training materials and support are used effectively</li>
+            </ul>"
+            |safe }) }}
+
+        <button class="govuk-button">Continue</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block pageScripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var autocompleteInput = document.querySelector('#deliveryPartner');
+        if (autocompleteInput) {
+            autocompleteInput.setAttribute('placeholder', 'Enter delivery partner name');
+        }
+    });
+</script>
+{% endblock %}
