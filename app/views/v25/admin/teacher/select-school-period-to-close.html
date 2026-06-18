@@ -1,12 +1,12 @@
 {% extends "layouts/admin.html" %}
 
-{% set pageName="Select school period to archive for John Smith" %}
+{% set pageName="Select a school period to close for John Smith" %}
 {% set activeNav="teachers" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
     text: "Back",
-    href: "archive-school-period"
+    href: "undo-registration-and-close-school-period"
 }) }}
 {% endblock %}
 
@@ -42,7 +42,7 @@
           }) }}
           {% endif %}
 
-          <h2 class="govuk-heading-m govuk-!-margin-top-4">ECT history</h2>
+          <h2 class="govuk-heading-m govuk-!-margin-top-4">ECT school periods</h2>
 
           <div class="govuk-radios" data-module="govuk-radios">
             <div class="govuk-radios__item">
@@ -51,7 +51,7 @@
                 St John's C of E Primary School
               </label>
               <div id="school-period-ect-st-johns-hint" class="govuk-hint govuk-radios__hint">
-                25 September 2024 to present
+                Umber Teaching School Hub<br>25 September 2024 to present
               </div>
             </div>
 
@@ -61,12 +61,12 @@
                 Alpha Primary School
               </label>
               <div id="school-period-ect-alpha-hint" class="govuk-hint govuk-radios__hint">
-                25 September 2023 to 24 September 2024
+                Umber Teaching School Hub<br>25 September 2023 to 24 September 2024
               </div>
             </div>
           </div>
 
-          <h2 class="govuk-heading-m govuk-!-margin-top-6">Mentor history</h2>
+          <h2 class="govuk-heading-m govuk-!-margin-top-6">Mentor school periods</h2>
 
           <div class="govuk-radios" data-module="govuk-radios">
             <div class="govuk-radios__item">

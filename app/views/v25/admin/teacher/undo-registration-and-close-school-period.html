@@ -1,6 +1,6 @@
 {% extends "layouts/admin.html" %}
 
-{% set pageName="Archive a school period for John Smith" %}
+{% set pageName="Undo a registration and close school periods for John Smith" %}
 {% set activeNav="teachers" %}
 
 {% block beforeContent %}
@@ -16,7 +16,7 @@
     <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
     <p class="govuk-body">
-      Archiving a school period allows undoing a registration that was made in error.</p>
+      You can undo a registration that was made in error and close the related school period.</p>
 
     <div class="govuk-warning-text">
       <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
@@ -29,9 +29,10 @@
     <h2 class="govuk-heading-m">What will happen</h2>
 
     <ul class="govuk-list govuk-list--bullet">
-      <li>the selected school period will be archived</li>
-      <li>if John Smith has only one school period and there are no declarations, the teacher record will also be archived</li>
-      <li>other school periods and registrations will not be affected unless you choose to archive them separately</li>
+      <li>the registration will be removed from our records</li>
+      <li>the selected school period will be closed</li>
+      <li>if John Smith has only one school period and there are no declarations, the teacher record will also be removed</li>
+      <li>other school periods and registrations will not be affected unless you choose to close them separately</li>
     </ul>
 
     <h2 class="govuk-heading-m">If the teacher is registered as an ECT and a mentor</h2>
@@ -41,13 +42,13 @@
     </p>
 
     <p class="govuk-body">
-      Check which registration is incorrect before you continue. You can archive the school period for the registration that was made in error without affecting the other.
+      Check which registration is incorrect before you continue. You can undo the registration and close the school period for the registration that was made in error without affecting the other.
     </p>
 
     <h2 class="govuk-heading-m">If the ECT is on a provider-led programme</h2>
 
     <p class="govuk-body">
-      Before you continue, contact the lead provider offline to tell them you are archiving this registration.
+      Before you continue, contact the lead provider offline to tell them you are undoing this registration and closing the school period.
     </p>
 
     <form method="post">

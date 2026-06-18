@@ -1,0 +1,254 @@
+{% extends "layouts/admin.html" %}
+
+{% set pageName="Confirm undo registration and close school period for John Smith" %}
+{% set activeNav="teachers" %}
+{% set schoolPeriod = data['school-period'] %}
+
+{% if schoolPeriod == "ect-st-johns-2024" %}
+  {% set trainingPeriodLabel = "ECT training period" %}
+  {% set mentorshipPeriodLabel = "Mentorship periods" %}
+  {% set mentorshipTableCaption = "Mentors mentoring ECT" %}
+  {% set partnershipName = "Ambition Institute & Alpha Teaching School Hub" %}
+  {% set leadProvider = "Ambition Institute" %}
+  {% set deliveryPartner = "Alpha Teaching School Hub" %}
+  {% set contractPeriod = "2024" %}
+  {% set schedule = "ecf-standard-september" %}
+  {% set trainingStartDate = "1 September 2024" %}
+  {% set trainingEndDate = "Present" %}
+{% elif schoolPeriod == "ect-alpha-2023" %}
+  {% set trainingPeriodLabel = "ECT training period" %}
+  {% set mentorshipPeriodLabel = "Mentorship periods" %}
+  {% set mentorshipTableCaption = "Mentors mentoring ECT" %}
+  {% set partnershipName = "Ambition Institute & Alpha Teaching School Hub" %}
+  {% set leadProvider = "Ambition Institute" %}
+  {% set deliveryPartner = "Alpha Teaching School Hub" %}
+  {% set contractPeriod = "2023" %}
+  {% set schedule = "ecf-standard-september" %}
+  {% set trainingStartDate = "1 September 2023" %}
+  {% set trainingEndDate = "1 April 2024" %}
+{% elif schoolPeriod == "mentor-st-johns-2025" %}
+  {% set trainingPeriodLabel = "Mentor training period" %}
+  {% set mentorshipPeriodLabel = "Mentorship periods" %}
+  {% set mentorshipTableCaption = "ECTs being mentored" %}
+  {% set partnershipName = "Ambition Institute & Alpha Teaching School Hub" %}
+  {% set leadProvider = "Ambition Institute" %}
+  {% set deliveryPartner = "Alpha Teaching School Hub" %}
+  {% set contractPeriod = "2025" %}
+  {% set schedule = "ecf-standard-september" %}
+  {% set trainingStartDate = "1 September 2025" %}
+  {% set trainingEndDate = "1 May 2026" %}
+{% endif %}
+
+{% macro schoolPeriodSummaryCard() %}
+{% if schoolPeriod == "ect-st-johns-2024" %}
+{{ govukSummaryList({
+  card: {
+    title: {
+      text: "St John's C of E Primary School"
+    }
+  },
+  rows: [
+    { key: { text: "School period type" }, value: { text: "ECT" } },
+    { key: { text: "School URN" }, value: { text: "1103052" } },
+    { key: { text: "Appropriate body" }, value: { text: "Umber Teaching School Hub" } },
+    { key: { text: "School start date" }, value: { text: "25 September 2024" } }
+  ]
+}) }}
+{% elif schoolPeriod == "ect-alpha-2023" %}
+{{ govukSummaryList({
+  card: {
+    title: {
+      text: "Alpha Primary School"
+    }
+  },
+  rows: [
+    { key: { text: "School period type" }, value: { text: "ECT" } },
+    { key: { text: "School URN" }, value: { text: "1195201" } },
+    { key: { text: "Appropriate body" }, value: { text: "Umber Teaching School Hub" } },
+    { key: { text: "School start date" }, value: { text: "25 September 2023" } },
+    { key: { text: "School end date" }, value: { text: "24 September 2024" } }
+  ]
+}) }}
+{% elif schoolPeriod == "mentor-st-johns-2025" %}
+{{ govukSummaryList({
+  card: {
+    title: {
+      text: "St John's C of E Primary School"
+    }
+  },
+  rows: [
+    { key: { text: "School period type" }, value: { text: "Mentor" } },
+    { key: { text: "School URN" }, value: { text: "1103052" } },
+    { key: { text: "School start date" }, value: { text: "25 September 2025" } }
+  ]
+}) }}
+{% endif %}
+{% endmacro %}
+
+{% macro trainingPeriodSummaryCard() %}
+<div class="govuk-summary-card">
+  <div class="govuk-summary-card__title-wrapper">
+    <h2 class="govuk-summary-card__title">{{ partnershipName }}</h2>
+  </div>
+  <div class="govuk-summary-card__content">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+        <dt class="govuk-summary-list__key">Lead provider</dt>
+        <dd class="govuk-summary-list__value">{{ leadProvider }}</dd>
+      </div>
+      <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+        <dt class="govuk-summary-list__key">Delivery partner</dt>
+        <dd class="govuk-summary-list__value">{{ deliveryPartner }}</dd>
+      </div>
+      <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+        <dt class="govuk-summary-list__key">Contract period</dt>
+        <dd class="govuk-summary-list__value">{{ contractPeriod }}</dd>
+      </div>
+      <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+        <dt class="govuk-summary-list__key">Schedule</dt>
+        <dd class="govuk-summary-list__value">{{ schedule }}</dd>
+      </div>
+      <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+        <dt class="govuk-summary-list__key">Start date</dt>
+        <dd class="govuk-summary-list__value">{{ trainingStartDate }}</dd>
+      </div>
+      <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+        <dt class="govuk-summary-list__key">End date</dt>
+        <dd class="govuk-summary-list__value">{{ trainingEndDate }}</dd>
+      </div>
+    </dl>
+  </div>
+</div>
+{% endmacro %}
+
+{% macro mentorshipPeriodsTable() %}
+{% if schoolPeriod == "ect-st-johns-2024" %}
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--s govuk-visually-hidden">{{ mentorshipTableCaption }}</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Name</th>
+      <th scope="col" class="govuk-table__header">Start date</th>
+      <th scope="col" class="govuk-table__header">End date</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">John Doe</td>
+      <td class="govuk-table__cell">25 September 2024</td>
+      <td class="govuk-table__cell">1 July 2025</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">Steven Davies</td>
+      <td class="govuk-table__cell">1 July 2025</td>
+      <td class="govuk-table__cell">Present</td>
+    </tr>
+  </tbody>
+</table>
+{% elif schoolPeriod == "ect-alpha-2023" %}
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--s govuk-visually-hidden">{{ mentorshipTableCaption }}</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Name</th>
+      <th scope="col" class="govuk-table__header">Start date</th>
+      <th scope="col" class="govuk-table__header">End date</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">Laura Morris</td>
+      <td class="govuk-table__cell">25 September 2023</td>
+      <td class="govuk-table__cell">25 September 2024</td>
+    </tr>
+  </tbody>
+</table>
+{% elif schoolPeriod == "mentor-st-johns-2025" %}
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--s govuk-visually-hidden">{{ mentorshipTableCaption }}</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Name</th>
+      <th scope="col" class="govuk-table__header">Start date</th>
+      <th scope="col" class="govuk-table__header">End date</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">Gustav Brown</td>
+      <td class="govuk-table__cell">25 September 2025</td>
+      <td class="govuk-table__cell">Present</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">John Brown</td>
+      <td class="govuk-table__cell">25 September 2024</td>
+      <td class="govuk-table__cell">Present</td>
+    </tr>
+  </tbody>
+</table>
+{% endif %}
+{% endmacro %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "select-school-period-to-close"
+}) }}
+{% endblock %}
+
+{% block content %}
+{% if errors and errors.confirmCloseSchoolPeriod %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{{ govukErrorSummary({
+  titleText: "There is a problem",
+  errorList: [
+    {
+      text: errors.confirmCloseSchoolPeriod,
+      href: "#confirm-close-school-period"
+    }
+  ]
+}) }}
+{% endif %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive govuk-visually-hidden">Warning</span>
+        This action cannot be undone.
+      </strong>
+    </div>
+
+    <h2 class="govuk-heading-s govuk-!-margin-top-6">School period that will be closed</h2>
+    {{ schoolPeriodSummaryCard() }}
+
+    <h2 class="govuk-heading-s govuk-!-margin-top-6">{{ trainingPeriodLabel }} that will be closed</h2>
+    {{ trainingPeriodSummaryCard() }}
+
+    <h2 class="govuk-heading-s govuk-!-margin-top-6">{{ mentorshipPeriodLabel }} that will be closed</h2>
+    {{ mentorshipPeriodsTable() }}
+
+    <form method="post" class="govuk-!-margin-top-6">
+      {{ govukCheckboxes({
+        idPrefix: "confirm-close-school-period",
+        name: "confirm-close-school-period",
+        errorMessage: { text: errors.confirmCloseSchoolPeriod } if errors and errors.confirmCloseSchoolPeriod else false,
+        items: [
+          {
+            value: "yes",
+            text: "I confirm I want to undo this registration and close this school period",
+            checked: data['confirm-close-school-period'] == "yes"
+          }
+        ]
+      }) }}
+
+      <button class="govuk-button govuk-button--warning" data-module="govuk-button">Confirm</button>
+    </form>
+
+    <p><a href="../teachers-details?section=overview" class="govuk-link govuk-link--no-visited-state">Cancel and go back to John Smith</a></p>
+  </div>
+</div>
+{% endblock %}

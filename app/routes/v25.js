@@ -75,52 +75,52 @@ module.exports = router => {
         next();
     });
 
-    // admin teacher archive school period
-    router.post(v + admin + 'teacher/archive-school-period', (req, res) => {
-        res.redirect(v + admin + 'teacher/select-school-period-to-archive')
+    // admin teacher undo registration and close school period
+    router.post(v + admin + 'teacher/undo-registration-and-close-school-period', (req, res) => {
+        res.redirect(v + admin + 'teacher/select-school-period-to-close')
     })
 
-    router.post(v + admin + 'teacher/select-school-period-to-archive', (req, res) => {
+    router.post(v + admin + 'teacher/select-school-period-to-close', (req, res) => {
         const schoolPeriod = req.body['school-period']
 
         if (!schoolPeriod) {
-            return res.render(vGet + admin + 'teacher/select-school-period-to-archive', {
+            return res.render(vGet + admin + 'teacher/select-school-period-to-close', {
                 errors: {
-                    schoolPeriod: 'Select a school period to archive'
+                    schoolPeriod: 'Select a school period to close'
                 }
             })
         }
 
-        res.redirect(v + admin + 'teacher/confirm-archive-school-period')
+        res.redirect(v + admin + 'teacher/confirm-close-school-period')
     })
 
-    router.get(v + admin + 'teacher/confirm-archive-school-period', (req, res) => {
+    router.get(v + admin + 'teacher/confirm-close-school-period', (req, res) => {
         if (!req.session.data['school-period']) {
-            return res.redirect(v + admin + 'teacher/select-school-period-to-archive')
+            return res.redirect(v + admin + 'teacher/select-school-period-to-close')
         }
 
-        res.render(vGet + admin + 'teacher/confirm-archive-school-period')
+        res.render(vGet + admin + 'teacher/confirm-close-school-period')
     })
 
-    router.post(v + admin + 'teacher/confirm-archive-school-period', (req, res) => {
-        const confirmArchiveSchoolPeriod = req.body['confirm-archive-school-period']
-        const hasConfirmation = Array.isArray(confirmArchiveSchoolPeriod)
-            ? confirmArchiveSchoolPeriod.includes('yes')
-            : confirmArchiveSchoolPeriod === 'yes'
+    router.post(v + admin + 'teacher/confirm-close-school-period', (req, res) => {
+        const confirmCloseSchoolPeriod = req.body['confirm-close-school-period']
+        const hasConfirmation = Array.isArray(confirmCloseSchoolPeriod)
+            ? confirmCloseSchoolPeriod.includes('yes')
+            : confirmCloseSchoolPeriod === 'yes'
 
         if (!req.session.data['school-period']) {
-            return res.redirect(v + admin + 'teacher/select-school-period-to-archive')
+            return res.redirect(v + admin + 'teacher/select-school-period-to-close')
         }
 
         if (!hasConfirmation) {
-            return res.render(vGet + admin + 'teacher/confirm-archive-school-period', {
+            return res.render(vGet + admin + 'teacher/confirm-close-school-period', {
                 errors: {
-                    confirmArchiveSchoolPeriod: 'Confirm you want to archive this school period'
+                    confirmCloseSchoolPeriod: 'Confirm you want to undo this registration and close this school period'
                 }
             })
         }
 
-        res.redirect(v + admin + 'teacher/school-period-archived')
+        res.redirect(v + admin + 'teacher/school-period-closed')
     })
 
     // admin teacher change contract period
