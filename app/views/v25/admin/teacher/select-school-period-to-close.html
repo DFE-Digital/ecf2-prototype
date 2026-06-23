@@ -2,6 +2,9 @@
 
 {% set pageName="Select a school period to close for John Smith" %}
 {% set activeNav="teachers" %}
+{% set fromScenario = data['undo-from-scenario-selector'] == 'yes' %}
+{% set isEctRegistration = data['undo-registration-type'] == 'ect' %}
+{% set isMentorRegistration = data['undo-registration-type'] == 'mentor' %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -35,24 +38,28 @@
             <h1 class="govuk-fieldset__heading">{{ pageName }}</h1>
           </legend>
 
-
-     <!-- <p class="govuk-body">
-        John Smith has more than one school period. Select the period to undo. 
-      </p>
-    -->
-
-     <p class="govuk-body">
-        John Smith has ECT and mentor school periods. Select the period to undo.
-      </p>
-   
+          {% if fromScenario and isEctRegistration %}
+          <p class="govuk-body">
+            <strong>Update content here</strong> — John Smith has multiple ECT school periods. Select the period to undo.
+          </p>
+          {% elif fromScenario and isMentorRegistration %}
+          <p class="govuk-body">
+            <strong>Update content here</strong> — John Smith has multiple mentor school periods. Select the period to undo.
+          </p>
+          {% else %}
+          <p class="govuk-body">
+            John Smith has ECT and mentor school periods. Select the period to undo.
+          </p>
+          {% endif %}
 
           {% if errors and errors.schoolPeriod %}
           {{ govukErrorMessage({
             id: "school-period-error",
             text: errors.schoolPeriod
           }) }}
-          {% endif %}          
+          {% endif %}
 
+          {% if not fromScenario or isEctRegistration %}
           <h2 class="govuk-heading-m govuk-!-margin-top-4">ECT school periods</h2>
 
           <div class="govuk-radios" data-module="govuk-radios">
@@ -76,7 +83,9 @@
               </div>
             </div>
           </div>
+          {% endif %}
 
+          {% if not fromScenario or isMentorRegistration %}
           <h2 class="govuk-heading-m govuk-!-margin-top-6">Mentor school periods</h2>
 
           <div class="govuk-radios" data-module="govuk-radios">
@@ -89,8 +98,9 @@
                 25 September 2025 to present
               </div>
             </div>
-          </div>      
-        
+          </div>
+          {% endif %}
+
         </fieldset>
       </div>
 

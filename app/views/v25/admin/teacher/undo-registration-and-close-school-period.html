@@ -2,12 +2,20 @@
 
 {% set pageName="Undo a registration and close school periods for John Smith" %}
 {% set activeNav="teachers" %}
+{% set fromScenario = data['undo-from-scenario-selector'] == 'yes' %}
 
 {% block beforeContent %}
+{% if fromScenario %}
+{{ govukBackLink({
+    text: "Back",
+    href: "undo-registration-scenario-selector"
+}) }}
+{% else %}
 {{ govukBackLink({
     text: "Back",
     href: "../teachers-details?section=overview"
 }) }}
+{% endif %}
 {% endblock %}
 
 {% block content %}

@@ -2,6 +2,10 @@
 
 {% set pageName="Registration undone" %}
 {% set activeNav="teachers" %}
+{% set fromScenario = data['undo-from-scenario-selector'] == 'yes' %}
+{% set hasDeclarations = data['undo-has-declarations'] == 'yes' %}
+{% set hasOtherPeriods = data['undo-has-other-periods'] == 'yes' %}
+{% set todaysDate = data.currentDay + ' ' + data.currentMonth | monthName + ' ' + data.currentYear %}
 
 {% block beforeContent %}
 {% endblock %}
@@ -18,9 +22,23 @@
     </p>
   -->
 
+      {% if fromScenario and hasDeclarations %}
+      <p class="govuk-body">
+        <strong>Update content here</strong> — The registration has been undone and associated school and training periods have been closed with an end date of {{ todaysDate }}. The teacher record has not been deleted.
+      </p>
+      {% elif fromScenario and not hasDeclarations and hasOtherPeriods %}
+      <p class="govuk-body">
+        <strong>Update content here</strong> — The registration has been undone and associated school and training periods have been deleted. The teacher record has not been deleted.
+      </p>
+      {% elif fromScenario and not hasDeclarations and not hasOtherPeriods %}
+      <p class="govuk-body">
+        <strong>Update content here</strong> — The registration has been undone and associated school and training periods and the teacher record have been deleted.
+      </p>
+      {% else %}
       <p class="govuk-body">
       The registration has been undone and associated school, training, and mentorship periods have been closed.
     </p>
+      {% endif %}
 
 
    <!-- <p class="govuk-body">
