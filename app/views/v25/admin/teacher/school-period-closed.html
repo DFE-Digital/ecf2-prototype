@@ -1,6 +1,6 @@
 {% extends "layouts/admin.html" %}
 
-{% set pageName="Registration undone and school period closed" %}
+{% set pageName="Registration undone" %}
 {% set activeNav="teachers" %}
 
 {% block beforeContent %}
@@ -13,13 +13,20 @@
       <h1 class="govuk-panel__title">{{ pageName }}</h1>
     </div>
 
-    <p class="govuk-body">
+    <!-- <p class="govuk-body">
       The registration has been removed from our records and the school period has been closed.
     </p>
+  -->
 
-    <p class="govuk-body">
+      <p class="govuk-body">
+      The registration has been undone and associated school, training, and mentorship periods have been closed.
+    </p>
+
+
+   <!-- <p class="govuk-body">
       If there were no other school periods and no declarations, the teacher record has also been removed. Other school periods and registrations are not affected.
     </p>
+  -->
 
     <p class="govuk-body">
       <a href="../teachers" class="govuk-link govuk-link--no-visited-state">Back to teachers</a>

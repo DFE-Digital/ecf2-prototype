@@ -35,12 +35,23 @@
             <h1 class="govuk-fieldset__heading">{{ pageName }}</h1>
           </legend>
 
+
+     <!-- <p class="govuk-body">
+        John Smith has more than one school period. Select the period to undo. 
+      </p>
+    -->
+
+     <p class="govuk-body">
+        John Smith has ECT and mentor school periods. Select the period to undo.
+      </p>
+   
+
           {% if errors and errors.schoolPeriod %}
           {{ govukErrorMessage({
             id: "school-period-error",
             text: errors.schoolPeriod
           }) }}
-          {% endif %}
+          {% endif %}          
 
           <h2 class="govuk-heading-m govuk-!-margin-top-4">ECT school periods</h2>
 
@@ -78,7 +89,8 @@
                 25 September 2025 to present
               </div>
             </div>
-          </div>
+          </div>      
+        
         </fieldset>
       </div>
 

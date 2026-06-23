@@ -1,6 +1,6 @@
 {% extends "layouts/admin.html" %}
 
-{% set pageName="Confirm undo registration and close school period for John Smith" %}
+{% set pageName="Confirm undo registration and close school periods for John Smith" %}
 {% set activeNav="teachers" %}
 {% set schoolPeriod = data['school-period'] %}
 
@@ -84,6 +84,8 @@
 }) }}
 {% endif %}
 {% endmacro %}
+
+
 
 {% macro trainingPeriodSummaryCard() %}
 <div class="govuk-summary-card">
@@ -214,13 +216,15 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive govuk-visually-hidden">Warning</span>
-        This action cannot be undone.
-      </strong>
-    </div>
+   <h2 class="govuk-heading-m">What will happen with ths undo</h2>
+    <p class="govuk-body">
+    John Smith has billable or refundable declarations.
+    </p>  
+     
+ <p class="govuk-body">
+    Their school and training periods will be closed with an end date of 1 June 2006. Their registration teacher record will not be deleted.
+    </p>
+      
 
     <h2 class="govuk-heading-s govuk-!-margin-top-6">School period that will be closed</h2>
     {{ schoolPeriodSummaryCard() }}
@@ -228,9 +232,11 @@
     <h2 class="govuk-heading-s govuk-!-margin-top-6">{{ trainingPeriodLabel }} that will be closed</h2>
     {{ trainingPeriodSummaryCard() }}
 
-    <h2 class="govuk-heading-s govuk-!-margin-top-6">{{ mentorshipPeriodLabel }} that will be closed</h2>
+   <!-- <h2 class="govuk-heading-s govuk-!-margin-top-6">{{ mentorshipPeriodLabel }} that will be closed</h2>
     {{ mentorshipPeriodsTable() }}
+  -->
 
+  
     <form method="post" class="govuk-!-margin-top-6">
       {{ govukCheckboxes({
         idPrefix: "confirm-close-school-period",
@@ -239,11 +245,19 @@
         items: [
           {
             value: "yes",
-            text: "I confirm I want to undo this registration and close this school period",
+            text: "I confirm I want to undo this registration and close these school and training periods",
             checked: data['confirm-close-school-period'] == "yes"
           }
         ]
       }) }}
+
+       <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive govuk-visually-hidden">Warning</span>
+        This action cannot be undone.
+      </strong>
+    </div>
 
       <button class="govuk-button govuk-button--warning" data-module="govuk-button">Confirm</button>
     </form>
