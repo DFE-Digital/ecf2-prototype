@@ -1,6 +1,13 @@
 {% extends "layouts/admin.html" %}
 
 {% set pageName="Undo a registration and close school periods for John Smith" %}
+{% set pageNameDeletePeriods="Undo a registration and delete school periods for John Smith" %}
+
+{% set fromScenario = data['undo-from-scenario-selector'] == 'yes' %}
+{% set hasDeclarations = data['undo-has-declarations'] == 'yes' %}
+{% set hasOtherPeriods = data['undo-has-other-periods'] == 'yes' %}
+
+
 {% set activeNav="teachers" %}
 {% set fromScenario = data['undo-from-scenario-selector'] == 'yes' %}
 
@@ -21,62 +28,28 @@
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l">{{ pageName }}</h1>
-
-    <p class="govuk-body">
-      Undo a registration for John Smith and close the related school period if the registration was made in error.</p>
 
 
-    <!-- <h2 class="govuk-heading-m">John Smith is on a provider-led programme</h2>
-        <p class="govuk-body">
-          Contact John Smith's lead provider (Ambition Institute) to let them know you're undoing their registration.
-        </p>
-      -->
-       
-     <!-- <h2 class="govuk-heading-m">If John Smith is on a provider-led programme</h2>
-        <p class="govuk-body">
-          Contact John Smith's lead provider offline to let them know you're undoing their registration.
-          </p>
-        -->
-             
 
-     <!-- <h2 class="govuk-heading-m">John Smith is registered as an ECT and a mentor</h2>
-        <p>Our records show that John Smith has been registered as an ECT and mentor.</p>
-        <p>You can undo both registrations, but only one could have been made in error. Check which registration is incorrect before you continue. </p>
-        -->
-         
-  <!--  <h2 class="govuk-heading-m">If John Smith is registered as an ECT and a mentor</h2>
-
-    <p class="govuk-body">
-      A teacher can be registered as both an ECT and a mentor. Only one of those registrations may have been made in error.
-    </p>
-
-        Check which registration is incorrect before you continue. You can undo the registration and close the school period for the registration that was made in error without affecting the other.
-    </p>
-
-  -->
-  
-  
-     <!-- <h2 class="govuk-heading-m">What will happen</h2>
-
-      <p>If you undo John Smith's registration their:</p>
-         <ul class="govuk-list govuk-list--bullet">
-        <li>ECT registration will be removed from our records</li>
-        <li>teacher record will be removed</li>
-        <li>school period will be closed</li>
-      </ul>
-    -->
+    {% if fromScenario and hasDeclarations %}
+      <h1 class="govuk-heading-l">{{ pageName }}</h1>
+                <p class="govuk-body">
+      Undo a registration for John Smith and close the related school periods if the registration was made in error.</p>
 
 
-    <!-- <ul class="govuk-list govuk-list--bullet">
-        <li>the registration will be removed from our records</li>
-        <li>the selected school period will be closed</li>
-      </ul>
+    {% elif fromScenario and not hasDeclarations and hasOtherPeriods %}
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+                  <p class="govuk-body">
+      Undo a registration for John Smith and close the related school periods if the registration was made in error.</p>
 
-      <p>If John Smith has only one school period and there are no declarations, their teacher record will also be removed.</p>
-      <p>Other school period or registrations associated with John Smith will not be affected, but you can choose to close them.</p>
 
-    -->
+    {% elif fromScenario and not hasDeclarations and not hasOtherPeriods %}
+        <h1 class="govuk-heading-l">{{ pageNameDeletePeriods }}</h1>
+                  <p class="govuk-body">
+      Undo a registration for John Smith and delete the related school periods if the registration was made in error.</p>
+
+    {% endif %} 
+
 
         <div class="govuk-warning-text">
       <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
