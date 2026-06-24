@@ -24,19 +24,22 @@
 
       {% if fromScenario and hasDeclarations %}
       <p class="govuk-body">
-        <strong>Update content here</strong> — The registration has been undone and associated school and training periods have been closed with an end date of {{ todaysDate }}. The teacher record has not been deleted.
+        Associated school and training periods have been closed with an end date of {{ todaysDate }}. 
       </p>
+      <p>The teacher record has not been deleted.</p>
       {% elif fromScenario and not hasDeclarations and hasOtherPeriods %}
       <p class="govuk-body">
-        <strong>Update content here</strong> — The registration has been undone and associated school and training periods have been deleted. The teacher record has not been deleted.
+        Associated school and training periods have been deleted.
       </p>
+        <p>The teacher record has not been deleted.</p>
+
       {% elif fromScenario and not hasDeclarations and not hasOtherPeriods %}
       <p class="govuk-body">
-        <strong>Update content here</strong> — The registration has been undone and associated school and training periods and the teacher record have been deleted.
+       Associated school and training periods and the teacher record have been deleted.
       </p>
       {% else %}
       <p class="govuk-body">
-      The registration has been undone and associated school, training, and mentorship periods have been closed.
+      Associated school, training, and mentorship periods have been closed.
     </p>
       {% endif %}
 

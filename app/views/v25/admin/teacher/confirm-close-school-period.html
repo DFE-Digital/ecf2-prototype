@@ -230,25 +230,26 @@
    <h2 class="govuk-heading-m">What will happen with ths undo</h2>
     {% if fromScenario and hasDeclarations %}
     <p class="govuk-body">
-      <strong>Update content here</strong> — John Smith has billable or refundable declarations.
+      John Smith has billable or refundable declarations.
     </p>
-    <p class="govuk-body">
-      <strong>Update content here</strong> — Their school and training periods will be closed with an end date of {{ todaysDate }}. Their teacher record will not be deleted.
+        <p class="govuk-body">
+      Their school and training periods will be closed with an end date of {{ todaysDate }}. Their teacher record will not be deleted.
     </p>
     {% elif fromScenario and not hasDeclarations and hasOtherPeriods %}
     <p class="govuk-body">
-      <strong>Update content here</strong> — John Smith does not have billable or refundable declarations.
+      John Smith does not have billable or refundable declarations.
     </p>
     <p class="govuk-body">
-      <strong>Update content here</strong> — Their school period and training periods will be deleted. Their teacher record will not be deleted.
+      Their school period and training periods will be deleted. Their teacher record will not be deleted.
     </p>
     {% elif fromScenario and not hasDeclarations and not hasOtherPeriods %}
     <p class="govuk-body">
-      <strong>Update content here</strong> — John Smith does not have billable or refundable declarations and has no other school periods or induction period.
-    </p>
-    <p class="govuk-body">
-      <strong>Update content here</strong> — Their school period, training periods and teacher record will be deleted.
-    </p>
+    <p>John Smith does not have billable or refundable declarations.</p>
+    <p>The following details for John Smith will be deleted:</p>
+     <ul class="govuk-list govuk-list--bullet">
+        <li>registration teacher record</li>
+        <li>school and traning periods</li>
+      </ul>
     {% else %}
     <p class="govuk-body">
     John Smith has billable or refundable declarations.
@@ -268,7 +269,6 @@
    <!-- <h2 class="govuk-heading-s govuk-!-margin-top-6">{{ mentorshipPeriodLabel }} that will be closed</h2>
     {{ mentorshipPeriodsTable() }}
   -->
-
   
     <form method="post" class="govuk-!-margin-top-6">
       {{ govukCheckboxes({
