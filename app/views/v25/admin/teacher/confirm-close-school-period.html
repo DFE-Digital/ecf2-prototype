@@ -235,7 +235,7 @@
 
         {% elif fromScenario and not hasDeclarations and not hasOtherPeriods %}
           <h1 class="govuk-heading-l">{{ pageNameDeletePeriods }}</h1>
-    {% endif %} 
+    {% endif %}
 
    <h2 class="govuk-heading-m">What will happen with ths undo</h2>
     {% if fromScenario and hasDeclarations %}
@@ -258,7 +258,7 @@
     <p>The following details for John Smith will be deleted:</p>
      <ul class="govuk-list govuk-list--bullet">
         <li>registration teacher record</li>
-        <li>school and traning periods</li>
+        <li>school and training periods</li>
       </ul>
     {% else %}
     <p class="govuk-body">
@@ -268,7 +268,7 @@
     Their school and training periods will be closed with an end date of 1 June 2006. Their registration teacher record will not be deleted.
     </p>
     {% endif %}
-      
+
 
     {% if fromScenario and hasDeclarations %}
 
@@ -305,7 +305,7 @@
     {{ mentorshipPeriodsTable() }}
 
     {% endif %}
-  
+
     <form method="post" class="govuk-!-margin-top-6">
     {% if fromScenario and hasDeclarations %}
 
@@ -336,8 +336,8 @@
           }
         ]
       }) }}
-          
-  
+
+
 
           {% endif %}
 
