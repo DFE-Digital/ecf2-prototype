@@ -75,8 +75,72 @@ module.exports = router => {
         next();
     });
 
+    // admin teacher undo registration scenario selector
+    router.post(v + admin + 'teacher/undo-registration-scenario-selector', (req, res) => {
+        const registrationType = req.body['undo-registration-type']
+        const multiplePeriods = req.body['undo-multiple-periods']
+        const hasDeclarations = req.body['undo-has-declarations']
+        const hasOtherPeriods = req.body['undo-has-other-periods']
+        const errors = {}
+        const errorList = []
+
+        if (!registrationType) {
+            errors.undoRegistrationType = 'Select which registration you are undoing'
+            errorList.push({
+                text: errors.undoRegistrationType,
+                href: '#undo-registration-type'
+            })
+        }
+
+        if (!multiplePeriods) {
+            errors.undoMultiplePeriods = 'Select whether there are multiple school periods to choose from'
+            errorList.push({
+                text: errors.undoMultiplePeriods,
+                href: '#undo-multiple-periods'
+            })
+        }
+
+        if (!hasDeclarations) {
+            errors.undoHasDeclarations = 'Select whether the teacher has billable or refundable declarations'
+            errorList.push({
+                text: errors.undoHasDeclarations,
+                href: '#undo-has-declarations'
+            })
+        }
+
+        if (hasDeclarations === 'no' && !hasOtherPeriods) {
+            errors.undoHasOtherPeriods = 'Select whether the teacher has other school periods or an induction period'
+            errorList.push({
+                text: errors.undoHasOtherPeriods,
+                href: '#undo-has-other-periods'
+            })
+        }
+
+        if (errorList.length) {
+            return res.render(vGet + admin + 'teacher/undo-registration-scenario-selector', {
+                errors,
+                errorList
+            })
+        }
+
+        req.session.data['undo-from-scenario-selector'] = 'yes'
+
+        if (multiplePeriods === 'no') {
+            req.session.data['school-period'] = registrationType === 'mentor'
+                ? 'mentor-st-johns-2025'
+                : 'ect-st-johns-2024'
+        }
+
+        res.redirect(v + admin + 'teacher/undo-registration-and-close-school-period')
+    })
+
     // admin teacher undo registration and close school period
     router.post(v + admin + 'teacher/undo-registration-and-close-school-period', (req, res) => {
+        if (req.session.data['undo-from-scenario-selector'] === 'yes'
+            && req.session.data['undo-multiple-periods'] === 'no') {
+            return res.redirect(v + admin + 'teacher/confirm-close-school-period')
+        }
+
         res.redirect(v + admin + 'teacher/select-school-period-to-close')
     })
 

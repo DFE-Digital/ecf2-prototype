@@ -1,0 +1,133 @@
+{% extends "layouts/admin.html" %}
+
+{% set pageName="Undo registration scenario selector" %}
+{% set activeNav="teachers" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "../index"
+}) }}
+{% endblock %}
+
+{% block content %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% if errors and errorList %}
+{{ govukErrorSummary({
+  titleText: "There is a problem",
+  errorList: errorList
+}) }}
+{% endif %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="post">
+      <h1 class="govuk-heading-l">{{ pageName }}</h1>
+      {{ govukRadios({
+        name: "undo-registration-type",
+        fieldset: {
+          legend: {
+            text: "Which registration are you undoing?",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        errorMessage: { text: errors.undoRegistrationType } if errors and errors.undoRegistrationType else false,
+        items: [
+          {
+            value: "ect",
+            text: "ECT school period",
+            checked: data['undo-registration-type'] == "ect"
+          },
+          {
+            value: "mentor",
+            text: "Mentor school period",
+            checked: data['undo-registration-type'] == "mentor"
+          }
+        ]
+      }) }}
+
+      {{ govukRadios({
+        name: "undo-multiple-periods",
+        fieldset: {
+          legend: {
+            text: "Are there multiple school periods to choose from?",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        errorMessage: { text: errors.undoMultiplePeriods } if errors and errors.undoMultiplePeriods else false,
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            checked: data['undo-multiple-periods'] == "yes"
+          },
+          {
+            value: "no",
+            text: "No",
+            checked: data['undo-multiple-periods'] == "no"
+          }
+        ]
+      }) }}
+
+      {% set otherPeriodsQuestion %}
+      {{ govukRadios({
+        name: "undo-has-other-periods",
+        fieldset: {
+          legend: {
+            text: "Does the teacher have other school periods or an induction period?",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        errorMessage: { text: errors.undoHasOtherPeriods } if errors and errors.undoHasOtherPeriods else false,
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            checked: data['undo-has-other-periods'] == "yes"
+          },
+          {
+            value: "no",
+            text: "No",
+            checked: data['undo-has-other-periods'] == "no"
+          }
+        ]
+      }) }}
+      {% endset %}
+
+      {{ govukRadios({
+        name: "undo-has-declarations",
+        fieldset: {
+          legend: {
+            text: "Does the teacher have billable or refundable declarations?",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        errorMessage: { text: errors.undoHasDeclarations } if errors and errors.undoHasDeclarations else false,
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            checked: data['undo-has-declarations'] == "yes"
+          },
+          {
+            value: "no",
+            text: "No",
+            checked: data['undo-has-declarations'] == "no",
+            conditional: {
+              html: otherPeriodsQuestion
+            }
+          }
+        ]
+      }) }}
+
+      <button class="govuk-button" data-module="govuk-button">Continue</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

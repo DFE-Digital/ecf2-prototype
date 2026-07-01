@@ -1,8 +1,14 @@
 {% extends "layouts/admin.html" %}
 
 {% set pageName="Confirm undo registration and close school periods for John Smith" %}
+{% set pageNameDeletePeriods="Confirm undo registration and delete school periods for John Smith" %}
+
 {% set activeNav="teachers" %}
 {% set schoolPeriod = data['school-period'] %}
+{% set fromScenario = data['undo-from-scenario-selector'] == 'yes' %}
+{% set hasDeclarations = data['undo-has-declarations'] == 'yes' %}
+{% set hasOtherPeriods = data['undo-has-other-periods'] == 'yes' %}
+{% set todaysDate = data.currentDay + ' ' + data.currentMonth | monthName + ' ' + data.currentYear %}
 
 {% if schoolPeriod == "ect-st-johns-2024" %}
   {% set trainingPeriodLabel = "ECT training period" %}
@@ -192,10 +198,17 @@
 {% endmacro %}
 
 {% block beforeContent %}
+{% if fromScenario and data['undo-multiple-periods'] == 'no' %}
+{{ govukBackLink({
+    text: "Back",
+    href: "undo-registration-and-close-school-period"
+}) }}
+{% else %}
 {{ govukBackLink({
     text: "Back",
     href: "select-school-period-to-close"
 }) }}
+{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -214,17 +227,50 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l">{{ pageName }}</h1>
+        {% if fromScenario and hasDeclarations %}
+          <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+        {% elif fromScenario and not hasDeclarations and hasOtherPeriods %}
+          <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+        {% elif fromScenario and not hasDeclarations and not hasOtherPeriods %}
+          <h1 class="govuk-heading-l">{{ pageNameDeletePeriods }}</h1>
+    {% endif %}
 
    <h2 class="govuk-heading-m">What will happen with ths undo</h2>
+    {% if fromScenario and hasDeclarations %}
+    <p class="govuk-body">
+      John Smith has billable or refundable declarations.
+    </p>
+        <p class="govuk-body">
+      Their school and training periods will be closed with an end date of {{ todaysDate }}. Their teacher record will not be deleted.
+    </p>
+    {% elif fromScenario and not hasDeclarations and hasOtherPeriods %}
+    <p class="govuk-body">
+      John Smith does not have billable or refundable declarations.
+    </p>
+    <p class="govuk-body">
+      Their school period and training periods will be deleted. Their teacher record will not be deleted.
+    </p>
+    {% elif fromScenario and not hasDeclarations and not hasOtherPeriods %}
+    <p class="govuk-body">
+    <p>John Smith does not have billable or refundable declarations.</p>
+    <p>The following details for John Smith will be deleted:</p>
+     <ul class="govuk-list govuk-list--bullet">
+        <li>registration teacher record</li>
+        <li>school and training periods</li>
+      </ul>
+    {% else %}
     <p class="govuk-body">
     John Smith has billable or refundable declarations.
-    </p>  
-     
- <p class="govuk-body">
+    </p>
+    <p class="govuk-body">
     Their school and training periods will be closed with an end date of 1 June 2006. Their registration teacher record will not be deleted.
     </p>
-      
+    {% endif %}
+
+
+    {% if fromScenario and hasDeclarations %}
 
     <h2 class="govuk-heading-s govuk-!-margin-top-6">School period that will be closed</h2>
     {{ schoolPeriodSummaryCard() }}
@@ -232,12 +278,37 @@
     <h2 class="govuk-heading-s govuk-!-margin-top-6">{{ trainingPeriodLabel }} that will be closed</h2>
     {{ trainingPeriodSummaryCard() }}
 
-   <!-- <h2 class="govuk-heading-s govuk-!-margin-top-6">{{ mentorshipPeriodLabel }} that will be closed</h2>
+   <h2 class="govuk-heading-s govuk-!-margin-top-6">{{ mentorshipPeriodLabel }} that will be closed</h2>
     {{ mentorshipPeriodsTable() }}
-  -->
 
-  
+
+    {% elif fromScenario and not hasDeclarations and hasOtherPeriods %}
+
+    <h2 class="govuk-heading-s govuk-!-margin-top-6">School period that will be deleted</h2>
+    {{ schoolPeriodSummaryCard() }}
+
+    <h2 class="govuk-heading-s govuk-!-margin-top-6">{{ trainingPeriodLabel }} that will be deleted</h2>
+    {{ trainingPeriodSummaryCard() }}
+
+   <h2 class="govuk-heading-s govuk-!-margin-top-6">{{ mentorshipPeriodLabel }} that will be deleted</h2>
+    {{ mentorshipPeriodsTable() }}
+
+    {% elif fromScenario and not hasDeclarations and not hasOtherPeriods %}
+
+    <h2 class="govuk-heading-s govuk-!-margin-top-6">School period that will be deleted</h2>
+    {{ schoolPeriodSummaryCard() }}
+
+    <h2 class="govuk-heading-s govuk-!-margin-top-6">{{ trainingPeriodLabel }} that will be deleted</h2>
+    {{ trainingPeriodSummaryCard() }}
+
+   <h2 class="govuk-heading-s govuk-!-margin-top-6">{{ mentorshipPeriodLabel }} that will be deleted</h2>
+    {{ mentorshipPeriodsTable() }}
+
+    {% endif %}
+
     <form method="post" class="govuk-!-margin-top-6">
+    {% if fromScenario and hasDeclarations %}
+
       {{ govukCheckboxes({
         idPrefix: "confirm-close-school-period",
         name: "confirm-close-school-period",
@@ -250,6 +321,26 @@
           }
         ]
       }) }}
+
+    {% else %}
+
+      {{ govukCheckboxes({
+        idPrefix: "confirm-close-school-period",
+        name: "confirm-close-school-period",
+        errorMessage: { text: errors.confirmCloseSchoolPeriod } if errors and errors.confirmCloseSchoolPeriod else false,
+        items: [
+          {
+            value: "yes",
+            text: "I confirm I want to undo this registration and delete these school and training periods",
+            checked: data['confirm-close-school-period'] == "yes"
+          }
+        ]
+      }) }}
+
+
+
+          {% endif %}
+
 
        <div class="govuk-warning-text">
       <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
