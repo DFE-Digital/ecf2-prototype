@@ -76,6 +76,17 @@ module.exports = router => {
     });
 
     // admin teacher undo registration scenario selector
+    router.get(v + admin + 'teacher/start-undo-registration', (req, res) => {
+        req.session.data['undo-from-scenario-selector'] = 'yes'
+        req.session.data['undo-registration-type'] = 'ect'
+        req.session.data['undo-multiple-periods'] = 'yes'
+        req.session.data['undo-has-declarations'] = 'yes'
+        req.session.data['undo-has-other-periods'] = null
+        req.session.data['school-period'] = null
+
+        res.redirect(v + admin + 'teacher/undo-registration-and-close-school-period')
+    })
+
     router.post(v + admin + 'teacher/undo-registration-scenario-selector', (req, res) => {
         const registrationType = req.body['undo-registration-type']
         const multiplePeriods = req.body['undo-multiple-periods']
