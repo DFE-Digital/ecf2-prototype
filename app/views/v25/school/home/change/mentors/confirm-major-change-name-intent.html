@@ -29,11 +29,17 @@
 
     <p class="govuk-body">You've told us you want to change <b>{{ name }}'s </b> name (TRN:1234567) to <b>{{ newName }}</b>.</p>
 
-    <p class="govuk-body">This will not change the mentor for any of {{ name }}'s ECTs. It will just change {{ name }}'s name.</p>
+      <div class="govuk-warning-text">
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-visually-hidden">Warning</span>
+    Make sure that you just want to change {{ name }}'s name. <br>Do not use this feature to change to a different person.<br>Changing to a different person might affect {{ name }}'s funding.
+  </strong>
+</div>
 
-    <p class="govuk-body">If you want a different person to mentor an ECT, change the mentor from the <a href="../../ects">ECT's detail page</a>.</p>
+    <!-- <p class="govuk-body">If you want a different person to mentor an ECT, change the mentor from the <a href="../../ects">ECT's detail page</a>.</p> -->
 
-    <p class="govuk-body">You should only continue if you want to change {{ name }}'s name to {{ newName }}.</p>
+    <p class="govuk-body">You should only continue if you want to change {{ name }}'s name (TRN:1234567) to {{ newName }}.</p>
 
     <!-- {% set hasAssignedEcts = false %}
     {% for ect in data.ects %}
