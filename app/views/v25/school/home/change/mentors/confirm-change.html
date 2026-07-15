@@ -6,6 +6,15 @@
 {% set name = 'John Doe' %}
 {% endif %}
 
+{% set mentorId = data.selectedMentorId or data.id %}
+{% set activeMentor = {} %}
+{% for person in data.mentors %}
+  {% if person.id == mentorId %}
+    {% set activeMentor = person %}
+  {% endif %}
+{% endfor %}
+{% set trn = activeMentor.trn %}
+
 {# Check what type of change this is #}
 {% if data['changeType'] == 'name' %}
   {% set isNameChange = true %}
@@ -109,9 +118,15 @@ href: "javascript:window.history.back()"
         {% endif %}
 
         {{ govukSummaryList({
-          classes: "govuk-!-margin-bottom-8",
+          classes: "govuk-!-margin-bottom-8" if not isNameChange else "",
           rows: summaryRows
         }) }}
+
+        {% if isNameChange %}
+          {{ govukInsetText({
+            text: "This will change the name for the record with the teacher reference number (TRN) " + trn + "."
+          }) }}
+        {% endif %}
 
         <form method="post" novalidate>
             <!-- Pass the mentor ID through the form -->
