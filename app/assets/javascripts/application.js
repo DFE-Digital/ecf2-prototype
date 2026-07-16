@@ -4,5 +4,7 @@
 //
 
 window.GOVUKPrototypeKit.documentReady(() => {
-  // Add JavaScript here
+  if (window.DfeFrontend && typeof window.DfeFrontend.initAll === 'function') {
+    window.DfeFrontend.initAll()
+  }
 })
