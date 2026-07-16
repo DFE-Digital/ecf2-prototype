@@ -1,18 +1,18 @@
-{% extends "layouts/mentors.html" %}
+{% extends "layouts/ects.html" %}
 
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 
-{% set mentorId = data.selectedMentorId or data.id %}
-{% set activeMentor = {} %}
-{% for person in data.mentors %}
-  {% if person.id == mentorId %}
-    {% set activeMentor = person %}
+{% set ectId = data.selectedEctId %}
+{% set activeEct = {} %}
+{% for person in data.ects %}
+  {% if person.id == ectId %}
+    {% set activeEct = person %}
   {% endif %}
 {% endfor %}
 
-{% set name = data.previousName or data.fullName or activeMentor.name or "John Doe" %}
+{% set name = data.previousName or data.fullName or activeEct.name or "John Doe" %}
 {% set newName = data.newName or "Sarah Smith" %}
-{% set trn = activeMentor.trn %}
+{% set trn = activeEct.trn %}
 {% set showInterruption = query.interruption == 'true' or data.interruption == 'true' %}
 
 {% set pageName = "Check this name change is for the same person" %}
@@ -20,7 +20,7 @@
 {% block beforeContent %}
 {{ govukBackLink({
   text: "Back",
-  href: "../../view-mentor?id=" + mentorId
+  href: "../../view-ect?ect=" + ectId
 }) }}
 {% endblock %}
 
@@ -42,7 +42,7 @@
               },
               {
                 text: "Cancel and return to " + name + "’s details",
-                href: "../../view-mentor?id=" + mentorId
+                href: "../../view-ect?ect=" + ectId
               }
             ]
           }
@@ -55,8 +55,6 @@
             <li>it is spelt incorrectly</li>
             <li>they have changed their name</li>
           </ul>
-
-          <p class="govuk-body">If you want a different person to mentor an ECT, change the mentor from the <a class="govuk-link govuk-link--inverse" href="../../ects">ECT’s details page</a> instead of changing this mentor’s name.</p>
 
           <div class="govuk-warning-text">
             <span class="govuk-warning-text__icon" aria-hidden="true" style="color: #0b0c0c;">!</span>
@@ -79,8 +77,6 @@
         <li>they have changed their name</li>
       </ul>
 
-      <p class="govuk-body">If you want a different person to mentor an ECT, change the mentor from the <a class="govuk-link" href="../../ects">ECT’s details page</a> instead of changing this mentor’s name.</p>
-
       <div class="govuk-warning-text">
         <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
         <strong class="govuk-warning-text__text">
@@ -95,7 +91,7 @@
         }) }}
       </form>
 
-      <p class="govuk-body"><a class="govuk-link" href="../../view-mentor?id={{ mentorId }}">Cancel and return to {{ name }}’s details</a></p>
+      <p class="govuk-body"><a class="govuk-link" href="../../view-ect?ect={{ ectId }}">Cancel and return to {{ name }}’s details</a></p>
     {% endif %}
 
   </div>

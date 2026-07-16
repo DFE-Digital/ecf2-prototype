@@ -6,6 +6,15 @@
 {% set name = 'John Smith' %}
 {% endif %}
 
+{% set ectId = data.selectedEctId %}
+{% set activeEct = {} %}
+{% for person in data.ects %}
+  {% if person.id == ectId %}
+    {% set activeEct = person %}
+  {% endif %}
+{% endfor %}
+{% set trn = activeEct.trn %}
+
 {% set isWithdrawnLeadProviderFlow = data['withdrawnLeadProviderJourney'] %}
 
 {# Check what type of change this is #}
@@ -265,9 +274,15 @@ href: "javascript:window.history.back()"
         {% endif %}
 
         {{ govukSummaryList({
-          classes: "govuk-!-margin-bottom-8",
+          classes: "govuk-!-margin-bottom-8" if not isNameChange else "",
           rows: summaryRows
         }) }}
+
+        {% if isNameChange %}
+          {{ govukInsetText({
+            text: "This will change the name for the record with the teacher reference number (TRN) " + trn + "."
+          }) }}
+        {% endif %}
 
         <form method="post" novalidate>
             <!-- Pass the ECT ID through the form -->

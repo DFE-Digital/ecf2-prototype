@@ -1371,6 +1371,24 @@ module.exports = router => {
             req.session.data.selectedMentorId = undefined;
         })
 
+        function isMajorNameChange(previousName, newName) {
+            const splitName = (name) => {
+                const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+                if (parts.length === 0) return { first: '', last: '' };
+                if (parts.length === 1) return { first: parts[0], last: '' };
+                return { first: parts[0], last: parts[parts.length - 1] };
+            };
+            const previous = splitName(previousName);
+            const next = splitName(newName);
+            const firstChanged = previous.first.toLowerCase() !== next.first.toLowerCase();
+            const lastChanged = previous.last.toLowerCase() !== next.last.toLowerCase();
+            return firstChanged && lastChanged;
+        }
+
+        function majorNameChangeIntentPath(personType) {
+            return v + school + 'home/change/' + personType + '/confirm-major-change-name-intent?interruption=true';
+        }
+
         // Change name routes for ECTs
         router.post(v + school + 'home/change/ects/change-name', (req, res) => {
             const { newName, ectId } = req.body;
@@ -1383,8 +1401,16 @@ module.exports = router => {
                 req.session.data.fullName = ect.name;
                 req.session.data.selectedEctId = ect.id;
                 req.session.data.changeType = 'name';
+
+                if (isMajorNameChange(ect.name, newName)) {
+                    return res.redirect(majorNameChangeIntentPath('ects'));
+                }
             }
 
+            res.redirect(v + school + 'home/change/ects/confirm-change');
+        })
+
+        router.post(v + school + 'home/change/ects/confirm-major-change-name-intent', (req, res) => {
             res.redirect(v + school + 'home/change/ects/confirm-change');
         })
 
@@ -1400,8 +1426,16 @@ module.exports = router => {
                 req.session.data.fullName = mentor.name;
                 req.session.data.selectedMentorId = mentor.id;
                 req.session.data.changeType = 'name';
+
+                if (isMajorNameChange(mentor.name, newName)) {
+                    return res.redirect(majorNameChangeIntentPath('mentors'));
+                }
             }
 
+            res.redirect(v + school + 'home/change/mentors/confirm-change');
+        })
+
+        router.post(v + school + 'home/change/mentors/confirm-major-change-name-intent', (req, res) => {
             res.redirect(v + school + 'home/change/mentors/confirm-change');
         })
 
