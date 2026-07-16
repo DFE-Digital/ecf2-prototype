@@ -1,5 +1,7 @@
 {% extends "layouts/ects.html" %}
 
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
 {% set ectId = data.selectedEctId %}
 {% set activeEct = {} %}
 {% for person in data.ects %}
@@ -11,6 +13,7 @@
 {% set name = data.previousName or data.fullName or activeEct.name or "John Doe" %}
 {% set newName = data.newName or "Sarah Smith" %}
 {% set trn = activeEct.trn %}
+{% set showInterruption = query.interruption == 'true' or data.interruption == 'true' %}
 
 {% set pageName = "Check this name change is for the same person" %}
 
@@ -25,32 +28,72 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
-    <p class="govuk-body">You’ve told us you want to change <strong>{{ name }}</strong>'s name to <strong>{{ newName }}</strong>.</p>
-    <p class="govuk-body">This will change the name on the record with teacher reference number (TRN) <strong>{{ trn }}</strong>.</p>
+    {% if showInterruption %}
+      <form method="post" novalidate>
+        {% call govukPanel({
+          classes: "govuk-panel--interruption",
+          titleText: pageName,
+          actions: {
+            items: [
+              {
+                text: "Continue to change name",
+                type: "submit"
+              },
+              {
+                text: "Cancel and return to " + name + "’s details",
+                href: "../../view-ect?ect=" + ectId
+              }
+            ]
+          }
+        }) %}
+          <p class="govuk-body">You’ve told us you want to change <strong>{{ name }}</strong>'s name to <strong>{{ newName }}</strong>.</p>
+          <p class="govuk-body">This will change the name on the record with teacher reference number (TRN) <strong>{{ trn }}</strong>.</p>
 
-    <p class="govuk-body">Only change {{name}}'s name if:</p>
-    <ul class="govuk-list govuk-list--bullet">
-      <li>it is spelt incorrectly</li>
-      <li>they have changed their name</li>
-    </ul>
+          <p class="govuk-body">Only change {{ name }}'s name if:</p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>it is spelt incorrectly</li>
+            <li>they have changed their name</li>
+          </ul>
 
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-visually-hidden">Warning</span>
-        If {{newName}} is a different person, do not continue. Register them separately. Changing {{name}}'s name to that of a different person may affect your school’s funding.
-      </strong>
-    </div>
+          <div class="govuk-warning-text">
+            <span class="govuk-warning-text__icon" aria-hidden="true" style="color: #0b0c0c;">!</span>
+            <strong class="govuk-warning-text__text">
+              <span class="govuk-visually-hidden">Warning</span>
+              If {{ newName }} is a different person, do not continue. Register them separately. Changing {{ name }}'s name to that of a different person may affect your school’s funding.
+            </strong>
+          </div>
+        {% endcall %}
+      </form>
+    {% else %}
+      <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
-    <form method="post" novalidate>
-      {{ govukButton({
-        text: "Continue to change name"
-      }) }}
-    </form>
+      <p class="govuk-body">You’ve told us you want to change <strong>{{ name }}</strong>'s name to <strong>{{ newName }}</strong>.</p>
+      <p class="govuk-body">This will change the name on the record with teacher reference number (TRN) <strong>{{ trn }}</strong>.</p>
 
-    <p class="govuk-body"><a class="govuk-link" href="../../view-ect?ect={{ ectId }}">Cancel and return to {{ name }}’s details</a></p>
+      <p class="govuk-body">Only change {{name}}'s name if:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>it is spelt incorrectly</li>
+        <li>they have changed their name</li>
+      </ul>
+
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-visually-hidden">Warning</span>
+          If {{newName}} is a different person, do not continue. Register them separately. Changing {{name}}'s name to that of a different person may affect your school’s funding.
+        </strong>
+      </div>
+
+      <form method="post" novalidate>
+        {{ govukButton({
+          text: "Continue to change name"
+        }) }}
+      </form>
+
+      <p class="govuk-body"><a class="govuk-link" href="../../view-ect?ect={{ ectId }}">Cancel and return to {{ name }}’s details</a></p>
+    {% endif %}
+
   </div>
 </div>
 

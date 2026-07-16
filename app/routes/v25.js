@@ -1385,6 +1385,10 @@ module.exports = router => {
             return firstChanged && lastChanged;
         }
 
+        function majorNameChangeIntentPath(personType) {
+            return v + school + 'home/change/' + personType + '/confirm-major-change-name-intent?interruption=true';
+        }
+
         // Change name routes for ECTs
         router.post(v + school + 'home/change/ects/change-name', (req, res) => {
             const { newName, ectId } = req.body;
@@ -1399,7 +1403,7 @@ module.exports = router => {
                 req.session.data.changeType = 'name';
 
                 if (isMajorNameChange(ect.name, newName)) {
-                    return res.redirect(v + school + 'home/change/ects/confirm-major-change-name-intent');
+                    return res.redirect(majorNameChangeIntentPath('ects'));
                 }
             }
 
@@ -1424,7 +1428,7 @@ module.exports = router => {
                 req.session.data.changeType = 'name';
 
                 if (isMajorNameChange(mentor.name, newName)) {
-                    return res.redirect(v + school + 'home/change/mentors/confirm-major-change-name-intent');
+                    return res.redirect(majorNameChangeIntentPath('mentors'));
                 }
             }
 

@@ -28,6 +28,9 @@ href: "javascript:window.history.back()"
         <form method="post">
         <input type="hidden" name="id" value="{{ mentorId }}">
         <input type="hidden" name="personType" value="mentor">
+        {% if query.interruption == 'true' or data.interruption == 'true' %}
+        <input type="hidden" name="interruption" value="true">
+        {% endif %}
 
                         <p>The name will be used in this service and communications with the mentor.</p>
         <p>The mentor can update their name in their teacher record later using the Access your teaching qualifications service.</p>
