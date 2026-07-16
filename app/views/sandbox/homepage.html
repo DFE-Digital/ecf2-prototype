@@ -27,41 +27,25 @@
 
 
         <div class="govuk-!-margin-top-8">
-            {% from 'node_modules/dfe-frontend/packages/components/card/macro.njk' import card %}
-        {{ card({
-        cards: [
-        {
-        "imageCard": false,
-        "headingLevel": "3",
-        "linkCard": true,
-        "link": "#",
-        "openInNewTab": false,
-        "heading": "Your early career teachers (ECTs)",
-        "description": "Add a new ECT or view the existing ECTs at your school.",
-        "meta": ""
-        },
-        {
-        "imageCard": false,
-        "headingLevel": "3",
-        "linkCard": true,
-        "link": "#",
-        "openInNewTab": false,
-        "heading": "Your mentors",
-        "description": "Add a new mentor or view the existing mentors at your school.",
-        "meta": ""
-        },
-        {
-        "imageCard": false,
-        "headingLevel": "3",
-        "linkCard": true,
-        "link": "#",
-        "openInNewTab": false,
-        "heading": "Make a change to your ECTs or mentors",
-        "description": "Change personal or training information for your ECTs or mentors.",
-        "meta": ""
-        }
-        ]
-        }) }}
+            {% from "node_modules/@dfedigital/dfe-frontend-nunjucks/src/dfe/macros/card.njk" import dfeCard %}
+        {{ dfeCard({
+  heading: "Your early career teachers (ECTs)",
+  headingLevel: 3,
+  href: "#",
+  text: "Add a new ECT or view the existing ECTs at your school."
+}) }}
+{{ dfeCard({
+  heading: "Your mentors",
+  headingLevel: 3,
+  href: "#",
+  text: "Add a new mentor or view the existing mentors at your school."
+}) }}
+{{ dfeCard({
+  heading: "Make a change to your ECTs or mentors",
+  headingLevel: 3,
+  href: "#",
+  text: "Change personal or training information for your ECTs or mentors."
+}) }}
         </div>
 
     </div>

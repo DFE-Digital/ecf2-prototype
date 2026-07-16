@@ -8,41 +8,25 @@
     <div class="govuk-grid-column-full">
         <h1 class="govuk-heading-l">Tell us about your early career teachers</h1>
         <p>Content here / guidance as needed</p>
-        {% from 'node_modules/dfe-frontend/packages/components/card/macro.njk' import card %}
-        {{ card({
-        cards: [
-        {
-        "imageCard": false,
-        "headingLevel": "3",
-        "linkCard": true,
-        "link": "#",
-        "openInNewTab": false,
-        "heading": "Add your early career teachers",
-        "description": "A short description for the card.",
-        "meta": ""
-        },
-        {
-        "imageCard": false,
-        "headingLevel": "3",
-        "linkCard": true,
-        "link": "#",
-        "openInNewTab": false,
-        "heading": "Sample Card Title",
-        "description": "A short description for the card.",
-        "meta": ""
-        },
-        {
-        "imageCard": false,
-        "headingLevel": "3",
-        "linkCard": true,
-        "link": "#",
-        "openInNewTab": false,
-        "heading": "Sample Card Title",
-        "description": "A short description for the card.",
-        "meta": ""
-        }
-        ]
-        }) }}
+        {% from "node_modules/@dfedigital/dfe-frontend-nunjucks/src/dfe/macros/card.njk" import dfeCard %}
+        {{ dfeCard({
+  heading: "Add your early career teachers",
+  headingLevel: 3,
+  href: "#",
+  text: "A short description for the card."
+}) }}
+{{ dfeCard({
+  heading: "Sample Card Title",
+  headingLevel: 3,
+  href: "#",
+  text: "A short description for the card."
+}) }}
+{{ dfeCard({
+  heading: "Sample Card Title",
+  headingLevel: 3,
+  href: "#",
+  text: "A short description for the card."
+}) }}
 
     </div>
 </div>
