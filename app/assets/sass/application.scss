@@ -4,14 +4,7 @@
 // 
 
 // Add extra styles here
-@import 'node_modules/dfe-frontend/packages/core/objects/grid';
-@import 'node_modules/dfe-frontend/packages/core/objects/width-container';
-@import 'node_modules/dfe-frontend/packages/core/settings/colours';
-@import 'node_modules/dfe-frontend/packages/core/settings/spacing';
-@import 'node_modules/dfe-frontend/packages/core/tools/grid';
-@import 'node_modules/dfe-frontend/packages/core/tools/spacing';
-@import 'node_modules/dfe-frontend/packages/core/vendor/sass-mq';
-@import 'node_modules/dfe-frontend/packages/components/card/card';
+@import "dfe-frontend";
 @import "components/finder";
 @import "components/finance";
 
@@ -22,26 +15,47 @@
   }
 }
 
-.govuk-header__logo {
-  margin: 0;
+// DfE frontend sets line-height: 0 on the homepage link (for img logos).
+// That collapses the GOV.UK SVG focus outline — restore a normal line box.
+.govuk-header .govuk-header__logo .govuk-header__homepage-link {
+  line-height: 1;
 }
 
-.govuk-header {
+// School name + Sign out sit in the blue header (GOV.UK Frontend 6 removed header nav)
+.app-header__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.app-header__account {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0;
+  color: #ffffff;
+}
+
+.app-header__account-item {
+  padding: 16px 0 14px;
+  margin-left: 15px;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  padding-left: 15px;
+  font-size: 16px;
   line-height: 1.25;
 
-  &__navigation {
-    display: flex;
-
-    @include govuk-media-query($from: tablet) {
-      justify-content: flex-end;
-    }
+  &:first-child {
+    margin-left: 0;
+    border-left: 0;
+    padding-left: 0;
   }
+}
 
-  &__navigation-item {
-    @include govuk-media-query($from: tablet) {
-      margin: 0;
-      padding-inline: 15px;
-      border-left: 1px solid $govuk-border-colour
-    }
+.app-header__account .govuk-link--inverse {
+  &:link,
+  &:visited {
+    color: #ffffff;
   }
 }
