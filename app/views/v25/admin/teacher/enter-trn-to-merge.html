@@ -27,21 +27,20 @@
       <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
       <p class="govuk-body">
-        You are merging a deactivated teacher record (TRN 2959198) with an active TRN. Enter the active teacher reference number to merge with.
+        You’re merging deactivated teacher record <b>TRN 2959198</b> with an active TRN.
       </p>
 
-      <p class="govuk-body">
+      <!-- <p class="govuk-body">
         Contact any relevant lead providers to notify them about the merge.
       </p>
+    -->
 
       {{ govukInput({
         label: {
-          text: "Teacher reference number (TRN)",
+          text: "Active TRN to merge with",
           classes: "govuk-label--m"
         },
-        hint: {
-          text: "Enter a 7 digit number"
-        },
+        
         id: "merge-target-trn",
         name: "merge-target-trn",
         classes: "govuk-input--width-10",

@@ -51,8 +51,10 @@
     <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
     <p class="govuk-body">
-      School periods and related data will move from the deactivated TRN to the active TRN. The deactivated teacher record will be archived.
-    </p>
+      School periods and related data from the deactivated TRN will be merged into the active TRN.</p>
+      <p class="govuk-body">The active TRN will keep its current data.</p>
+      <p class="govuk-body">The deactivated teacher record will be archived.</p>
+
 
     <div class="merge-preview govuk-!-margin-top-6">
       <div class="merge-preview__column">
@@ -132,7 +134,7 @@
 
       <div class="merge-preview__column">
         <h2 class="govuk-heading-m">
-          Record being merged with
+          Active TRN being merged with
         </h2>
 
         {{ govukSummaryList({
