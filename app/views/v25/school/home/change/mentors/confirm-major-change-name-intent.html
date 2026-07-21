@@ -48,46 +48,55 @@
           }
         }) %}
           <p class="govuk-body">You’ve told us you want to change <strong>{{ name }}</strong>'s name to <strong>{{ newName }}</strong>.</p>
-          <p class="govuk-body">This will change the name on the record with teacher reference number (TRN) <strong>{{ trn }}</strong>.</p>
+          <p class="govuk-body">This will change the name on the teacher reference number (TRN) <strong>{{ trn }}</strong>.</p>
+
+
+          <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-visually-hidden">Warning</span>
+          If {{newName}} is a different person, do not continue. <br>Changing {{name}}'s name to that of a different person may affect your school’s funding.
+        </strong>
+      </div>
 
           <p class="govuk-body">Only change {{ name }}'s name if:</p>
           <ul class="govuk-list govuk-list--bullet">
-            <li>it is spelt incorrectly</li>
-            <li>they have changed their name</li>
+            <li>it’s spelt incorrectly</li>
+            <li>they’ve changed their name</li>
+            <li>they want to use a shortened or less formal name</li>
+
           </ul>
+                    <!-- <p class="govuk-body">If you want a different person to mentor an ECT, change the mentor from the <a class="govuk-link govuk-link--inverse" href="../../ects">ECT’s details page</a> instead of changing this mentor’s name.</p> -->
+          
 
-          <p class="govuk-body">If you want a different person to mentor an ECT, change the mentor from the <a class="govuk-link govuk-link--inverse" href="../../ects">ECT’s details page</a> instead of changing this mentor’s name.</p>
 
-          <div class="govuk-warning-text">
-            <span class="govuk-warning-text__icon" aria-hidden="true" style="color: #0b0c0c;">!</span>
-            <strong class="govuk-warning-text__text">
-              <span class="govuk-visually-hidden">Warning</span>
-              If {{ newName }} is a different person, do not continue. Register them separately. Changing {{ name }}'s name to that of a different person may affect your school’s funding.
-            </strong>
-          </div>
+                    
         {% endcall %}
       </form>
     {% else %}
       <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
       <p class="govuk-body">You’ve told us you want to change <strong>{{ name }}</strong>'s name to <strong>{{ newName }}</strong>.</p>
-      <p class="govuk-body">This will change the name on the record with teacher reference number (TRN) <strong>{{ trn }}</strong>.</p>
+      <p class="govuk-body">This will change the name on the teacher reference number (TRN) <strong>{{ trn }}</strong>.</p>
 
-      <p class="govuk-body">Only change {{name}}'s name if:</p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>it is spelt incorrectly</li>
-        <li>they have changed their name</li>
-      </ul>
-
-      <p class="govuk-body">If you want a different person to mentor an ECT, change the mentor from the <a class="govuk-link" href="../../ects">ECT’s details page</a> instead of changing this mentor’s name.</p>
 
       <div class="govuk-warning-text">
         <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
         <strong class="govuk-warning-text__text">
           <span class="govuk-visually-hidden">Warning</span>
-          If {{newName}} is a different person, do not continue. Register them separately. Changing {{name}}'s name to that of a different person may affect your school’s funding.
+            If {{newName}} is a different person, do not continue. <br>Changing {{name}}'s name to that of a different person may affect your school’s funding.
         </strong>
       </div>
+
+      <p class="govuk-body">Only change {{name}}'s name if:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>it’s spelt incorrectly</li>
+        <li>they’ve changed their name</li>
+        <li>they want to use a shortened or less formal name</li>
+
+      </ul>
+
+      <p class="govuk-body">If you want a different person to mentor an ECT, change the mentor from the <a class="govuk-link" href="../../ects">ECT’s details page</a> instead of changing this mentor’s name.</p>
 
       <form method="post" novalidate>
         {{ govukButton({
