@@ -214,12 +214,6 @@ module.exports = router => {
                 text: errors.mergeTargetTrn,
                 href: '#merge-target-trn'
             })
-        } else if (trn === '0000000') {
-            errors.mergeTargetTrn = 'This TRN cannot be merged with. Enter a different TRN'
-            errorList.push({
-                text: errors.mergeTargetTrn,
-                href: '#merge-target-trn'
-            })
         }
 
         if (errorList.length) {
@@ -229,10 +223,18 @@ module.exports = router => {
             })
         }
 
+        if (trn === '0000000') {
+            return res.redirect(v + admin + 'teacher/cannot-merge')
+        }
+
         req.session.data['merge-target-trn'] = trn
         req.session.data['confirm-merge'] = null
 
         res.redirect(v + admin + 'teacher/merge-preview')
+    })
+
+    router.get(v + admin + 'teacher/cannot-merge', (req, res) => {
+        res.render(vGet + admin + 'teacher/cannot-merge')
     })
 
     router.get(v + admin + 'teacher/merge-preview', (req, res) => {
