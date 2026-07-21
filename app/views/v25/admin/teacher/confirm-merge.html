@@ -1,0 +1,81 @@
+{% extends "layouts/admin.html" %}
+
+{% set pageName="Confirm merge for John Smith" %}
+{% set activeNav="teachers" %}
+{% set targetTrn = data['merge-target-trn'] %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "merge-preview"
+}) }}
+{% endblock %}
+
+{% block content %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{% if errors and errors.confirmMerge %}
+{{ govukErrorSummary({
+  titleText: "There is a problem",
+  errorList: [
+    {
+      text: errors.confirmMerge,
+      href: "#confirm-merge"
+    }
+  ]
+}) }}
+{% endif %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+    <p class="govuk-body">
+      School periods and related data from the deactivated TRN will move to the active TRN. The deactivated teacher record will be archived.
+    </p>
+
+    {{ govukSummaryList({
+      rows: [
+        {
+          key: { text: "Deactivated TRN" },
+          value: { text: "2959198" }
+        },
+        {
+          key: { text: "Active TRN being merged with" },
+          value: { text: targetTrn }
+        }
+      ]
+    }) }}
+
+    <form method="post" class="govuk-!-margin-top-6">
+      {{ govukCheckboxes({
+        idPrefix: "confirm-merge",
+        name: "confirm-merge",
+        errorMessage: { text: errors.confirmMerge } if errors and errors.confirmMerge else false,
+        items: [
+          {
+            value: "yes",
+            text: "I confirm I want to merge these teacher records",
+            checked: data['confirm-merge'] == "yes"
+          }
+        ]
+      }) }}
+
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-warning-text__assistive govuk-visually-hidden">Warning</span>
+          This action cannot be undone.
+        </strong>
+      </div>
+
+      <button class="govuk-button govuk-button--warning" data-module="govuk-button">Confirm</button>
+    </form>
+
+    <p>
+      <a href="../teachers-details?section=overview&deactivated=true" class="govuk-link govuk-link--no-visited-state">Cancel and go back to John Smith</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

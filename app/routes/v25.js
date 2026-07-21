@@ -198,6 +198,92 @@ module.exports = router => {
         res.redirect(v + admin + 'teacher/school-period-closed')
     })
 
+    // admin teacher merge deactivated TRN into active TRN
+    router.get(v + admin + 'teacher/enter-trn-to-merge', (req, res) => {
+        res.render(vGet + admin + 'teacher/enter-trn-to-merge')
+    })
+
+    router.post(v + admin + 'teacher/enter-trn-to-merge', (req, res) => {
+        const trn = (req.body['merge-target-trn'] || '').trim()
+        const errors = {}
+        const errorList = []
+
+        if (!trn || !/^\d{7}$/.test(trn)) {
+            errors.mergeTargetTrn = 'Enter a valid TRN'
+            errorList.push({
+                text: errors.mergeTargetTrn,
+                href: '#merge-target-trn'
+            })
+        } else if (trn === '0000000') {
+            errors.mergeTargetTrn = 'This TRN cannot be merged with. Enter a different TRN'
+            errorList.push({
+                text: errors.mergeTargetTrn,
+                href: '#merge-target-trn'
+            })
+        }
+
+        if (errorList.length) {
+            return res.render(vGet + admin + 'teacher/enter-trn-to-merge', {
+                errors,
+                errorList
+            })
+        }
+
+        req.session.data['merge-target-trn'] = trn
+        req.session.data['confirm-merge'] = null
+
+        res.redirect(v + admin + 'teacher/merge-preview')
+    })
+
+    router.get(v + admin + 'teacher/merge-preview', (req, res) => {
+        if (!req.session.data['merge-target-trn']) {
+            return res.redirect(v + admin + 'teacher/enter-trn-to-merge')
+        }
+
+        res.render(vGet + admin + 'teacher/merge-preview')
+    })
+
+    router.post(v + admin + 'teacher/merge-preview', (req, res) => {
+        if (!req.session.data['merge-target-trn']) {
+            return res.redirect(v + admin + 'teacher/enter-trn-to-merge')
+        }
+
+        res.redirect(v + admin + 'teacher/confirm-merge')
+    })
+
+    router.get(v + admin + 'teacher/confirm-merge', (req, res) => {
+        if (!req.session.data['merge-target-trn']) {
+            return res.redirect(v + admin + 'teacher/enter-trn-to-merge')
+        }
+
+        res.render(vGet + admin + 'teacher/confirm-merge')
+    })
+
+    router.post(v + admin + 'teacher/confirm-merge', (req, res) => {
+        const confirmMerge = req.body['confirm-merge']
+        const hasConfirmation = Array.isArray(confirmMerge)
+            ? confirmMerge.includes('yes')
+            : confirmMerge === 'yes'
+
+        if (!req.session.data['merge-target-trn']) {
+            return res.redirect(v + admin + 'teacher/enter-trn-to-merge')
+        }
+
+        if (!hasConfirmation) {
+            return res.render(vGet + admin + 'teacher/confirm-merge', {
+                errors: {
+                    confirmMerge: 'Confirm you want to merge these teacher records'
+                }
+            })
+        }
+
+        res.redirect(v + admin + 'teacher/records-merged')
+    })
+
+    router.get(v + admin + 'teacher/records-merged', (req, res) => {
+        res.render(vGet + admin + 'teacher/records-merged')
+    })
+
     // admin teacher change contract period
     router.post(v + admin + 'teacher/change-contract-period', (req, res) => {
         const contractPeriod = req.session.data['contract-period']

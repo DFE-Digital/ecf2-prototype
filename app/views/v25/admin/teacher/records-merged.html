@@ -1,0 +1,29 @@
+{% extends "layouts/admin.html" %}
+
+{% set pageName="Teacher records merged" %}
+{% set activeNav="teachers" %}
+{% set targetTrn = data['merge-target-trn'] %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">{{ pageName }}</h1>
+    </div>
+
+    <p class="govuk-body">
+      Teacher record TRN <strong>2959198</strong> has been merged into TRN <strong>{{ targetTrn }}</strong>.
+    </p>
+    <p class="govuk-body">
+      Teacher record TRN <strong>2959198</strong> has been archived with reason <code>teacher_record_merged</code>.
+    </p>
+
+    <p class="govuk-body">
+      <a href="../teachers" class="govuk-link govuk-link--no-visited-state">Back to teachers</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

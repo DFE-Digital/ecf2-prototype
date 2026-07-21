@@ -98,6 +98,8 @@
         </div>
         {% endif %}
 
+        {% set isDeactivated = query.deactivated == "true" %}
+        {% set deactivatedQuery = "&deactivated=true" if isDeactivated else "" %}
         <span class="govuk-caption-l">TRN: 2959198</span>
         <h1 class="govuk-heading-l">{{pageName}}</h1>
 
@@ -107,27 +109,27 @@
           visuallyHiddenTitle: "Secondary menu",
           items: [{
             text: "Overview",
-            href: "?section=overview",
+            href: "?section=overview" + deactivatedQuery,
             current: true if currentSection == "overview" else false
           }, {
             text: "Induction",
-            href: "?section=induction",
+            href: "?section=induction" + deactivatedQuery,
             current: true if currentSection == "induction" else false
           }, {
             text: "School",
-            href: "?section=school",
+            href: "?section=school" + deactivatedQuery,
             current: true if currentSection == "school" else false
           }, {
             text: "Training",
-            href: "?section=training",
+            href: "?section=training" + deactivatedQuery,
             current: true if currentSection == "training" else false
           }, {
             text: "Declarations",
-            href: "?section=declarations",
+            href: "?section=declarations" + deactivatedQuery,
             current: true if currentSection == "declarations" else false
           }, {
             text: "Timeline",
-            href: "?section=timeline",
+            href: "?section=timeline" + deactivatedQuery,
             current: true if currentSection == "timeline" else false
           }]
         }) }}
@@ -149,7 +151,9 @@
                         },
                         {
                             key: { text: "TRN" },
-                            value: { text: "2959198" }
+                            value: {
+                              html: "2959198 <strong class='govuk-tag govuk-tag--grey govuk-!-margin-left-1'>Deactivated</strong>" if isDeactivated else "2959198"
+                            }
                         },
                         {
                             key: { text: "Role" },
@@ -171,7 +175,9 @@
                         },
                         {
                             key: { text: "Induction status" },
-                            value: { html: '<strong class="govuk-tag govuk-tag--blue">In progress</strong>' }
+                            value: {
+                              html: '<strong class="govuk-tag govuk-tag--grey">Not available</strong>' if isDeactivated else '<strong class="govuk-tag govuk-tag--blue">In progress</strong>'
+                            }
                         },
                         {
                             key: { text: "API participant ID"},
@@ -179,6 +185,12 @@
                         }
                     ]
                 })}}
+
+                {% if isDeactivated %}
+                <p class="govuk-!-margin-top-6">
+                  <a href="teacher/enter-trn-to-merge" class="govuk-link govuk-link--no-visited-state">Merge this teacher record with an active TRN</a>
+                </p>
+                {% endif %}
             {% endif %}
 
             {% if currentSection == "induction" %}
