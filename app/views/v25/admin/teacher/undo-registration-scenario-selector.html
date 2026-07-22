@@ -29,7 +29,7 @@
         name: "undo-registration-type",
         fieldset: {
           legend: {
-            text: "Which registration are you undoing?",
+            text: "Which school periods do you want to see?",
             isPageHeading: false,
             classes: "govuk-fieldset__legend--m"
           }
@@ -38,13 +38,18 @@
         items: [
           {
             value: "ect",
-            text: "ECT school period",
+            text: "ECT school periods",
             checked: data['undo-registration-type'] == "ect"
           },
           {
             value: "mentor",
-            text: "Mentor school period",
+            text: "Mentor school periods",
             checked: data['undo-registration-type'] == "mentor"
+          },
+          {
+            value: "both",
+            text: "ECT and mentor school periods",
+            checked: data['undo-registration-type'] == "both"
           }
         ]
       }) }}

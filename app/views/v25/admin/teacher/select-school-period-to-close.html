@@ -3,8 +3,8 @@
 {% set pageName="Select a school period to close for John Smith" %}
 {% set activeNav="teachers" %}
 {% set fromScenario = data['undo-from-scenario-selector'] == 'yes' %}
-{% set isEctRegistration = data['undo-registration-type'] == 'ect' %}
-{% set isMentorRegistration = data['undo-registration-type'] == 'mentor' %}
+{% set showEctPeriods = not fromScenario or data['undo-registration-type'] == 'ect' or data['undo-registration-type'] == 'both' %}
+{% set showMentorPeriods = not fromScenario or data['undo-registration-type'] == 'mentor' or data['undo-registration-type'] == 'both' %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -38,11 +38,11 @@
             <h1 class="govuk-fieldset__heading">{{ pageName }}</h1>
           </legend>
 
-          {% if fromScenario and isEctRegistration %}
+          {% if fromScenario and showEctPeriods and not showMentorPeriods %}
           <p class="govuk-body">
             John Smith has more than one school period. Select the period to undo.
           </p>
-          {% elif fromScenario and isMentorRegistration %}
+          {% elif fromScenario and showMentorPeriods and not showEctPeriods %}
           <p class="govuk-body">
             John Smith has more than one school period. Select the period to undo.
           </p>
@@ -59,7 +59,7 @@
           }) }}
           {% endif %}
 
-          {% if not fromScenario or isEctRegistration %}
+          {% if showEctPeriods %}
           <h2 class="govuk-heading-m govuk-!-margin-top-4">ECT school periods</h2>
 
           <div class="govuk-radios" data-module="govuk-radios">
@@ -85,7 +85,7 @@
           </div>
           {% endif %}
 
-          {% if not fromScenario or isMentorRegistration %}
+          {% if showMentorPeriods %}
           <h2 class="govuk-heading-m govuk-!-margin-top-6">Mentor school periods</h2>
 
           <div class="govuk-radios" data-module="govuk-radios">

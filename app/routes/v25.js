@@ -96,7 +96,7 @@ module.exports = router => {
         const errorList = []
 
         if (!registrationType) {
-            errors.undoRegistrationType = 'Select which registration you are undoing'
+            errors.undoRegistrationType = 'Select which school periods you want to see'
             errorList.push({
                 text: errors.undoRegistrationType,
                 href: '#undo-registration-type'
