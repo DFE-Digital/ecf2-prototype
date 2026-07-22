@@ -240,21 +240,21 @@
    <h2 class="govuk-heading-m">What will happen with ths undo</h2>
     {% if fromScenario and hasDeclarations %}
     <p class="govuk-body">
-      John Smith has billable or refundable declarations.
+      John Smith has declarations associated with this school period.
     </p>
         <p class="govuk-body">
       Their school and training periods will be closed with an end date of {{ todaysDate }}. Their teacher record will not be deleted.
     </p>
     {% elif fromScenario and not hasDeclarations and hasOtherPeriods %}
     <p class="govuk-body">
-      John Smith does not have billable or refundable declarations.
+      John Smith does not have declarations associated with this school period.
     </p>
     <p class="govuk-body">
       Their school period and training periods will be deleted. Their teacher record will not be deleted.
     </p>
     {% elif fromScenario and not hasDeclarations and not hasOtherPeriods %}
     <p class="govuk-body">
-    <p>John Smith does not have billable or refundable declarations.</p>
+    <p>John Smith does not have declarations associated with this school period.</p>
     <p>The following details for John Smith will be deleted:</p>
      <ul class="govuk-list govuk-list--bullet">
         <li>registration teacher record</li>
@@ -262,7 +262,7 @@
       </ul>
     {% else %}
     <p class="govuk-body">
-    John Smith has billable or refundable declarations.
+    John Smith has declarations associated with this school period'.
     </p>
     <p class="govuk-body">
     Their school and training periods will be closed with an end date of 1 June 2006. Their registration teacher record will not be deleted.
