@@ -126,7 +126,25 @@ const ects = [
         appropriateBody: null,
         trainingProgramme: 'Provider-led',
         deliveryPartner: 'Alpha Teaching School Hub',
-    }    
+    },
+    {
+        id: 'harriet-quinn',
+        name: 'Harriet Quinn',
+        trn: '4810293',
+        email: 'harriet.quinn@email.com',
+        mentorId: 'john-doe',
+        incomingMentorId: 'tom-jones',
+        mentorReplacementDate: '1 September 2026',
+        status: 'Registered',
+        statusClass: 'govuk-tag--green',
+        schoolStartDate: '1 September 2025',
+        inductionStartDate: '1 September 2025',
+        workingPattern: 'Full time',
+        leadProvider: 'Ambition Institute',
+        appropriateBody: 'Alpha Teaching School Hub',
+        trainingProgramme: 'Provider-led',
+        deliveryPartner: 'Alpha Teaching School Hub',
+    }
 ];
 
 const mentors = [

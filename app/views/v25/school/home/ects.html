@@ -66,7 +66,7 @@
         {% set leavingDay = leavingParts[0] %}
         {% set leavingMonthName = leavingParts[1] %}
         {% set leavingYear = leavingParts[2] %}
-        
+
         {# Convert month name to number #}
         {% set months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] %}
         {% set leavingMonth = 0 %}
@@ -75,11 +75,11 @@
             {% set leavingMonth = i + 1 %}
           {% endif %}
         {% endfor %}
-        
+
         {# Compare dates #}
         {% set isPast = (leavingYear < data.currentYear) or (leavingYear == data.currentYear and leavingMonth < data.currentMonth) or (leavingYear == data.currentYear and leavingMonth == data.currentMonth and leavingDay < data.currentDay) %}
         {% endif %}
-        
+
         {% if not ect.leavingDate or not isPast %}
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
@@ -97,7 +97,7 @@
                                 <span class="govuk-visually-hidden">Warning</span>
                                 Tell us if {{ect.name}} will be <a href="view-ect?ect={{ ect.id }}#training">continuing their training or if they have left your school</a>.
                             </strong>
-                            </div>    
+                            </div>
                     </div>
                     {% endif %}
                     <div class="govuk-grid-column-one-half">
@@ -137,20 +137,27 @@
                                 <dt class="govuk-summary-list__key">Mentor</dt>
                                 <dd class="govuk-summary-list__value">
                                     {% set mentorName = "Not assigned" %}
+                                    {% set incomingMentorName = null %}
                                     {% for mentorInList in data.mentors %}
                                         {% if mentorInList.id == ect.mentorId %}
                                             {% set mentorName = mentorInList.name %}
                                         {% endif %}
+                                        {% if ect.incomingMentorId and mentorInList.id == ect.incomingMentorId %}
+                                            {% set incomingMentorName = mentorInList.name %}
+                                        {% endif %}
                                     {% endfor %}
-                                    
+
                                     {% if mentorName != "Not assigned" %}
                                         {{ mentorName }}
+                                        {% if incomingMentorName %}
+                                        <p class="govuk-hint govuk-!-margin-top-1 govuk-!-margin-bottom-0">{{ incomingMentorName }} will start mentoring {{ ect.name }} on {{ ect.mentorReplacementDate }}</p>
+                                        {% endif %}
                                     {% else %}
                                    <!-- <p><a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">Assign a mentor</a> to this ECT</p> -->
                                                   {{ govukWarningText({
             html: '<a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">Assign a mentor to this ECT</a>',
             iconFallbackText: "Warning"
-        }) }} 
+        }) }}
 
                                     {% endif %}
                                 </dd>
@@ -165,7 +172,7 @@
                                 <dd class="govuk-summary-list__value">Not reported</dd>
                                 {% else %}
                                 <dd class="govuk-summary-list__value">{{ect.appropriateBody}}
-                                {% endif %}    
+                                {% endif %}
                                 {% if ect.inductionStartDate === null %}
                                 {% if ect.appropriateBody != null %}
                                 <span class="govuk-caption-m">Awaiting confirmation by the appropriate body</span>
@@ -173,8 +180,8 @@
                                 {% endif %}
                                 {% if ect.inductionStartDate !== null %}
                                 <!-- <span class="govuk-caption-m">This appropriate body has recorded the ECT's induction.</span> -->
-                                {% endif %}       
-                                </dd>                           
+                                {% endif %}
+                                </dd>
                             </div>
                             {% if ect.trainingProgramme != 'School-led' %}
                             {% if ect.status != 'No longer training' %}
@@ -224,7 +231,7 @@
                     </div>
                 </div>
                 <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
-                    
+
                 </dl>
             </div>
         </div>

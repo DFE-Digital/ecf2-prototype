@@ -97,7 +97,7 @@
                                     <ul class="govuk-list">
                                         {% set assignedEcts = false %}
                                         {% for ect in data.ects %}
-                                            {% if ect.mentorId == mentor.id %}
+                                            {% if ect.mentorId == mentor.id or ect.incomingMentorId == mentor.id %}
                                                 {% set assignedEcts = true %}
                                                 <li><a class="govuk-link" href="view-ect?ect={{ ect.id }}">{{ ect.name }}</a></li>
                                             {% endif %}
