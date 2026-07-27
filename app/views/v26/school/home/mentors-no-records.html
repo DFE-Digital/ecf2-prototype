@@ -1,0 +1,31 @@
+{% extends "layouts/mentors.html" %}
+
+{% block head %}
+{{ super() }} <!-- This includes the content from the base head block -->
+{% include "./filters.njk" %}
+{% endblock %}
+
+{% set pageName="Mentors" %}
+
+{% if data['schoolName'] %}
+{% set schoolName = data['schoolName'] %}
+{% else %}
+{% set schoolName = 'Test Primary School' %}
+{% endif %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-caption-l">{{schoolName}}</h1>
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+        <p>To add a new mentor you need to <a href="ects">assign one to an ECT</a>.</p>
+        <hr class="govuk-section-break--m">
+    </div>
+
+    <div class="govuk-grid-column-two-thirds">
+        <p>Your school currently has no registered mentors.</p>
+    </div>
+</div>
+
+{% endblock %}

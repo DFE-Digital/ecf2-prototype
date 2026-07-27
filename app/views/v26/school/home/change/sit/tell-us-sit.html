@@ -1,0 +1,56 @@
+{% if data['checkSit'] == 'yes' or data['noSit'] == 'yes' %}
+    {% extends "layouts/signed-in.html" %}    
+{% else %}
+    {% extends "layouts/induction-tutor.html" %}
+{% endif %}
+
+{% set pageName="Tell us your induction tutor" %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+        <p>Our records show that your school does not have an induction tutor.</p>
+
+        <p>You need to have an induction tutor to set up and manage the early career teacher entitlement (ECTE) at your school. The induction tutor will be your primary contact for the DfE and your ECTE providers and partners.</p>
+
+        <p>Read our guidance on <a href="https://www.gov.uk/government/publications/early-career-teacher-entitlement-roles-and-responsibilities/induction-tutors-responsibilities-for-early-career-teacher-entitlement" target="_blank">school induction tutor responsibilities (opens in a new tab)</a>.</p>
+
+               <h2 class="govuk-heading-m">Enter your school's induction tutor details</h2>
+
+
+       {{ govukInput({
+                id: "tutor-name",
+                classes: "govuk-input--width-20",
+                name: "newTutorName",
+                label: {
+                    text: "Full name"
+                }
+            }) }}
+
+            {{ govukInput({
+                id: "tutor-email",
+                classes: "govuk-input--width-20",
+                name: "newTutorEmail",
+                label: {
+                    text: "Email"
+                },
+                hint: {
+    text: "Do not use a generic email like headteacher@school.com"
+  }
+            }) }}
+
+            <button class="govuk-button">Continue</button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

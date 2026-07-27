@@ -1,0 +1,27 @@
+{% extends "layouts/admin.html" %}
+
+{% set pageName="You cannot use this TRN" %}
+{% set activeNav="teachers" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "enter-new-trn"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+    <p class="govuk-body">
+      Contact the development team.
+    </p>
+
+    <p class="govuk-body">
+      <a href="../teachers-details?section=overview&deactivated=true" class="govuk-link govuk-link--no-visited-state">Back to John Smith</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

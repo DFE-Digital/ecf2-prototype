@@ -1,0 +1,22 @@
+{% extends "layouts/admin.html" %}
+{% set activeNav = 'finance' %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">Are you sure you want to remove the {{ adjustmentName }} adjustment?</h1>
+
+        <a class="govuk-button" data-module="govuk-button"
+           href="remove-adjustment?provider={{ query.provider | urlencode }}&contractYear={{ query.contractYear }}&statement={{ query.statement | urlencode }}&index={{ query.index }}">
+            Remove adjustment
+        </a>
+
+        <p>
+            <a class="govuk-link"
+               href="statement?provider={{ query.provider | urlencode }}&contractYear={{ query.contractYear }}&statement={{ query.statement | urlencode }}">
+                Cancel and return to statement
+            </a>
+        </p>
+    </div>
+</div>
+{% endblock %}

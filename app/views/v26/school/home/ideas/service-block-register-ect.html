@@ -1,0 +1,25 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+{{ super() }}
+
+    
+<h1 class="govuk-heading-l">You cannot register early career teachers (ECTs) between 1 June and 15 June 2026</h1>
+
+<p>From 1 June to 15 June, we're blocking access to some service activities. This includes registering ECTs.</p>
+
+<p>This is because...</p>
+
+<p>You'll be able to register ECTs in the service from 15 June.</p>
+
+    <p>If you have any questions, <a class="govuk-link" href="mailto:continuing-professional-development@digital.education.gov.uk">email support</a> at continuing-professional-development@digital.education.gov.uk.</p>
+
+<form method="post">
+            {{ govukButton({
+            text: "Continue",
+            isStartButton: true
+            }) }}
+        </form>
+
+
+{% endblock %}

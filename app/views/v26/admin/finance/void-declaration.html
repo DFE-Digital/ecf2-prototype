@@ -1,0 +1,94 @@
+{% extends "layouts/admin.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+  code {
+    background-color: #f3f2f1;
+    font-family: monospace;
+    padding: 2px 5px;
+  }
+</style>
+{% endblock %}
+
+{% set activeNav="finance" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back",
+  href: "../teachers-details?section=declarations"
+}) }}
+{% endblock %}
+
+{% block content %}
+{% if errors and errors.confirmVoidDeclaration %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{{ govukErrorSummary({
+  titleText: "There is a problem",
+  errorList: [
+    {
+      text: errors.confirmVoidDeclaration,
+      href: "#confirm-void-declaration"
+    }
+  ]
+}) }}
+{% endif %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l">Void declaration for John Smith</h1>
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Declaration ID</dt>
+            <dd class="govuk-summary-list__value"><pre class="govuk-!-margin-0"><code>95f007c0-52ad-4cf1-88d1-90c0a8ed630a</code></pre></dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Course identifier</dt>
+            <dd class="govuk-summary-list__value"><pre class="govuk-!-margin-0"><code>ecf-induction</code></pre></dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Declaration type</dt>
+            <dd class="govuk-summary-list__value"><pre class="govuk-!-margin-0"><code>started</code></pre></dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">State</dt>
+            <dd class="govuk-summary-list__value"><span class="govuk-tag govuk-tag--green">Paid</dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Declaration date and time</dt>
+            <dd class="govuk-summary-list__value">1 October 2025, 10:30AM</dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Lead provider</dt>
+            <dd class="govuk-summary-list__value">Ambition Institute</dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Delivery partner</dt>
+            <dd class="govuk-summary-list__value">Alpha Teaching School Hub</dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">Evidence held</dt>
+            <dd class="govuk-summary-list__value"><pre class="govuk-!-margin-0"><code>training-event-attended</code></pre></dd>
+          </div>
+        </dl>
+    
+
+    <form method="post" action="void-declaration">
+      {{ govukCheckboxes({
+        idPrefix: "confirm-void-declaration",
+        name: "confirm-void-declaration",
+        errorMessage: { text: errors.confirmVoidDeclaration } if errors and errors.confirmVoidDeclaration else false,
+        items: [
+          {
+            value: "yes",
+            text: "I confirm I want to void this declaration and I understand that it cannot be undone",
+            checked: confirmVoidDeclaration == "yes"
+          }
+        ]
+      }) }}
+      <button class="govuk-button govuk-button--warning" data-module="govuk-button">Confirm void declaration</button>
+    </form>
+
+  </div>
+</div>
+{% endblock %}

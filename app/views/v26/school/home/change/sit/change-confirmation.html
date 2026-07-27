@@ -1,0 +1,39 @@
+{% if data['checkSit'] == 'yes' or data['noSit'] == 'yes' %}
+    {% extends "layouts/signed-in.html" %}    
+{% else %}
+    {% extends "layouts/induction-tutor.html" %}
+{% endif %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-panel govuk-panel--confirmation">
+
+            <h1 class="govuk-panel__title">
+                <form method="post" novalidate>
+
+                  {% if data.noSit == 'yes' %}
+                    {{  data['newTutorName'] or "Jane Doe"  }} is your school's induction tutor
+                  {% else %}
+                    You've changed your school's induction tutor to {{  data['newTutorName'] or "Jane Doe"  }}
+                  {% endif %}
+
+            </h1>
+        </div>
+        
+        <h2 class="govuk-heading-m">What happens next</h2>
+
+        <p>We'll send an email to {{  data['newTutorName'] or "Jane Doe"  }} at {{  data['newTutorEmail'] or "jane.doe@school.com"  }} to let them know.</p>
+
+        <p>We'll also let your school's appropriate body and lead providers know about the change. {{  data['newTutorName'] or "Jane Doe"  }} will be their main contact for early career training and induction at your school.</p>
+        
+        <button class="govuk-button">Continue</button>
+                 </form>
+    </div>
+</div>
+
+{% endblock %} 

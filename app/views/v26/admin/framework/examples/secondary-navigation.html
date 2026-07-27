@@ -1,0 +1,310 @@
+{% extends "layouts/plain.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    /* Custom styles for secondary navigation example */
+</style>
+{% endblock %}
+
+{% set pageName="Secondary navigation" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "../index"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+        <p>This example shows how secondary navigation could be used to navigate between different sections of a page. We'd use this pattern if there is content we need to separate into sections.</p>
+        <p>Within each section, we can use other components such as summary cards, tables and lists to display content.</p>
+        <p>Generally, we'd display the heading for the overall page above the secondary navigation.</p>
+
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+        
+        <span class="govuk-caption-l">TRN: 1052052</span>
+        <h2 class="govuk-heading-l">John Smith</h2>
+
+        {% set currentSection = data.section or "personal" %}
+
+        {{ xGovukSecondaryNavigation({
+          visuallyHiddenTitle: "Secondary menu",
+          items: [{
+            text: "Personal details",
+            href: "?section=personal",
+            current: true if currentSection == "personal" else false
+          }, {
+            text: "School data",
+            href: "?section=schools",
+            current: true if currentSection == "schools" else false
+          }, {
+            text: "Lead provider data",
+            href: "?section=providers",
+            current: true if currentSection == "providers" else false
+          }, {
+            text: "Induction and appropriate body data",
+            href: "?section=induction",
+            current: true if currentSection == "induction" else false
+          }]
+        }) }}
+
+        <div class="govuk-!-margin-top-6">
+            {% if currentSection == "personal" %}
+                <h3 class="govuk-heading-m">Personal details</h3>
+                <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Name</dt>
+                        <dd class="govuk-summary-list__value">Sarah Johnson</dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="#">Change <span class="govuk-visually-hidden">name</span></a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Email address</dt>
+                        <dd class="govuk-summary-list__value">sarah.johnson@school.edu</dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="#">Change <span class="govuk-visually-hidden">email address</span></a>
+                        </dd>
+                    </div>
+                </dl>
+            {% endif %}
+
+            {% if currentSection == "schools" %}
+                <h3 class="govuk-heading-m">Current school</h3>
+
+                <div class="govuk-summary-card">
+                    <div class="govuk-summary-card__title-wrapper">
+                        <h2 class="govuk-summary-card__title">Greenfield Primary School</h2>
+                        <ul class="govuk-summary-card__actions">
+                            <li class="govuk-summary-card__action">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Edit</a>
+                                <span class="govuk-visually-hidden"> (Greenfield Primary School)</span>
+                            </li>
+                            <li class="govuk-summary-card__action">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Delete</a>
+                                <span class="govuk-visually-hidden"> (Greenfield Primary School)</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="govuk-summary-card__content">
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                <dt class="govuk-summary-list__key">School start date</dt>
+                                <dd class="govuk-summary-list__value">1 September 2023</dd>
+                            </div>
+                            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                <dt class="govuk-summary-list__key">Working pattern</dt>
+                                <dd class="govuk-summary-list__value">Full time</dd>
+                            </div>
+                            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                <dt class="govuk-summary-list__key">Programme type</dt>
+                                <dd class="govuk-summary-list__value">Provider-led</dd>
+                            </div>
+                            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                <dt class="govuk-summary-list__key">Lead provider</dt>
+                                <dd class="govuk-summary-list__value">Ambition Institute</dd>
+                            </div>
+                            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                <dt class="govuk-summary-list__key">Delivery partner</dt>
+                                <dd class="govuk-summary-list__value">Local Teaching School Hub</dd>
+                            </div>
+                            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                <dt class="govuk-summary-list__key">Appropriate body</dt>
+                                <dd class="govuk-summary-list__value">Local Teaching School Hub</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+
+                <h3 class="govuk-heading-m">Previous school</h3>
+
+                <div class="govuk-summary-card">
+                    <div class="govuk-summary-card__title-wrapper">
+                        <h2 class="govuk-summary-card__title">Oakwood Secondary School</h2>
+                        <ul class="govuk-summary-card__actions">
+                            <li class="govuk-summary-card__action">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Edit</a>
+                                <span class="govuk-visually-hidden"> (Oakwood Secondary School)</span>
+                            </li>
+                            <li class="govuk-summary-card__action">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Delete</a>
+                                <span class="govuk-visually-hidden"> (Oakwood Secondary School)</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="govuk-summary-card__content">
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                <dt class="govuk-summary-list__key">School start date</dt>
+                                <dd class="govuk-summary-list__value">1 September 2022</dd>
+                            </div>
+                            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                <dt class="govuk-summary-list__key">Working pattern</dt>
+                                <dd class="govuk-summary-list__value">Part time</dd>
+                            </div>
+                            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                <dt class="govuk-summary-list__key">Programme type</dt>
+                                <dd class="govuk-summary-list__value">Provider-led</dd>
+                            </div>
+                            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                <dt class="govuk-summary-list__key">Lead provider</dt>
+                                <dd class="govuk-summary-list__value">Education Development Trust</dd>
+                            </div>
+                            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                <dt class="govuk-summary-list__key">Delivery partner</dt>
+                                <dd class="govuk-summary-list__value">Local Teaching School Hub</dd>
+                            </div>
+                            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                <dt class="govuk-summary-list__key">Appropriate body</dt>
+                                <dd class="govuk-summary-list__value">Local Teaching School Hub</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if currentSection == "providers" %}
+                <h3 class="govuk-heading-m">Lead provider data</h3>
+
+                <div class="govuk-summary-card">
+                    <div class="govuk-summary-card__title-wrapper">
+                        <h2 class="govuk-summary-card__title">Best Practice Network</h2>
+                        <ul class="govuk-summary-card__actions">
+                            <li class="govuk-summary-card__action">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Edit</a>
+                                <span class="govuk-visually-hidden"> (Best Practice Network)</span>
+                            </li>
+                            <li class="govuk-summary-card__action">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Delete</a>
+                                <span class="govuk-visually-hidden"> (Best Practice Network)</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="govuk-summary-card__content">
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                <dt class="govuk-summary-list__key">Start date</dt>
+                                <dd class="govuk-summary-list__value">1 September 2023</dd>
+                            </div>
+                            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                <dt class="govuk-summary-list__key">Declarations made</dt>
+                                <dd class="govuk-summary-list__value">4</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+
+                <div class="govuk-summary-card">
+                    <div class="govuk-summary-card__title-wrapper">
+                        <h2 class="govuk-summary-card__title">Teacher Development Trust</h2>
+                        <ul class="govuk-summary-card__actions">
+                            <li class="govuk-summary-card__action">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Edit</a>
+                                <span class="govuk-visually-hidden"> (Teacher Development Trust)</span>
+                            </li>
+                            <li class="govuk-summary-card__action">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Delete</a>
+                                <span class="govuk-visually-hidden"> (Teacher Development Trust)</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="govuk-summary-card__content">
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                <dt class="govuk-summary-list__key">Start date</dt>
+                                <dd class="govuk-summary-list__value">1 September 2022</dd>
+                            </div>
+                            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                <dt class="govuk-summary-list__key">Declarations made</dt>
+                                <dd class="govuk-summary-list__value">6</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if currentSection == "induction" %}
+                <h3 class="govuk-heading-m">Current induction period</h3>
+
+                <div class="govuk-summary-card">
+                    <div class="govuk-summary-card__title-wrapper">
+                        <h2 class="govuk-summary-card__title">Golden Leaf Teaching School Hub</h2>
+                        <ul class="govuk-summary-card__actions">
+                            <li class="govuk-summary-card__action">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Edit</a>
+                                <span class="govuk-visually-hidden"> (Golden Leaf Teaching School Hub)</span>
+                            </li>
+                            <li class="govuk-summary-card__action">
+                                <a class="govuk-link govuk-link--no-visited-state" href="#">Delete</a>
+                                <span class="govuk-visually-hidden"> (Golden Leaf Teaching School Hub)</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="govuk-summary-card__content">
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                <dt class="govuk-summary-list__key">Induction programme</dt>
+                                <dd class="govuk-summary-list__value">Core induction programme</dd>
+                            </div>
+                            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                <dt class="govuk-summary-list__key">Start date</dt>
+                                <dd class="govuk-summary-list__value">7 May 2024</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+
+                <h3 class="govuk-heading-m">Past induction periods</h3>
+
+                <ul id="past-induction-periods" class="govuk-list">
+                    <li>
+                        <div class="govuk-summary-card">
+                            <div class="govuk-summary-card__title-wrapper">
+                                <h2 class="govuk-summary-card__title">Regional Teaching School Hub</h2>
+                                <ul class="govuk-summary-card__actions">
+                                    <li class="govuk-summary-card__action">
+                                        <a class="govuk-link govuk-link--no-visited-state" href="#">Edit</a>
+                                        <span class="govuk-visually-hidden"> (Regional Teaching School Hub)</span>
+                                    </li>
+                                    <li class="govuk-summary-card__action">
+                                        <a class="govuk-link govuk-link--no-visited-state govuk-link--destructive" data-method="get" href="#">Delete</a>
+                                        <span class="govuk-visually-hidden"> (Regional Teaching School Hub)</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="govuk-summary-card__content">
+                                <dl class="govuk-summary-list">
+                                    <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                        <dt class="govuk-summary-list__key">Induction programme</dt>
+                                        <dd class="govuk-summary-list__value">Full induction programme</dd>
+                                    </div>
+                                    <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                        <dt class="govuk-summary-list__key">Start date</dt>
+                                        <dd class="govuk-summary-list__value">7 January 2024</dd>
+                                    </div>
+                                    <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                        <dt class="govuk-summary-list__key">End date</dt>
+                                        <dd class="govuk-summary-list__value">7 May 2024</dd>
+                                    </div>
+                                    <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                        <dt class="govuk-summary-list__key">Number of terms</dt>
+                                        <dd class="govuk-summary-list__value">1.0</dd>
+                                    </div>
+                                </dl>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+{% endblock %} 
