@@ -121,7 +121,7 @@
       "Mentor training completed",
       "2025-12-03T10:00:00.000Z",
       "3 December 2025 at 10:00am",
-      "<p>Completed ECTE mentor training with <strong>Ambition Institute</strong> at <strong>Abacus Primary School</strong> (URN: 1195201).</p>",
+      "<p>Completed ECTE mentor training 30 November 2025 with <strong>Ambition Institute</strong>.</p>",
       "System",
       "System"
     ) }}
@@ -165,7 +165,7 @@
       "ECT training declaration submitted",
       "2025-12-01T10:30:00.000Z",
       "1 December 2025 at 10:30am",
-      "<p>Declaration type <strong>retained-1</strong> submitted</strong>.<br>Declaration ID: <code>6b0d7f33-0ce6-4f29-8f5e-5bdf8f4bd36b</code></p>",
+      "<p>Declaration type <strong>retained-1</strong> submitted</strong> 30 November 2026.<br>Declaration ID: <code>6b0d7f33-0ce6-4f29-8f5e-5bdf8f4bd36b</code></p>",
       "Lead provider",
       "Ambition Institute"
     ) }}
@@ -198,7 +198,7 @@
       "Training period deferred",
       "2025-11-18T08:00:00.000Z",
       "18 November 2025 at 8:00am",
-      "<p>Contract period <strong>2025</strong> training deferred.</p>",
+      "<p>Training for contract period <strong>2025</strong> deferred.</p>",
       "Lead provider",
       "Ambition Institute"
     ) }}
@@ -248,12 +248,23 @@
     ) }}
 
     <h2 class="govuk-heading-m"><code>teacher_finishes_training_period</code></h2>
-    <p class="govuk-body">A teacher has finished their training period.</p>
+    <p class="govuk-body">A teacher has finished their ECT training period.</p>
     {{ timelineExample(
-      "ECTE training period finished",
+      "ECTE ECT training period finished",
       "2024-04-05T10:15:00.000Z",
       "5 April 2024 at 10:15am",
-      "<p>ECTE training period (ecf-standard-september) finished on <br><strong>1 April 2024.</strong><br><br>Lead provider: Ambition Institute<br>School: Abacus Primary School (URN: 1195201)</p>.",
+      "<p>ECTE ECT training period (ecf-standard-september) finished on <br><strong>1 April 2024.</strong><br><br>Lead provider: Ambition Institute<br>School: Abacus Primary School (URN: 1195201)</p>.",
+      "System",
+      "System"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_finishes_training_period</code></h2>
+    <p class="govuk-body">A teacher has finished their mentor training period.</p>
+    {{ timelineExample(
+      "ECTE mentor training period finished",
+      "2024-04-05T10:15:00.000Z",
+      "5 April 2024 at 10:15am",
+      "<p>ECTE mentor training period (ecf-standard-september) finished on <br><strong>1 April 2024.</strong><br><br>Lead provider: Ambition Institute<br>School: Abacus Primary School (URN: 1195201)</p>.",
       "System",
       "System"
     ) }}
@@ -330,7 +341,7 @@
       "Registered as an early career teacher",
       "2024-09-25T08:30:00.000Z",
       "25 September 2024 at 8:30am",
-      "<p>Registered as an ECT for contract period <strong>2024</strong>.</p>",
+      "<p>Registered as an ECT for contract period <strong>2024</strong> on 20 September 2024.</p>",
             "Helen Carter (helen.carter@abacusprimary.org.uk)",
       "Abacus Primary School (URN: 1195201)"
     ) }}
@@ -341,7 +352,7 @@
       "Registered for mentor training",
       "2025-09-25T10:15:00.000Z",
       "25 September 2025 at 10:15am",
-      "<p>Registered for <strong>ECTE mentor training</strong> for contract period <strong>2024</strong>.<br><br>Lead provider: Ambition Institute<br>Delivery partner: Alpha Teaching School Hub</p>",
+      "<p>Registered for ECTE mentor training for contract period <strong>2024</strong> on 20 September 2024.<br><br>Lead provider: Ambition Institute<br>Delivery partner: Alpha Teaching School Hub</p>",
             "Helen Carter (helen.carter@abacusprimary.org.uk)",
       "Abacus Primary School (URN: 1195201)"
     ) }}
@@ -380,12 +391,23 @@
     ) }}
 
     <h2 class="govuk-heading-m"><code>teacher_starts_training_period</code></h2>
-    <p class="govuk-body">A teacher has started their training period.</p>
+    <p class="govuk-body">A teacher has started their ECT training period.</p>
     {{ timelineExample(
-      "Training period started",
+      "ECT training period started",
       "2022-09-01T00:00:00.000Z",
-      "1 September 2022",
+      "1 September 2025",
       "<p>Started ECT training on <strong>1 July 2025</strong>.<br><br>Lead provider: Ambition Institute<br>Delivery partner: Teaching School Hub<br>School: Abacus Primary School<br>Schedule: ecf-standard-september. </p>",
+      "System",
+      "System"
+    ) }}
+
+     <h2 class="govuk-heading-m"><code>teacher_starts_training_period</code></h2>
+    <p class="govuk-body">A teacher has started their mentor training period.</p>
+    {{ timelineExample(
+      "Mentor training period started",
+      "2022-09-01T00:00:00.000Z",
+      "1 September 2025",
+      "<p>Started mentor training on <strong>1 July 2025</strong>.<br><br>Lead provider: Ambition Institute<br>Delivery partner: Teaching School Hub<br>School: Abacus Primary School<br>Schedule: ecf-standard-september. </p>",
       "System",
       "System"
     ) }}
@@ -413,7 +435,18 @@
     ) }}
 
     <h2 class="govuk-heading-m"><code>teacher_withdraws_training_period</code></h2>
-    <p class="govuk-body">A teacher has been withdrawn from training by their lead provider.</p>
+    <p class="govuk-body">A teacher has been withdrawn from ECT training by their lead provider.</p>
+    {{ timelineExample(
+      "Withdrawn from ECT training by lead provider",
+      "2025-11-20T11:00:00.000Z",
+      "20 November 2025 at 11:00am",
+      "<p>Withdrawn from ECT training for contract period <strong>2025</strong>.</p>",
+            "Lead provider",    
+      "Ambition Institute"
+    ) }}
+
+     <h2 class="govuk-heading-m"><code>teacher_withdraws_training_period</code></h2>
+    <p class="govuk-body">A teacher has been withdrawn from mentor training by their lead provider.</p>
     {{ timelineExample(
       "Withdrawn from mentor training by lead provider",
       "2025-11-20T11:00:00.000Z",
@@ -422,6 +455,7 @@
             "Lead provider",    
       "Ambition Institute"
     ) }}
+
 
     <h2 class="govuk-heading-m"><code>teacher_working_pattern_updated</code></h2>
     <p class="govuk-body">A working pattern has been updated by the school user, such as from full time to part time.</p>
