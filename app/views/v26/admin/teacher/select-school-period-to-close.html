@@ -1,0 +1,113 @@
+{% extends "layouts/admin.html" %}
+
+{% set pageName="Select a school period to close for John Smith" %}
+{% set activeNav="teachers" %}
+{% set fromScenario = data['undo-from-scenario-selector'] == 'yes' %}
+{% set showEctPeriods = not fromScenario or data['undo-registration-type'] == 'ect' or data['undo-registration-type'] == 'both' %}
+{% set showMentorPeriods = not fromScenario or data['undo-registration-type'] == 'mentor' or data['undo-registration-type'] == 'both' %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "undo-registration-and-close-school-period"
+}) }}
+{% endblock %}
+
+{% block content %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/error-message/macro.njk" import govukErrorMessage %}
+
+{% if errors and errors.schoolPeriod %}
+{{ govukErrorSummary({
+  titleText: "There is a problem",
+  errorList: [
+    {
+      text: errors.schoolPeriod,
+      href: "#school-period-ect-st-johns"
+    }
+  ]
+}) }}
+{% endif %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="post">
+      <div class="govuk-form-group{% if errors and errors.schoolPeriod %} govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="{% if errors and errors.schoolPeriod %}school-period-error{% endif %}">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">{{ pageName }}</h1>
+          </legend>
+
+          {% if fromScenario and showEctPeriods and not showMentorPeriods %}
+          <p class="govuk-body">
+            John Smith has more than one school period. Select the period to undo.
+          </p>
+          {% elif fromScenario and showMentorPeriods and not showEctPeriods %}
+          <p class="govuk-body">
+            John Smith has more than one school period. Select the period to undo.
+          </p>
+          {% else %}
+          <p class="govuk-body">
+            John Smith has more than one school period. Select the period to undo.
+          </p>
+          {% endif %}
+
+          {% if errors and errors.schoolPeriod %}
+          {{ govukErrorMessage({
+            id: "school-period-error",
+            text: errors.schoolPeriod
+          }) }}
+          {% endif %}
+
+          {% if showEctPeriods %}
+          <h2 class="govuk-heading-m govuk-!-margin-top-4">ECT school periods</h2>
+
+          <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="school-period-ect-st-johns" name="school-period" type="radio" value="ect-st-johns-2024"{% if data['school-period'] == "ect-st-johns-2024" %} checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="school-period-ect-st-johns">
+                St John's C of E Primary School
+              </label>
+              <div id="school-period-ect-st-johns-hint" class="govuk-hint govuk-radios__hint">
+                Umber Teaching School Hub<br>25 September 2024 to present
+              </div>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="school-period-ect-alpha" name="school-period" type="radio" value="ect-alpha-2023"{% if data['school-period'] == "ect-alpha-2023" %} checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="school-period-ect-alpha">
+                Alpha Primary School
+              </label>
+              <div id="school-period-ect-alpha-hint" class="govuk-hint govuk-radios__hint">
+                Umber Teaching School Hub<br>25 September 2023 to 24 September 2024
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          {% if showMentorPeriods %}
+          <h2 class="govuk-heading-m govuk-!-margin-top-6">Mentor school periods</h2>
+
+          <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="school-period-mentor-st-johns" name="school-period" type="radio" value="mentor-st-johns-2025"{% if data['school-period'] == "mentor-st-johns-2025" %} checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="school-period-mentor-st-johns">
+                St John's C of E Primary School
+              </label>
+              <div id="school-period-mentor-st-johns-hint" class="govuk-hint govuk-radios__hint">
+                25 September 2025 to present
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+        </fieldset>
+      </div>
+
+      <button class="govuk-button" data-module="govuk-button">Continue</button>
+    </form>
+
+    <p><a href="../teachers-details?section=overview" class="govuk-link govuk-link--no-visited-state">Cancel and go back to John Smith</a></p>
+  </div>
+</div>
+{% endblock %}

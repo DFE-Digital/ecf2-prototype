@@ -1,0 +1,62 @@
+{% extends "layouts/admin.html" %}
+
+{% set pageName="Registration undone" %}
+{% set activeNav="teachers" %}
+{% set fromScenario = data['undo-from-scenario-selector'] == 'yes' %}
+{% set hasDeclarations = data['undo-has-declarations'] == 'yes' %}
+{% set hasOtherPeriods = data['undo-has-other-periods'] == 'yes' %}
+{% set todaysDate = data.currentDay + ' ' + data.currentMonth | monthName + ' ' + data.currentYear %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">{{ pageName }}</h1>
+    </div>
+
+    <!-- <p class="govuk-body">
+      The registration has been removed from our records and the school period has been closed.
+    </p>
+  -->
+
+      {% if fromScenario and hasDeclarations %}
+      <p class="govuk-body">
+        Associated school and training periods have been closed with an end date of {{ todaysDate }}. 
+      </p>
+      <p>The teacher record has not been deleted.</p>
+      {% elif fromScenario and not hasDeclarations and hasOtherPeriods %}
+      <p class="govuk-body">
+        Associated school and training periods have been deleted.
+      </p>
+        <p>The teacher record has not been deleted.</p>
+
+      {% elif fromScenario and not hasDeclarations and not hasOtherPeriods %}
+      <p class="govuk-body">
+       Associated school and training periods and the teacher record have been deleted.
+      </p>
+      {% else %}
+      <p class="govuk-body">
+      Associated school, training, and mentorship periods have been closed.
+    </p>
+      {% endif %}
+
+    <h2 class="govuk-heading-m">What you need to do</h1>
+            <p class="govuk-body">
+      If training was delivered by a lead provider, tell them that you’ve undone this registration. They’ll need to update their own records.
+      </p>
+
+
+   <!-- <p class="govuk-body">
+      If there were no other school periods and no declarations, the teacher record has also been removed. Other school periods and registrations are not affected.
+    </p>
+  -->
+
+    <p class="govuk-body">
+      <a href="../teachers" class="govuk-link govuk-link--no-visited-state">Back to teachers</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

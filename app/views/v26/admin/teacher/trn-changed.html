@@ -1,0 +1,29 @@
+{% extends "layouts/admin.html" %}
+
+{% set pageName="TRN changed for John Smith" %}
+{% set activeNav="teachers" %}
+{% set targetTrn = data['replacement-trn'] %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">{{ pageName }}</h1>
+    </div>
+
+    <p class="govuk-body">
+      TRN <strong>2959198</strong> updated to <strong>{{ targetTrn }}</strong>.
+    </p>
+    <p class="govuk-body">
+      The old TRN has been deleted from the record.
+    </p>
+
+    <p class="govuk-body">
+      <a href="../teachers" class="govuk-link govuk-link--no-visited-state">Back to teachers</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

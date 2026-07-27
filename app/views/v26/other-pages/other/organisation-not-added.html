@@ -1,0 +1,44 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="You need to connect to a school or organisation to access this service" %}
+
+{% set pageName="You cannot use this service until you have DfE Sign-in account access to a school or organisation" %}
+
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+            <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+            <p>Your DfE Sign-in account does not have access to a school or organisation.</p>
+            <p>You cannot use this service until you have access.</p>
+
+
+            <h2 class="govuk-heading-m">What you need to do</h2>
+            <ol class="govuk-list govuk-list--number">
+
+                <li>In your DfE Sign-in account, request access to the school or organisation.</li>
+                <li>Request access to the 'Register early career teachers'.</li>
+
+
+        </ol>
+
+      <p>The school or organisation need to approve your requests before you can use the service.</p> 
+
+
+           <!-- <p><a href="#" class="govuk-link govuk-link--no-visited-state">Connect to a school or organisation in your DfE Sign-in account (opens in a new tab)</a>.</p> -->
+            <p><a href="#" class="govuk-link govuk-link--no-visited-state">Request access to a school or organisation using your DfE Sign-in account (opens in a new tab)</a>.</p>
+
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

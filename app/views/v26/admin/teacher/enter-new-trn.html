@@ -1,0 +1,57 @@
+{% extends "layouts/admin.html" %}
+
+{% set pageName="Enter the new TRN" %}
+{% set activeNav="teachers" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "../teachers-details?section=overview&deactivated=true"
+}) }}
+{% endblock %}
+
+{% block content %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% if errorList and errorList.length %}
+{{ govukErrorSummary({
+  titleText: "There is a problem",
+  errorList: errorList
+}) }}
+{% endif %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="post">
+      <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+      <p class="govuk-body">
+        You’re replacing the TRN for the deactivated record <b>TRN 2959198</b>.
+      </p>
+
+      {{ govukInput({
+        label: {
+          text: "TRN",
+          classes: "govuk-label--m"
+        },
+        hint: {
+          text: "If this TRN already has a record, the records will be merged."
+        },
+        id: "replacement-trn",
+        name: "replacement-trn",
+        classes: "govuk-input--width-10",
+        inputmode: "numeric",
+        value: data['replacement-trn'],
+        errorMessage: { text: errors.replacementTrn } if errors and errors.replacementTrn else false
+      }) }}
+
+      <button class="govuk-button" data-module="govuk-button">Continue</button>
+    </form>
+
+    <p>
+      <a href="../teachers-details?section=overview&deactivated=true" class="govuk-link govuk-link--no-visited-state">Cancel and go back to John Smith</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

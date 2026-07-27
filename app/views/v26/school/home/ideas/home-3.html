@@ -1,0 +1,62 @@
+{% extends "layouts/main.html" %}
+
+{% block head %}
+{{ super() }} <!-- This includes the content from the base head block -->
+{% include "../filters.njk" %}
+{% endblock %}
+
+{% set pageName="Register early career teachers" %}
+
+{% block content %}
+
+{% if data['schoolName'] %}
+{% set schoolName = data['schoolName'] %}
+{% else %}
+{% set schoolName = 'Test Primary School' %}
+{% endif %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+        {% set html %}
+        <p class="govuk-notification-banner__heading">
+            You need to
+            <a class="govuk-notification-banner__link" href="#">assign mentors</a>
+            to 3 ECTs.
+        </p>
+        {% endset %}
+
+        {{ govukNotificationBanner({
+        html: html
+        }) }}
+
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-8">{{schoolName}}</h1>
+
+        <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+            <h3 class="govuk-heading-s">ECTs currently registered</h3>
+            <span class="govuk-heading-l">6</span>
+            <p><a href="#">Register a new ECT</a></p>
+            <p><a href="#">Update details for ECTs and assign their mentors</a></p>
+        </div>
+        <div class="govuk-grid-column-one-half">
+            <h3 class="govuk-heading-s">Mentors currently registered</h3>
+            <span class="govuk-heading-l">2</span>
+            <p><a href="#">Update details for mentors</a></p>
+        </div>
+        </div>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+        <h2 class="govuk-heading-m">Guidance and support</h2>
+
+        <p><a target="_blank" href="https://www.gov.uk/guidance/managing-training-for-early-career-teachers">Read our guidance on managing training for ECTs (opens in new tab)</a> to understand how to set up training and make changes</p>
+        <p><a target="_blank" href="https://www.gov.uk/government/publications/statutory-teacher-induction-appropriate-bodies/find-an-appropriate-body">Find an appropriate body (opens in new tab)</a> so you can contact them to assure the quality of an ECT's statutory induction</p>
+        <p><a target="_blank" href="##">Make sure you have the information you need (opens in new tab)</a> to register ECTs and mentors successfully</p>
+        <p><a target="_blank" href="##">Find out how to set up a DfE sign account (opens in new tab)</a> if you have a colleague who also needs to access the service</p>
+
+    </div>
+
+</div>
+
+{% endblock %}

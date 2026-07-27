@@ -1,0 +1,88 @@
+{% extends "layouts/admin.html" %}
+
+{% set pageName="Confirm change of TRN for John Smith" %}
+{% set activeNav="teachers" %}
+{% set targetTrn = data['replacement-trn'] %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "enter-new-trn"
+}) }}
+{% endblock %}
+
+{% block content %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{% if errors and errors.confirmChangeTrn %}
+{{ govukErrorSummary({
+  titleText: "There is a problem",
+  errorList: [
+    {
+      text: errors.confirmChangeTrn,
+      href: "#confirm-change-trn"
+    }
+  ]
+}) }}
+{% endif %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+    <p class="govuk-body">
+      This record will use the new TRN.
+    </p>
+    <p class="govuk-body">
+      The deactivated TRN will be deleted from this record.
+    </p>
+
+    {{ govukSummaryList({
+      rows: [
+        {
+          key: { text: "Current TRN" },
+          value: { text: "2959198" }
+        },
+        {
+          key: { text: "New TRN" },
+          value: { text: targetTrn }
+        },
+        {
+          key: { text: "Name from TRS" },
+          value: { text: "John Smith" }
+        }
+      ]
+    }) }}
+
+    <form method="post" class="govuk-!-margin-top-6">
+      {{ govukCheckboxes({
+        idPrefix: "confirm-change-trn",
+        name: "confirm-change-trn",
+        errorMessage: { text: errors.confirmChangeTrn } if errors and errors.confirmChangeTrn else false,
+        items: [
+          {
+            value: "yes",
+            text: "I confirm I want to change this teacher’s TRN",
+            checked: data['confirm-change-trn'] == "yes"
+          }
+        ]
+      }) }}
+
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-warning-text__assistive govuk-visually-hidden">Warning</span>
+          This action cannot be undone.
+        </strong>
+      </div>
+
+      <button class="govuk-button govuk-button--warning" data-module="govuk-button">Confirm</button>
+    </form>
+
+    <p>
+      <a href="../teachers-details?section=overview&deactivated=true" class="govuk-link govuk-link--no-visited-state">Cancel and go back to John Smith</a>
+    </p>
+  </div>
+</div>
+{% endblock %}
