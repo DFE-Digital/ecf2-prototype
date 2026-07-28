@@ -1,6 +1,6 @@
 {% extends "layouts/admin.html" %}
 
-{% set pageName="Change or merge TRN for deactivated record" %}
+{% set pageName="Change TRN for deactivated record" %}
 {% set activeNav="teachers" %}
 
 {% block beforeContent %}
@@ -27,13 +27,16 @@
       <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
       <p class="govuk-body">
-        You’re changing or merging the TRN for the deactivated record <b>TRN 2959198</b>.
+        You’re changing the TRN for the deactivated record <b>TRN 2959198</b>.
       </p>
 
-            <p class="govuk-body">
-        We'll check the new TRN when you enter it.
+      <p class="govuk-body">
+        Depending on the TRN you're changing it to, TRN details might be merged. We'll check the new TRN when you enter it.
       </p>
 
+      <div class="govuk-inset-text">
+  TRN changes and merges will be made to the register early career teachers service only. They will not be made to any other service or system, for example TRS. 
+</div>
 
             <h2 class="govuk-heading-m">If the new TRN exists in this service</h2>
 
@@ -43,7 +46,7 @@
 
               <h2 class="govuk-heading-m">If the new TRN does not exist in this service</h2>
                   <p class="govuk-body">
-        The deatviacted record will use the new TRN and will become an active record. The deactivated TRN will be deleted.
+        The deatviacted record will use the new TRN. The deactivated TRN will be deleted.
       </p>
             
       {{ govukInput({
