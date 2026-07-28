@@ -50,7 +50,12 @@
   <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
-    <div class="merge-preview govuk-!-margin-top-6">
+          <p class="govuk-body">
+        The new TRN exists in the service. Records will be merged.
+      </p>
+
+
+              <div class="merge-preview govuk-!-margin-top-6">
       <div class="merge-preview__column">
         <h2 class="govuk-heading-m">
           Deactivated record
@@ -69,7 +74,7 @@
           ]
         }) }}
 
-        <h3 class="govuk-heading-s">School periods that will move</h3>
+        <h3 class="govuk-heading-s">School periods that will merge</h3>
 
         {{ govukSummaryList({
           card: {
