@@ -96,6 +96,28 @@
             {
               key: { text: "Working pattern" },
               value: { text: "Full time" }
+            },
+            {
+              key: { text: "Mentor" },
+              value: { html: '
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--s govuk-visually-hidden">Mentors mentoring ECT</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Name</th>
+      <th scope="col" class="govuk-table__header">Start date</th>
+      <th scope="col" class="govuk-table__header">End date</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">John Doe</td>
+      <td class="govuk-table__cell">25 September 2024</td>
+      <td class="govuk-table__cell">Present</td>
+    </tr>
+  </tbody>
+</table>
+              ' }
             }
           ]
         }) }}
@@ -124,9 +146,70 @@
             {
               key: { text: "Working pattern" },
               value: { text: "Full time" }
+            },
+            {
+              key: { text: "Mentor" },
+              value: { html: '
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--s govuk-visually-hidden">Mentors mentoring ECT</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Name</th>
+      <th scope="col" class="govuk-table__header">Start date</th>
+      <th scope="col" class="govuk-table__header">End date</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">Laura Morris</td>
+      <td class="govuk-table__cell">25 September 2023</td>
+      <td class="govuk-table__cell">24 September 2024</td>
+    </tr>
+  </tbody>
+</table>
+              ' }
             }
           ]
         }) }}
+
+        <h3 class="govuk-heading-s">Training periods that will merge</h3>
+
+        {{ govukSummaryList({
+          card: {
+            title: { text: "Ambition Institute & Alpha Teaching School Hub" }
+          },
+          rows: [
+            {
+              key: { text: "Lead provider" },
+              value: { text: "Ambition Institute" }
+            },
+            {
+              key: { text: "Delivery partner" },
+              value: { text: "Alpha Teaching School Hub" }
+            },
+            {
+              key: { text: "School" },
+              value: { text: "St John's C of E Primary School" }
+            },
+            {
+              key: { text: "Contract period" },
+              value: { text: "2024" }
+            },
+            {
+              key: { text: "Induction programme" },
+              value: { text: "Provider-led" }
+            },
+            {
+              key: { text: "Schedule" },
+              value: { text: "ecf-standard-september" }
+            },
+            {
+              key: { text: "Start date" },
+              value: { text: "25 September 2024" }
+            }
+          ]
+        }) }}
+
       </div>
 
       <div class="merge-preview__divider" aria-hidden="true"></div>
@@ -175,9 +258,74 @@
             {
               key: { text: "Working pattern" },
               value: { text: "Full time" }
+            },
+            {
+              key: { text: "Mentor" },
+              value: { html: '
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--s govuk-visually-hidden">Mentors mentoring ECT</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Name</th>
+      <th scope="col" class="govuk-table__header">Start date</th>
+      <th scope="col" class="govuk-table__header">End date</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">David Patel</td>
+      <td class="govuk-table__cell">1 September 2022</td>
+      <td class="govuk-table__cell">31 August 2023</td>
+    </tr>
+  </tbody>
+</table>
+              ' }
             }
           ]
         }) }}
+
+        <h3 class="govuk-heading-s">Existing training periods</h3>
+
+        {{ govukSummaryList({
+          card: {
+            title: { text: "Ambition Institute & Alpha Teaching School Hub" }
+          },
+          rows: [
+            {
+              key: { text: "Lead provider" },
+              value: { text: "Ambition Institute" }
+            },
+            {
+              key: { text: "Delivery partner" },
+              value: { text: "Alpha Teaching School Hub" }
+            },
+            {
+              key: { text: "School" },
+              value: { text: "Abacus Primary School" }
+            },
+            {
+              key: { text: "Contract period" },
+              value: { text: "2022" }
+            },
+            {
+              key: { text: "Induction programme" },
+              value: { text: "Provider-led" }
+            },
+            {
+              key: { text: "Schedule" },
+              value: { text: "ecf-standard-september" }
+            },
+            {
+              key: { text: "Start date" },
+              value: { text: "1 September 2022" }
+            },
+            {
+              key: { text: "End date" },
+              value: { text: "1 April 2024" }
+            }
+          ]
+        }) }}
+
       </div>
     </div>
 
