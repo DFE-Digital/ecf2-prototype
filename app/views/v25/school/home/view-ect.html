@@ -79,7 +79,7 @@ href: "ects"
           {% else %}
             {{ mentorName }}
             {% if incomingMentorName %}
-            <p class="govuk-hint govuk-!-margin-top-1 govuk-!-margin-bottom-0">{{ incomingMentorName }} will start mentoring {{ activeEct.name }} on {{ activeEct.mentorReplacementDate }}</p>
+            <p class="govuk-hint govuk-!-margin-top-1 govuk-!-margin-bottom-0">{{ incomingMentorName }} (from {{ activeEct.mentorReplacementDate }})</p>
             {% endif %}
           {% endif %}
         </dd>

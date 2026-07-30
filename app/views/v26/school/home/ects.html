@@ -150,7 +150,7 @@
                                     {% if mentorName != "Not assigned" %}
                                         {{ mentorName }}
                                         {% if incomingMentorName %}
-                                        <p class="govuk-hint govuk-!-margin-top-1 govuk-!-margin-bottom-0">{{ incomingMentorName }} will start mentoring {{ ect.name }} on {{ ect.mentorReplacementDate }}</p>
+                                        <p class="govuk-hint govuk-!-margin-top-1 govuk-!-margin-bottom-0">{{ incomingMentorName }} (from {{ ect.mentorReplacementDate }})</p>
                                         {% endif %}
                                     {% else %}
                                    <!-- <p><a class="govuk-link govuk-link--no-visited-state" href="../mentor/who-will-be-mentoring">Assign a mentor</a> to this ECT</p> -->
