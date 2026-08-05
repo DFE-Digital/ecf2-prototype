@@ -90,6 +90,19 @@
   {% set newValue = data['newMentorName'] or 'Unknown' %}
   {% set changeField = "mentor" %}
   {% set changeLabel = "Mentor" %}
+{% elif data['changeType'] == 'schoolStartDate' %}
+  {% set isNameChange = false %}
+  {% set isEmailChange = false %}
+  {% set isLeadProviderChange = false %}
+  {% set isAppropriateBodyChange = false %}
+  {% set isWorkingPatternChange = false %}
+  {% set isTrainingProgrammeChange = false %}
+  {% set isMentorChange = false %}
+  {% set isSchoolStartDateChange = true %}
+  {% set currentValue = data['previousSchoolStartDate'] or 'Not set' %}
+  {% set newValue = data['newSchoolStartDate'] or 'Not set' %}
+  {% set changeField = "school start date" %}
+  {% set changeLabel = "School start date" %}
 {% else %}
   {% set isNameChange = false %}
   {% set isEmailChange = false %}

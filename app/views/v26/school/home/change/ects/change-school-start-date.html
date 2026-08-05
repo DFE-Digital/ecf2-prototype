@@ -1,0 +1,209 @@
+{% extends "layouts/ects.html" %}
+
+{# Find the active ECT from the ects array based on the 'ectId' query parameter #}
+{% set ectId = data.ectId %}
+{% set activeEct = {} %}
+{% for person in data.ects %}
+  {% if person.id == ectId %}
+    {% set activeEct = person %}
+  {% endif %}
+{% endfor %}
+
+{% set name = activeEct.name %}
+{% set pageName = "Change school start date for " + name %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <div id="error-summary" class="govuk-error-summary" style="display: none;" aria-labelledby="error-summary-title" role="alert" tabindex="-1">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list" id="error-list"></ul>
+            </div>
+        </div>
+
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+        <form method="post" id="change-school-start-date-form">
+        <input type="hidden" name="ectId" value="{{ ectId }}">
+        <input type="hidden" name="personType" value="ECT">
+
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" role="group" aria-describedby="school-start-date-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                    <h2 class="govuk-fieldset__heading">
+                        When did or when will {{ name }} start teaching as an ECT at your school?
+                    </h2>
+                </legend>
+                <div id="school-start-date-hint" class="govuk-hint">
+                    For example, 27 9 2024
+                </div>
+                <div class="govuk-date-input" id="school-start-date">
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="school-start-date-day">
+                                Day
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="school-start-date-day" name="school-start-date-day" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="school-start-date-month">
+                                Month
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="school-start-date-month" name="school-start-date-month" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="school-start-date-year">
+                                Year
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="school-start-date-year" name="school-start-date-year" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <button class="govuk-button">Continue</button>
+        <p><a href="javascript:window.history.back()">Cancel and go back to {{ name }}'s details</a></p>
+
+        </form>
+    </div>
+</div>
+
+{% block pageScripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('change-school-start-date-form');
+    const errorSummary = document.getElementById('error-summary');
+    const errorList = document.getElementById('error-list');
+    const dateFields = {
+      day: document.getElementById('school-start-date-day'),
+      month: document.getElementById('school-start-date-month'),
+      year: document.getElementById('school-start-date-year')
+    };
+
+    form.addEventListener('submit', function(e) {
+        const day = dateFields.day.value.trim();
+        const month = dateFields.month.value.trim();
+        const year = dateFields.year.value.trim();
+
+        // Clear previous errors
+        clearErrors();
+
+        let hasErrors = false;
+        let errors = [];
+
+        // Check if all date fields are filled
+        if (!day || !month || !year) {
+          errors.push({
+            text: 'Enter the school start date',
+            href: '#school-start-date-day',
+            missingFields: { day: !day, month: !month, year: !year }
+          });
+          hasErrors = true;
+        } else {
+          // Validate the date
+          const startDate = new Date(year, month - 1, day);
+
+          // Check if date is valid (year, month, day match a real date)
+          if (startDate.getFullYear() != year || startDate.getMonth() != month - 1 || startDate.getDate() != day) {
+            errors.push({
+              text: 'Enter a valid date',
+              href: '#school-start-date-day',
+              missingFields: { day: false, month: false, year: false }
+            });
+            hasErrors = true;
+          }
+        }
+
+        if (hasErrors) {
+          e.preventDefault();
+          showErrors(errors);
+          return false;
+        }
+    });
+
+    function clearErrors() {
+      errorSummary.style.display = 'none';
+      errorList.innerHTML = '';
+
+      // Remove error classes from date input container
+      const fieldset = document.querySelector('#school-start-date fieldset');
+      if (fieldset) {
+        fieldset.classList.remove('govuk-form-group--error');
+      }
+
+      // Remove error classes from individual date fields
+      Object.values(dateFields).forEach(field => {
+        if (field) {
+          field.classList.remove('govuk-input--error');
+        }
+      });
+
+      // Remove error message
+      const existingError = document.querySelector('.govuk-error-message');
+      if (existingError) {
+        existingError.remove();
+      }
+    }
+
+    function showErrors(errors) {
+      const error = errors[0]; // Take the first error
+
+      errorList.innerHTML = '';
+      errors.forEach(error => {
+        const li = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = error.href;
+        link.textContent = error.text;
+        li.appendChild(link);
+        errorList.appendChild(li);
+      });
+      errorSummary.style.display = 'block';
+      errorSummary.focus();
+
+      // Add error styling to the date input container
+      const fieldset = document.querySelector('#school-start-date fieldset');
+      if (fieldset) {
+        fieldset.classList.add('govuk-form-group--error');
+
+        // Add error message after the fieldset legend
+        const legend = fieldset.querySelector('.govuk-fieldset__legend');
+        if (legend) {
+          const errorMessage = document.createElement('p');
+          errorMessage.className = 'govuk-error-message';
+          errorMessage.innerHTML = '<span class="govuk-visually-hidden">Error:</span> ' + error.text;
+          legend.parentNode.insertBefore(errorMessage, legend.nextSibling);
+        }
+      }
+
+      // Add error styling to individual input fields that are missing
+      if (error.missingFields) {
+        Object.entries(error.missingFields).forEach(([fieldName, isMissing]) => {
+          if (isMissing) {
+            const field = dateFields[fieldName];
+            if (field) {
+              field.classList.add('govuk-input--error');
+            }
+          }
+        });
+      }
+    }
+  });
+</script>
+{% endblock %}
+
+{% endblock %}

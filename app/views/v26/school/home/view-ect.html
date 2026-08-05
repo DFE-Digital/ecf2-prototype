@@ -120,6 +120,11 @@ href: "ects"
         <dd class="govuk-summary-list__value">
           {{ activeEct.schoolStartDate }}
         </dd>
+        <dd class="govuk-summary-list__actions">
+          {% if activeEct.status !== 'Completed induction' %}
+          <a class="govuk-link" href="change/ects/change-school-start-date?ectId={{ activeEct.id }}">Change<span class="govuk-visually-hidden"> school start date</span></a>
+          {% endif %}
+        </dd>
       </div>
       {% endif %}
       {% if activeEct.workingPattern != null %}

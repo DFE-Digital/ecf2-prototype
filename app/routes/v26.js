@@ -1056,6 +1056,41 @@ module.exports = router => {
             res.render(vGet + '/school/home/change/ects/change-mentor')
         })
 
+        // change school start date
+        router.get(v + school + 'home/change/ects/change-school-start-date', (req, res) => {
+            // Set the ectId from query parameter
+            if (req.query.ectId) {
+                req.session.data['ectId'] = req.query.ectId
+            }
+            res.render(vGet + '/school/home/change/ects/change-school-start-date')
+        })
+
+        router.post(v + school + 'home/change/ects/change-school-start-date', (req, res) => {
+            const day = req.body['school-start-date-day'];
+            const month = req.body['school-start-date-month'];
+            const year = req.body['school-start-date-year'];
+            const ectId = req.body.ectId;
+            const ect = req.session.data.ects.find(e => e.id === ectId);
+
+            if (ect && day && month && year) {
+                // Format the new date
+                const newDate = day + ' ' + months[month - 1] + ' ' + year;
+
+                // Store current and new date for confirmation
+                req.session.data.previousSchoolStartDate = ect.schoolStartDate;
+                req.session.data.newSchoolStartDate = newDate;
+                req.session.data.fullName = ect.name;
+                req.session.data.selectedEctId = ect.id;
+                req.session.data.changeType = 'schoolStartDate';
+
+                // Store day/month/year separately for reference
+                req.session.data.day = day;
+                req.session.data.month = month;
+                req.session.data.year = year;
+            }
+
+            res.redirect(v + school + 'home/change/ects/confirm-change');
+        })
 
          router.post(v + school + 'home/change/ects/change-lead-provider', (req, res) => {
             const { leadProvider, id } = req.body;
@@ -1297,6 +1332,31 @@ module.exports = router => {
                     req.session.data.changedWorkingPattern = undefined;
                     req.session.data.changedTrainingProgramme = undefined;
                     req.session.data.changedLeadProvider = undefined;
+
+                    res.redirect(v + school + 'home/change/ects/change-confirmation');
+                } else if (req.session.data.changeType === 'schoolStartDate' && req.session.data.newSchoolStartDate) {
+                    // Update the ECT's school start date
+                    ect.schoolStartDate = req.session.data.newSchoolStartDate;
+
+                    req.session.data.changedEctId = ect.id;
+                    req.session.data.changedSchoolStartDate = req.session.data.newSchoolStartDate;
+
+                    // Clean up temporary data for this specific change
+                    req.session.data.previousSchoolStartDate = undefined;
+                    req.session.data.newSchoolStartDate = undefined;
+                    req.session.data.changeType = undefined;
+                    req.session.data.day = undefined;
+                    req.session.data.month = undefined;
+                    req.session.data.year = undefined;
+
+                    // Clear any previous change data
+                    req.session.data.changedName = undefined;
+                    req.session.data.changedEmail = undefined;
+                    req.session.data.changedAppropriateBody = undefined;
+                    req.session.data.changedWorkingPattern = undefined;
+                    req.session.data.changedTrainingProgramme = undefined;
+                    req.session.data.changedLeadProvider = undefined;
+                    req.session.data.changedMentorName = undefined;
 
                     res.redirect(v + school + 'home/change/ects/change-confirmation');
                 } else if (req.session.data.changeType === 'leadProvider' && req.session.data.newLeadProvider) {
