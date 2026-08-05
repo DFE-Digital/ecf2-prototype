@@ -63,7 +63,7 @@ const ects = [
         appropriateBody: 'Alpha Teaching School Hub',
         trainingProgramme: 'Provider-led',
         deliveryPartner: 'Alpha Teaching School Hub',
-        leavingDate: '1 January 2099'
+        leavingDate: '1 November 2026'
     },
     {
         id: 'sciel-wright',

@@ -37,7 +37,7 @@ href: "javascript:window.history.back()"
         <input type="hidden" name="ectId" value="{{ ectId }}">
         <input type="hidden" name="personType" value="ECT">
 
-        <div class="govuk-form-group">
+        <div class="govuk-form-group" id="school-start-date-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="school-start-date-hint">
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
                     <h2 class="govuk-fieldset__heading">
@@ -95,6 +95,27 @@ href: "javascript:window.history.back()"
       year: document.getElementById('school-start-date-year')
     };
 
+    function parseUkDateString(str) {
+      if (!str) return null;
+      const months = ['january','february','march','april','may','june','july','august','september','october','november','december'];
+      const parts = str.trim().toLowerCase().split(/\s+/);
+      if (parts.length !== 3) return null;
+      const day = parseInt(parts[0], 10);
+      const monthIndex = months.indexOf(parts[1]);
+      const year = parseInt(parts[2], 10);
+      if (isNaN(day) || monthIndex === -1 || isNaN(year)) return null;
+      return new Date(year, monthIndex, day);
+    }
+
+    function getRegistrationPeriodFloor(referenceDate) {
+      const periodStartYear = referenceDate.getMonth() >= 8 ? referenceDate.getFullYear() : referenceDate.getFullYear() - 1;
+      return new Date(periodStartYear - 2, 8, 1);
+    }
+
+    const currentSchoolStartDate = parseUkDateString('{{ activeEct.schoolStartDate }}');
+    const leavingDate = parseUkDateString('{{ activeEct.leavingDate }}');
+    const previousTrainingPeriodStartDate = new Date(2022, 0, 1);
+
     form.addEventListener('submit', function(e) {
         const day = dateFields.day.value.trim();
         const month = dateFields.month.value.trim();
@@ -126,6 +147,48 @@ href: "javascript:window.history.back()"
               missingFields: { day: false, month: false, year: false }
             });
             hasErrors = true;
+          } else if (currentSchoolStartDate) {
+            if (startDate < currentSchoolStartDate) {
+              // Moving start date back - only the first matching rule is reported
+              if (startDate < previousTrainingPeriodStartDate) {
+                errors.push({
+                  text: 'The date must be on or after ' + formatDate(previousTrainingPeriodStartDate) + ', when {{ name }} started their previous training period',
+                  href: '#school-start-date-day',
+                  missingFields: { day: false, month: false, year: false }
+                });
+                hasErrors = true;
+              } else {
+                const registrationPeriodFloor = getRegistrationPeriodFloor(currentSchoolStartDate);
+                if (startDate < registrationPeriodFloor) {
+                  errors.push({
+                    text: 'The date must be on or after ' + formatDate(registrationPeriodFloor),
+                    href: '#school-start-date-day',
+                    missingFields: { day: false, month: false, year: false }
+                  });
+                  hasErrors = true;
+                }
+              }
+            } else if (startDate > currentSchoolStartDate) {
+              // Moving start date forwards - only the first matching rule is reported
+              const today = new Date();
+              const fourMonthsFromNow = new Date(today);
+              fourMonthsFromNow.setMonth(today.getMonth() + 4);
+              if (startDate > fourMonthsFromNow) {
+                errors.push({
+                  text: 'The date must not be more than 4 months from today',
+                  href: '#school-start-date-day',
+                  missingFields: { day: false, month: false, year: false }
+                });
+                hasErrors = true;
+              } else if (leavingDate && startDate > leavingDate) {
+                errors.push({
+                  text: 'The date must be on or before ' + formatDate(leavingDate) + ', when {{ name }} is leaving',
+                  href: '#school-start-date-day',
+                  missingFields: { day: false, month: false, year: false }
+                });
+                hasErrors = true;
+              }
+            }
           }
         }
 
@@ -136,14 +199,25 @@ href: "javascript:window.history.back()"
         }
     });
 
+    function formatDate(date) {
+      const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      return date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
+    }
+
     function clearErrors() {
       errorSummary.style.display = 'none';
       errorList.innerHTML = '';
 
-      // Remove error classes from date input container
-      const fieldset = document.querySelector('#school-start-date fieldset');
+      // Remove error styling from the form group
+      const formGroup = document.getElementById('school-start-date-form-group');
+      if (formGroup) {
+        formGroup.classList.remove('govuk-form-group--error');
+      }
+
+      // Reset aria-describedby back to just the hint
+      const fieldset = document.querySelector('#school-start-date-form-group fieldset');
       if (fieldset) {
-        fieldset.classList.remove('govuk-form-group--error');
+        fieldset.setAttribute('aria-describedby', 'school-start-date-hint');
       }
 
       // Remove error classes from individual date fields
@@ -154,7 +228,7 @@ href: "javascript:window.history.back()"
       });
 
       // Remove error message
-      const existingError = document.querySelector('.govuk-error-message');
+      const existingError = document.getElementById('school-start-date-error');
       if (existingError) {
         existingError.remove();
       }
@@ -175,19 +249,24 @@ href: "javascript:window.history.back()"
       errorSummary.style.display = 'block';
       errorSummary.focus();
 
-      // Add error styling to the date input container
-      const fieldset = document.querySelector('#school-start-date fieldset');
-      if (fieldset) {
-        fieldset.classList.add('govuk-form-group--error');
+      // Add error styling to the form group
+      const formGroup = document.getElementById('school-start-date-form-group');
+      if (formGroup) {
+        formGroup.classList.add('govuk-form-group--error');
+      }
 
-        // Add error message after the fieldset legend
-        const legend = fieldset.querySelector('.govuk-fieldset__legend');
-        if (legend) {
-          const errorMessage = document.createElement('p');
-          errorMessage.className = 'govuk-error-message';
-          errorMessage.innerHTML = '<span class="govuk-visually-hidden">Error:</span> ' + error.text;
-          legend.parentNode.insertBefore(errorMessage, legend.nextSibling);
-        }
+      // Add error message directly after the hint, before the date inputs
+      const fieldset = document.querySelector('#school-start-date-form-group fieldset');
+      const hint = document.getElementById('school-start-date-hint');
+      const dateInput = document.getElementById('school-start-date');
+      if (fieldset && hint && dateInput) {
+        const errorMessage = document.createElement('p');
+        errorMessage.id = 'school-start-date-error';
+        errorMessage.className = 'govuk-error-message';
+        errorMessage.innerHTML = '<span class="govuk-visually-hidden">Error:</span> ' + error.text;
+        dateInput.parentNode.insertBefore(errorMessage, dateInput);
+
+        fieldset.setAttribute('aria-describedby', 'school-start-date-hint school-start-date-error');
       }
 
       // Add error styling to individual input fields that are missing
