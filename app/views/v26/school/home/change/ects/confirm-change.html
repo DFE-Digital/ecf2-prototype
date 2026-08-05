@@ -265,6 +265,25 @@ href: "javascript:window.history.back()"
               }
             }
           ]) %}
+        {% elif isSchoolStartDateChange %}
+          {% set summaryRows = summaryRows.concat([
+            {
+              key: {
+                text: "Current school start date"
+              },
+              value: {
+                text: currentValue
+              }
+            },
+            {
+              key: {
+                text: "New school start date"
+              },
+              value: {
+                text: newValue
+              }
+            }
+          ]) %}
         {% else %}
             {% set summaryRows = summaryRows.concat([
               {
