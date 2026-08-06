@@ -6,7 +6,7 @@
 {% set name = 'John Smith' %}
 {% endif %}
 
-{% set pageName="When did or when will " + name + " start teaching as an ECT at your school?" %}
+{% set pageName="What is " + name + "’s ECT start date?" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -29,7 +29,12 @@ href: "javascript:window.history.back()"
                         </h1>
                     </legend>
                     <div id="start-month-hint" class="govuk-hint">
-                        For example, 27 9 2024
+                        <p>For example, 27 9 2024</p>
+
+                        <!-- <p>This is that date {{name}} started as an ECT at your school. Not, for example, if they previously started as a teaching assistant.</p> -->
+
+                      <p>This is that date {{name}} started as an ECT at your school. Not, for example, if they previously started as a teaching assistant. This can be a future date.</p> 
+
                     </div>
                     <div class="govuk-date-input" id="start-month">
                         <div class="govuk-date-input__item">
