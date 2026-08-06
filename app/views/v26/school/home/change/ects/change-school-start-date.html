@@ -130,7 +130,7 @@ href: "javascript:window.history.back()"
         // Check if all date fields are filled
         if (!day || !month || !year) {
           errors.push({
-            text: 'Enter the school start date',
+            text: 'Enter {{ name }}'s ECT start date',
             href: '#school-start-date-day',
             missingFields: { day: !day, month: !month, year: !year }
           });
@@ -142,7 +142,7 @@ href: "javascript:window.history.back()"
           // Check if date is valid (year, month, day match a real date)
           if (startDate.getFullYear() != year || startDate.getMonth() != month - 1 || startDate.getDate() != day) {
             errors.push({
-              text: 'Enter a valid date',
+              text: 'ECT start date must be a valid date',
               href: '#school-start-date-day',
               missingFields: { day: false, month: false, year: false }
             });
@@ -152,7 +152,7 @@ href: "javascript:window.history.back()"
               // Moving start date back - only the first matching rule is reported
               if (startDate < previousTrainingPeriodStartDate) {
                 errors.push({
-                  text: 'The date must be on or after ' + formatDate(previousTrainingPeriodStartDate) + ', when {{ name }} started their previous training period',
+                  text: '{{ name }}’s ECT start date must be on or after the start date of their previous training period, ' + formatDate(previousTrainingPeriodStartDate),
                   href: '#school-start-date-day',
                   missingFields: { day: false, month: false, year: false }
                 });
@@ -161,7 +161,7 @@ href: "javascript:window.history.back()"
                 const registrationPeriodFloor = getRegistrationPeriodFloor(currentSchoolStartDate);
                 if (startDate < registrationPeriodFloor) {
                   errors.push({
-                    text: 'The date must be on or after ' + formatDate(registrationPeriodFloor),
+                    text: '{{ name }}’s ECT start date must be on or after the start of registration period, ' + formatDate(registrationPeriodFloor),
                     href: '#school-start-date-day',
                     missingFields: { day: false, month: false, year: false }
                   });
@@ -175,14 +175,14 @@ href: "javascript:window.history.back()"
               fourMonthsFromNow.setMonth(today.getMonth() + 4);
               if (startDate > fourMonthsFromNow) {
                 errors.push({
-                  text: 'The date must not be more than 4 months from today',
+                  text: '{{name}}’s ECT start date must not be more than 4 months from today',
                   href: '#school-start-date-day',
                   missingFields: { day: false, month: false, year: false }
                 });
                 hasErrors = true;
               } else if (leavingDate && startDate > leavingDate) {
                 errors.push({
-                  text: 'The date must be on or before ' + formatDate(leavingDate) + ', when {{ name }} is leaving',
+                  text: '{{ name }}’s ECT start date must be on or before their leaving date' + formatDate(leavingDate), 
                   href: '#school-start-date-day',
                   missingFields: { day: false, month: false, year: false }
                 });
