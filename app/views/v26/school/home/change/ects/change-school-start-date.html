@@ -182,7 +182,7 @@ href: "javascript:window.history.back()"
                 hasErrors = true;
               } else if (leavingDate && startDate > leavingDate) {
                 errors.push({
-                  text: '{{ name }}’s ECT start date must be on or before their leaving date' + formatDate(leavingDate), 
+                  text: '{{ name }}’s ECT start date must be on or before their leaving date, ' + formatDate(leavingDate), 
                   href: '#school-start-date-day',
                   missingFields: { day: false, month: false, year: false }
                 });
