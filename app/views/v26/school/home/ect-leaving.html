@@ -29,30 +29,31 @@ href: "view-ect?ect=" + data.ect
       </div>
     </div>
     
-    <h1 class="govuk-heading-l">{{pageName}}</h1>
+    <!-- <h1 class="govuk-heading-l">{{pageName}}</h1> -->
 
-    <p>You do not need to tell us if {{ activeEct.name }} is leaving but expected to return, for example, if they're taking parental leave.</p>
+    {{ govukDateInput({
+          id: "dateLeaving",
+          name: "dateLeaving",
+          fieldset: {
+            legend: {
+              text: "Tell us when " + activeEct.name + " left or is leaving your school permanently",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          hint: {
+            html: "<p>For example, 31 3 2025.</p>
+            <p>You do not need to tell us if they’re leaving but expected to return, for example, if they’re taking parental leave.</p>"
+          }
+        }) }}
+
     
     <form class="form" method="post" id="leaving-form">
       
       <input type="hidden" name="ectId" value="{{ activeEct.id }}">
       <input type="hidden" name="ectName" value="{{ activeEct.name }}">
 
-        {{ govukDateInput({
-          id: "dateLeaving",
-          name: "dateLeaving",
-          fieldset: {
-            legend: {
-              text: "When did or when will " + activeEct.name + " be leaving your school?",
-              isPageHeading: false,
-              classes: "govuk-fieldset__legend--m"
-            }
-          },
-          hint: {
-            text: "For example, 31 3 2025"
-          }
-        }) }}
-      
+            
       {{ govukButton({
         text: "Continue"
       }) }}
