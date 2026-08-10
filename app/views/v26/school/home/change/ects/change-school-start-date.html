@@ -39,13 +39,16 @@ href: "javascript:window.history.back()"
 
         <div class="govuk-form-group" id="school-start-date-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="school-start-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                <!-- <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
                     <h2 class="govuk-fieldset__heading">
                         When did or when will {{ name }} start teaching as an ECT at your school?
                     </h2>
-                </legend>
+                </legend> -->
+
                 <div id="school-start-date-hint" class="govuk-hint">
-                    For example, 27 9 2024
+                    <p>For example, 27 9 2024</p>
+                    <p>This is that date {{name}} started as an ECT at your school. Not, for example, if they previously started as a teaching assistant. This can be a future date.</p> 
+
                 </div>
                 <div class="govuk-date-input" id="school-start-date">
                     <div class="govuk-date-input__item">
