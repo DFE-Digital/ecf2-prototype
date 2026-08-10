@@ -178,7 +178,7 @@ href: "javascript:window.history.back()"
               fourMonthsFromNow.setMonth(today.getMonth() + 4);
               if (startDate > fourMonthsFromNow) {
                 errors.push({
-                  text: '{{name}}’s ECT start date must not be more than 4 months from today',
+                  text: '{{name}}’s ECT start date must be the same or before 4 months from today',
                   href: '#school-start-date-day',
                   missingFields: { day: false, month: false, year: false }
                 });
