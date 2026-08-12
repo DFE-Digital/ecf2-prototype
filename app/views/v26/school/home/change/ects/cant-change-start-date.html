@@ -1,0 +1,49 @@
+{% extends "layouts/ects.html" %}
+
+{# Find the active ECT from the ects array based on the 'ectId' query parameter #}
+{% set ectId = data.ectId %}
+{% set activeEct = {} %}
+{% for person in data.ects %}
+  {% if person.id == ectId %}
+    {% set activeEct = person %}
+  {% endif %}
+{% endfor %}
+
+{% set name = activeEct.name %}
+{% set newValue = data['newSchoolStartDate'] or 'Not set' %}
+
+{% set pageName = "Change school start date for " + name %}
+
+{% set pageName = "You cannot change " + name + "’s school start date to " + newValue  %}
+
+{% block beforeContent %}
+
+<!--
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+
+-->
+
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+            <h1 class="govuk-heading-l">{{ pageName }}</h1>
+            <p class="govuk-body">The date you’ve entered is for an academic period that is not open yet.</p>
+                        <p class="govuk-body">If you want to move {{ name }} to this academic period, <a href="../../../get-help">contact support</a>.</p>
+
+            <p class="govuk-body">If you've made a mistake with the date, <a href="javascript:window.history.back()">go back</a> and re-enter it.</p>
+           <!--  <p><a href="../../school/home/ects">Back to ECTs</a></p> -->
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
