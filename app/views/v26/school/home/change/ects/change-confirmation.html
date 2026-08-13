@@ -123,11 +123,10 @@
             </h1>
         </div>
 
-        {% if not isWorkingPatternChange %}
+        {% if not (isWorkingPatternChange or isSchoolStartDateChange) %} 
         <h2 class="govuk-heading-m">What happens next</h2> 
         {% endif %}
 
-        
         {% if isNameChange %}
             <p>The ECT can update their name in their teacher record using the Access your teaching qualifications service.</p>
         {% elif isEmailChange %}
@@ -147,7 +146,7 @@
         {% elif isMentorChange %}
             <p class="govuk-body">{{changedValue}} is now responsible for mentoring {{name}}.</p>
         {% elif isSchoolStartDateChange %}
-            <p class="govuk-body">We’ve updated {{name}}’s school start date.</p>
+           <!-- <p class="govuk-body">We’ve updated {{name}}’s school start date.</p>  -->
         {% else %}
             <p class="govuk-body">We’ll let {{changedValue}} know your school wants to work with them. They’ll contact us to confirm the change and tell us the delivery partner they’ll be working with.</p>
             <p class="govuk-body">We’ll also let the old lead provider know that they’ll no longer be training {{name}}.</p>
