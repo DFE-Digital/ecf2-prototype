@@ -2493,4 +2493,10 @@ module.exports = router => {
 
         res.redirect(v + 'admin/finance/statement?' + queryParams);
     });
+
+    // **** AB test pages ****
+
+    router.post(v + 'ab/dfe-sign-in', (req, res) => {
+        res.redirect(v + 'ab/authorise-this-application')
+    })
 }

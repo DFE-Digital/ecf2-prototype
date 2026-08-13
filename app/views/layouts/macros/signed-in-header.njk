@@ -21,6 +21,9 @@
       </div>
       <div class="app-header__account">
         <span class="app-header__account-item">{{ accountLabel }}</span>
+        {% if params.extraLink %}
+        <a class="govuk-link govuk-link--inverse app-header__account-item" href="{{ params.extraLink.href }}">{{ params.extraLink.text }}</a>
+        {% endif %}
         <a class="govuk-link govuk-link--inverse app-header__account-item" href="#">Sign out</a>
       </div>
     </div>

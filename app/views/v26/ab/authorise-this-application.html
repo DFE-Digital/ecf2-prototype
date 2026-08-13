@@ -1,0 +1,23 @@
+{% set abName = 'Golden Leaf Teaching School Hub' %}
+{% extends "layouts/signed-in.html" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">Authorise [application name] to access data for Golden Leaf Teaching School Hub</h1>
+
+    <p class="govuk-body">[Application name] is requesting access to data for Golden Leaf Teaching School Hub.</p>
+
+    <p class="govuk-body">They'll be able to view induction information for the ECTs claimed by your organisation.</p>
+
+    <p class="govuk-body">You can revoke this access at any time by signing in to the Register early career teachers service.</p>
+
+    <a href="third-party-approved" class="govuk-button">Authorise and return to [application name]</a>
+    <p><a href="#" class="govuk-link govuk-link--no-visited-state">Cancel and return to [application name]</a></p>
+
+  </div>
+</div>
+
+{% endblock %}

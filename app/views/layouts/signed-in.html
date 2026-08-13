@@ -8,7 +8,11 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
 {% if data['schoolName'] %}
 {% set schoolName = data['schoolName'] %}
 {% else %}
+{% if abName %}
+{% set schoolName = abName %}
+{% else %}
 {% set schoolName = 'St John\'s C of E Primary School' %}
+{% endif %}
 {% endif %}
 
 {% from "layouts/macros/signed-in-header.njk" import signedInHeader %}
