@@ -1,0 +1,45 @@
+{% set abName = 'Golden Leaf Teaching School Hub' %}
+{% extends "layouts/signed-in.html" %}
+
+{% from "layouts/macros/signed-in-header.njk" import signedInHeader %}
+
+{% block header %}
+{{ signedInHeader({
+  schoolName: abName,
+  extraLink: { text: "Manage third party access", href: "manage-third-party-access" }
+}) }}
+{{ govukServiceNavigation({
+  serviceName: "Register early career teachers",
+  serviceUrl: "#",
+  navigationId: "service-navigation-list"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h1 class="govuk-heading-l">Manage third party access</h1>
+
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th class="govuk-table__header" scope="col">Application</th>
+          <th class="govuk-table__header" scope="col">Date and time access given</th>
+          <th class="govuk-table__header" scope="col"><span class="govuk-visually-hidden">Action</span></th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">[Application name]</td>
+          <td class="govuk-table__cell">13 August 2026, 10:32am</td>
+          <td class="govuk-table__cell"><a class="govuk-link govuk-link--no-visited-state" href="third-party-revoke">Revoke</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+{% endblock %}

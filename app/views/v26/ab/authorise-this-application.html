@@ -1,6 +1,20 @@
 {% set abName = 'Golden Leaf Teaching School Hub' %}
 {% extends "layouts/signed-in.html" %}
 
+{% from "layouts/macros/signed-in-header.njk" import signedInHeader %}
+
+{% block header %}
+{{ signedInHeader({
+  schoolName: abName,
+  extraLink: { text: "Manage third party access", href: "manage-third-party-access" }
+}) }}
+{{ govukServiceNavigation({
+  serviceName: "Register early career teachers",
+  serviceUrl: "#",
+  navigationId: "service-navigation-list"
+}) }}
+{% endblock %}
+
 {% block content %}
 
 <div class="govuk-grid-row">
