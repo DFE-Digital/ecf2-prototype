@@ -6,7 +6,7 @@
 {% block header %}
 {{ signedInHeader({
   schoolName: abName,
-  extraLink: { text: "Manage third party access", href: "manage-third-party-access" }
+  extraLink: { text: "Manage data access", href: "manage-third-party-access" }
 }) }}
 {{ govukServiceNavigation({
   serviceName: "Register early career teachers",
@@ -20,7 +20,10 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-    <h1 class="govuk-heading-l">Manage third party access</h1>
+    <h1 class="govuk-heading-l">Manage data access</h1>
+
+    <p class="govuk-body">These applications have accces to send Golden Leaf Teaching School Hub data to DfE.</p>
+
 
     <table class="govuk-table">
       <thead class="govuk-table__head">
