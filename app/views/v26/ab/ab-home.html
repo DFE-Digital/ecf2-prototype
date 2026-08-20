@@ -8,7 +8,7 @@
 {% block header %}
 {{ signedInHeader({
   schoolName: abName,
-  extraLink: (not manageInMain) and { text: "Manage third party access", href: "manage-third-party-access" }
+  extraLink: { text: "Manage data access", href: "manage-third-party-access" }
 }) }}
 {{ govukServiceNavigation({
   serviceName: "Register early career teachers",
