@@ -3,10 +3,12 @@
 
 {% from "layouts/macros/signed-in-header.njk" import signedInHeader %}
 
+{% set manageInMain = data.manageInMain == "true" %}
+
 {% block header %}
 {{ signedInHeader({
   schoolName: abName,
-  extraLink: { text: "Manage third party access", href: "manage-third-party-access" }
+  extraLink: (not manageInMain) and { text: "Manage third party access", href: "manage-third-party-access" }
 }) }}
 {{ govukServiceNavigation({
   serviceName: "Register early career teachers",
@@ -28,6 +30,12 @@
         <p>
           <a class="govuk-link govuk-link--no-visited-state" href="#">Find and claim a new ECT</a>
         </p>
+        {% if manageInMain %}
+        <h2 class="govuk-heading-s">Manage access</h2>
+        <p>
+          <a class="govuk-link govuk-link--no-visited-state" href="manage-third-party-access">Manage third party access</a>
+        </p>
+        {% else %}
         <h2 class="govuk-heading-s">Upload a CSV</h2>
         <p>
           <a class="govuk-link govuk-link--no-visited-state" href="#">Claim multiple ECTs</a>
@@ -35,6 +43,7 @@
         <p>
           <a class="govuk-link govuk-link--no-visited-state" href="#">Record outcomes for multiple ECTs</a>
         </p>
+        {% endif %}
         <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
       </div>
     </div>
