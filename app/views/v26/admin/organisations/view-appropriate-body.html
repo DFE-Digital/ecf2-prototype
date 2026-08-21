@@ -1,0 +1,65 @@
+{% extends "layouts/admin.html" %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% set pageName = "Appropriate body " + (data.ab or "1") %}
+{% set activeNav="organisations" %}
+
+{% block beforeContent %}
+{{govukBreadcrumbs({
+    items: [
+        {
+            text: "Organisations",
+            href: "index"
+        },
+        {
+            text: "Appropriate bodies",
+            href: "appropriate-bodies"
+        },
+        {
+            text: pageName
+        }
+    ]
+})}}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+        <a href="#" class="govuk-button">Sign in as {{pageName}}</a>
+
+        <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">Current ECTs</dt>
+                <dd class="govuk-summary-list__value">0</dd>
+            </div>
+            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">Number of bulk uploads</dt>
+                <dd class="govuk-summary-list__value">0</dd>
+            </div>
+            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">DfE Sign-in organisation ID</dt>
+                <dd class="govuk-summary-list__value"></dd>
+            </div>
+            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">Lead school</dt>
+                <dd class="govuk-summary-list__value"></dd>
+            </div>
+            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">Type</dt>
+                <dd class="govuk-summary-list__value">Local Authority</dd>
+            </div>
+            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">Authorised third party platforms</dt>
+                <dd class="govuk-summary-list__value">ECT Manager</dd>
+            </div>
+        </dl>
+
+    </div>
+</div>
+
+{% endblock %}

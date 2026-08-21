@@ -1,0 +1,80 @@
+{% extends "layouts/admin.html" %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% set pageName = "Mosaic" if data.platform == "mosaic" else "ECT Manager" %}
+{% set activeNav="organisations" %}
+
+{% block beforeContent %}
+{{govukBreadcrumbs({
+    items: [
+        {
+            text: "Organisations",
+            href: "index"
+        },
+        {
+            text: "Third party platforms",
+            href: "third-party-platforms"
+        },
+        {
+            text: pageName
+        }
+    ]
+})}}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+        <h2 class="govuk-heading-m">Authorised appropriate bodies</h2>
+
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">Appropriate body</th>
+                    <th scope="col" class="govuk-table__header">Authorised by</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">
+                        <a class="govuk-link govuk-link--no-visited-state" href="view-appropriate-body?ab=1">Appropriate body 1</a>
+                    </td>
+                    <td class="govuk-table__cell">John Smith</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">
+                        <a class="govuk-link govuk-link--no-visited-state" href="view-appropriate-body?ab=2">Appropriate body 2</a>
+                    </td>
+                    <td class="govuk-table__cell">John Doe</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">
+                        <a class="govuk-link govuk-link--no-visited-state" href="view-appropriate-body?ab=3">Appropriate body 3</a>
+                    </td>
+                    <td class="govuk-table__cell">Jane Smith</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">
+                        <a class="govuk-link govuk-link--no-visited-state" href="view-appropriate-body?ab=4">Appropriate body 4</a>
+                    </td>
+                    <td class="govuk-table__cell">Jane Doe</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">
+                        <a class="govuk-link govuk-link--no-visited-state" href="view-appropriate-body?ab=5">Appropriate body 5</a>
+                    </td>
+                    <td class="govuk-table__cell">Sarah Jones</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+{% endblock %}

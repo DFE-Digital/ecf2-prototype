@@ -1,0 +1,53 @@
+{% extends "layouts/admin.html" %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% set pageName="Third party platforms" %}
+{% set activeNav="organisations" %}
+
+{% block beforeContent %}
+{{govukBreadcrumbs({
+    items: [
+        {
+            text: "Organisations",
+            href: "index"
+        },
+        {
+            text: pageName
+        }
+    ]
+})}}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">Third party platform</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">
+                        <a class="govuk-link govuk-link--no-visited-state" href="view-third-party-platform?platform=ect-manager">ECT Manager</a>
+                    </td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">
+                        <a class="govuk-link govuk-link--no-visited-state" href="view-third-party-platform?platform=mosaic">Mosaic</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+{% endblock %}
