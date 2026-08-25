@@ -16,7 +16,7 @@ href: "view-ect?ect=" + data.ect
   {% endif %}
 {% endfor %}
 
-{% set pageName = "Tell us if " + activeEct.name + " has left or is leaving your school permanently" %}
+{% set pageName = "When did or when will " + activeEct.name + " be leaving your school permanently" %}
 
 {% block content %}
 <div class="govuk-grid-row">
@@ -36,14 +36,13 @@ href: "view-ect?ect=" + data.ect
           name: "dateLeaving",
           fieldset: {
             legend: {
-              text: "Tell us when " + activeEct.name + " left or is leaving your school permanently",
+              text: "When did or when will " + activeEct.name + " be leaving your school permanently",
               isPageHeading: true,
               classes: "govuk-fieldset__legend--l"
             }
           },
           hint: {
-            html: "<p>For example, 31 3 2025.</p>
-            <p>You do not need to tell us if they’re leaving but expected to return, for example, if they’re taking parental leave.</p>"
+            html: "<p>You do not need to tell us if they’re expected to return.</p>"
           }
         }) }}
 
