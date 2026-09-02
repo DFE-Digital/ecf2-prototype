@@ -1,0 +1,291 @@
+{% extends "layouts/ects.html" %}
+
+{# Find the active ECT from the ects array based on the 'ectId' query parameter #}
+{% set ectId = data.ectId %}
+{% set activeEct = {} %}
+{% for person in data.ects %}
+  {% if person.id == ectId %}
+    {% set activeEct = person %}
+  {% endif %}
+{% endfor %}
+
+{% set name = activeEct.name %}
+{% set pageName = "Change school start date for " + name %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <div id="error-summary" class="govuk-error-summary" style="display: none;" aria-labelledby="error-summary-title" role="alert" tabindex="-1">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list" id="error-list"></ul>
+            </div>
+        </div>
+
+        <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+        <form method="post" id="change-school-start-date-form">
+        <input type="hidden" name="ectId" value="{{ ectId }}">
+        <input type="hidden" name="personType" value="ECT">
+
+        <div class="govuk-form-group" id="school-start-date-form-group">
+            <fieldset class="govuk-fieldset" role="group" aria-describedby="school-start-date-hint">
+                <!-- <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                    <h2 class="govuk-fieldset__heading">
+                        When did or when will {{ name }} start teaching as an ECT at your school?
+                    </h2>
+                </legend> -->
+
+                <div id="school-start-date-hint" class="govuk-hint">
+                    <p>For example, 27 9 2024</p>
+                    <p>This is that date {{name}} started as an ECT at your school. Not, for example, if they previously started as a teaching assistant. This can be a future date.</p> 
+
+                </div>
+                <div class="govuk-date-input" id="school-start-date">
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="school-start-date-day">
+                                Day
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="school-start-date-day" name="school-start-date-day" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="school-start-date-month">
+                                Month
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="school-start-date-month" name="school-start-date-month" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="school-start-date-year">
+                                Year
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="school-start-date-year" name="school-start-date-year" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <button class="govuk-button">Continue</button>
+        <p><a href="javascript:window.history.back()">Cancel and go back to {{ name }}'s details</a></p>
+
+        </form>
+    </div>
+</div>
+
+{% block pageScripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('change-school-start-date-form');
+    const errorSummary = document.getElementById('error-summary');
+    const errorList = document.getElementById('error-list');
+    const dateFields = {
+      day: document.getElementById('school-start-date-day'),
+      month: document.getElementById('school-start-date-month'),
+      year: document.getElementById('school-start-date-year')
+    };
+
+    function parseUkDateString(str) {
+      if (!str) return null;
+      const months = ['january','february','march','april','may','june','july','august','september','october','november','december'];
+      const parts = str.trim().toLowerCase().split(/\s+/);
+      if (parts.length !== 3) return null;
+      const day = parseInt(parts[0], 10);
+      const monthIndex = months.indexOf(parts[1]);
+      const year = parseInt(parts[2], 10);
+      if (isNaN(day) || monthIndex === -1 || isNaN(year)) return null;
+      return new Date(year, monthIndex, day);
+    }
+
+    function getRegistrationPeriodFloor(referenceDate) {
+      const periodStartYear = referenceDate.getMonth() >= 8 ? referenceDate.getFullYear() : referenceDate.getFullYear() - 1;
+      return new Date(periodStartYear - 2, 8, 1);
+    }
+
+    const currentSchoolStartDate = parseUkDateString('{{ activeEct.schoolStartDate }}');
+    const leavingDate = parseUkDateString('{{ activeEct.leavingDate }}');
+    const previousTrainingPeriodStartDate = new Date(2022, 0, 1);
+
+    form.addEventListener('submit', function(e) {
+        const day = dateFields.day.value.trim();
+        const month = dateFields.month.value.trim();
+        const year = dateFields.year.value.trim();
+
+        // Clear previous errors
+        clearErrors();
+
+        let hasErrors = false;
+        let errors = [];
+
+        // Check if all date fields are filled
+        if (!day || !month || !year) {
+          errors.push({
+            text: 'Enter {{ name }}’s ECT start date',
+            href: '#school-start-date-day',
+            missingFields: { day: !day, month: !month, year: !year }
+          });
+          hasErrors = true;
+        } else {
+          // Validate the date
+          const startDate = new Date(year, month - 1, day);
+
+          // Check if date is valid (year, month, day match a real date)
+          if (startDate.getFullYear() != year || startDate.getMonth() != month - 1 || startDate.getDate() != day) {
+            errors.push({
+              text: 'ECT start date must be a valid date',
+              href: '#school-start-date-day',
+              missingFields: { day: false, month: false, year: false }
+            });
+            hasErrors = true;
+          } else if (currentSchoolStartDate) {
+            if (startDate < currentSchoolStartDate) {
+              // Moving start date back - only the first matching rule is reported
+              if (startDate < previousTrainingPeriodStartDate) {
+                errors.push({
+                  text: '{{ name }}’s ECT start date must be on or after the start date of their previous training period, ' + formatDate(previousTrainingPeriodStartDate),
+                  href: '#school-start-date-day',
+                  missingFields: { day: false, month: false, year: false }
+                });
+                hasErrors = true;
+              } else {
+                const registrationPeriodFloor = getRegistrationPeriodFloor(currentSchoolStartDate);
+                if (startDate < registrationPeriodFloor) {
+                  errors.push({
+                    text: '{{ name }}’s ECT start date must be on or after the start of registration period, ' + formatDate(registrationPeriodFloor),
+                    href: '#school-start-date-day',
+                    missingFields: { day: false, month: false, year: false }
+                  });
+                  hasErrors = true;
+                }
+              }
+            } else if (startDate > currentSchoolStartDate) {
+              // Moving start date forwards - only the first matching rule is reported
+              const today = new Date();
+              const fourMonthsFromNow = new Date(today);
+              fourMonthsFromNow.setMonth(today.getMonth() + 4);
+              if (startDate > fourMonthsFromNow) {
+                errors.push({
+                  text: '{{name}}’s ECT start date must be before 4 months from today',
+                  href: '#school-start-date-day',
+                  missingFields: { day: false, month: false, year: false }
+                });
+                hasErrors = true;
+              } else if (leavingDate && startDate > leavingDate) {
+                errors.push({
+                  text: '{{ name }}’s ECT start date must be on or before their leaving date, ' + formatDate(leavingDate), 
+                  href: '#school-start-date-day',
+                  missingFields: { day: false, month: false, year: false }
+                });
+                hasErrors = true;
+              }
+            }
+          }
+        }
+
+        if (hasErrors) {
+          e.preventDefault();
+          showErrors(errors);
+          return false;
+        }
+    });
+
+    function formatDate(date) {
+      const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      return date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
+    }
+
+    function clearErrors() {
+      errorSummary.style.display = 'none';
+      errorList.innerHTML = '';
+
+      // Remove error styling from the form group
+      const formGroup = document.getElementById('school-start-date-form-group');
+      if (formGroup) {
+        formGroup.classList.remove('govuk-form-group--error');
+      }
+
+      // Reset aria-describedby back to just the hint
+      const fieldset = document.querySelector('#school-start-date-form-group fieldset');
+      if (fieldset) {
+        fieldset.setAttribute('aria-describedby', 'school-start-date-hint');
+      }
+
+      // Remove error classes from individual date fields
+      Object.values(dateFields).forEach(field => {
+        if (field) {
+          field.classList.remove('govuk-input--error');
+        }
+      });
+
+      // Remove error message
+      const existingError = document.getElementById('school-start-date-error');
+      if (existingError) {
+        existingError.remove();
+      }
+    }
+
+    function showErrors(errors) {
+      const error = errors[0]; // Take the first error
+
+      errorList.innerHTML = '';
+      errors.forEach(error => {
+        const li = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = error.href;
+        link.textContent = error.text;
+        li.appendChild(link);
+        errorList.appendChild(li);
+      });
+      errorSummary.style.display = 'block';
+      errorSummary.focus();
+
+      // Add error styling to the form group
+      const formGroup = document.getElementById('school-start-date-form-group');
+      if (formGroup) {
+        formGroup.classList.add('govuk-form-group--error');
+      }
+
+      // Add error message directly after the hint, before the date inputs
+      const fieldset = document.querySelector('#school-start-date-form-group fieldset');
+      const hint = document.getElementById('school-start-date-hint');
+      const dateInput = document.getElementById('school-start-date');
+      if (fieldset && hint && dateInput) {
+        const errorMessage = document.createElement('p');
+        errorMessage.id = 'school-start-date-error';
+        errorMessage.className = 'govuk-error-message';
+        errorMessage.innerHTML = '<span class="govuk-visually-hidden">Error:</span> ' + error.text;
+        dateInput.parentNode.insertBefore(errorMessage, dateInput);
+
+        fieldset.setAttribute('aria-describedby', 'school-start-date-hint school-start-date-error');
+      }
+
+      // Add error styling to individual input fields that are missing
+      if (error.missingFields) {
+        Object.entries(error.missingFields).forEach(([fieldName, isMissing]) => {
+          if (isMissing) {
+            const field = dateFields[fieldName];
+            if (field) {
+              field.classList.add('govuk-input--error');
+            }
+          }
+        });
+      }
+    }
+  });
+</script>
+{% endblock %}
+
+{% endblock %}

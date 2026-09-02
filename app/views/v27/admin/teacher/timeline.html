@@ -1,0 +1,449 @@
+{% extends "layouts/admin.html" %}
+
+{% set pageName="Timeline event types" %}
+{% set activeNav="teachers" %}
+
+{% macro timelineExample(title, datetime, dateText, description, userType, reportedBy) %}
+<div class="moj-timeline govuk-!-margin-bottom-8">
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">{{ title }}</h2>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="{{ datetime }}">{{ dateText }}</time>
+    </p>
+    <div class="moj-timeline__description">
+      {{ description | safe }}
+      <p class="govuk-body-s govuk-!-margin-bottom-0">
+        User type: {{ userType }}<br>
+        Reported by: {{ reportedBy }}
+      </p>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h1 class="govuk-heading-l">{{ pageName }}</h1>
+    <p class="govuk-body">Documentation for timeline events shown on a teacher record. The date on the timeline is when the event was reported.</p>
+
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+    <h2 class="govuk-heading-m"><code>induction_extension_created</code></h2>
+    <p class="govuk-body">An appropriate body has extended a teacher's induction.</p>
+    {{ timelineExample(
+      "Induction extension added",
+      "2025-06-05T10:00:00.000Z",
+      "5 June 2025 at 10:00am",
+      "<p>Induction extended by <strong>1.0 terms</strong> by <strong>Umber Teaching School Hub</strong>.</p>",
+      "Appropriate body user",
+      "Felicity Kendall (felicity.kendall@umber-tsh.org.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>induction_extension_updated</code></h2>
+    <p class="govuk-body">An appropriate body has updated an extension to a teacher's induction.</p>
+    {{ timelineExample(
+      "Induction extension updated",
+      "2025-08-12T14:15:00.000Z",
+      "12 August 2025 at 2:15pm",
+      "<p>Induction extension updated by <strong>1.0 terms</strong> (was <strong>0.5 terms</strong>) by <strong>Umber Teaching School Hub</strong>.</p>",
+      "Appropriate body user",
+      "Felicity Kendall (felicity.kendall@umber-tsh.org.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>induction_period_closed</code></h2>
+    <p class="govuk-body">An appropriate body has closed an induction.</p>
+    {{ timelineExample(
+      "Induction period closed",
+      "2026-03-10T11:30:00.000Z",
+      "10 March 2026 at 11:30am",
+      "<p>Induction period closed with end date of <strong>25 April 2026</strong> by <strong>Umber Teaching School Hub</strong>.</p>",
+      "Appropriate body user",
+      "Felicity Kendall (felicity.kendall@umber-tsh.org.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>induction_period_deleted</code></h2>
+    <p class="govuk-body">An appropriate body has deleted an induction period.</p>
+    {{ timelineExample(
+      "Induction period deleted",
+      "2025-04-18T09:05:00.000Z",
+      "18 April 2025 at 9:05am",
+      "<p>Induction period deleted by <strong>Umber Teaching School Hub</strong>.</p>",
+      "Appropriate body user",
+      "Felicity Kendall (felicity.kendall@umber-tsh.org.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>induction_period_opened</code></h2>
+    <p class="govuk-body">An appropriate body has opened an induction.</p>
+    {{ timelineExample(
+      "Induction period opened",
+      "2025-02-08T09:48:00.000Z",
+      "8 February 2025 at 9:48am",
+      "<p><strong>Provider-led</strong> induction period opened by <strong>Umber Teaching School Hub</strong> with induction start date <strong>25 January 2025</strong>.</p>",
+      "Appropriate body user",
+      "Felicity Kendall (felicity.kendall@umber-tsh.org.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>induction_period_reopened</code></h2>
+    <p class="govuk-body">An appropriate body has reopened an induction.</p>
+    {{ timelineExample(
+      "Induction period reopened",
+      "2025-11-02T16:20:00.000Z",
+      "2 November 2025 at 4:20pm",
+      "<p>Induction period reopened by <strong>Umber Teaching School Hub</strong>.</p>",
+      "Appropriate body user",
+      "Felicity Kendall (felicity.kendall@umber-tsh.org.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>induction_period_updated</code></h2>
+    <p class="govuk-body">An appropriate body has updated induction, such as the number of terms.</p>
+    {{ timelineExample(
+      "Induction period updated",
+      "2025-09-14T13:40:00.000Z",
+      "14 September 2025 at 1:40pm",
+      "<p>Number of terms changed from <strong>4</strong> to <strong>6</strong> by <strong>Umber Teaching School Hub</strong>.</p>",
+      "Appropriate body user",
+      "Felicity Kendall (felicity.kendall@umber-tsh.org.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>mentor_completion_status_change</code></h2>
+    <p class="govuk-body">A mentor has completed their ECTE mentor training.</p>
+    {{ timelineExample(
+      "Mentor training completed",
+      "2025-12-03T10:00:00.000Z",
+      "3 December 2025 at 10:00am",
+      "<p>Completed ECTE mentor training with <strong>Ambition Institute</strong> at <strong>Abacus Primary School</strong> (URN: 1195201).</p>",
+      "System",
+      "System"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>statement_marked_payable</code></h2>
+    <p class="govuk-body">A declaration has been marked as payable by DfE finance admin.</p>
+    {{ timelineExample(
+      "ECTE training declaration approved for payment",
+      "2025-12-08T14:40:00.000Z",
+      "8 December 2025 at 2:40pm",
+      "<p>Declaration type <strong>retained-1</strong> approved for payment.<br>Declaration ID: <code>6b0d7f33-0ce6-4f29-8f5e-5bdf8f4bd36b</code></p>",
+      "DfE finance admin",
+      "Amelia Hughes (amelia.hughes@education.gov.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_changes_schedule_training_period</code></h2>
+    <p class="govuk-body">A DfE admin has changed a schedule for an ECT's training.</p>
+    {{ timelineExample(
+      "Training schedule changed",
+      "2026-01-15T14:30:00.000Z",
+      "15 January 2026 at 2:30pm",
+      "<p>Schedule changed from <strong>ecf-standard-january</strong> to <strong>ecf-standard-september</strong> with <strong>Ambition Institute</strong> and <strong>Alpha Teaching School Hub</strong> for contract period <strong>2025</strong>.</p>",
+      "DfE admin",
+      "Sarah Williams (sarah.williams@education.gov.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_declaration_awaiting_clawback</code></h2>
+    <p class="govuk-body">A DfE finance admin has moved a declaration to awaiting clawback.</p>
+    {{ timelineExample(
+      "ECT training declaration moved to awaiting clawback",
+      "2025-10-22T11:10:00.000Z",
+      "22 October 2025 at 11:10am",
+      "<p>Declaration type <strong>retained-1</strong> moved to <strong>Awaiting clawback</strong>.<br>Declaration ID: <code>7f0be43a-3d8a-4f9f-8d8c-0ffcb907f0d6</code></p>",
+      "DfE finance admin",
+      "Peter Pettigrew (peter.pettigrew@education.gov.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_declaration_created</code></h2>
+    <p class="govuk-body">A lead provider has submitted a declaration.</p>
+    {{ timelineExample(
+      "ECT training declaration submitted",
+      "2025-12-01T10:30:00.000Z",
+      "1 December 2025 at 10:30am",
+      "<p>Declaration type <strong>retained-1</strong> submitted by <strong>Ambition Institute</strong>.<br>Declaration ID: <code>6b0d7f33-0ce6-4f29-8f5e-5bdf8f4bd36b</code></p>",
+      "Lead provider",
+      "Ambition Institute"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_declaration_eligible</code></h2>
+    <p class="govuk-body">A submitted declaration is eligible.</p>
+    {{ timelineExample(
+      "ECTE training declaration marked eligible",
+      "2025-12-02T09:20:00.000Z",
+      "2 December 2025 at 9:20am",
+      "<p>Declaration type <strong>retained-1</strong> marked <strong>Eligible</strong>.<br>Declaration ID: <code>6b0d7f33-0ce6-4f29-8f5e-5bdf8f4bd36b</code></p>",
+      "System",
+      "System"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_declaration_voided</code></h2>
+    <p class="govuk-body">A DfE finance admin has voided a declaration.</p>
+    {{ timelineExample(
+      "ECT training declaration voided",
+      "2025-11-05T16:05:00.000Z",
+      "5 November 2025 at 4:05pm",
+      "<p>Declaration type <strong>retained-1</strong> voided.<br>Declaration ID: <code>7f0be43a-3d8a-4f9f-8d8c-0ffcb907f0d6</code></p>",
+      "DfE finance admin",
+      "Peter Pettigrew (peter.pettigrew@education.gov.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_defers_training_period</code></h2>
+    <p class="govuk-body">A teacher training period has been deferred by the lead provider.</p>
+    {{ timelineExample(
+      "Training period deferred",
+      "2025-11-18T08:00:00.000Z",
+      "18 November 2025 at 8:00am",
+      "<p>Contract period <strong>2025</strong> training deferred by <strong>Ambition Institute</strong> and <strong>Alpha Teaching School Hub</strong>.</p>",
+      "Lead provider",
+      "Ambition Institute"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_email_address_updated</code></h2>
+    <p class="govuk-body">An email address has been updated by the school for a teacher.</p>
+    {{ timelineExample(
+      "Email address updated",
+      "2024-09-24T14:20:00.000Z",
+      "24 September 2024 at 2:20pm",
+      "<p>Email changed from <strong>john.james@example.com</strong> to <strong>john.smith@example.com</strong> at Abacus Primary School (URN: 1195201).</p>",
+      "School user",
+      "Helen Carter (helen.carter@abacusprimary.org.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_fails_induction</code></h2>
+    <p class="govuk-body">The appropriate body has recorded the teacher as failing their induction.</p>
+    {{ timelineExample(
+      "Induction failed",
+      "2026-04-28T15:00:00.000Z",
+      "28 April 2026 at 3:00pm",
+      "<p>Recorded as <strong>failed induction</strong> with induction end date of <strong>25 April 2026</strong> by <strong>Umber Teaching School Hub</strong>.</p>",
+      "Appropriate body user",
+      "Felicity Kendall (felicity.kendall@umber-tsh.org.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_finishes_being_mentored</code></h2>
+    <p class="govuk-body">A teacher has stopped being mentored by a certain mentor.</p>
+    {{ timelineExample(
+      "Stopped being mentored by Steven Davies",
+      "2025-07-01T09:00:00.000Z",
+      "1 July 2025 at 9:00am",
+      "<p>Stopped being mentored by <strong>Steven Davies</strong> at <strong>Abacus Primary School</strong> (URN: 1195201) on <strong>30 June 2025</strong>.</p>",
+      "School user",
+      "Helen Carter (helen.carter@abacusprimary.org.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_finishes_mentoring</code></h2>
+    <p class="govuk-body">A teacher has stopped mentoring a certain other teacher.</p>
+    {{ timelineExample(
+      "Stopped mentoring Jane Doe",
+      "2025-07-01T09:00:00.000Z",
+      "1 July 2025 at 9:00am",
+      "<p>Stopped mentoring <strong>Jane Doe</strong> at Abacus Primary School (URN: 1195201) on <strong>30 June 2025</strong>.</p>",
+      "School user",
+      "Helen Carter (helen.carter@abacusprimary.org.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_finishes_training_period</code></h2>
+    <p class="govuk-body">A teacher has finished their training period.</p>
+    {{ timelineExample(
+      "ECTE training period finished",
+      "2024-04-05T10:15:00.000Z",
+      "5 April 2024 at 10:15am",
+      "<p>ECTE training period finished with <strong>Ambition Institute</strong> at <strong>Abacus Primary School</strong> (URN: 1195201) on <br><strong>1 April 2024</strong>.<br><br>Schedule: ecf-standard-september</p>",
+      "System",
+      "System"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_imported_from_trs</code></h2>
+    <p class="govuk-body">A record has been imported from TRS.</p>
+    {{ timelineExample(
+      "Teacher record created from TRS",
+      "2022-06-01T04:00:00.000Z",
+      "1 June 2022 at 4:00am",
+      "<p>Initially imported from TRS with name <strong>John James</strong>.</p>",
+      "TRS",
+      "System"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_left_school_as_ect</code></h2>
+    <p class="govuk-body">An ECT has left the school.</p>
+    {{ timelineExample(
+      "Reported as leaving school",
+      "2025-02-08T11:00:00.000Z",
+      "8 February 2025 at 11:00am",
+      "<p>Reported as leaving as an ECT from <strong>Abacus Primary School</strong> (URN: 1195201) on <strong>3 January 2025</strong>.</p>",
+      "School user",
+      "Helen Carter (helen.carter@abacusprimary.org.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_left_school_as_mentor</code></h2>
+    <p class="govuk-body">A mentor has left the school.</p>
+    {{ timelineExample(
+      "Reported as leaving school as a mentor",
+      "2025-06-20T09:30:00.000Z",
+      "20 June 2025 at 9:30am",
+      "<p>Reported as leaving as a mentor from <strong>Abacus Primary School</strong> (URN: 1195201) on <strong>31 May 2025</strong>.</p>",
+      "School user",
+      "Helen Carter (helen.carter@abacusprimary.org.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_name_updated_by_trs</code></h2>
+    <p class="govuk-body">The name has been updated for a teacher based on the name from TRS.</p>
+    {{ timelineExample(
+      "Name updated from TRS",
+      "2022-06-02T06:00:00.000Z",
+      "2 June 2022 at 6:00am",
+      "<p>Name changed from <strong>John James</strong> to <strong>John Smith</strong> (matched TRS record).</p>",
+      "TRS",
+      "System"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_name_updated_by_user</code></h2>
+    <p class="govuk-body">The name for a teacher has been updated by a school user.</p>
+    {{ timelineExample(
+      "Name updated",
+      "2024-08-10T16:45:00.000Z",
+      "10 August 2024 at 4:45pm",
+      "<p>Name changed from <strong>John James</strong> to <strong>John Smith</strong> at <strong>Abacus Primary School</strong> (URN: 1195201).</p>",
+      "School user",
+      "Helen Carter (helen.carter@abacusprimary.org.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_passes_induction</code></h2>
+    <p class="govuk-body">The appropriate body has passed the teacher's induction.</p>
+    {{ timelineExample(
+      "Induction passed",
+      "2026-04-28T15:00:00.000Z",
+      "28 April 2026 at 3:00pm",
+      "<p>Recorded as <strong>passed induction</strong> by <strong>Umber Teaching School Hub</strong> with an induction end date of <strong>25 April 2026</strong>.</p>",
+      "Appropriate body user",
+      "Felicity Kendall (felicity.kendall@umber-tsh.org.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_registered_as_ect</code></h2>
+    <p class="govuk-body">A teacher has been registered as an ECT by a school.</p>
+    {{ timelineExample(
+      "Registered as an early career teacher",
+      "2024-09-25T08:30:00.000Z",
+      "25 September 2024 at 8:30am",
+      "<p>Registered as an ECT at <strong>Abacus Primary School</strong> (URN: 1195201) for contract period <strong>2024</strong>.</p>",
+      "School user",
+      "Helen Carter (helen.carter@abacusprimary.org.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_registered_as_mentor</code></h2>
+    <p class="govuk-body">A teacher has been registered as a mentor by a school.</p>
+    {{ timelineExample(
+      "Registered for mentor training",
+      "2025-09-25T10:15:00.000Z",
+      "25 September 2025 at 10:15am",
+      "<p>Registered for <strong>ECTE mentor training</strong> at <strong>Abacus Primary School</strong> (URN: 1195201) for contract period <strong>2024</strong>.<br><br>Lead provider:Ambition Institute<br>Delivery partner:Alpha Teaching School Hub</p>",
+      "School user",
+      "Helen Carter (helen.carter@abacusprimary.org.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_resumes_training_period</code></h2>
+    <p class="govuk-body">A teacher has resumed their training.</p>
+    {{ timelineExample(
+      "Training period resumed",
+      "2026-01-10T09:00:00.000Z",
+      "10 January 2026 at 9:00am",
+      "<p>Resumed contract period <strong>2025</strong> training with <strong>Ambition Institute</strong> and <strong>Alpha Teaching School</strong> at <strong>Abacus Primary School</strong> (URN: 1195201).</p>",
+      "Lead provider",
+      "Ambition Institute"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_starts_being_mentored</code></h2>
+    <p class="govuk-body">A teacher has started being mentored by a particular teacher.</p>
+    {{ timelineExample(
+      "Being mentored by Steven Davies",
+      "2025-07-01T09:00:00.000Z",
+      "1 July 2025 at 9:00am",
+      "<p>Started being mentored by <strong>Steven Davies</strong> at <strong>Abacus Primary School</strong> (URN: 1195201) on <strong>1 July 2025</strong>.</p>",
+      "School user",
+      "Helen Carter (helen.carter@abacusprimary.org.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_starts_mentoring</code></h2>
+    <p class="govuk-body">A teacher has started mentoring a particular teacher.</p>
+    {{ timelineExample(
+      "Started mentoring Jane Doe",
+      "2025-07-01T09:00:00.000Z",
+      "1 July 2025 at 9:00am",
+      "<p>Started mentoring <strong>Jane Doe</strong> at <strong>Abacus Primary School</strong> (URN: 1195201) on <strong>1 July 2025</strong>.</p>",
+      "School user",
+      "Helen Carter (helen.carter@abacusprimary.org.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_starts_training_period</code></h2>
+    <p class="govuk-body">A teacher has started their training period.</p>
+    {{ timelineExample(
+      "Training period started",
+      "2022-09-01T00:00:00.000Z",
+      "1 September 2022",
+      "<p>Started ECT training at <strong>Abacus Primary School</strong> on <strong>1 July 2025</strong>.<br><br>Lead provider: Ambition Institute<br>Delivery partner:Teaching School Hub <br>Schedule:ecf-standard-september. </p>",
+      "System",
+      "System"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_training_lead_provider_updated</code></h2>
+    <p class="govuk-body">A teacher has had their lead provider updated. This could be by a DfE admin.</p>
+    {{ timelineExample(
+      "Lead provider updated",
+      "2025-10-01T13:00:00.000Z",
+      "1 October 2025 at 1:00pm",
+      "<p>Lead provider changed from <strong>Best Practice Network</strong> to <strong>Ambition Institute</strong> at Abacus Primary School (URN: 1195201).</p>",
+      "DfE admin",
+      "Sarah Williams (sarah.williams@education.gov.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_training_programme_updated</code></h2>
+    <p class="govuk-body">A teacher training programme has been updated, such as from school-led to provider-led. This could be by a school user.</p>
+    {{ timelineExample(
+      "Training programme changed",
+      "2025-11-20T15:27:00.000Z",
+      "20 November 2025 at 3:27pm",
+      "<p>Training programme changed from <strong>Provider-led</strong> to <strong>School-led</strong> at Abacus Primary School (URN: 1195201).</p>",
+      "School user",
+      "Helen Carter (helen.carter@abacusprimary.org.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_withdraws_training_period</code></h2>
+    <p class="govuk-body">A teacher has been withdrawn from training by their lead provider.</p>
+    {{ timelineExample(
+      "Withdrawn from mentor training by lead provider",
+      "2025-11-20T11:00:00.000Z",
+      "20 November 2025 at 11:00am",
+      "<p>Withdrawn from mentor training with <strong>Ambition Institute</strong> and <strong>Alpha Teaching School Hub</strong> for contract period <strong>2025</strong>.</p>",
+      "Lead provider",
+      "Ambition Institute"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>teacher_working_pattern_updated</code></h2>
+    <p class="govuk-body">A working pattern has been updated by the school user, such as from full time to part time.</p>
+    {{ timelineExample(
+      "Working pattern updated",
+      "2025-01-14T10:30:00.000Z",
+      "14 January 2025 at 10:30am",
+      "<p>Working pattern changed from <strong>Full time</strong> to <strong>Part time</strong> at Abacus Primary School (URN: 1195201).</p>",
+      "School user",
+      "Helen Carter (helen.carter@abacusprimary.org.uk)"
+    ) }}
+
+    <h2 class="govuk-heading-m"><code>training_period_assigned_to_school_partnership</code></h2>
+    <p class="govuk-body">A teacher has been assigned to a school partnership, such as with Ambition Institute and Alpha Teaching School Hub. This could happen by a DfE admin.</p>
+    {{ timelineExample(
+      "Training period assigned to school partnership",
+      "2022-08-20T10:00:00.000Z",
+      "20 August 2022 at 10:00am",
+      "<p>Assigned to <strong>Ambition Institute</strong> and <strong>Alpha Teaching School Hub</strong> at <strong>Abacus Primary School</strong> (URN: 1195201) for contract period <strong>2022</strong>.<br><br>Schedule: ecf-standard-september</p>",
+      "DfE admin",
+      "Sarah Williams (sarah.williams@education.gov.uk)"
+    ) }}
+
+  </div>
+</div>
+
+{% endblock %}

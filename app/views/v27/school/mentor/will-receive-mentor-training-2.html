@@ -1,0 +1,95 @@
+{% extends "layouts/ects.html" %}
+
+{% if data['fullName'] %}
+{% set name = data['fullName'] %}
+{% else %}
+{% set name = 'Samuel Taylor' %}
+{% endif %}
+
+{% set pageName= name + " will do mentor training" %}
+
+{% if data['ab'] %}
+{% set ab = data['ab'] %}
+{% else %}
+{% set ab = 'Teach West London' %}
+{% endif %}
+
+{% if data['deliveryPartner'] %}
+{% set dp = data['deliveryPartner'] %}
+{% else %}
+{% set dp = 'London District East TSH' %}
+{% endif %}
+
+{% if data['leadProvider'] %}
+{% set lp = data['leadProvider'] %}
+{% else %}
+{% set lp = 'Ambition Institute' %}
+{% endif %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+            <h1 class="govuk-heading-l">{{ pageName }}</h1>
+<!--            <p class="govuk-body">-->
+<!--                Our records show that {{name}} has not done mentor training before. The ECT's lead provider and delivery partner will arrange for them to do mentor training.-->
+<!--            </p>-->
+            {# {% set setRows = [
+            {
+            key: {
+            text: "Lead provider"
+            },
+            value: {
+            html: lp
+            }
+            }
+            ] %}
+
+            {% set deliveryPartnerRow = [
+            {
+            key: {
+            text: "Delivery partner"
+            },
+            value: {
+            html: dp
+            }
+            }
+            ] %}
+
+            {% if data['showDp'] === true %}
+            {% set finalRows = setRows.concat(deliveryPartnerRow) %}
+            {% else %}
+            {% set finalRows = setRows %}
+            {% endif %}
+
+            {{ govukSummaryList({
+            card: {
+            title: {
+            text: "John Smith's training details"
+            }
+            },
+            rows: finalRows
+            }) }} #}
+
+            <p>Samuel Taylor gets 20 hours of ECTE mentor training as they’re a new mentor and your school is working with a DfE-funded training provider.</p>
+            <p>Ambition Institute will arrange for them to do mentor training as they are the lead provider for the ECT being mentored.</p>
+
+
+            <button class="govuk-button">Continue</button>
+
+            <p><a href="#">Tell us if a different lead provider will be providing mentor training</a></p>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

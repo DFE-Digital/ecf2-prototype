@@ -1,3 +1,5 @@
+@import url('https://rsms.me/inter/inter.css');
+
 :root {
   --dfe-brand-blue: #1d70b8;
   --dfe-brand-font-family: 'Inter', 'Helvetica Neue', 'Arial', sans-serif;
@@ -14,7 +16,9 @@
 }
 
 /* GOV.UK sets GDS Transport on each .govuk-* rule; inherit departmental stack from .use-dfe-brand */
-.use-dfe-brand [class*=govuk-] {
+.use-dfe-brand [class*=govuk-],
+.use-dfe-brand p,
+.use-dfe-brand a {
   font-family: inherit !important;
 }
 

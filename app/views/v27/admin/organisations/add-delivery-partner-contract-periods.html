@@ -1,0 +1,198 @@
+{% extends "layouts/admin.html" %}
+
+{% set partnerName = data['newDeliveryPartnerName'] or '[name]' %}
+{% set pageName = "Which contract periods are " + partnerName + " delivering training in?" %}
+{% set activeNav="organisations" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+            {% set leadProviders2021 %}
+            {{ govukCheckboxes({
+                idPrefix: "lead-providers-2021",
+                name: "lead-providers-2021",
+                fieldset: {
+                    legend: {
+                        text: "Which lead providers are working with " + partnerName + " in 2021?",
+                        classes: "govuk-fieldset__legend--m"
+                    }
+                },
+                items: [
+                    { value: "Ambition Institute", text: "Ambition Institute" },
+                    { value: "Education Development Trust", text: "Education Development Trust" },
+                    { value: "National Institute of Teaching", text: "National Institute of Teaching" },
+                    { value: "Teach First", text: "Teach First" },
+                    { value: "UCL Institute of Education", text: "UCL Institute of Education" }
+                ]
+            }) }}
+            {% endset %}
+
+            {% set leadProviders2022 %}
+            {{ govukCheckboxes({
+                idPrefix: "lead-providers-2022",
+                name: "lead-providers-2022",
+                fieldset: {
+                    legend: {
+                        text: "Which lead providers are working with " + partnerName + " in 2022?",
+                        classes: "govuk-fieldset__legend--m"
+                    }
+                },
+                items: [
+                    { value: "Ambition Institute", text: "Ambition Institute" },
+                    { value: "Education Development Trust", text: "Education Development Trust" },
+                    { value: "National Institute of Teaching", text: "National Institute of Teaching" },
+                    { value: "Teach First", text: "Teach First" },
+                    { value: "UCL Institute of Education", text: "UCL Institute of Education" }
+                ]
+            }) }}
+            {% endset %}
+
+            {% set leadProviders2023 %}
+            {{ govukCheckboxes({
+                idPrefix: "lead-providers-2023",
+                name: "lead-providers-2023",
+                fieldset: {
+                    legend: {
+                        text: "Which lead providers are working with " + partnerName + " in 2023?",
+                        classes: "govuk-fieldset__legend--m"
+                    }
+                },
+                items: [
+                    { value: "Ambition Institute", text: "Ambition Institute" },
+                    { value: "Education Development Trust", text: "Education Development Trust" },
+                    { value: "National Institute of Teaching", text: "National Institute of Teaching" },
+                    { value: "Teach First", text: "Teach First" },
+                    { value: "UCL Institute of Education", text: "UCL Institute of Education" }
+                ]
+            }) }}
+            {% endset %}
+
+            {% set leadProviders2024 %}
+            {{ govukCheckboxes({
+                idPrefix: "lead-providers-2024",
+                name: "lead-providers-2024",
+                fieldset: {
+                    legend: {
+                        text: "Which lead providers are working with " + partnerName + " in 2024?",
+                        classes: "govuk-fieldset__legend--m"
+                    }
+                },
+                items: [
+                    { value: "Ambition Institute", text: "Ambition Institute" },
+                    { value: "Education Development Trust", text: "Education Development Trust" },
+                    { value: "National Institute of Teaching", text: "National Institute of Teaching" },
+                    { value: "Teach First", text: "Teach First" },
+                    { value: "UCL Institute of Education", text: "UCL Institute of Education" }
+                ]
+            }) }}
+            {% endset %}
+
+            {% set leadProviders2025 %}
+            {{ govukCheckboxes({
+                idPrefix: "lead-providers-2025",
+                name: "lead-providers-2025",
+                fieldset: {
+                    legend: {
+                        text: "Which lead providers are working with " + partnerName + " in 2025?",
+                        classes: "govuk-fieldset__legend--m"
+                    }
+                },
+                items: [
+                    { value: "Ambition Institute", text: "Ambition Institute" },
+                    { value: "Education Development Trust", text: "Education Development Trust" },
+                    { value: "National Institute of Teaching", text: "National Institute of Teaching" },
+                    { value: "Teach First", text: "Teach First" },
+                    { value: "UCL Institute of Education", text: "UCL Institute of Education" }
+                ]
+            }) }}
+            {% endset %}
+
+            {% set leadProviders2026 %}
+            {{ govukCheckboxes({
+                idPrefix: "lead-providers-2026",
+                name: "lead-providers-2026",
+                fieldset: {
+                    legend: {
+                        text: "Which lead providers are working with " + partnerName + " in 2026?",
+                        classes: "govuk-fieldset__legend--m"
+                    }
+                },
+                items: [
+                    { value: "Ambition Institute", text: "Ambition Institute" },
+                    { value: "Education Development Trust", text: "Education Development Trust" },
+                    { value: "National Institute of Teaching", text: "National Institute of Teaching" },
+                    { value: "Teach First", text: "Teach First" },
+                    { value: "UCL Institute of Education", text: "UCL Institute of Education" }
+                ]
+            }) }}
+            {% endset %}
+
+            {{ govukCheckboxes({
+                idPrefix: "contract-period",
+                name: "contract-period",
+                fieldset: {
+                    legend: {
+                        text: pageName,
+                        isPageHeading: true,
+                        classes: "govuk-fieldset__legend--l"
+                    }
+                },
+                items: [
+                    {
+                        value: "2021",
+                        text: "2021",
+                        conditional: {
+                            html: leadProviders2021
+                        }
+                    },
+                    {
+                        value: "2022",
+                        text: "2022",
+                        conditional: {
+                            html: leadProviders2022
+                        }
+                    },
+                    {
+                        value: "2023",
+                        text: "2023",
+                        conditional: {
+                            html: leadProviders2023
+                        }
+                    },
+                    {
+                        value: "2024",
+                        text: "2024",
+                        conditional: {
+                            html: leadProviders2024
+                        }
+                    },
+                    {
+                        value: "2025",
+                        text: "2025",
+                        conditional: {
+                            html: leadProviders2025
+                        }
+                    },
+                    {
+                        value: "2026",
+                        text: "2026",
+                        conditional: {
+                            html: leadProviders2026
+                        }
+                    }
+                ]
+            }) }}
+
+            <button class="govuk-button" data-module="govuk-button">Confirm</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

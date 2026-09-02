@@ -1,0 +1,76 @@
+{% extends "layouts/plain.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    /* Custom styles for confirm action example */
+</style>
+{% endblock %}
+
+{% set pageName="Confirm action before completing" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "../index"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+        <p>This example shows how to ask a user to confirm an action before completing it. We'd use this pattern to help users understand what they're about to do and give them a chance to review their decision before proceeding. This is important for actions which are deemed high-impact.</p>
+
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+        <h2 class="govuk-heading-l">Delete induction period for Effie Abernathy</h2>
+
+        <div class="govuk-warning-text">
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+            <strong class="govuk-warning-text__text">
+                <span class="govuk-warning-text__assistive govuk-visually-hidden">Warning</span>
+                Are you sure you want to delete this induction period?
+                <br>
+                This action cannot be undone.
+            </strong>
+        </div>
+
+        <div class="govuk-!-margin-bottom-6">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                    <dt class="govuk-summary-list__key">Teacher</dt>
+                    <dd class="govuk-summary-list__value">Effie Abernathy</dd>
+                </div>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                    <dt class="govuk-summary-list__key">Induction programme</dt>
+                    <dd class="govuk-summary-list__value">School-based induction programme</dd>
+                </div>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                    <dt class="govuk-summary-list__key">Start date</dt>
+                    <dd class="govuk-summary-list__value">24 February 2025</dd>
+                </div>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                    <dt class="govuk-summary-list__key">End date</dt>
+                    <dd class="govuk-summary-list__value">6 July 2025</dd>
+                </div>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                    <dt class="govuk-summary-list__key">Number of terms</dt>
+                    <dd class="govuk-summary-list__value">7.4</dd>
+                </div>
+            </dl>
+        </div>
+
+        <form class="govuk-!-margin-bottom-8" action="#" method="post">
+            <div class="govuk-button-group">
+                <input type="submit" name="commit" value="Delete induction period" class="govuk-button govuk-button--warning">
+                <a class="govuk-button govuk-button--secondary" href="#">Cancel</a>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %} 

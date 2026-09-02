@@ -4,7 +4,9 @@
     #}
     
     {% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
-    
+
+    {% set bodyClasses = "use-dfe-brand" %}
+
     {% if data['schoolName'] %}
     {% set schoolName = data['schoolName'] %}
     {% else %}

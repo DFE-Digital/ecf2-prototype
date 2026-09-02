@@ -1,0 +1,44 @@
+{% extends "layouts/email.html" %}
+
+{% block content %}
+{{ super() }}
+
+    <h1 class="govuk-heading-l">Communication emails to schools</h1>
+
+    <p>Emails to schools in relation to the register early career teacher service.</p>
+
+    <h2 class="govuk-heading-m">Outside service</h2>
+
+    <p>Emails sent from outside of the service to school induction tutors.</p>
+
+
+    <!-- <p><a href="advance-notice-to-sit-no-launch-date.html" class="govuk-link govuk-link--no-visited-state">Advance notice of new service (service not yet launched)</a></p> -->
+    <p><a href="notice-to-sit-launched-reg-not-open.html" class="govuk-link govuk-link--no-visited-state">Notice of new service (service launched, registration 2026-2027 not yet open)</a></p>
+    <p><a href="reg-open-to-sit.html" class="govuk-link govuk-link--no-visited-state">Registration open for academic year 2026-2027</a></p>
+    <p><a href="sit-termly-reminder.html" class="govuk-link govuk-link--no-visited-state">Termly reminder</a></p>
+
+    <!-- <p><a href="notice-to-sit-launched-reg-open.html" class="govuk-link govuk-link--no-visited-state">Notice of new service launched and registration open</a></p> -->
+
+    <!-- <h3 class="govuk-heading-s">GIAS follow-ups/returned SIT emails</h3>
+    <p>We have designed emails to GIAS contacts where delivery of the initial email to induction tutors (above) has failed,</p>
+    <p>These emails will be sent to GIAS contacts when delivery of the initial email to induction tutors (above) has failed.</p> 
+    <p>The content is the same as those sent to induction tutors, but includes specific instruction for the GIAS contact.</p>
+    <p><a href="GIAS-advance-notice-to-sit-no-launch-date.html" class="govuk-link govuk-link--no-visited-state">Advance notice of new service (service not yet launched)</a></p> 
+    <p><a href="GIAS-notice-to-sit-launched-reg-not-open.html" class="govuk-link govuk-link--no-visited-state">Notice of new service (service launched, registration 2026-2027 not yet open)</a></p> 
+    <p><a href="GIAS-reg-open-to-sit.html" class="govuk-link govuk-link--no-visited-state">Registration open</a></p> 
+    <p><a href="GIAS-launched-reg-open.html" class="govuk-link govuk-link--no-visited-state">Notice of new service launched and registration open</a></p> 
+-->
+
+    <h2 class="govuk-heading-m">In service</h2>
+
+    <p>Emails sent automatically from within the service, triggered by a particular action.</p>
+
+
+    <p><a href="new-sit.html" class="govuk-link govuk-link--no-visited-state">New school induction tutor</a></p>
+    <p><a href="new-ect-provider-led.html" class="govuk-link govuk-link--no-visited-state">New ECT registered (provider-led)</a></p>
+    <p><a href="new-ect-school-led.html" class="govuk-link govuk-link--no-visited-state">New ECT registered (school-led)</a></p>
+    <p><a href="new-mentor.html" class="govuk-link govuk-link--no-visited-state">New mentor registered</a></p>
+
+
+
+    {% endblock %}

@@ -1,0 +1,40 @@
+{% set abName = 'Golden Leaf Teaching School Hub' %}
+{% extends "layouts/signed-in.html" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+
+  <!-- generic -->   
+<h1 class="govuk-heading-l">You do not have permission to allow [application name] to send data to Department for Education (DfE)</h1>
+
+    <p class="govuk-body">A request has been made to allow [Application name] to send data to DfE.</p>
+
+    <p class="govuk-body">You do not have permission to allow this.</p>
+
+   <h2 class="govuk-heading-m">What you can do</h2>
+
+        <p class="govuk-body">Lorem ipsum.</p>
+ 
+    <a href="third-party-approved" class="govuk-button">Return to [application name]</a>
+
+<hr>
+ <!-- school -->   
+  <h1 class="govuk-heading-l">You do not have permission to allow [application name] to send Golden Leaf Teaching School Hub data to Department for Education (DfE)</h1>
+
+    <p class="govuk-body">A request has been made to allow [Application name] to send Golden Leaf Teaching School Hub data to DfE.</p>
+
+    <p class="govuk-body">You do not have permission to allow this.</p>
+
+       <h2 class="govuk-heading-m">What you can do</h2>
+
+        <p class="govuk-body">Lorem ipsum.</p>
+ 
+    <a href="third-party-approved" class="govuk-button">Return to [application name]</a>
+ 
+  </div>
+</div>
+
+{% endblock %}

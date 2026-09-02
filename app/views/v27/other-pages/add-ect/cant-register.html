@@ -1,0 +1,22 @@
+{% extends "layouts/ects.html" %}
+
+{% set pageName="You cannot register John Smith" %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+            <h1 class="govuk-heading-l">{{ pageName }}</h1>
+            <p class="govuk-body">Our records show that John Smith cannot be registered for training or mentoring.</p>
+            <p><a href="../../school/home/ects">Back to ECTs</a></p>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

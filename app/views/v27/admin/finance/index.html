@@ -1,0 +1,34 @@
+{% extends "layouts/admin.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+</style>
+{% endblock %}
+
+{% set pageName="Finance" %}
+{% set activeNav="finance" %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-8">{{pageName}}</h1>
+        <h2 class="govuk-heading-m">
+        <a class="govuk-link govuk-link--no-underline govuk-link--no-visited-state" href="statements">Statements</a>
+        </h2>
+        <p class="govuk-body">
+        Monthly record of payments made to lead providers.
+        </p>
+        <hr class="govuk-section-break--l govuk-section-break--visible">
+                 <h2 class="govuk-heading-m">
+         <a class="govuk-link govuk-link--no-underline govuk-link--no-visited-state" href="search-declarations">Search declarations</a>
+         </h2>
+         <p class="govuk-body">Search for declarations by declaration ID.</p>
+    </div> 
+</div>
+
+{% endblock %}

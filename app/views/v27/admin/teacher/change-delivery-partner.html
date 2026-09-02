@@ -1,0 +1,50 @@
+{% extends "layouts/admin.html" %}
+
+{% set pageName="Change delivery partner for John Smith" %}
+{% set activeNav="teachers" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+    <p>Ambition Institute is working with more than one delivery partner for 2025.</p>
+
+    {{govukRadios({
+      name: "new-delivery-partner",
+      fieldset: {
+        legend: {
+          text: "Select which delivery partner is delivering John Smith's training",
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "alpha",
+          text: "Alpha Teaching School Hub",
+          checked: true
+        },
+        {
+          value: "saffron",
+          text: "Saffron Teaching School Hub"
+        }
+      ]
+    })}}
+
+
+    <form method="post" action="../teachers-details?section=training&dpChanged=true">
+      <button class="govuk-button" data-module="govuk-button">Confirm</button>
+    </form>
+
+    <p><a href="../teachers-details?section=overview">Cancel and go back to John Smith</a></p>
+  </div>
+</div>
+{% endblock %}

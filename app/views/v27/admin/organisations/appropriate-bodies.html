@@ -1,0 +1,83 @@
+{% extends "layouts/admin.html" %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% set pageName="Appropriate bodies" %}
+{% set activeNav="organisations" %}
+
+{% block beforeContent %}
+{{govukBreadcrumbs({
+    items: [
+        {
+            text: "Organisations",
+            href: "index"
+        },
+        {
+            text: pageName
+        }
+    ]
+})}}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+
+                <p class="govuk-body">
+                    <a class="govuk-link" href="#">View all bulk uploads</a>
+                </p>
+
+                <form action="#" method="get">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-label--s" for="q-field">Search for an appropriate body</label>
+                        <input class="govuk-input" id="q-field" name="q" type="text">
+                    </div>
+                    <button class="govuk-button" data-module="govuk-button" type="submit">Search</button>
+                </form>
+
+                <div class="govuk-summary-card">
+                    <div class="govuk-summary-card__title-wrapper">
+                        <h2 class="govuk-summary-card__title">
+                            <a class="govuk-link" href="view-appropriate-body?ab=1">Appropriate body 1</a>
+                        </h2>
+                    </div>
+                    <div class="govuk-summary-card__content">
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                <dt class="govuk-summary-list__key">Ongoing inductions</dt>
+                                <dd class="govuk-summary-list__value">0</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+
+                <div class="govuk-summary-card">
+                    <div class="govuk-summary-card__title-wrapper">
+                        <h2 class="govuk-summary-card__title">
+                            <a class="govuk-link" href="view-appropriate-body?ab=2">Appropriate body 2</a>
+                        </h2>
+                    </div>
+                    <div class="govuk-summary-card__content">
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                                <dt class="govuk-summary-list__key">Ongoing inductions</dt>
+                                <dd class="govuk-summary-list__value">1</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

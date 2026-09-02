@@ -1,0 +1,127 @@
+{% extends "layouts/main.html" %}
+
+{% block head %}
+{{ super() }} <!-- This includes the content from the base head block -->
+{% include "../filters.njk" %}
+{% endblock %}
+
+{% set pageName="ECTs and mentors at your school" %}
+
+{% block content %}
+
+{% if data['schoolName'] %}
+{% set schoolName = data['schoolName'] %}
+{% else %}
+{% set schoolName = 'Test Primary School' %}
+{% endif %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-caption-l">{{schoolName}}</h1>
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+        <a href="../what-youll-need" class="govuk-button">Register an ECT starting at your school</a>
+        <hr class="govuk-section-break--m">
+    </div>
+
+    <div class="govuk-grid-column-one-third">
+        <div class="moj-filter">
+            <div class="moj-filter__content">
+                <div class="moj-filter__options">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-label--m" for="keywords"> Search by name or teacher reference number (TRN)</label>
+                        <input class="govuk-input" id="keywords" name="keywords" type="text">
+                    </div>
+                    {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+
+                    {{ govukCheckboxes({
+                    name: "mentor",
+                    classes: "govuk-checkboxes--small",
+                    fieldset: {
+                    legend: {
+                    text: "Type",
+                    classes: "govuk-fieldset__legend--m"
+                    }
+                    },
+                    items: [
+                    {
+                    value: "assigned",
+                    text: "Early career teacher",
+                    checked: true
+                    },
+                    {
+                    value: "not-assigned",
+                    text: "Mentor",
+                    checked: true
+                    }
+                    ]
+                    }) }}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="govuk-grid-column-two-thirds">
+
+        <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+                <h3 class="govuk-summary-card__title govuk-!-font-size-24">
+                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="view-ect">Steven Taylor</a></strong>
+                </h3>
+            </div>
+            <div class="govuk-summary-card__content">
+                <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Participant type</dt>
+                        <dd class="govuk-summary-list__value">Early career teacher</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">TRN</dt>
+                        <dd class="govuk-summary-list__value">1539295</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">School start date</dt>
+                        <dd class="govuk-summary-list__value">September 2023</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Mentor</dt>
+                        <dd class="govuk-summary-list__value">
+                            <p>John Doe</p>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+
+        <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+                <h3 class="govuk-summary-card__title govuk-!-font-size-24">
+                    <strong><a class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold" href="view-ect">Emily Brown</a></strong>
+                </h3>
+            </div>
+            <div class="govuk-summary-card__content">
+                <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-0">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Participant type</dt>
+                        <dd class="govuk-summary-list__value">Mentor</dd>
+
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">TRN</dt>
+                        <dd class="govuk-summary-list__value">3929519</dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Assigned ECT</dt>
+                        <dd class="govuk-summary-list__value">
+                            <p>Steven Taylor</p>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

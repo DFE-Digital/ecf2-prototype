@@ -1,0 +1,51 @@
+{% extends "layouts/admin.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+</style>
+{% endblock %}
+
+{% set pageName="Daphne Blake" %}
+{% set activeNav="users" %}
+
+{% block beforeContent %}
+{{govukBackLink({
+    href: "javascript:history.back()"
+})}}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <span class="govuk-caption-m">DfE staff</span>
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+        <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">Name</dt>
+                <dd class="govuk-summary-list__value">Daphne Blake</dd>
+            </div>
+            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">Email address</dt>
+                <dd class="govuk-summary-list__value">daphne@example.com</dd>
+            </div>
+            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">Created on</dt>
+                <dd class="govuk-summary-list__value">19 February 2026</dd>
+            </div>
+            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">Role</dt>
+                <dd class="govuk-summary-list__value">User manager</dd>
+            </div>
+        </dl>
+
+        <a class="govuk-button govuk-button--secondary" data-module="govuk-button" href="#" data-govuk-button-init="">Edit<span class="govuk-visually-hidden"> Daphne Blake</span></a>
+
+        <p><a href="remove-access-daphne-blake" class="govuk-link govuk-link--no-visited-state">Remove user</a></p>
+
+    </div> 
+</div>
+
+{% endblock %}

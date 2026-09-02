@@ -1,0 +1,56 @@
+{% extends "layouts/plain.html" %}
+
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% set pageName="Breadcrumbs" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "../index"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+        <p>This example shows how to use the breadcrumbs component to help users understand where they are within a website's structure and navigate to parent pages. We'd use this when users need to understand their location in a hierarchical structure.</p>
+
+        <p>Breadcrumbs are most useful in services with deep page hierarchies, content that's organised in categories, or when users might arrive at pages through search or direct links and need context about where they are.</p>
+
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+        <div class="example-box">
+            {{ govukBreadcrumbs({
+              items: [
+                {
+                  text: "Home",
+                  href: "#"
+                },
+                {
+                  text: "Organisations",
+                  href: "#"
+                },
+                {
+                  text: "Lead providers",
+                  href: "#"
+                },
+                {
+                  text: "Ambition Institute"
+                }
+              ]
+            }) }}
+            
+            <h3 class="govuk-heading-l govuk-!-margin-top-6">Ambition Institute</h3>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %} 
