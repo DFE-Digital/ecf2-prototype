@@ -22,8 +22,8 @@
 }
 
 // Account info (school/org name, optional extra link, Sign out) rendered via
-// govukServiceNavigation's slots.end (govuk-frontend 6.5 inline end slot),
-// right-aligned inline with the nav tabs on the light service-nav background.
+// govukServiceNavigation's slots.start, above the service name/nav row, on
+// the light service-nav background.
 .app-service-nav__account {
   display: flex;
   align-items: baseline;
@@ -45,9 +45,42 @@
   }
 }
 
-// Trial: right-align when rendered via slots.start (above the service name/nav
-// row) instead of slots.end (where it's already pushed right by the inline
-// end-slot's flex-growing sibling).
 .app-service-nav__account--right {
   justify-content: flex-end;
+}
+
+// Trial: pair service name + account block on one row, force nav onto its
+// own row below. .govuk-service-navigation__container normally bundles
+// service name and nav together — "display: contents" unwraps it so its
+// children become direct flex items here instead, reordered via `order`.
+// Nav keeps its default collapse-to-"Menu" behaviour on mobile untouched;
+// this only changes which row it sits on.
+.app-service-nav--split .govuk-width-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 15px;
+}
+
+.app-service-nav--split .govuk-service-navigation__container {
+  display: contents;
+}
+
+.app-service-nav--split .govuk-service-navigation__service-name {
+  order: 1;
+}
+
+.app-service-nav--split .app-service-nav__account {
+  order: 2;
+}
+
+@media (min-width: 40.0625em) {
+  .app-service-nav--split .app-service-nav__account {
+    margin-left: auto;
+  }
+}
+
+.app-service-nav--split .govuk-service-navigation__wrapper {
+  order: 3;
+  flex: 1 0 100%;
 }
