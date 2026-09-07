@@ -21,28 +21,20 @@
   line-height: 1;
 }
 
-// School name + Sign out sit in the blue header (GOV.UK Frontend 6 removed header nav)
-.app-header__container {
+// Account info (school/org name, optional extra link, Sign out) rendered via
+// govukServiceNavigation's slots.end (govuk-frontend 6.5 inline end slot),
+// right-aligned inline with the nav tabs on the light service-nav background.
+.app-service-nav__account {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-}
-
-.app-header__account {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  align-items: baseline;
   flex-wrap: wrap;
-  gap: 0;
-  color: #ffffff;
+  padding: 15px 0;
 }
 
-.app-header__account-item {
-  padding: 16px 0 14px;
+.app-service-nav__account-item {
   margin-left: 15px;
-  border-left: 1px solid rgba(255, 255, 255, 0.3);
   padding-left: 15px;
+  border-left: 1px solid var(--govuk-border-colour, #cecece);
   font-size: 16px;
   line-height: 1.25;
 
@@ -53,9 +45,9 @@
   }
 }
 
-.app-header__account .govuk-link--inverse {
-  &:link,
-  &:visited {
-    color: #ffffff;
-  }
+// Trial: right-align when rendered via slots.start (above the service name/nav
+// row) instead of slots.end (where it's already pushed right by the inline
+// end-slot's flex-growing sibling).
+.app-service-nav__account--right {
+  justify-content: flex-end;
 }

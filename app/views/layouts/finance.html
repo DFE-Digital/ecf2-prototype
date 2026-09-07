@@ -20,11 +20,13 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
     } */
 </style>
 {% from "layouts/macros/signed-in-header.njk" import signedInHeader %}
+{% from "layouts/macros/nav-account-links.njk" import navAccountLinks %}
 {{ signedInHeader({
   organisationName: "Department for Education"
 }) }}
 <section aria-label="Service information" class="govuk-service-navigation" data-module="govuk-service-navigation">
     <div class="govuk-width-container">
+        {{ navAccountLinks({ organisationName: "Department for Education" }) }}
         <div class="govuk-service-navigation__container">
       <span class="govuk-service-navigation__service-name">
         <a href="#" id="home" class="govuk-service-navigation__link"> Register early career teachers </a>

@@ -1,30 +1,15 @@
 {#
-  GOV.UK header with school/organisation name and Sign out in the blue bar.
-  Call govukServiceNavigation separately in the layout for section links.
+  GOV.UK header — logo only. Account info (school/org name, extra link, sign out)
+  now renders in the service navigation bar via slots.end — see
+  app/views/layouts/macros/nav-account-links.njk
 #}
-{% from "govuk/macros/logo.njk" import govukLogo %}
+{% from "layouts/macros/dfe-header-logo.njk" import dfeHeaderLogo %}
 
 {% macro signedInHeader(params) %}
-  {% set schoolName = params.schoolName | default("St John's C of E Primary School") %}
-  {% set organisationName = params.organisationName %}
-  {% set accountLabel = organisationName if organisationName else schoolName %}
-
   <div class="govuk-header govuk-header--full-width-border">
-    <div class="govuk-header__container govuk-width-container app-header__container">
+    <div class="govuk-header__container govuk-width-container">
       <div class="govuk-header__logo">
-        <a href="/" class="govuk-header__homepage-link">
-          {{ govukLogo({
-            classes: "govuk-header__logotype",
-            ariaLabelText: "GOV.UK"
-          }) | trim }}
-        </a>
-      </div>
-      <div class="app-header__account">
-        <span class="app-header__account-item">{{ accountLabel }}</span>
-        {% if params.extraLink %}
-        <a class="govuk-link govuk-link--inverse app-header__account-item" href="{{ params.extraLink.href }}">{{ params.extraLink.text }}</a>
-        {% endif %}
-        <a class="govuk-link govuk-link--inverse app-header__account-item" href="#">Sign out</a>
+        {{ dfeHeaderLogo() }}
       </div>
     </div>
   </div>

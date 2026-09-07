@@ -2,6 +2,7 @@
 {% extends "layouts/signed-in.html" %}
 
 {% from "layouts/macros/signed-in-header.njk" import signedInHeader %}
+{% from "layouts/macros/nav-account-links.njk" import navAccountLinks %}
 
 {% set manageInMain = data.manageInMain == "true" %}
 
@@ -10,10 +11,17 @@
   schoolName: abName,
   extraLink: { text: "Manage data access", href: "manage-third-party-access" }
 }) }}
+{% set accountLinksHtml %}{{ navAccountLinks({
+  schoolName: abName,
+  extraLink: { text: "Manage data access", href: "manage-third-party-access" }
+}) }}{% endset %}
 {{ govukServiceNavigation({
   serviceName: "Register early career teachers",
   serviceUrl: "#",
-  navigationId: "service-navigation-list"
+  navigationId: "service-navigation-list",
+  slots: {
+    start: accountLinksHtml
+  }
 }) }}
 {% endblock %}
 

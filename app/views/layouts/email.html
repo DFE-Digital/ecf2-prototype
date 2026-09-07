@@ -7,11 +7,16 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
 
 {% set bodyClasses = "use-dfe-brand" %}
 
+{% from "layouts/macros/dfe-header-logo.njk" import dfeHeaderLogo %}
+
 {% block header %}
-{{ govukHeader({
-homepageUrl: "/",
-classes: "govuk-header--full-width-border"
-}) }}
+<div class="govuk-header govuk-header--full-width-border">
+  <div class="govuk-header__container govuk-width-container">
+    <div class="govuk-header__logo">
+      {{ dfeHeaderLogo() }}
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 {% block content %}

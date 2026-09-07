@@ -14,11 +14,13 @@
     {% endif %}
     
     {% from "layouts/macros/signed-in-header.njk" import signedInHeader %}
+{% from "layouts/macros/nav-account-links.njk" import navAccountLinks %}
 
 {% block header %}
 {{ signedInHeader({
   schoolName: schoolName
 }) }}
+{% set accountLinksHtml %}{{ navAccountLinks({ schoolName: schoolName }) }}{% endset %}
 {{ govukServiceNavigation({
   serviceName: "Register early career teachers",
   serviceUrl: "#",
@@ -45,7 +47,10 @@
         id: "school"
       }
     }
-  ]
+  ],
+  slots: {
+    start: accountLinksHtml
+  }
 }) }}
 {% endblock %}
     

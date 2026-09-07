@@ -1,0 +1,9 @@
+{#
+  DfE Header (Rebrand) logo — see design.education.gov.uk guidance.
+  Renders the homepage link + logo image only, callers wrap in .govuk-header__logo
+#}
+{% macro dfeHeaderLogo() %}
+<a href="/" class="govuk-header__homepage-link">
+  <img src="/public/images/rebrand/department-for-education_white.png" alt="Department for Education" class="govuk-header__logotype">
+</a>
+{% endmacro %}

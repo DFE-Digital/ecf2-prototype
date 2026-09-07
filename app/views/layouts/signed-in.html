@@ -18,15 +18,20 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
 {% endif %}
 
 {% from "layouts/macros/signed-in-header.njk" import signedInHeader %}
+{% from "layouts/macros/nav-account-links.njk" import navAccountLinks %}
 
 {% block header %}
 {{ signedInHeader({
   schoolName: schoolName
 }) }}
+{% set accountLinksHtml %}{{ navAccountLinks({ schoolName: schoolName }) }}{% endset %}
 {{ govukServiceNavigation({
   serviceName: "Register early career teachers",
   serviceUrl: "#",
-  navigationId: "service-navigation-list"
+  navigationId: "service-navigation-list",
+  slots: {
+    start: accountLinksHtml
+  }
 }) }}
 {% endblock %}
 

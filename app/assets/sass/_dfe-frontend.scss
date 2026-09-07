@@ -31,6 +31,16 @@
   color: var(--dfe-brand-header-link-colour);
 }
 
+/* DfE Header (Rebrand) logo — see design.education.gov.uk guidance */
+.use-dfe-brand .govuk-header__logotype {
+  height: 30px;
+}
+
+.use-dfe-brand .govuk-header__homepage-link:focus .govuk-header__logotype {
+  content: url("/public/images/rebrand/department-for-education_black.png");
+  height: 30px;
+}
+
 
 
 

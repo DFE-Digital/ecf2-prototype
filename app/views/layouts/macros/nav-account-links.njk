@@ -1,0 +1,17 @@
+{#
+  Account info (school/organisation name, optional extra link, Sign out)
+  for rendering inside govukServiceNavigation's slots.end (align: "inline").
+  Designed for the light service-navigation background — do not reuse
+  .app-header__account* (white/inverse) styles here.
+#}
+{% macro navAccountLinks(params) %}
+  {% set schoolName = params.schoolName | default("St John's C of E Primary School") %}
+  {% set accountLabel = params.organisationName if params.organisationName else schoolName %}
+  <div class="app-service-nav__account{% if params.classes %} {{ params.classes }}{% endif %}">
+    <span class="app-service-nav__account-item">{{ accountLabel }}</span>
+    {% if params.extraLink %}
+    <a class="govuk-link app-service-nav__account-item" href="{{ params.extraLink.href }}">{{ params.extraLink.text }}</a>
+    {% endif %}
+    <a class="govuk-link app-service-nav__account-item" href="#">Sign out</a>
+  </div>
+{% endmacro %}
