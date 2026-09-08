@@ -1,0 +1,37 @@
+{% extends "layouts/ects.html" %}
+
+{% set ectId = data.ect or 'john-smith' %}
+{% set activeEct = {} %}
+{% for person in data.ects %}
+  {% if person.id == ectId %}
+    {% set activeEct = person %}
+  {% endif %}
+{% endfor %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "view-ect?ect=" + activeEct.id
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Confirm that {{ activeEct.name }} is no longer starting at your school as an ECT</h1>
+
+    <p>{{ activeEct.name }} will be removed from your school's ECT list.</p>
+
+    <form method="post" action="ect-no-longer-starting">
+      <input type="hidden" name="ectId" value="{{ activeEct.id }}">
+      <input type="hidden" name="ectName" value="{{ activeEct.name }}">
+
+      {{ govukButton({
+        text: "Confirm and continue"
+      }) }}
+    </form>
+
+    <p><a class="govuk-link" href="view-ect?ect={{ activeEct.id }}">Cancel and go back to {{ activeEct.name }}'s details</a></p>
+  </div>
+</div>
+{% endblock %}

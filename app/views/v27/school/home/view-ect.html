@@ -268,9 +268,29 @@ href: "ects"
     {% endif %}
 
 
+    {% set startDateParts = activeEct.schoolStartDate.split(' ') %}
+    {% set startDay = startDateParts[0] | int %}
+    {% set startMonth = 0 %}
+    {% set startYear = startDateParts[2] | int %}
+    {% set months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] %}
+    {% for month in months %}
+      {% if month == startDateParts[1] %}
+        {% set startMonth = loop.index %}
+      {% endif %}
+    {% endfor %}
+    {% set startDateIsFuture = startYear > data.currentYear or (startYear == data.currentYear and startMonth > data.currentMonth) or (startYear == data.currentYear and startMonth == data.currentMonth and startDay > data.currentDay) %}
+
         <hr class="govuk-section-break govuk-section-break--m">
       {% if activeEct.status !== 'Completed induction' %}
-        {% if activeEct.leavingDate %}
+        {% if startDateIsFuture %}
+        <h2 class="govuk-heading-m">Tell us if {{ activeEct.name }} is no longer starting at your school as an ECT</h2>
+
+        <p>We need to know if {{ activeEct.name }} will no longer be starting at your school as an ECT.</p>
+
+        <p>You can change the school start date if they will be starting on a date different to what you told us when they were registered.</p>
+
+        <p><a class="govuk-link govuk-link--no-visited-state" href="ect-no-longer-starting?ect={{ activeEct.id }}">Tell us if {{ activeEct.name }} is no longer starting at your school</a>.</p>
+        {% elif activeEct.leavingDate %}
         <h1 class="govuk-heading-m">{{ activeEct.name }} is leaving your school</h1>
 
         <p>You've told us {{ activeEct.name }} is leaving your school on {{ activeEct.leavingDate }}. You will not be able to view or edit {{ activeEct.name }}'s details after {{ activeEct.leavingDate }}.</p>

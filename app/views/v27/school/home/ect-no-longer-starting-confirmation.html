@@ -1,0 +1,19 @@
+{% extends "layouts/ects.html" %}
+
+{% set ectName = data.ectName or 'John Smith' %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">{{ ectName }} has been removed from your school's ECT list</h1>
+    </div>
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+
+    <p>We’ll let {{ ectName }}’s appropriate body and lead provider know, if they’re on a provider-led programme, that you’ve told us they’re no longer starting at your school.</p>
+
+    <p><a class="govuk-link" href="ects">Back to ECTs</a></p>
+  </div>
+</div>
+{% endblock %}

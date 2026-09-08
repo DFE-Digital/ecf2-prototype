@@ -794,6 +794,18 @@ module.exports = router => {
         res.redirect(v + school + 'home/ect-leaving-confirmation?ect=' + ectId);
     })
 
+    router.post(v + school + 'home/ect-no-longer-starting', (req, res) => {
+        req.session.data.ectId = req.body.ectId;
+        req.session.data.ectName = req.body.ectName;
+        res.redirect(v + school + 'home/ect-no-longer-starting-confirmation?ect=' + req.body.ectId);
+    })
+
+    router.post(v + school + 'home/ect-no-longer-starting-confirmation', (req, res) => {
+        const ectId = req.body.ectId;
+        req.session.data.ects = req.session.data.ects.filter(ect => ect.id !== ectId);
+        res.redirect(v + school + 'home/ect-no-longer-starting-confirmation?ect=' + ectId);
+    })
+
     // mentor leaving routes
 
     router.post(v + school + 'home/mentor-leaving', (req, res) => {
