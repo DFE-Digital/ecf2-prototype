@@ -1,0 +1,29 @@
+{#
+Isolated layout for testing the SVG and text DfE header lock-up.
+#}
+
+{% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
+
+{% set bodyClasses = "use-dfe-brand" %}
+
+{% block header %}
+<div class="govuk-header govuk-header--full-width-border">
+  <div class="govuk-header__container govuk-width-container">
+    <div class="govuk-header__logo">
+      <a href="/" class="govuk-header__homepage-link app-header-logo-lockup">
+        <span class="app-header-logo-lockup__crest" aria-hidden="true"></span>
+        <span class="app-header-logo-lockup__text">Department for Education</span>
+      </a>
+    </div>
+  </div>
+</div>
+{{ govukServiceNavigation({
+  serviceName: serviceName,
+  serviceUrl: "#"
+}) }}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="/public/javascripts/dfe-frontend.js"></script>
+{% endblock %}

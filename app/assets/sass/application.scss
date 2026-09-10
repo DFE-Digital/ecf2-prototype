@@ -21,6 +21,79 @@
   line-height: 1;
 }
 
+.govuk-header .govuk-header__logo .app-header-logo-lockup {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: 33.8px;
+  gap: 8px;
+  padding-left: 2px;
+  color: #fff;
+  font-family: Inter, sans-serif;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1;
+  text-decoration: none;
+  vertical-align: top;
+}
+
+.govuk-header .govuk-header__logo .app-header-logo-lockup:hover {
+  margin-bottom: 0;
+  border-bottom: 0;
+}
+
+.govuk-header .govuk-header__logo .app-header-logo-lockup:hover::after {
+  position: absolute;
+  right: 0;
+  bottom: -3px;
+  left: 0;
+  height: 3px;
+  background: currentColor;
+  content: "";
+}
+
+.govuk-header .govuk-header__logo .app-header-logo-lockup:focus {
+  margin-bottom: 0;
+  border-bottom: 0;
+  outline: 3px solid transparent;
+  color: #0b0c0c;
+  background-color: #fd0;
+  box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
+}
+
+.govuk-header .govuk-header__logo .app-header-logo-lockup:focus::after {
+  content: none;
+}
+
+.govuk-header .govuk-header__logo .app-header-logo-lockup::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 2px;
+  height: 30px;
+  background: currentColor;
+  content: "";
+  transform: translateY(-50%);
+}
+
+.app-header-logo-lockup__crest {
+  display: block;
+  width: 40px;
+  height: 30px;
+  background-color: currentColor;
+  -webkit-mask: url("/public/images/rebrand/govuk-crest.svg") calc(50% + 4px) center / auto 92% no-repeat;
+  mask: url("/public/images/rebrand/govuk-crest.svg") calc(50% + 4px) center / auto 92% no-repeat;
+}
+
+.app-header-logo-lockup__text {
+  display: inline-block;
+  margin-right: -3.5px;
+  transform: scaleX(0.985);
+  transform-origin: left center;
+  white-space: nowrap;
+}
+
 // Account info (school/org name, optional extra link, Sign out) rendered via
 // govukServiceNavigation's slots.start, above the service name/nav row, on
 // the light service-nav background.
