@@ -1002,6 +1002,11 @@ module.exports = router => {
         res.redirect(v + school + mentor + 'assigned')
     })
 
+    // request access to the service
+    router.post(v + 'other-pages/other/service-not-added', (req, res) => {
+        res.redirect(v + 'other-pages/other/service-request-sent')
+    })
+
     // change journeys
 
         // change lead provider
