@@ -579,7 +579,7 @@
                   ]
                 })}}
 
-
+{#
                 <h4 class="govuk-heading-m">Mentor history</h4>
                 <p class="govuk-body">No training periods recorded.</p>
 
@@ -703,7 +703,7 @@
                     </dd>
                   </div>
                 </dl>
-
+#}
 
                 <h4 class="govuk-heading-m">Mentor history</h4>
 
@@ -1104,6 +1104,417 @@
 
             {% if currentSection == "timeline" %}
                 <h3 class="govuk-heading-m">Timeline</h3>
+
+<div class="moj-timeline">
+
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">(Newest event) Title: what happened, in a few words</h2>
+      <p class="moj-timeline__byline">by [person], [type]: [organisation]</p>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2026-06-14T14:01:00.000Z">Date: when it happened, e.g. 14 June 2026 at 2:01pm</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>(Optional) Description: the one or two facts someone needs to understand the event.</p>
+      <p>If something changed, write "Now X (was Y)". Leave empty if the title says it all.</p>
+      <p>(Declarations only) Link through to the Declarations tab:
+        <a class="govuk-link" href="#">
+          View declaration
+          <span class="govuk-visually-hidden">for the [type] declaration submitted on [date]</span>
+        </a>
+      </p>
+      <details class="govuk-details govuk-!-margin-bottom-0">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            (Optional, only if more than two facts) Training details
+            <span class="govuk-visually-hidden">for [event title] on [date]</span>
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          Lead provider: Ambition Institute<br>
+          Delivery partner: Alpha Teaching School Hub<br>
+          Contract period: 2025
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">(Oldest event) Title: what happened, in a few words</h2>
+      <p class="moj-timeline__byline">by [person], [type]: [organisation]</p>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2026-05-28T10:45:00.000Z">Date: when it happened, e.g. 28 May 2026 at 10:45am</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>(Optional) Description: the one or two facts someone needs to understand the event.</p>
+      <p>If something changed, write "Now X (was Y)". Leave empty if the title says it all.</p>
+      <p>(Declarations only) Link through to the Declarations tab:
+        <a class="govuk-link" href="#">
+          View declaration
+          <span class="govuk-visually-hidden">for the [type] declaration submitted on [date]</span>
+        </a>
+      </p>
+      <details class="govuk-details govuk-!-margin-bottom-0">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            (Optional, only if more than two facts) Training details
+            <span class="govuk-visually-hidden">for [event title] on [date]</span>
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          Lead provider: Ambition Institute<br>
+          Delivery partner: Alpha Teaching School Hub<br>
+          Contract period: 2025
+        </div>
+      </details>
+    </div>
+  </div>
+
+{#
+
+<div class="moj-timeline">
+
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">Mentor training schedule changed</h2>
+      <p class="moj-timeline__byline">by Sarah Williams, DfE admin</p>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2026-01-15T14:30:00.000Z">15 January 2026 at 2:30pm</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>Now <strong>ecf-standard-september</strong> (was ecf-standard-january).</p>
+      <details class="govuk-details govuk-!-margin-bottom-0">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Training details
+            <span class="govuk-visually-hidden">for the mentor training schedule change on 15 January 2026</span>
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          Lead provider: Ambition Institute<br>
+          Delivery partner: Alpha Teaching School Hub<br>
+          Contract period: 2025
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">ECT training declaration submitted (retained-1)</h2>
+      <p class="moj-timeline__byline">by Ambition Institute, lead provider</p>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2025-12-01T10:30:00.000Z">1 December 2025 at 10:30am</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>Delivery partner: Alpha Teaching School Hub.
+        <a class="govuk-link" href="#">
+          View declaration
+          <span class="govuk-visually-hidden">for the retained-1 declaration submitted on 1 December 2025</span>
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">ECT training programme changed</h2>
+      <p class="moj-timeline__byline">by Helen Carter, school: St John's C of E Primary School</p>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2025-11-20T15:27:00.000Z">20 November 2025 at 3:27pm</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>Now <strong>school-led</strong> (was provider-led).</p>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">Mentor training withdrawn</h2>
+      <p class="moj-timeline__byline">by Ambition Institute, lead provider</p>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2025-11-20T11:00:00.000Z">20 November 2025 at 11:00am</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>Withdrawn by the lead provider. Training period: 1 September 2025 to 1 May 2026.</p>
+      <details class="govuk-details govuk-!-margin-bottom-0">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Training details
+            <span class="govuk-visually-hidden">for the mentor training withdrawal on 20 November 2025</span>
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          Lead provider: Ambition Institute<br>
+          Delivery partner: Alpha Teaching School Hub<br>
+          Contract period: 2025
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">ECT training declaration voided (retained-1)</h2>
+      <p class="moj-timeline__byline">by Peter Pettigrew, DfE finance admin</p>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2025-11-05T16:05:00.000Z">5 November 2025 at 4:05pm</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>
+        <a class="govuk-link" href="#">
+          View declaration
+          <span class="govuk-visually-hidden">for the retained-1 declaration voided on 5 November 2025</span>
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">Registered for mentor training</h2>
+      <p class="moj-timeline__byline">by Helen Carter, school: St John's C of E Primary School</p>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2025-09-25T10:15:00.000Z">25 September 2025 at 10:15am</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>At St John's C of E Primary School (URN 1103052).</p>
+      <details class="govuk-details govuk-!-margin-bottom-0">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Training details
+            <span class="govuk-visually-hidden">for the mentor training registration on 25 September 2025</span>
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          Lead provider: Ambition Institute<br>
+          Delivery partner: Alpha Teaching School Hub<br>
+          Schedule: ecf-standard-september
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">Assigned mentor: Steven Davies</h2>
+      <p class="moj-timeline__byline">by Helen Carter, school: St John's C of E Primary School</p>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2025-07-01T09:00:00.000Z">1 July 2025 at 9:00am</time>
+    </p>
+    <div class="moj-timeline__description"></div>
+  </div>
+
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">Induction period started</h2>
+      <p class="moj-timeline__byline">by Felicity Kendall, appropriate body: Umber Teaching School Hub</p>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2025-01-25T09:48:00.000Z">25 January 2025 at 9:48am</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>At St John's C of E Primary School (URN 1103052).</p>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">Registered as an ECT</h2>
+      <p class="moj-timeline__byline">by Helen Carter, school: St John's C of E Primary School</p>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2024-09-25T08:30:00.000Z">25 September 2024 at 8:30am</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>Working pattern: full time. Appropriate body: Umber Teaching School Hub.</p>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">Left school as an ECT</h2>
+      <p class="moj-timeline__byline">by David James, school: Alpha Primary School</p>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2024-09-24">24 September 2024</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>Left Alpha Primary School (URN 1195201) on 24 September 2024.</p>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">Email address changed</h2>
+      <p class="moj-timeline__byline">by Helen Carter, school: St John's C of E Primary School</p>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2024-09-24T14:20:00.000Z">24 September 2024 at 2:20pm</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>Now <strong>john.smith@example.com</strong> (was john.james@example.com).</p>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">Induction period ended</h2>
+      <p class="moj-timeline__byline">by Felicity Kendall, appropriate body: Umber Teaching School Hub</p>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2024-09-24T08:53:00.000Z">24 September 2024 at 8:53am</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>At Alpha Primary School (URN 1195201).</p>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">ECT training finished</h2>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2024-04-01">1 April 2024</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>At Abacus Primary School.</p>
+      <details class="govuk-details govuk-!-margin-bottom-0">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Training details
+            <span class="govuk-visually-hidden">for the ECT training that finished on 1 April 2024</span>
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          Lead provider: Ambition Institute<br>
+          Delivery partner: Alpha Teaching School Hub<br>
+          Contract period: 2022
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">Induction period started</h2>
+      <p class="moj-timeline__byline">by Felicity Kendall, appropriate body: Umber Teaching School Hub</p>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2023-09-25T14:48:00.000Z">25 September 2023 at 2:48pm</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>At Alpha Primary School (URN 1195201).</p>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">ECT training declaration submitted (started)</h2>
+      <p class="moj-timeline__byline">by Ambition Institute, lead provider</p>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2023-08-01T12:00:00.000Z">1 August 2023 at 12:00pm</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>Delivery partner: Alpha Teaching School Hub.
+        <a class="govuk-link" href="#">
+          View declaration
+          <span class="govuk-visually-hidden">for the started declaration submitted on 1 August 2023</span>
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">ECT training started</h2>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2022-09-01">1 September 2022</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>At Abacus Primary School.</p>
+      <details class="govuk-details govuk-!-margin-bottom-0">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Training details
+            <span class="govuk-visually-hidden">for the ECT training that started on 1 September 2022</span>
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          Lead provider: Ambition Institute<br>
+          Delivery partner: Alpha Teaching School Hub<br>
+          Schedule: ecf-standard-september
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">ECT contract period changed</h2>
+      <p class="moj-timeline__byline">by Sarah Williams, DfE admin</p>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2022-08-15T10:00:00.000Z">15 August 2022 at 10:00am</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>Now <strong>2022</strong> (was 2021).</p>
+      <details class="govuk-details govuk-!-margin-bottom-0">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Training details
+            <span class="govuk-visually-hidden">for the ECT contract period change on 15 August 2022</span>
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          Lead provider: Ambition Institute<br>
+          Delivery partner: Alpha Teaching School Hub<br>
+          School: Abacus Primary School
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">Name updated from the TRA record</h2>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2022-06-02T06:00:00.000Z">2 June 2022 at 6:00am</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>Now <strong>John Smith</strong> (was John James).</p>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">Teacher record created from the TRA record</h2>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2022-06-01T04:00:00.000Z">1 June 2022 at 4:00am</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>TRN 2959198. Name on the record: John James.</p>
+    </div>
+  </div>
+
+</div>
+
+#}
+
 
                 <!-- <div class="moj-timeline">
                   <div class="moj-timeline__item">
