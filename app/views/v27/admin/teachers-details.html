@@ -579,7 +579,7 @@
                   ]
                 })}}
 
-{#
+
                 <h4 class="govuk-heading-m">Mentor history</h4>
                 <p class="govuk-body">No training periods recorded.</p>
 
@@ -587,16 +587,6 @@
                 <h4 class="govuk-heading-m">Mentor history</h4>
 
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
-                  <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                      Training status
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                      <strong class="govuk-tag govuk-tag--green">
-                       Completed
-                      </strong>
-                    </dd>
-                  </div>
                   <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
                       Funding
@@ -612,20 +602,11 @@
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
                   <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
-                      Training status
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                      <strong class="govuk-tag govuk-tag--green">
-                       Completed
-                      </strong>
-                    </dd>
-                  </div>
-                  <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
                       Funding
                     </dt>
                     <dd class="govuk-summary-list__value">
-                      Completed during early roll-out.
+                      Completed during early roll-out.<br>
+                      Funding ended on 19 April 2021.
                     </dd>
                   </div>
                 </dl>
@@ -634,40 +615,16 @@
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
                   <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
-                      Training status
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                      <strong class="govuk-tag govuk-tag--blue">
-                       In progress
-                      </strong>
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                      <a class="govuk-link" href="#">Transfer mentor<span class="govuk-visually-hidden"> name</span></a>
-                    </dd>
-                  </div>
-                  <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
                       Funding
                     </dt>
                     <dd class="govuk-summary-list__value">
-                      No completed declaration submitted yet.<br>
-                      Still eligible for funding.
+                      Eligible for funded training.
                     </dd>
                   </div>
                 </dl>
 
 
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
-                  <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                      Training status
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                      <strong class="govuk-tag govuk-tag--grey">
-                       Not completed
-                      </strong>
-                    </dd>
-                  </div>
                   <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
                       Funding
@@ -683,27 +640,15 @@
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
                   <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
-                      Training status
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                      <strong class="govuk-tag govuk-tag--red">
-                        Dates missing
-                      </strong>
-                    </dd>
-                      <dd class="govuk-summary-list__actions">
-                      <a class="govuk-link" href="#">Update record<span class="govuk-visually-hidden"> name</span></a>
-                    </dd>
-                  </div>
-                  <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
                       Funding
                     </dt>
                     <dd class="govuk-summary-list__value">
-                      Funding eligibility cannot be calculated because dates are missing from this record.
+                      Not eligible for funded training yet.<br>
+                      They have not been assigned an early career teacher on provider-led training.
                     </dd>
                   </div>
                 </dl>
-#}
+
 
                 <h4 class="govuk-heading-m">Mentor history</h4>
 
@@ -712,31 +657,15 @@
     <h2 class="govuk-summary-card__title">
       Mentor training summary
     </h2>
-    <ul class="govuk-summary-card__actions">
-      <li class="govuk-summary-card__action">
-        <a class="govuk-link" href="#">Transfer mentor<span class="govuk-visually-hidden"> (University of Gloucestershire)</span></a>
-      </li>
-    </ul>
   </div>
   <div class="govuk-summary-card__content">
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          Training status
-        </dt>
-        <dd class="govuk-summary-list__value">
-                      <strong class="govuk-tag govuk-tag--blue">
-                       In progress
-                      </strong>
-                    </dd>
-      </div>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
           Funding
         </dt>
         <dd class="govuk-summary-list__value">
-          No completed declaration submitted yet.<br>
-          Still eligible for funding.
+          Eligible for funded training.
         </dd>
       </div>
     </dl>
@@ -1105,19 +1034,69 @@
             {% if currentSection == "timeline" %}
                 <h3 class="govuk-heading-m">Timeline</h3>
 
-<div class="moj-timeline">
+{# ===== TEMPLATE (hidden). For the Lucid board. Remove these comment tags to show it, and hide the John Smith code below, because they share IDs. =====
 
-  <div class="moj-timeline__item">
+<style>
+  .app-timeline-filter {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 15px 20px;
+    margin-bottom: 30px;
+  }
+  .app-timeline-filter .govuk-form-group,
+  .app-timeline-filter .govuk-button {
+    margin-bottom: 0;
+  }
+</style>
+
+<form class="app-timeline-filter" id="timeline-filter" accept-charset="UTF-8">
+  <div class="govuk-form-group">
+    <label for="filter-role" class="govuk-label govuk-label--s">Role</label>
+    <select class="govuk-select" id="filter-role" name="role">
+      <option value="all" selected>All</option>
+      <option value="ect">Early career teacher</option>
+      <option value="mentor">Mentor</option>
+    </select>
+  </div>
+
+  <div class="govuk-form-group">
+    <label for="filter-type" class="govuk-label govuk-label--s">Event type</label>
+    <select class="govuk-select" id="filter-type" name="type">
+      <option value="all" selected>All</option>
+      <option value="registration">Registration and leaving</option>
+      <option value="assigned-mentors">Assigned mentors</option>
+      <option value="induction">Induction</option>
+      <option value="training">Training</option>
+      <option value="funding">Funding eligibility</option>
+      <option value="declarations">Declarations</option>
+      <option value="personal-details">Personal details</option>
+      <option value="trs">Teaching Record System (TRS)</option>
+    </select>
+  </div>
+
+  <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Filter</button>
+</form>
+
+<p class="govuk-body" id="timeline-filter-count" aria-live="polite">Showing all 2 events</p>
+
+<div class="moj-timeline" id="timeline-events">
+
+  <!-- data-role: "ect", "mentor", or "all" for events about the person rather than one role (email, name, TRS). -->
+  <!-- data-type: registration, assigned-mentors, induction, training, funding, declarations, personal-details or trs. Must match an option in the Event type select. -->
+
+  <div class="moj-timeline__item" data-role="ect" data-type="training">
     <div class="moj-timeline__header">
       <h2 class="moj-timeline__title">(Newest event) Title: what happened, in a few words</h2>
-      <p class="moj-timeline__byline">by [person], [type]: [organisation]</p>
+      <p class="moj-timeline__byline">by [person], [type]: [organisation]. Leave the byline out for events the system did.</p>
     </div>
     <p class="moj-timeline__date">
-      <time datetime="2026-06-14T14:01:00.000Z">Date: when it happened, e.g. 14 June 2026 at 2:01pm</time>
+      <time datetime="2026-06-14T14:01:00.000Z">Date: when the action was taken in the service, e.g. 14 June 2026 at 2:01pm</time>
     </p>
     <div class="moj-timeline__description">
+      <p>(Only if different from the timeline date, and always first) Start date: <time datetime="2026-06-01">1 June 2026</time>.</p>
       <p>(Optional) Description: the one or two facts someone needs to understand the event.</p>
-      <p>If something changed, write "Now X (was Y)". Leave empty if the title says it all.</p>
+      <p>If something changed, write "Changed from Y to <strong>X</strong>." Leave empty if the title says it all.</p>
       <p>(Declarations only) Link through to the Declarations tab:
         <a class="govuk-link" href="#">
           View declaration
@@ -1127,7 +1106,7 @@
       <details class="govuk-details govuk-!-margin-bottom-0">
         <summary class="govuk-details__summary">
           <span class="govuk-details__summary-text">
-            (Optional, only if more than two facts) Training details
+            (Optional, only if more than two facts. One per event, at most) Training details
             <span class="govuk-visually-hidden">for [event title] on [date]</span>
           </span>
         </summary>
@@ -1140,17 +1119,18 @@
     </div>
   </div>
 
-  <div class="moj-timeline__item">
+  <div class="moj-timeline__item" data-role="mentor" data-type="registration">
     <div class="moj-timeline__header">
       <h2 class="moj-timeline__title">(Oldest event) Title: what happened, in a few words</h2>
-      <p class="moj-timeline__byline">by [person], [type]: [organisation]</p>
+      <p class="moj-timeline__byline">by [person], [type]: [organisation]. Leave the byline out for events the system did.</p>
     </div>
     <p class="moj-timeline__date">
-      <time datetime="2026-05-28T10:45:00.000Z">Date: when it happened, e.g. 28 May 2026 at 10:45am</time>
+      <time datetime="2026-05-28T10:45:00.000Z">Date: when the action was taken in the service, e.g. 28 May 2026 at 10:45am</time>
     </p>
     <div class="moj-timeline__description">
+      <p>(Only if different from the timeline date, and always first) Leaving date: <time datetime="2026-05-22">22 May 2026</time>.</p>
       <p>(Optional) Description: the one or two facts someone needs to understand the event.</p>
-      <p>If something changed, write "Now X (was Y)". Leave empty if the title says it all.</p>
+      <p>If something changed, write "Changed from Y to <strong>X</strong>." Leave empty if the title says it all.</p>
       <p>(Declarations only) Link through to the Declarations tab:
         <a class="govuk-link" href="#">
           View declaration
@@ -1160,7 +1140,7 @@
       <details class="govuk-details govuk-!-margin-bottom-0">
         <summary class="govuk-details__summary">
           <span class="govuk-details__summary-text">
-            (Optional, only if more than two facts) Training details
+            (Optional, only if more than two facts. One per event, at most) Training details
             <span class="govuk-visually-hidden">for [event title] on [date]</span>
           </span>
         </summary>
@@ -1173,11 +1153,181 @@
     </div>
   </div>
 
-{#
+</div>
 
-<div class="moj-timeline">
+<script>
+  (function () {
+    var roleSelect = document.getElementById('filter-role')
+    var typeSelect = document.getElementById('filter-type')
+    var form = document.getElementById('timeline-filter')
+    var count = document.getElementById('timeline-filter-count')
+    var events = document.querySelectorAll('#timeline-events .moj-timeline__item')
 
-  <div class="moj-timeline__item">
+    // Keep each option's original wording, so the count can be added to it
+    Array.prototype.forEach.call(roleSelect.options, function (option) { option.dataset.label = option.textContent })
+    Array.prototype.forEach.call(typeSelect.options, function (option) { option.dataset.label = option.textContent })
+
+    function matchesRole (event, role) {
+      return role === 'all' || event.dataset.role === 'all' || event.dataset.role === role
+    }
+
+    // Show how many events sit behind each option, and hide event types with none
+    function updateOptions () {
+      Array.prototype.forEach.call(roleSelect.options, function (option) {
+        var n = Array.prototype.filter.call(events, function (event) { return matchesRole(event, option.value) }).length
+        option.textContent = option.dataset.label + ' (' + n + ')'
+      })
+
+      var role = roleSelect.value
+      var inRole = Array.prototype.filter.call(events, function (event) { return matchesRole(event, role) })
+
+      Array.prototype.forEach.call(typeSelect.options, function (option) {
+        var n = option.value === 'all'
+          ? inRole.length
+          : inRole.filter(function (event) { return event.dataset.type === option.value }).length
+        option.textContent = option.dataset.label + ' (' + n + ')'
+        var empty = option.value !== 'all' && n === 0
+        option.hidden = empty
+        option.disabled = empty
+      })
+
+      if (typeSelect.selectedOptions[0] && typeSelect.selectedOptions[0].disabled) {
+        typeSelect.value = 'all'
+      }
+    }
+
+    function update () {
+      var role = roleSelect.value
+      var type = typeSelect.value
+      var shown = 0
+
+      events.forEach(function (event) {
+        var roleMatch = matchesRole(event, role)
+        var typeMatch = type === 'all' || event.dataset.type === type
+        var show = roleMatch && typeMatch
+        event.hidden = !show
+        if (show) { shown++ }
+      })
+
+      if (shown === events.length) {
+        count.textContent = 'Showing all ' + events.length + ' events'
+      } else if (shown === 0) {
+        count.textContent = 'No events match these filters'
+      } else {
+        count.textContent = 'Showing ' + shown + ' of ' + events.length + ' events'
+      }
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault()
+      update()
+    })
+
+    roleSelect.addEventListener('change', updateOptions)
+
+    updateOptions()
+    update()
+  })()
+</script>
+
+===== END OF TEMPLATE ===== #}
+
+{# ===== NO EVENTS (hidden). A record with nothing on its timeline yet. Remove these comment tags to show it, and hide the John Smith code below.
+No filter here: with nothing to filter, it would only get in the way.
+Wording copies the Declarations tab: "There are no mentor training declarations for John Smith." =====
+
+<p class="govuk-body">There are no timeline events for John Smith.</p>
+
+===== END OF NO EVENTS ===== #}
+
+{# ===== JOHN SMITH EXAMPLE (shown) ===== #}
+
+<style>
+  .app-timeline-filter {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 15px 20px;
+    margin-bottom: 30px;
+  }
+  .app-timeline-filter .govuk-form-group,
+  .app-timeline-filter .govuk-button {
+    margin-bottom: 0;
+  }
+</style>
+
+<form class="app-timeline-filter" id="timeline-filter" accept-charset="UTF-8">
+  <div class="govuk-form-group">
+    <label for="filter-role" class="govuk-label govuk-label--s">Role</label>
+    <select class="govuk-select" id="filter-role" name="role">
+      <option value="all" selected>All</option>
+      <option value="ect">Early career teacher</option>
+      <option value="mentor">Mentor</option>
+    </select>
+  </div>
+
+  <div class="govuk-form-group">
+    <label for="filter-type" class="govuk-label govuk-label--s">Event type</label>
+    <select class="govuk-select" id="filter-type" name="type">
+      <option value="all" selected>All</option>
+      <option value="registration">Registration and leaving</option>
+      <option value="assigned-mentors">Assigned mentors</option>
+      <option value="induction">Induction</option>
+      <option value="training">Training</option>
+      <option value="funding">Funding eligibility</option>
+      <option value="declarations">Declarations</option>
+      <option value="personal-details">Personal details</option>
+      <option value="trs">Teaching Record System (TRS)</option>
+    </select>
+  </div>
+
+  <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Filter</button>
+</form>
+
+<p class="govuk-body" id="timeline-filter-count" aria-live="polite">Showing all 23 events</p>
+
+<div class="moj-timeline" id="timeline-events">
+
+  {# Matthew's suggested event (23 Oct): admin data fix with a reason. Not in the original data. #}
+  <div class="moj-timeline__item" data-role="ect" data-type="induction">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">Induction start date corrected</h2>
+      <p class="moj-timeline__byline">by Sarah Williams, DfE admin</p>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2026-02-10T11:20:00.000Z">10 February 2026 at 11:20am</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>Changed from <time datetime="2024-09-25">25 September 2024</time> to <strong><time datetime="2024-10-01">1 October 2024</time></strong>.</p>
+      <details class="govuk-details govuk-!-margin-bottom-0">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Reason for change
+            <span class="govuk-visually-hidden">for the induction start date correction on 10 February 2026</span>
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          <p class="govuk-body">Support ticket: <a class="govuk-link" href="#">Zendesk 123456</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-0">The appropriate body entered the date the school registered him, not the date his induction started.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item" data-role="ect" data-type="training">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">ECT training programme changed</h2>
+      <p class="moj-timeline__byline">by Helen Carter, school: St John's C of E Primary School</p>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2026-02-02T15:27:00.000Z">2 February 2026 at 3:27pm</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>Changed from provider-led to <strong>school-led</strong>.</p>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item" data-role="mentor" data-type="training">
     <div class="moj-timeline__header">
       <h2 class="moj-timeline__title">Mentor training schedule changed</h2>
       <p class="moj-timeline__byline">by Sarah Williams, DfE admin</p>
@@ -1186,7 +1336,7 @@
       <time datetime="2026-01-15T14:30:00.000Z">15 January 2026 at 2:30pm</time>
     </p>
     <div class="moj-timeline__description">
-      <p>Now <strong>ecf-standard-september</strong> (was ecf-standard-january).</p>
+      <p>Changed from ecf-standard-january to <strong>ecf-standard-september</strong>.</p>
       <details class="govuk-details govuk-!-margin-bottom-0">
         <summary class="govuk-details__summary">
           <span class="govuk-details__summary-text">
@@ -1203,7 +1353,41 @@
     </div>
   </div>
 
-  <div class="moj-timeline__item">
+  {# Matthew's suggested event (23 Oct): the whole declaration as one event. Compare with the separate submitted and voided events. #}
+  <div class="moj-timeline__item" data-role="ect" data-type="declarations">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">ECT training declaration (retained-1)</h2>
+      <p class="moj-timeline__byline">by Ambition Institute, lead provider</p>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2025-12-01T10:30:00.000Z">1 December 2025 at 10:30am</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>Status: <strong>paid</strong>.
+        <a class="govuk-link" href="#">
+          View declaration
+          <span class="govuk-visually-hidden">for the retained-1 declaration submitted on 1 December 2025</span>
+        </a>
+      </p>
+      <details class="govuk-details govuk-!-margin-bottom-0">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Declaration history
+            <span class="govuk-visually-hidden">for the retained-1 declaration submitted on 1 December 2025</span>
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          Submitted: <time datetime="2025-12-01">1 December 2025</time><br>
+          Eligible: <time datetime="2025-12-01">1 December 2025</time><br>
+          Payable: <time datetime="2025-12-31">31 December 2025</time>, when the statement was approved by DfE finance<br>
+          Paid: <time datetime="2026-01-31">31 January 2026</time><br>
+          Delivery partner: Alpha Teaching School Hub
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item" data-role="ect" data-type="declarations">
     <div class="moj-timeline__header">
       <h2 class="moj-timeline__title">ECT training declaration submitted (retained-1)</h2>
       <p class="moj-timeline__byline">by Ambition Institute, lead provider</p>
@@ -1221,20 +1405,7 @@
     </div>
   </div>
 
-  <div class="moj-timeline__item">
-    <div class="moj-timeline__header">
-      <h2 class="moj-timeline__title">ECT training programme changed</h2>
-      <p class="moj-timeline__byline">by Helen Carter, school: St John's C of E Primary School</p>
-    </div>
-    <p class="moj-timeline__date">
-      <time datetime="2025-11-20T15:27:00.000Z">20 November 2025 at 3:27pm</time>
-    </p>
-    <div class="moj-timeline__description">
-      <p>Now <strong>school-led</strong> (was provider-led).</p>
-    </div>
-  </div>
-
-  <div class="moj-timeline__item">
+  <div class="moj-timeline__item" data-role="mentor" data-type="training">
     <div class="moj-timeline__header">
       <h2 class="moj-timeline__title">Mentor training withdrawn</h2>
       <p class="moj-timeline__byline">by Ambition Institute, lead provider</p>
@@ -1260,7 +1431,7 @@
     </div>
   </div>
 
-  <div class="moj-timeline__item">
+  <div class="moj-timeline__item" data-role="ect" data-type="declarations">
     <div class="moj-timeline__header">
       <h2 class="moj-timeline__title">ECT training declaration voided (retained-1)</h2>
       <p class="moj-timeline__byline">by Peter Pettigrew, DfE finance admin</p>
@@ -1278,7 +1449,20 @@
     </div>
   </div>
 
-  <div class="moj-timeline__item">
+  {# Matthew's suggested event (23 Oct): eligibility set for the first time. #}
+  <div class="moj-timeline__item" data-role="mentor" data-type="funding">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">Mentor funding eligibility set</h2>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2025-09-25T10:15:00.000Z">25 September 2025 at 10:15am</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>Set to <strong>eligible</strong>. Set by the service when he was registered for mentor training.</p>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item" data-role="mentor" data-type="registration">
     <div class="moj-timeline__header">
       <h2 class="moj-timeline__title">Registered for mentor training</h2>
       <p class="moj-timeline__byline">by Helen Carter, school: St John's C of E Primary School</p>
@@ -1287,6 +1471,7 @@
       <time datetime="2025-09-25T10:15:00.000Z">25 September 2025 at 10:15am</time>
     </p>
     <div class="moj-timeline__description">
+      <p>Start date: <time datetime="2025-09-01">1 September 2025</time>.</p>
       <p>At St John's C of E Primary School (URN 1103052).</p>
       <details class="govuk-details govuk-!-margin-bottom-0">
         <summary class="govuk-details__summary">
@@ -1304,7 +1489,7 @@
     </div>
   </div>
 
-  <div class="moj-timeline__item">
+  <div class="moj-timeline__item" data-role="ect" data-type="assigned-mentors">
     <div class="moj-timeline__header">
       <h2 class="moj-timeline__title">Assigned mentor: Steven Davies</h2>
       <p class="moj-timeline__byline">by Helen Carter, school: St John's C of E Primary School</p>
@@ -1315,7 +1500,7 @@
     <div class="moj-timeline__description"></div>
   </div>
 
-  <div class="moj-timeline__item">
+  <div class="moj-timeline__item" data-role="ect" data-type="induction">
     <div class="moj-timeline__header">
       <h2 class="moj-timeline__title">Induction period started</h2>
       <p class="moj-timeline__byline">by Felicity Kendall, appropriate body: Umber Teaching School Hub</p>
@@ -1324,11 +1509,26 @@
       <time datetime="2025-01-25T09:48:00.000Z">25 January 2025 at 9:48am</time>
     </p>
     <div class="moj-timeline__description">
+      <p>Start date: <time datetime="2024-09-25">25 September 2024</time>.</p>
       <p>At St John's C of E Primary School (URN 1103052).</p>
     </div>
   </div>
 
-  <div class="moj-timeline__item">
+  <div class="moj-timeline__item" data-role="ect" data-type="registration">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">Left school as an ECT</h2>
+      <p class="moj-timeline__byline">by David James, school: Alpha Primary School</p>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2024-09-30T11:12:00.000Z">30 September 2024 at 11:12am</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>Leaving date: <time datetime="2024-09-24">24 September 2024</time>.</p>
+      <p>Left Alpha Primary School (URN 1195201).</p>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item" data-role="ect" data-type="registration">
     <div class="moj-timeline__header">
       <h2 class="moj-timeline__title">Registered as an ECT</h2>
       <p class="moj-timeline__byline">by Helen Carter, school: St John's C of E Primary School</p>
@@ -1337,24 +1537,12 @@
       <time datetime="2024-09-25T08:30:00.000Z">25 September 2024 at 8:30am</time>
     </p>
     <div class="moj-timeline__description">
+      <p>Start date: <time datetime="2024-10-01">1 October 2024</time>.</p>
       <p>Working pattern: full time. Appropriate body: Umber Teaching School Hub.</p>
     </div>
   </div>
 
-  <div class="moj-timeline__item">
-    <div class="moj-timeline__header">
-      <h2 class="moj-timeline__title">Left school as an ECT</h2>
-      <p class="moj-timeline__byline">by David James, school: Alpha Primary School</p>
-    </div>
-    <p class="moj-timeline__date">
-      <time datetime="2024-09-24">24 September 2024</time>
-    </p>
-    <div class="moj-timeline__description">
-      <p>Left Alpha Primary School (URN 1195201) on 24 September 2024.</p>
-    </div>
-  </div>
-
-  <div class="moj-timeline__item">
+  <div class="moj-timeline__item" data-role="all" data-type="personal-details">
     <div class="moj-timeline__header">
       <h2 class="moj-timeline__title">Email address changed</h2>
       <p class="moj-timeline__byline">by Helen Carter, school: St John's C of E Primary School</p>
@@ -1363,11 +1551,11 @@
       <time datetime="2024-09-24T14:20:00.000Z">24 September 2024 at 2:20pm</time>
     </p>
     <div class="moj-timeline__description">
-      <p>Now <strong>john.smith@example.com</strong> (was john.james@example.com).</p>
+      <p>Changed from john.james@example.com to <strong>john.smith@example.com</strong>.</p>
     </div>
   </div>
 
-  <div class="moj-timeline__item">
+  <div class="moj-timeline__item" data-role="ect" data-type="induction">
     <div class="moj-timeline__header">
       <h2 class="moj-timeline__title">Induction period ended</h2>
       <p class="moj-timeline__byline">by Felicity Kendall, appropriate body: Umber Teaching School Hub</p>
@@ -1380,7 +1568,7 @@
     </div>
   </div>
 
-  <div class="moj-timeline__item">
+  <div class="moj-timeline__item" data-role="ect" data-type="training">
     <div class="moj-timeline__header">
       <h2 class="moj-timeline__title">ECT training finished</h2>
     </div>
@@ -1405,7 +1593,7 @@
     </div>
   </div>
 
-  <div class="moj-timeline__item">
+  <div class="moj-timeline__item" data-role="ect" data-type="induction">
     <div class="moj-timeline__header">
       <h2 class="moj-timeline__title">Induction period started</h2>
       <p class="moj-timeline__byline">by Felicity Kendall, appropriate body: Umber Teaching School Hub</p>
@@ -1414,11 +1602,12 @@
       <time datetime="2023-09-25T14:48:00.000Z">25 September 2023 at 2:48pm</time>
     </p>
     <div class="moj-timeline__description">
+      <p>Start date: <time datetime="2023-09-04">4 September 2023</time>.</p>
       <p>At Alpha Primary School (URN 1195201).</p>
     </div>
   </div>
 
-  <div class="moj-timeline__item">
+  <div class="moj-timeline__item" data-role="ect" data-type="declarations">
     <div class="moj-timeline__header">
       <h2 class="moj-timeline__title">ECT training declaration submitted (started)</h2>
       <p class="moj-timeline__byline">by Ambition Institute, lead provider</p>
@@ -1436,7 +1625,7 @@
     </div>
   </div>
 
-  <div class="moj-timeline__item">
+  <div class="moj-timeline__item" data-role="ect" data-type="training">
     <div class="moj-timeline__header">
       <h2 class="moj-timeline__title">ECT training started</h2>
     </div>
@@ -1461,7 +1650,7 @@
     </div>
   </div>
 
-  <div class="moj-timeline__item">
+  <div class="moj-timeline__item" data-role="ect" data-type="training">
     <div class="moj-timeline__header">
       <h2 class="moj-timeline__title">ECT contract period changed</h2>
       <p class="moj-timeline__byline">by Sarah Williams, DfE admin</p>
@@ -1470,7 +1659,7 @@
       <time datetime="2022-08-15T10:00:00.000Z">15 August 2022 at 10:00am</time>
     </p>
     <div class="moj-timeline__description">
-      <p>Now <strong>2022</strong> (was 2021).</p>
+      <p>Changed from 2021 to <strong>2022</strong>.</p>
       <details class="govuk-details govuk-!-margin-bottom-0">
         <summary class="govuk-details__summary">
           <span class="govuk-details__summary-text">
@@ -1487,21 +1676,48 @@
     </div>
   </div>
 
-  <div class="moj-timeline__item">
+  <div class="moj-timeline__item" data-role="all" data-type="personal-details">
     <div class="moj-timeline__header">
-      <h2 class="moj-timeline__title">Name updated from the TRA record</h2>
+      <h2 class="moj-timeline__title">Name updated from the TRS record</h2>
     </div>
     <p class="moj-timeline__date">
       <time datetime="2022-06-02T06:00:00.000Z">2 June 2022 at 6:00am</time>
     </p>
     <div class="moj-timeline__description">
-      <p>Now <strong>John Smith</strong> (was John James).</p>
+      <p>Changed from John James to <strong>John Smith</strong>.</p>
     </div>
   </div>
 
-  <div class="moj-timeline__item">
+  {# Matthew's suggested event (23 Oct): one event for the TRS sync. Compare with the two separate TRS events. #}
+  <div class="moj-timeline__item" data-role="all" data-type="trs">
     <div class="moj-timeline__header">
-      <h2 class="moj-timeline__title">Teacher record created from the TRA record</h2>
+      <h2 class="moj-timeline__title">Synced with TRS</h2>
+    </div>
+    <p class="moj-timeline__date">
+      <time datetime="2022-06-01T04:00:00.000Z">1 June 2022 at 4:00am</time>
+    </p>
+    <div class="moj-timeline__description">
+      <p>Teacher record created. TRN 2959198.</p>
+      <details class="govuk-details govuk-!-margin-bottom-0">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            What was set
+            <span class="govuk-visually-hidden">by the TRS sync on 1 June 2022</span>
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          Name: John James<br>
+          Induction status: required to complete<br>
+          QTS awarded: <time datetime="2022-05-20">20 May 2022</time><br>
+          Initial teacher training provider: University of Leicester
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="moj-timeline__item" data-role="all" data-type="trs">
+    <div class="moj-timeline__header">
+      <h2 class="moj-timeline__title">Teacher record created from the TRS record</h2>
     </div>
     <p class="moj-timeline__date">
       <time datetime="2022-06-01T04:00:00.000Z">1 June 2022 at 4:00am</time>
@@ -1513,7 +1729,80 @@
 
 </div>
 
-#}
+<script>
+  (function () {
+    var roleSelect = document.getElementById('filter-role')
+    var typeSelect = document.getElementById('filter-type')
+    var form = document.getElementById('timeline-filter')
+    var count = document.getElementById('timeline-filter-count')
+    var events = document.querySelectorAll('#timeline-events .moj-timeline__item')
+
+    // Keep each option's original wording, so the count can be added to it
+    Array.prototype.forEach.call(roleSelect.options, function (option) { option.dataset.label = option.textContent })
+    Array.prototype.forEach.call(typeSelect.options, function (option) { option.dataset.label = option.textContent })
+
+    function matchesRole (event, role) {
+      return role === 'all' || event.dataset.role === 'all' || event.dataset.role === role
+    }
+
+    // Show how many events sit behind each option, and hide event types with none
+    function updateOptions () {
+      Array.prototype.forEach.call(roleSelect.options, function (option) {
+        var n = Array.prototype.filter.call(events, function (event) { return matchesRole(event, option.value) }).length
+        option.textContent = option.dataset.label + ' (' + n + ')'
+      })
+
+      var role = roleSelect.value
+      var inRole = Array.prototype.filter.call(events, function (event) { return matchesRole(event, role) })
+
+      Array.prototype.forEach.call(typeSelect.options, function (option) {
+        var n = option.value === 'all'
+          ? inRole.length
+          : inRole.filter(function (event) { return event.dataset.type === option.value }).length
+        option.textContent = option.dataset.label + ' (' + n + ')'
+        var empty = option.value !== 'all' && n === 0
+        option.hidden = empty
+        option.disabled = empty
+      })
+
+      if (typeSelect.selectedOptions[0] && typeSelect.selectedOptions[0].disabled) {
+        typeSelect.value = 'all'
+      }
+    }
+
+    function update () {
+      var role = roleSelect.value
+      var type = typeSelect.value
+      var shown = 0
+
+      events.forEach(function (event) {
+        var roleMatch = matchesRole(event, role)
+        var typeMatch = type === 'all' || event.dataset.type === type
+        var show = roleMatch && typeMatch
+        event.hidden = !show
+        if (show) { shown++ }
+      })
+
+      if (shown === events.length) {
+        count.textContent = 'Showing all ' + events.length + ' events'
+      } else if (shown === 0) {
+        count.textContent = 'No events match these filters'
+      } else {
+        count.textContent = 'Showing ' + shown + ' of ' + events.length + ' events'
+      }
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault()
+      update()
+    })
+
+    roleSelect.addEventListener('change', updateOptions)
+
+    updateOptions()
+    update()
+  })()
+</script>
 
 
                 <!-- <div class="moj-timeline">
