@@ -713,7 +713,7 @@ module.exports = router => {
             req.session.data.changeProg = 'yes'
         }
         req.session.data['showDp'] = false
-        res.redirect(v + school + 'check-answers')
+        res.redirect(v + school + 'autocomplete-delivery-partner')
     })
 
     router.post(v + school + 'also-delivering', (req, res) => {
@@ -730,20 +730,14 @@ module.exports = router => {
 
 
     router.post(v + school + 'autocomplete-delivery-partner', (req, res) => {
-        const dp = req.session.data['deliveryPartner'] ? req.session.data['deliveryPartner'].trim() : '';
-        console.log('Delivery Partner:', dp);
-        console.log('DP/LP pairings:', dpLp);
-        const correspondingValue = dpLp[dp] || dpLp[dp.toLowerCase()] || dpLp[dp.toUpperCase()];
-        if (correspondingValue) {
-            req.session.data.leadProvider = correspondingValue;
-        } else {
-            req.session.data.leadProvider = 'Ambition Institute'
+        const dp = (req.session.data['deliveryPartner'] || '').trim();
+        if (req.session.data['dpNotKnown'] === 'yes' || !dp) {
+            req.session.data['deliveryPartner'] = 'Not known yet';
         }
-        console.log('Lead Provider:', req.session.data.leadProvider);
+        delete req.session.data['dpNotKnown'];
         if (req.query.change === 'yes') {
             req.session.data.changeProg = 'yes'
         }
-        // res.redirect(v + school + 'save-programme-details')
         res.redirect(v + school + 'check-answers')
     })
 

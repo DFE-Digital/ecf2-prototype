@@ -312,27 +312,31 @@ href: "javascript:window.history.back()"
 
             {% endif %}
 
-            {% set dpRows = [
+            {% if data['deliveryPartner'] and data['programmeType'] !== 'School-led' %}
 
-            {
-            key: {
-            text: "Delivery partner"
-            },
-            value: {
-            text: dp
-            },
-            actions: {}
-            }
+{% if defaults !== 'Yes, use the programme choices used by my school previously' %}
+{% set dpActions = {
+items: [
+{
+href: "autocomplete-delivery-partner?change=yes",
+text: "Change",
+visuallyHiddenText: "delivery partner"
+}
+]
+} %}
+{% else %}
+{% set dpActions = null %}
+{% endif %}
 
-            ] %}
+{% set trainingRows = trainingRows.concat([
+{
+key: { text: "Delivery partner" },
+value: { text: dp },
+actions: dpActions
+}
+]) %}
 
-            {#
-            {% if (data['showDp'] == true) and (data['programmeType'] !== 'School-led') %}
-
-            {% set trainingRows = trainingRows.concat(dpRows) %}
-
-            {% endif %}
-            #}
+{% endif %}
 
             {# {% set rows = rows.concat(trainingRows) %} #}
 
