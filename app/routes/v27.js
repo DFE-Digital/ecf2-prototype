@@ -769,7 +769,7 @@ otherDpPages.forEach(page => {
     })
 })
 
-module.exports = router => {
+;(router => {
 
     router.use((req, res, next) => {
         // Override session data if the environment variable is set
@@ -3392,7 +3392,7 @@ router.post(v + school + 'free-text-delivery-partner', (req, res) => {
     router.post(v + 'ab/dfe-sign-in', (req, res) => {
         res.redirect(v + 'ab/authorise-this-application')
     })
-}
+})(router)
 
     // #4638 — send each research version to its own delivery partner page.
 // The start link sets dpVersion, for example lead-provider?dpVersion=freetext
