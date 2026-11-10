@@ -724,7 +724,6 @@ var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'A
     // #4638 — the other four delivery partner pages all go to check answers.
 // The autocomplete page already has its own POST route, so it isn't in this list.
 const otherDpPages = [
-    'free-text-delivery-partner',
     'dropdown-delivery-partner',
     'radios-delivery-partner',
     'list-delivery-partner'
@@ -1475,7 +1474,6 @@ otherDpPages.forEach(page => {
 
         const dpPages = {
             autocomplete: 'autocomplete-delivery-partner',
-            freetext: 'free-text-delivery-partner',
             dropdown: 'dropdown-delivery-partner',
             radios: 'radios-delivery-partner',
             list: 'list-delivery-partner'
@@ -1586,18 +1584,6 @@ router.get(v + school + 'dropdown-delivery-partner', (req, res) => {
     res.render('v27/school/dropdown-delivery-partner', {
         deliveryPartners: [{ text: 'Select a delivery partner', value: '' }].concat(options)
     })
-})
-
-router.post(v + school + 'free-text-delivery-partner', (req, res) => {
-    const dp = (req.session.data['deliveryPartner'] || '').trim();
-    if (req.session.data['dpNotKnown'] === 'yes' || !dp) {
-        req.session.data['deliveryPartner'] = 'Not known yet';
-    }
-    delete req.session.data['dpNotKnown'];
-    if (req.query.change === 'yes') {
-        req.session.data.changeProg = 'yes'
-    }
-    res.redirect(v + school + 'check-answers')
 })
 
     router.get(v + school + 'autocomplete-delivery-partner', (req, res) => {
@@ -3395,10 +3381,9 @@ router.post(v + school + 'free-text-delivery-partner', (req, res) => {
 })(router)
 
     // #4638 — send each research version to its own delivery partner page.
-// The start link sets dpVersion, for example lead-provider?dpVersion=freetext
+// The start link sets dpVersion, for example lead-provider?dpVersion=radios
 const dpPages = {
     autocomplete: 'autocomplete-delivery-partner',
-    freetext: 'free-text-delivery-partner',
     dropdown: 'dropdown-delivery-partner',
     radios: 'radios-delivery-partner',
     list: 'list-delivery-partner'
@@ -3537,18 +3522,6 @@ router.get(v + school + 'dropdown-delivery-partner', (req, res) => {
     res.render('v27/school/dropdown-delivery-partner', {
         deliveryPartners: [{ text: 'Select a delivery partner', value: '' }].concat(options)
     })
-})
-
-router.post(v + school + 'free-text-delivery-partner', (req, res) => {
-    const dp = (req.session.data['deliveryPartner'] || '').trim();
-    if (req.session.data['dpNotKnown'] === 'yes' || !dp) {
-        req.session.data['deliveryPartner'] = 'Not known yet';
-    }
-    delete req.session.data['dpNotKnown'];
-    if (req.query.change === 'yes') {
-        req.session.data.changeProg = 'yes'
-    }
-    res.redirect(v + school + 'check-answers')
 })
 
     router.get(v + school + 'autocomplete-delivery-partner', (req, res) => {
