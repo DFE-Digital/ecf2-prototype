@@ -730,11 +730,13 @@ const otherDpPages = [
 ]
 
 // Each version names its answer differently. Check them all.
-// If the dropdown page uses another name, add it to this list.
+// The page fields come first, so a new answer beats the one already saved.
+// deliveryPartner goes last: it's the saved answer, and only a fallback.
+// If the dropdown page uses another name, add it above deliveryPartner.
 const dpFieldNames = [
-    'deliveryPartner',
     'deliveryPartnerChoice',
-    'deliveryPartnerSelect'
+    'deliveryPartnerSelect',
+    'deliveryPartner'
 ]
 
 otherDpPages.forEach(page => {
@@ -753,8 +755,8 @@ otherDpPages.forEach(page => {
             }
         })
 
-        // "I do not know", or nothing chosen, saves as "Not known yet"
-        if (data['dpNotKnown'] === 'yes' || !dp) {
+        // "I do not know" (old button or new radio), or nothing chosen, saves as "Not known yet"
+        if (data['dpNotKnown'] === 'yes' || dp === 'not-known' || !dp) {
             data['deliveryPartner'] = 'Not known yet'
         } else {
             data['deliveryPartner'] = dp

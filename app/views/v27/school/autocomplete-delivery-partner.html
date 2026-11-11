@@ -12,7 +12,7 @@
 {% set leadProvider = 'Ambition Institute' %}
 {% endif %}
 
-{% set pageName = "Who will be the delivery partner for " + name + "?" %}
+{% set pageName = "Which delivery partner will be training " + name + "?" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -27,8 +27,7 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
-    <p class="govuk-body">Delivery partners are responsible for delivering training events for ECTs and mentors.</p>
-    <p class="govuk-body">Start typing to search the delivery partners that work with {{ leadProvider }}.</p>
+    <p class="govuk-body">Start typing the name of a delivery partner that works with {{ leadProvider }}.</p>
 
     <form method="post">
       {{ xGovukAutocomplete({
@@ -47,19 +46,20 @@
         text: "
         <p class='govuk-body'>They are usually teaching school hubs, universities or trusts that:</p>
         <ul class='govuk-list govuk-list--bullet'>
-          <li>organise and run the day-to-day training for ECTs</li>
-          <li>provide guidance for schools on how to implement the early career framework (ECF)</li>
-          <li>act as a link between lead providers and schools, ensuring training materials and support are used effectively</li>
+          <li>run training events for ECTs and mentors</li>
+          <li>give schools guidance on how to put the early career framework (ECF) into practice</li>
+          <li>act as a link between lead providers and schools, making sure training materials and support are used well</li>
         </ul>"
         | safe
       }) }}
+
+      <p class="govuk-body">If you do not know, {{ leadProvider }} will confirm which delivery partner your school will work with.</p>
 
       <div class="govuk-button-group">
         <button class="govuk-button">Continue</button>
         <button class="govuk-button govuk-button--secondary" name="dpNotKnown" value="yes">I do not know</button>
       </div>
 
-      <p class="govuk-body">If you do not know, {{ leadProvider }} will confirm who you'll work with.</p>
     </form>
   </div>
 </div>
