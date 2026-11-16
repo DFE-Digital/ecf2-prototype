@@ -13,6 +13,7 @@ var admin = 'admin/'
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 module.exports = router => {
+    require('./v27-research.js')(router)
 
     router.use((req, res, next) => {
         // Override session data if the environment variable is set
