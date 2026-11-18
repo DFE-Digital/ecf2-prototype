@@ -30,11 +30,11 @@
     <p class="govuk-body">Select from the delivery partners that work with {{ leadProvider }}.</p>
 
     <form method="post">
- 
       {{ govukSelect({
         id: "deliveryPartner",
         name: "deliveryPartner",
         classes: "govuk-!-width-full",
+        value: data['deliveryPartner'],
         label: {
           classes: "govuk-visually-hidden",
           text: pageName

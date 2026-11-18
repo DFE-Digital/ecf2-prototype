@@ -14,6 +14,12 @@
 
 {% set pageName = "Which delivery partner will be training " + name + "?" %}
 
+{% if data['deliveryPartner'] == 'Not known yet' %}
+{% set selectedDp = 'not-known' %}
+{% else %}
+{% set selectedDp = data['deliveryPartner'] %}
+{% endif %}
+
 {% set dpItems = deliveryPartners.concat([
   {
     divider: "or"
@@ -23,8 +29,7 @@
     text: "I do not know",
     hint: {
       text: leadProvider + " will confirm which delivery partner your school will work with."
-    },
-    checked: data['deliveryPartnerChoice'] == "not-known"
+    }
   }
 ]) %}
 
@@ -56,10 +61,10 @@
     <p class="govuk-body">Select from the delivery partners that work with {{ leadProvider }}.</p>
 
     <form method="post">
-   
       {{ govukRadios({
         name: "deliveryPartnerChoice",
         idPrefix: "deliveryPartnerChoice",
+        value: selectedDp,
         fieldset: {
           legend: {
             classes: "govuk-visually-hidden",
