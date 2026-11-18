@@ -27,10 +27,10 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
-    <p class="govuk-body">Your delivery partner might be the same organisation as your appropriate body, but it may use a slightly different name.</p>
     <p class="govuk-body">Start typing the name of a delivery partner that works with {{ leadProvider }}.</p>
 
     <form method="post">
+
       {{ xGovukAutocomplete({
         id: "deliveryPartner",
         name: "deliveryPartner",
@@ -44,14 +44,14 @@
 
       {{ govukDetails({
         summaryText: "What is a delivery partner?",
-        text: "
-        <p class='govuk-body'>They are usually teaching school hubs, universities or trusts that:</p>
-        <ul class='govuk-list govuk-list--bullet'>
-          <li>run training events for ECTs and mentors</li>
-          <li>give schools guidance on how to put the early career framework (ECF) into practice</li>
-          <li>act as a link between lead providers and schools, making sure training materials and support are used well</li>
-        </ul>"
-        | safe
+        html: "
+          <p class='govuk-body'>They are usually teaching school hubs, universities or trusts that:</p>
+          <ul class='govuk-list govuk-list--bullet'>
+            <li>run training events for ECTs and mentors</li>
+            <li>give schools guidance on how to put the early career framework (ECF) into practice</li>
+            <li>act as a link between lead providers and schools, making sure training materials and support are used well</li>
+          </ul>
+          <p class='govuk-body'>Your delivery partner might be the same organisation as your appropriate body, but it may use a slightly different name.</p>"
       }) }}
 
       <p class="govuk-body">If you do not know who your delivery partner is, {{ leadProvider }} will confirm which delivery partner your school will work with.</p>

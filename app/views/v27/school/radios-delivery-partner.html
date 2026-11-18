@@ -41,22 +41,22 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
-    <p class="govuk-body">Your delivery partner might be the same organisation as your appropriate body, but it may use a slightly different name.</p>
-
     {{ govukDetails({
       summaryText: "What is a delivery partner?",
       html: "
         <p class='govuk-body'>They are usually teaching school hubs, universities or trusts that:</p>
         <ul class='govuk-list govuk-list--bullet'>
-            <li>run training events for ECTs and mentors</li>
-            <li>give schools guidance on how to put the early career framework (ECF) into practice</li>
-            <li>act as a link between lead providers and schools, making sure training materials and support are used well</li>
-        </ul>"
+          <li>run training events for ECTs and mentors</li>
+          <li>give schools guidance on how to put the early career framework (ECF) into practice</li>
+          <li>act as a link between lead providers and schools, making sure training materials and support are used well</li>
+        </ul>
+        <p class='govuk-body'>Your delivery partner might be the same organisation as your appropriate body, but it may use a slightly different name.</p>"
     }) }}
 
     <p class="govuk-body">Select from the delivery partners that work with {{ leadProvider }}.</p>
 
     <form method="post">
+   
       {{ govukRadios({
         name: "deliveryPartnerChoice",
         idPrefix: "deliveryPartnerChoice",

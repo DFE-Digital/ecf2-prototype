@@ -14,6 +14,11 @@
 
 {% set pageName = "Which delivery partner will be training " + name + "?" %}
 
+{% set notKnownHref = "select-delivery-partner?name=" + ("Not known yet" | urlencode) %}
+{% if query.change == 'yes' %}
+{% set notKnownHref = notKnownHref + "&change=yes" %}
+{% endif %}
+
 {% block beforeContent %}
 {{ govukBackLink({
   text: "Back",
@@ -27,8 +32,19 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
-    <p class="govuk-body">Your delivery partner might be the same organisation as your appropriate body, but it may use a slightly different name.</p>
-    <p class="govuk-body">Select from the delivery partners that work with {{ leadProvider }}.</p>
+    {{ govukDetails({
+      summaryText: "What is a delivery partner?",
+      html: "
+        <p class='govuk-body'>They are usually teaching school hubs, universities or trusts that:</p>
+        <ul class='govuk-list govuk-list--bullet'>
+          <li>run training events for ECTs and mentors</li>
+          <li>give schools guidance on how to put the early career framework (ECF) into practice</li>
+          <li>act as a link between lead providers and schools, making sure training materials and support are used well</li>
+        </ul>
+        <p class='govuk-body'>Your delivery partner might be the same organisation as your appropriate body, but it may use a slightly different name.</p>"
+    }) }}
+
+    <p class="govuk-body">Select a delivery partner that works with {{ leadProvider }}. This will not open their website.</p>
 
     {{ govukTaskList({
       idPrefix: "delivery-partner",
@@ -39,23 +55,11 @@
       {{ govukPagination(pagination) }}
     {% endif %}
 
-    {{ govukDetails({
-        summaryText: "What is a delivery partner?",
-        text: "
-        <p class='govuk-body'>They are usually teaching school hubs, universities or trusts that:</p>
-        <ul class='govuk-list govuk-list--bullet'>
-            <li>run training events for ECTs and mentors</li>
-          <li>give schools guidance on how to put the early career framework (ECF) into practice</li>
-          <li>act as a link between lead providers and schools, making sure training materials and support are used well</li>
-        </ul>"
-        | safe
-      }) }}
-
     <p class="govuk-body">If you do not know who your delivery partner is, {{ leadProvider }} will confirm which delivery partner your school will work with.</p>
 
-    <form method="post">
-      <button class="govuk-button govuk-button--secondary" name="dpNotKnown" value="yes">I do not know</button>
-    </form>
+    <p class="govuk-body">
+      <a href="{{ notKnownHref }}" class="govuk-link">I do not know the delivery partner</a>
+    </p>
 
   </div>
 </div>
